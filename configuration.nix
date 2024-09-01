@@ -1,0 +1,238 @@
+{ config, lib, pkgs, ... }:
+
+{
+  imports =
+    [
+      ./hardware-configuration.nix
+     # ./linux-nitrous.nix
+      ./home-manager.nix
+    ];
+
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 5;
+    consoleMode = "max";
+  };
+  boot.loader.timeout = 3;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.plymouth = {
+    enable = true;
+  };
+  boot.tmp = {
+    useTmpfs = true;
+  };
+
+  # Security
+  boot.kernel.sysctl = {
+    # https://medium.com/@ganga.jaiswal/build-a-hardened-linux-system-with-nixos-88bb7d77ba22
+    # tip: use reader mode to not get your eyes destroyed
+    "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
+    "kernel.yama.ptrace_scope" = 2;
+    "kernel.kptr_restrict" = 2;
+    "kernel.unprivileged_bpf_disabled" = 1;
+    "net.core.bpf_jit_harden" = 2;
+    "kernel.ftrace_enabled" = false;
+    "kernel.randomize_va_space" = 2;
+    "fs.suid_dumpable" = 0;
+    "kernel.dmesg_restrict" = 1;
+    "vm.unprivileged_userfaultfd" = 0;
+    "net.ipv4.tcp_syncookies" = 1;
+    "net.ipv4.tcp_syn_retries" = 2;
+    "net.ipv4.tcp_synack_retries" = 2;
+    "net.ipv4.tcp_max_syn_backlog" = 4096;
+    "net.ipv4.tcp_rfc1337" = 1;
+    "net.ipv4.conf.all.log_martians" = true;
+    "net.ipv4.conf.default.log_martians" = true;
+  };
+  security.virtualisation.flushL1DataCache = "always";
+  networking.nftables.enable = true;
+  networking.firewall.enable = true;
+  programs.firejail = {
+    enable = true;
+  };
+  security.forcePageTableIsolation = true;
+
+  networking.hostName = "aludepp";
+  networking.networkmanager.enable = true;
+
+  time.timeZone = "Europe/Berlin";
+
+  environment.pathsToLink = [ "/share/zsh" ];
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+     font = "Lat2-Terminus16";
+     keyMap = "de";
+     earlySetup = true;
+  };
+
+  services.printing.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    extraConfig.pipewire = {
+      "92-low-latency" = {
+        context.properties = {
+          default.clock = {
+            rate = 48000;
+            quantum = 32;
+            min-quantum = 32;
+            max-quantum = 32;
+          };
+        };
+      };
+    };
+    extraConfig.pipewire-pulse = {
+      "92-low-latency" = {
+         context.modules = [
+           {
+             name = "libpipewire-module-protocol-pulse";
+             args = {
+               pulse.min.req = "32/48000";
+               pulse.default.req = "32/48000";
+               pulse.max.req = "32/48000";
+               pulse.min.quantum = "32/48000";
+               pulse.max.quantum = "32/48000";
+             };
+           }
+         ];
+         stream.properties = {
+           node.latency = "32/48000";
+           resample.quality = 1;
+         };
+       };
+    };
+  };
+
+  services.libinput.enable = true;
+
+  programs.dconf.enable = true;
+  programs.zsh.enable = true;
+
+  users.users.simao = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+    uid = 1000;
+    hashedPassword = "$y$j9T$dnI7w6vlAMDavd6yzhEZo/$zG.rUrydeU/An8SRDBs7IEHW9ygTuBL8GNJO.CGLMuB";
+    shell = pkgs.zsh;
+  };
+  users.mutableUsers = false;
+
+  security.sudo = {
+    enable = true;
+    extraRules = [{
+      commands = [
+        {
+          command = "/home/simao/gpu-gaming-tune.sh";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/home/simao/gpu-gp-tune.sh";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/home/simao/gpu-train-tune.sh";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/home/simao/gpu-low-tune.sh";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/home/simao/gpu-stock.sh";
+          options = [ "NOPASSWD" ];
+        }
+        {
+          command = "/home/simao/gpu-lite-tune.sh";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+      users = [ "simao" ];
+      runAs = "root:root";
+    }];
+  };
+
+  fonts = {
+    packages = with pkgs; [
+      (nerdfonts.override { fonts = [ "FiraCode" "Hasklig" ]; })
+      noto-fonts noto-fonts-emoji noto-fonts-cjk
+      liberation_ttf
+      fira
+      material-icons
+      material-symbols
+      roboto
+    ];
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        serif = [ "Liberation Serif" ];
+        sansSerif = [ "Fira Sans" "Noto" ];
+        monospace = [ "Hasklug" ];
+        emoji = [ "Noto Color Emoji" ];
+      };
+      hinting = {
+        enable = true;
+        style = "slight";
+      };
+      subpixel.rgba = "rgb";
+    };
+  };
+
+  environment = {
+    systemPackages = with pkgs; [
+      vim
+    ];
+    defaultPackages = [ ];
+    variables = {
+      EDITOR = "vim";
+      VISUAL = "less";
+      PAGER = "less";
+    };
+  };
+
+  programs.gnupg.agent = {
+     enable = true;
+   };
+
+  system.copySystemConfiguration = true;
+
+  programs = {
+    hyprland = {
+      enable = true;
+    };
+  };
+
+  systemd.services.greetd.serviceConfig = {
+    Type = "idle";
+    StandardInput = "tty";
+    StandardOutput = "tty";
+    StandardError = "journal";
+    TTYReset = true;
+    TTYVHangup = true;
+    TTYVTDisallocate = true;
+  };
+
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
+        user = "greeter";
+      };
+    };
+  };
+
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+  gtk.iconCache.enable = true;
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  
+  system.stateVersion = "24.05";
+
+}
+
+
