@@ -29,8 +29,11 @@ in
   programs.steam = {
     enable = true;
   };
+  programs.gamemode.enable = true;
 
   services.gvfs.enable = true;
+
+  programs.nix-ld = { enable = true; libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs; };
 
   home-manager.users.simao = {
     home.stateVersion = "24.05";
@@ -94,6 +97,11 @@ in
       easyeffects
       spaceship-prompt zsh-history-substring-search zsh-completions zsh-z
       gnome.nautilus
+      mangohud
+      appimage-run
+      celluloid
+      orca-slicer
+      git-repo
 
       vesktop
       spotify
@@ -102,6 +110,7 @@ in
 
     dconf.settings = {
       "org/gnome/desktop/interface" = {
+        gtk-theme = "Adwaita";
         color-scheme = "prefer-dark";
       };
     };
@@ -110,7 +119,7 @@ in
       enable = true;
       theme = {
         package = pkgs.gnome.gnome-themes-extra;
-        name = "Adwaita-dark";
+        name = "Adwaita";
       };
       cursorTheme = {
         package = pkgs.rose-pine-cursor;
@@ -124,10 +133,10 @@ in
       };
       iconTheme = {
         package = pkgs.gnome.gnome-themes-extra;
-        name = "Adwaita-dark";
+        name = "Adwaita";
       };
       gtk2.extraConfig = ''
-        gtk-theme-name = "Adwaita-dark"
+        gtk-theme-name = "Adwaita"
       '';
       gtk3 = {
         extraConfig = {
@@ -151,12 +160,12 @@ in
     systemd.user.sessionVariables = config.home-manager.users.simao.home.sessionVariables;
 
     home.language = {
-      base = "en_US";
-      measurement = "en_DE";
-      monetary = "de_DE";
-      name = "en_DE";
-      paper = "de_DE";
-      time = "en_UK";
+      base = "en_US.UTF-8";
+      measurement = "de_DE.UTF-8";
+      monetary = "de_DE.UTF-8";
+      name = "en_GB.UTF-8";
+      paper = "de_DE.UTF-8";
+      time = "en_GB.UTF-8";
     };
 
     home.preferXdgDirectories = true;

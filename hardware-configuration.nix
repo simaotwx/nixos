@@ -15,7 +15,7 @@
     };
     systemd.enable = true;
   };
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-amd" "sg" ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [ 
     "add_efi_memmap" "amdgpu.ppfeaturemask=0xfff7ffff" "amd_pstate=active" "sysrq_always_enabled=1"

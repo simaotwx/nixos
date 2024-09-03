@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -8,22 +8,41 @@
       ./home-manager.nix
     ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+  };
+
   boot.loader.systemd-boot = {
     enable = true;
     configurationLimit = 5;
     consoleMode = "max";
   };
-  boot.loader.timeout = 3;
+  boot.loader.timeout = 1;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.plymouth = {
+  boot.plymouth = let theme = "lone"; in {
     enable = true;
+    theme = theme;
+    themePackages = with pkgs; [
+      # By default we would install all themes
+      (adi1090x-plymouth-themes.override {
+        selected_themes = [ theme ];
+      })
+    ];
   };
   boot.tmp = {
     useTmpfs = true;
   };
+  boot.consoleLogLevel = 0;
+  boot.kernelParams = [
+    "quiet" "splash" "loglevel=2" "elevator=bfq" "boot.shell_on_fail"
+    "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3"
+  ];
+  boot.initrd.verbose = false;
 
-  # Security
   boot.kernel.sysctl = {
+    # Security
     # https://medium.com/@ganga.jaiswal/build-a-hardened-linux-system-with-nixos-88bb7d77ba22
     # tip: use reader mode to not get your eyes destroyed
     "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
@@ -43,6 +62,11 @@
     "net.ipv4.tcp_rfc1337" = 1;
     "net.ipv4.conf.all.log_martians" = true;
     "net.ipv4.conf.default.log_martians" = true;
+    # Other stuff
+    "vm.dirty_ratio" = 60;
+    "vm.dirty_background_ratio" = 20;
+    "vm.max_map_count" = 16777216;
+    "vm.vfs_cache_pressure" = 80;
   };
   security.virtualisation.flushL1DataCache = "always";
   networking.nftables.enable = true;
@@ -58,8 +82,17 @@
   time.timeZone = "Europe/Berlin";
 
   environment.pathsToLink = [ "/share/zsh" ];
+  environment.shellAliases = {
+    gpick = "git cherry-pick -s";
+  };
 
   i18n.defaultLocale = "en_US.UTF-8";
+  i18n.supportedLocales = [
+    "C.UTF-8/UTF-8"
+    "en_US.UTF-8/UTF-8"
+    "en_GB.UTF-8/UTF-8"
+    "de_DE.UTF-8/UTF-8"
+  ];
   console = {
      font = "Lat2-Terminus16";
      keyMap = "de";
@@ -114,7 +147,7 @@
 
   users.users.simao = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "gamemode" "cdrom" ];
     uid = 1000;
     hashedPassword = "$y$j9T$dnI7w6vlAMDavd6yzhEZo/$zG.rUrydeU/An8SRDBs7IEHW9ygTuBL8GNJO.CGLMuB";
     shell = pkgs.zsh;
@@ -164,6 +197,7 @@
       material-icons
       material-symbols
       roboto
+      hasklig
     ];
     fontconfig = {
       enable = true;
@@ -184,24 +218,30 @@
   environment = {
     systemPackages = with pkgs; [
       vim
+      dust
+      duperemove
     ];
     defaultPackages = [ ];
     variables = {
       EDITOR = "vim";
-      VISUAL = "less";
+      VISUAL = "vim";
       PAGER = "less";
+      BROWSER = "librewolf";
     };
   };
 
   programs.gnupg.agent = {
      enable = true;
-   };
+  };
 
   system.copySystemConfiguration = true;
 
   programs = {
     hyprland = {
       enable = true;
+      xwayland.enable = true;
+#      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+#      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
   };
 
@@ -226,13 +266,36 @@
   };
 
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+  xdg.portal.extraPortals = [
+#    inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
+    pkgs.xdg-desktop-portal-hyprland
+    pkgs.xdg-desktop-portal-gtk
+  ];
   gtk.iconCache.enable = true;
+
+  boot.binfmt.registrations.appimage = {
+    wrapInterpreterInShell = false;
+    interpreter = "${pkgs.appimage-run}/bin/appimage-run";
+    recognitionType = "magic";
+    offset = 0;
+    mask = ''\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff'';
+    magicOrExtension = ''\x7fELF....AI\x02'';
+  };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   
   system.stateVersion = "24.05";
 
+  nix.settings = {
+    max-jobs = 10;
+    cores = 24;
+  };
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 60d";
+  };
 }
 
 
