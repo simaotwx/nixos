@@ -1,9 +1,16 @@
 { config, lib, pkgs, modulesPath, ... }:
 
+let
+  nixos-hardware = builtins.fetchTarball "https://github.com/NixOS/nixos-hardware/archive/f7e31ff8efd7d450c3a9c6379963f333f32889a8.tar.gz";
+in
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    "${nixos-hardware}/common/cpu/amd/default.nix"
+    "${nixos-hardware}/common/cpu/amd/pstate.nix"
+    "${nixos-hardware}/common/gpu/amd/default.nix"
+    "${nixos-hardware}/common/pc/ssd/default.nix"
+  ];
 
   boot.initrd = {
     availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod" ];
@@ -18,7 +25,7 @@
   boot.kernelModules = [ "kvm-amd" "sg" ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [ 
-    "add_efi_memmap" "amdgpu.ppfeaturemask=0xfff7ffff" "amd_pstate=active" "sysrq_always_enabled=1"
+    "add_efi_memmap" "amdgpu.ppfeaturemask=0xfff7ffff" "sysrq_always_enabled=1"
   ];
 
   fileSystems."/" =
@@ -65,7 +72,6 @@
   networking.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.amdgpu.amdvlk = {
     enable = true;
     support32Bit.enable = true;
@@ -86,6 +92,9 @@
   hardware.openrazer.users = [ "simao" ];
 
   hardware.sane.enable = true;
+
+  hardware.enableRedistributableFirmware = true;
+  services.fwupd.enable = true;
 
   environment.variables = {
     NIX_BUILD_CORES = "24";

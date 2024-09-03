@@ -1,5 +1,12 @@
 { config, lib, pkgs, inputs, ... }:
 
+
+let
+  unstable = import
+    (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/24.11-pre) {
+      config = config.nixpkgs.config;
+    };
+in
 {
   imports =
     [
@@ -25,7 +32,6 @@
     enable = true;
     theme = theme;
     themePackages = with pkgs; [
-      # By default we would install all themes
       (adi1090x-plymouth-themes.override {
         selected_themes = [ theme ];
       })
@@ -198,6 +204,7 @@
       material-symbols
       roboto
       hasklig
+      iosevka
     ];
     fontconfig = {
       enable = true;
@@ -220,6 +227,7 @@
       vim
       dust
       duperemove
+      ripgrep
     ];
     defaultPackages = [ ];
     variables = {
@@ -240,8 +248,8 @@
     hyprland = {
       enable = true;
       xwayland.enable = true;
-#      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-#      portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      package = unstable.hyprland;
+      portalPackage = unstable.xdg-desktop-portal-hyprland;
     };
   };
 
@@ -255,6 +263,8 @@
     TTYVTDisallocate = true;
   };
 
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   services.greetd = {
     enable = true;
     settings = {
@@ -265,10 +275,12 @@
     };
   };
 
+  services.dbus.enable = true;
+  services.timesyncd.enable = true;
+
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [
-#    inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland
-    pkgs.xdg-desktop-portal-hyprland
+    unstable.xdg-desktop-portal-hyprland
     pkgs.xdg-desktop-portal-gtk
   ];
   gtk.iconCache.enable = true;

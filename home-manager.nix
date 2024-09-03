@@ -30,6 +30,7 @@ in
     enable = true;
   };
   programs.gamemode.enable = true;
+  programs.adb.enable = true;
 
   services.gvfs.enable = true;
 
@@ -37,6 +38,7 @@ in
 
   home-manager.users.simao = {
     home.stateVersion = "24.05";
+    xdg.enable = true;
     programs.zsh = {
       enable = true;
       enableCompletion = true;
@@ -81,6 +83,7 @@ in
         ]
       );
     };
+
     home.packages = with pkgs; [
       librewolf
       alacritty
@@ -101,7 +104,7 @@ in
       appimage-run
       celluloid
       orca-slicer
-      git-repo
+      git-repo xmlstarlet
 
       vesktop
       spotify
@@ -185,6 +188,18 @@ in
         cpu_count_from_one = 1;
         delay = 500;
       };
+    };
+
+    # This installs VSCodium
+    programs.vscode = {
+      enable = true;
+      package = pkgs.vscodium;
+      extensions = with pkgs.vscode-extensions; [
+        bungcip.better-toml
+        jnoortheen.nix-ide
+        rust-lang.rust-analyzer
+        ziglang.vscode-zig
+      ];
     };
 
   };
