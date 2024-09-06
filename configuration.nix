@@ -1,6 +1,5 @@
 { config, lib, pkgs, inputs, ... }:
 
-
 let
   unstable = import
     (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/24.11-pre) {
@@ -12,7 +11,7 @@ in
     [
       ./hardware-configuration.nix
      # ./linux-nitrous.nix
-      ./home-manager.nix
+      (import ./home-manager.nix { unstable = unstable; })
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -242,6 +241,10 @@ in
      enable = true;
   };
 
+  services.udev.packages = with pkgs; [
+    android-udev-rules
+  ];
+
   system.copySystemConfiguration = true;
 
   programs = {
@@ -264,6 +267,16 @@ in
   };
 
   systemd.services.NetworkManager-wait-online.enable = false;
+  systemd.extraConfig = ''
+    DefaultLimitNOFILE=1048576
+  '';
+
+  security.pam.loginLimits = [{
+    type = "hard";
+    domain = "*";
+    item = "nofile";
+    value = "1048576";
+  }];
 
   services.greetd = {
     enable = true;

@@ -1,3 +1,4 @@
+{ unstable }:
 { config, pkgs, lib, ... }:
 let
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz";
@@ -28,13 +29,14 @@ in
 
   programs.steam = {
     enable = true;
+    package = unstable.steam;
   };
   programs.gamemode.enable = true;
   programs.adb.enable = true;
 
   services.gvfs.enable = true;
 
-  programs.nix-ld = { enable = true; libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs; };
+  programs.nix-ld = { enable = true; libraries = unstable.steam-run.fhsenv.args.multiPkgs pkgs; };
 
   home-manager.users.simao = {
     home.stateVersion = "24.05";
@@ -104,7 +106,9 @@ in
       appimage-run
       celluloid
       orca-slicer
-      git-repo xmlstarlet
+
+      # AOSP stuff
+      git-repo xmlstarlet ccache
 
       vesktop
       spotify
@@ -175,6 +179,8 @@ in
 
     home.sessionVariables = {
       MOZ_ENABLE_WAYLAND = "1";
+      LIBVIRT_DEFAULT_URI = "qemu:///system";
+      NIXOS_OZONE_WL = "1";
     };
 
     home.sessionPath = [
