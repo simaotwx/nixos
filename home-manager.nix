@@ -101,11 +101,15 @@ in
       g810-led
       easyeffects
       spaceship-prompt zsh-history-substring-search zsh-completions zsh-z
-      gnome.nautilus
+      gnome.nautilus gnome.file-roller
       mangohud
       appimage-run
       celluloid
       orca-slicer
+      dig
+      signal-desktop-beta
+      unzip file zstd tree
+      gparted
 
       # AOSP stuff
       git-repo xmlstarlet ccache

@@ -152,12 +152,13 @@ in
 
   users.users.simao = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "gamemode" "cdrom" ];
+    extraGroups = [ "wheel" "gamemode" "cdrom" "adbusers" ];
     uid = 1000;
     hashedPassword = "$y$j9T$dnI7w6vlAMDavd6yzhEZo/$zG.rUrydeU/An8SRDBs7IEHW9ygTuBL8GNJO.CGLMuB";
     shell = pkgs.zsh;
   };
   users.mutableUsers = false;
+  users.groups.simao.gid = 1000;
 
   security.sudo = {
     enable = true;
@@ -204,6 +205,7 @@ in
       roboto
       hasklig
       iosevka
+      iosevka-comfy.comfy
     ];
     fontconfig = {
       enable = true;
@@ -227,6 +229,7 @@ in
       dust
       duperemove
       ripgrep
+      polkit-kde-agent
     ];
     defaultPackages = [ ];
     variables = {
@@ -308,6 +311,9 @@ in
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.swraid.enable = true;
+
+  security.polkit.enable = true;
   
   system.stateVersion = "24.05";
 
