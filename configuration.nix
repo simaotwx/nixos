@@ -50,23 +50,23 @@ in
     # Security
     # https://medium.com/@ganga.jaiswal/build-a-hardened-linux-system-with-nixos-88bb7d77ba22
     # tip: use reader mode to not get your eyes destroyed
-    "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
-    "kernel.yama.ptrace_scope" = 2;
+#    "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
+#    "kernel.yama.ptrace_scope" = 2;
     "kernel.kptr_restrict" = 2;
-    "kernel.unprivileged_bpf_disabled" = 1;
-    "net.core.bpf_jit_harden" = 2;
-    "kernel.ftrace_enabled" = false;
-    "kernel.randomize_va_space" = 2;
-    "fs.suid_dumpable" = 0;
+#    "kernel.unprivileged_bpf_disabled" = 1;
+#    "net.core.bpf_jit_harden" = 2;
+#    "kernel.ftrace_enabled" = false;
+#    "kernel.randomize_va_space" = 2;
+#    "fs.suid_dumpable" = 0;
     "kernel.dmesg_restrict" = 1;
-    "vm.unprivileged_userfaultfd" = 0;
-    "net.ipv4.tcp_syncookies" = 1;
-    "net.ipv4.tcp_syn_retries" = 2;
-    "net.ipv4.tcp_synack_retries" = 2;
-    "net.ipv4.tcp_max_syn_backlog" = 4096;
-    "net.ipv4.tcp_rfc1337" = 1;
-    "net.ipv4.conf.all.log_martians" = true;
-    "net.ipv4.conf.default.log_martians" = true;
+#    "vm.unprivileged_userfaultfd" = 0;
+#    "net.ipv4.tcp_syncookies" = 1;
+#    "net.ipv4.tcp_syn_retries" = 2;
+#    "net.ipv4.tcp_synack_retries" = 2;
+#    "net.ipv4.tcp_max_syn_backlog" = 4096;
+#    "net.ipv4.tcp_rfc1337" = 1;
+#    "net.ipv4.conf.all.log_martians" = true;
+#    "net.ipv4.conf.default.log_martians" = true;
     # Other stuff
     "vm.dirty_ratio" = 60;
     "vm.dirty_background_ratio" = 20;
@@ -76,9 +76,9 @@ in
   security.virtualisation.flushL1DataCache = "always";
   networking.nftables.enable = true;
   networking.firewall.enable = true;
-  programs.firejail = {
-    enable = true;
-  };
+#  programs.firejail = {
+#    enable = true;
+#  };
   security.forcePageTableIsolation = true;
 
   networking.hostName = "aludepp";
@@ -225,6 +225,7 @@ in
 
   environment = {
     systemPackages = with pkgs; [
+      file
       vim
       dust
       duperemove
@@ -293,6 +294,7 @@ in
 
   services.dbus.enable = true;
   services.timesyncd.enable = true;
+  #services.tailscale.enable = true;
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [
@@ -312,8 +314,45 @@ in
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.swraid.enable = true;
+  boot.swraid.mdadmConf = ''
+    MAILADDR=nobody@nowhere
+  '';
 
   security.polkit.enable = true;
+
+  programs.ccache = {
+    enable = true;
+    cacheDir = "/mnt/extension1/ccache";
+  };
+  nix.settings.extra-sandbox-paths = [ config.programs.ccache.cacheDir ];
+  nixpkgs.overlays = [
+    (self: super: {
+      ccacheWrapper = super.ccacheWrapper.override {
+        extraConfig = ''
+          export CCACHE_COMPRESS=0
+          export CCACHE_DIR="${config.programs.ccache.cacheDir}"
+          export CCACHE_UMASK=007
+          if [ ! -d "$CCACHE_DIR" ]; then
+            echo "====="
+            echo "Directory '$CCACHE_DIR' does not exist"
+            echo "Please create it with:"
+            echo "  sudo mkdir -m0770 '$CCACHE_DIR'"
+            echo "  sudo chown root:nixbld '$CCACHE_DIR'"
+            echo "====="
+            exit 1
+          fi
+          if [ ! -w "$CCACHE_DIR" ]; then
+            echo "====="
+            echo "Directory '$CCACHE_DIR' is not accessible for user $(whoami)"
+            echo "Please verify its access permissions"
+            echo "====="
+            exit 1
+          fi
+        '';
+      };
+    })
+  ];
+
   
   system.stateVersion = "24.05";
 

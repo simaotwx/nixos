@@ -73,8 +73,8 @@ in
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.amdgpu.amdvlk = {
-    enable = true;
-    support32Bit.enable = true;
+    enable = false;
+    support32Bit.enable = false;
   };
   hardware.amdgpu.initrd.enable = true;
   hardware.amdgpu.opencl.enable = true;
@@ -82,11 +82,14 @@ in
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      #amdvlk
+      rocmPackages.clr.icd
+    ];
+    extraPackages32 = with pkgs; [
+      #driversi686Linux.amdvlk
+    ];
   };
-
-  hardware.opengl.extraPackages = with pkgs; [
-    rocmPackages.clr.icd
-  ];
 
   hardware.openrazer.enable = true;
   hardware.openrazer.users = [ "simao" ];
@@ -98,5 +101,6 @@ in
 
   environment.variables = {
     NIX_BUILD_CORES = "24";
+    AMD_VULKAN_ICD = "RADV";
   };
 }

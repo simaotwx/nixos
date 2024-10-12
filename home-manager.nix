@@ -40,7 +40,16 @@ in
 
   home-manager.users.simao = {
     home.stateVersion = "24.05";
-    xdg.enable = true;
+    xdg = {
+      enable = true;
+      mimeApps.enable = true;
+      mimeApps.defaultApplications = {
+        "text/html" = "librewolf.desktop";
+        "x-scheme-handler/http" = "librewolf.desktop";
+        "x-scheme-handler/https" = "librewolf.desktop";
+        "x-scheme-handler/about" = "librewolf.desktop";
+      } ;
+    };
     programs.zsh = {
       enable = true;
       enableCompletion = true;
@@ -92,7 +101,7 @@ in
       wpaperd eww wofi
       hyprlock hypridle hyprshot
       rose-pine-cursor
-      jq
+      jq pv
       socat
       pavucontrol playerctl
       gopass gopass-jsonapi
@@ -101,15 +110,22 @@ in
       g810-led
       easyeffects
       spaceship-prompt zsh-history-substring-search zsh-completions zsh-z
-      gnome.nautilus gnome.file-roller
+      gnome.nautilus gnome.file-roller loupe gedit
       mangohud
       appimage-run
       celluloid
       orca-slicer
       dig
       signal-desktop-beta
-      unzip file zstd tree
+      unzip file zstd tree bat fd
       gparted
+      picocom
+      telegram-desktop
+      polychromatic
+      chromium
+      protobuf
+      e2fsprogs
+      audacity
 
       # AOSP stuff
       git-repo xmlstarlet ccache
@@ -185,6 +201,7 @@ in
       MOZ_ENABLE_WAYLAND = "1";
       LIBVIRT_DEFAULT_URI = "qemu:///system";
       NIXOS_OZONE_WL = "1";
+      DEFAULT_BROWSER = "${pkgs.librewolf}/bin/librewolf";
     };
 
     home.sessionPath = [
@@ -209,6 +226,7 @@ in
         jnoortheen.nix-ide
         rust-lang.rust-analyzer
         ziglang.vscode-zig
+        naumovs.color-highlight
       ];
     };
 
