@@ -4,18 +4,18 @@
   environment.systemPackages = with pkgs; [ llvm_18 clang_18 lld_18 ];
   boot.kernelPackages = let
       llvm = pkgs.llvmPackages_18;
-      localversion = "-nitrous4";
+      localversion = "-nitrous";
       linux_nitrous_pkg = { buildLinux, ... } @ args:
 
         buildLinux (args // rec {
-          version = "6.11.0";
+          version = "6.12.1";
           modDirVersion = "${version}${localversion}";
 
           src = fetchTarball {
-            url = "https://gitlab.com/xdevs23/linux-nitrous/-/archive/v6.11.0-3/linux-nitrous-v6.11.0-3.tar.gz";
+            url = "https://gitlab.com/xdevs23/linux-nitrous/-/archive/v6.11.0-3/linux-nitrous-v6.12.1-1.tar.gz";
             sha256 = "0f0rpxxssknqr7l73hqrq4ad20zlpv6h41j8n85w4fkz5s7z118j";
           };
-#          defconfig = "nitrous_defconfig";
+          defconfig = "nitrous_defconfig";
           allowImportFromDerivation = true;
           stdenv = pkgs.overrideCC llvm.stdenv (llvm.stdenv.cc.override { inherit (llvm) bintools; });
           extraMakeFlags = [

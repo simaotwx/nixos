@@ -1,4 +1,4 @@
-{ unstable }:
+{ unstable, noice }:
 { config, pkgs, lib, ... }:
 let
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz";
@@ -29,26 +29,50 @@ in
 
   programs.steam = {
     enable = true;
-    package = unstable.steam;
+    package = pkgs.steam;
   };
   programs.gamemode.enable = true;
   programs.adb.enable = true;
 
   services.gvfs.enable = true;
 
-  programs.nix-ld = { enable = true; libraries = unstable.steam-run.fhsenv.args.multiPkgs pkgs; };
+  programs.nix-ld = { enable = true; libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs; };
 
   home-manager.users.simao = {
     home.stateVersion = "24.05";
     xdg = {
       enable = true;
       mimeApps.enable = true;
+      mimeApps.associations = {
+        added = {
+          "application/pdf" = "org.gnome.Evince.desktop";
+          "image/png" = "org.gnome.Loupe.desktop"; 
+          "image/jpg" = "org.gnome.Loupe.desktop"; 
+          "image/jpeg" = "org.gnome.Loupe.desktop"; 
+          "image/gif" = "org.gnome.Loupe.desktop";
+          "audio/aac" = "io.github.celluloid_player.Celluloid.desktop"; 
+          "audio/flac" = "io.github.celluloid_player.Celluloid.desktop"; 
+          "audio/ogg" = "io.github.celluloid_player.Celluloid.desktop"; 
+          "audio/wav" = "io.github.celluloid_player.Celluloid.desktop"; 
+          "audio/opus" = "io.github.celluloid_player.Celluloid.desktop"; 
+        };
+      };
       mimeApps.defaultApplications = {
+        "application/pdf" = "org.gnome.Evince.desktop";
         "text/html" = "librewolf.desktop";
         "x-scheme-handler/http" = "librewolf.desktop";
         "x-scheme-handler/https" = "librewolf.desktop";
         "x-scheme-handler/about" = "librewolf.desktop";
-      } ;
+        "image/png" = "org.gnome.Loupe.desktop"; 
+        "image/jpg" = "org.gnome.Loupe.desktop"; 
+        "image/jpeg" = "org.gnome.Loupe.desktop"; 
+        "image/gif" = "org.gnome.Loupe.desktop"; 
+        "audio/aac" = "io.github.celluloid_player.Celluloid.desktop"; 
+        "audio/flac" = "io.github.celluloid_player.Celluloid.desktop"; 
+        "audio/ogg" = "io.github.celluloid_player.Celluloid.desktop"; 
+        "audio/wav" = "io.github.celluloid_player.Celluloid.desktop"; 
+        "audio/opus" = "io.github.celluloid_player.Celluloid.desktop"; 
+      };
     };
     programs.zsh = {
       enable = true;
@@ -65,8 +89,8 @@ in
       autocd = true;
 
       history = {
-        size = 102000;
-        save = 100000;
+        size = 402000;
+        save = 400000;
 #        append = true;
         expireDuplicatesFirst = true;
         extended = true;
@@ -101,7 +125,7 @@ in
       wpaperd eww wofi
       hyprlock hypridle hyprshot
       rose-pine-cursor
-      jq pv
+      jq pv pwgen
       socat
       pavucontrol playerctl
       gopass gopass-jsonapi
@@ -110,14 +134,14 @@ in
       g810-led
       easyeffects
       spaceship-prompt zsh-history-substring-search zsh-completions zsh-z
-      gnome.nautilus gnome.file-roller loupe gedit
+      gnome.nautilus gnome.file-roller loupe gedit gnome.gnome-calculator
       mangohud
       appimage-run
       celluloid
       orca-slicer
       dig
       signal-desktop-beta
-      unzip file zstd tree bat fd
+      unzip file zstd tree bat fd brotli
       gparted
       picocom
       telegram-desktop
@@ -126,6 +150,30 @@ in
       protobuf
       e2fsprogs
       audacity
+      lm_sensors
+      fastfetch
+      jetbrains.idea-community jdk
+      nixd nixpkgs-fmt
+      bc
+      jellycli
+      unstable.ladybird
+      imagemagick
+      noice.yuzu
+      thunderbird
+      evince
+      stress
+      ntfs3g woeusb-ng
+      smartmontools rsync
+      vlc
+
+      # GStreamer
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      gst_all_1.gst-plugins-bad
+      gst_all_1.gst-plugins-ugly
+      gst_all_1.gst-libav
+      gst_all_1.gst-vaapi
 
       # AOSP stuff
       git-repo xmlstarlet ccache
@@ -202,6 +250,7 @@ in
       LIBVIRT_DEFAULT_URI = "qemu:///system";
       NIXOS_OZONE_WL = "1";
       DEFAULT_BROWSER = "${pkgs.librewolf}/bin/librewolf";
+      _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=lcd";
     };
 
     home.sessionPath = [
@@ -225,8 +274,8 @@ in
         bungcip.better-toml
         jnoortheen.nix-ide
         rust-lang.rust-analyzer
-        ziglang.vscode-zig
         naumovs.color-highlight
+        ziglang.vscode-zig
       ];
     };
 

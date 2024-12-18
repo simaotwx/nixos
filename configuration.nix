@@ -2,20 +2,21 @@
 
 let
   unstable = import
-    (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/24.11-pre) {
+    (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/nixos-unstable) {
       config = config.nixpkgs.config;
     };
+  noice = import /home/simao/tmp/nixpkgs { config = config.nixpkgs.config; };
 in
 {
   imports =
     [
       ./hardware-configuration.nix
-     # ./linux-nitrous.nix
-      (import ./home-manager.nix { unstable = unstable; })
+      #./linux-nitrous.nix
+      (import ./home-manager.nix { unstable = unstable; noice = noice; })
     ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
     substituters = ["https://hyprland.cachix.org"];
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
   };
@@ -28,7 +29,7 @@ in
   boot.loader.timeout = 1;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.plymouth = let theme = "lone"; in {
-    enable = true;
+    enable = false;
     theme = theme;
     themePackages = with pkgs; [
       (adi1090x-plymouth-themes.override {
@@ -45,6 +46,7 @@ in
     "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3"
   ];
   boot.initrd.verbose = false;
+  boot.supportedFilesystems = [ "bcachefs" ];
 
   boot.kernel.sysctl = {
     # Security
@@ -105,6 +107,12 @@ in
   };
 
   services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+  services.rpcbind.enable = true;
 
   services.pipewire = {
     enable = true;
@@ -223,6 +231,8 @@ in
     };
   };
 
+  programs.partition-manager.enable = true;
+
   environment = {
     systemPackages = with pkgs; [
       file
@@ -231,6 +241,8 @@ in
       duperemove
       ripgrep
       polkit-kde-agent
+      exfatprogs #bcachefs-tools
+      nix-bundle
     ];
     defaultPackages = [ ];
     variables = {
@@ -312,7 +324,7 @@ in
     magicOrExtension = ''\x7fELF....AI\x02'';
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = lib.mkOverride 100 pkgs.linuxPackages_latest;
   boot.swraid.enable = true;
   boot.swraid.mdadmConf = ''
     MAILADDR=nobody@nowhere
@@ -353,6 +365,16 @@ in
     })
   ];
 
+  virtualisation.docker.enable = true;
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+  virtualisation.docker.storageDriver = "overlay2";
+  systemd.services.docker.wantedBy = lib.mkForce [];
+  systemd.services.docker.serviceConfig.Restart = lib.mkForce "no";
+
+  fonts.fontDir.enable = true;
   
   system.stateVersion = "24.05";
 
