@@ -1,7 +1,7 @@
 { unstable, noice }:
 { config, pkgs, lib, ... }:
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz";
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
   oh-my-zsh-plugin = name:
       {
         name = name;
@@ -24,6 +24,7 @@ in
     "steam"
     "steam-original"
     "steam-run"
+    "steam-unwrapped"
     "makemkv"
   ];
 
@@ -36,7 +37,7 @@ in
 
   services.gvfs.enable = true;
 
-  programs.nix-ld = { enable = true; libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs; };
+  #programs.nix-ld = { enable = true; libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs; };
 
   home-manager.users.simao = {
     home.stateVersion = "24.05";
@@ -134,13 +135,13 @@ in
       g810-led
       easyeffects
       spaceship-prompt zsh-history-substring-search zsh-completions zsh-z
-      gnome.nautilus gnome.file-roller loupe gedit gnome.gnome-calculator
+      nautilus file-roller loupe gedit gnome-calculator
       mangohud
       appimage-run
       celluloid
       orca-slicer
       dig
-      signal-desktop-beta
+      signal-desktop
       unzip file zstd tree bat fd brotli
       gparted
       picocom
@@ -193,7 +194,7 @@ in
     gtk = {
       enable = true;
       theme = {
-        package = pkgs.gnome.gnome-themes-extra;
+        package = pkgs.gnome-themes-extra;
         name = "Adwaita";
       };
       cursorTheme = {
@@ -207,7 +208,7 @@ in
         size = 11;
       };
       iconTheme = {
-        package = pkgs.gnome.gnome-themes-extra;
+        package = pkgs.gnome-themes-extra;
         name = "Adwaita";
       };
       gtk2.extraConfig = ''

@@ -205,7 +205,7 @@ in
   fonts = {
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ "FiraCode" "Hasklig" ]; })
-      noto-fonts noto-fonts-emoji noto-fonts-cjk
+      noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
       liberation_ttf
       fira
       material-icons
@@ -267,8 +267,8 @@ in
     hyprland = {
       enable = true;
       xwayland.enable = true;
-      package = unstable.hyprland;
-      portalPackage = unstable.xdg-desktop-portal-hyprland;
+      package = pkgs.hyprland;
+      portalPackage = pkgs.xdg-desktop-portal-hyprland;
     };
   };
 
@@ -310,7 +310,7 @@ in
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [
-    unstable.xdg-desktop-portal-hyprland
+    pkgs.xdg-desktop-portal-hyprland
     pkgs.xdg-desktop-portal-gtk
   ];
   gtk.iconCache.enable = true;
