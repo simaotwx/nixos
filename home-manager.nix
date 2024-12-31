@@ -38,6 +38,25 @@ in
   services.gvfs.enable = true;
 
   #programs.nix-ld = { enable = true; libraries = pkgs.steam-run.fhsenv.args.multiPkgs pkgs; };
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+        alsa-lib
+        libGL
+        xorg.libICE
+        xorg.libSM
+        xorg.libX11
+        xorg.libXcursor
+        xorg.libXext
+        xorg.libXi
+        xorg.libXinerama
+        xorg.libXrandr
+        libpulseaudio
+        libxkbcommon
+        wayland
+
+        libgcc
+        gcc
+  ];
 
   home-manager.users.simao = {
     home.stateVersion = "24.05";
@@ -47,6 +66,10 @@ in
       mimeApps.associations = {
         added = {
           "application/pdf" = "org.gnome.Evince.desktop";
+          "text/html" = "librewolf.desktop";
+          "x-scheme-handler/http" = "librewolf.desktop";
+          "x-scheme-handler/https" = "librewolf.desktop";
+          "x-scheme-handler/about" = "librewolf.desktop";
           "image/png" = "org.gnome.Loupe.desktop"; 
           "image/jpg" = "org.gnome.Loupe.desktop"; 
           "image/jpeg" = "org.gnome.Loupe.desktop"; 
@@ -55,7 +78,9 @@ in
           "audio/flac" = "io.github.celluloid_player.Celluloid.desktop"; 
           "audio/ogg" = "io.github.celluloid_player.Celluloid.desktop"; 
           "audio/wav" = "io.github.celluloid_player.Celluloid.desktop"; 
-          "audio/opus" = "io.github.celluloid_player.Celluloid.desktop"; 
+          "audio/opus" = "io.github.celluloid_player.Celluloid.desktop";
+          "x-scheme-handler/tg" = "org.telegram.desktop.desktop";
+          "x-scheme-handler/tonsite" = "org.telegram.desktop.desktop";
         };
       };
       mimeApps.defaultApplications = {
@@ -73,6 +98,8 @@ in
         "audio/ogg" = "io.github.celluloid_player.Celluloid.desktop"; 
         "audio/wav" = "io.github.celluloid_player.Celluloid.desktop"; 
         "audio/opus" = "io.github.celluloid_player.Celluloid.desktop"; 
+        "x-scheme-handler/tg" = "org.telegram.desktop.desktop";
+        "x-scheme-handler/tonsite" = "org.telegram.desktop.desktop";
       };
     };
     programs.zsh = {

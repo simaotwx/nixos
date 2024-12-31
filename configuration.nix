@@ -306,7 +306,7 @@ in
 
   services.dbus.enable = true;
   services.timesyncd.enable = true;
-  #services.tailscale.enable = true;
+  services.tailscale.enable = true;
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [
