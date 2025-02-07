@@ -78,6 +78,7 @@ in
   security.virtualisation.flushL1DataCache = "always";
   networking.nftables.enable = true;
   networking.firewall.enable = true;
+  networking.firewall.allowedUDPPorts = [ 69 ];
 #  programs.firejail = {
 #    enable = true;
 #  };
@@ -306,7 +307,7 @@ in
 
   services.dbus.enable = true;
   services.timesyncd.enable = true;
-  services.tailscale.enable = true;
+  #services.tailscale.enable = true;
 
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [
@@ -365,14 +366,14 @@ in
     })
   ];
 
-  virtualisation.docker.enable = true;
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-  };
-  virtualisation.docker.storageDriver = "overlay2";
-  systemd.services.docker.wantedBy = lib.mkForce [];
-  systemd.services.docker.serviceConfig.Restart = lib.mkForce "no";
+  #virtualisation.docker.enable = true;
+  #virtualisation.docker.rootless = {
+  #  enable = true;
+  #  setSocketVariable = true;
+  #};
+  #virtualisation.docker.storageDriver = "overlay2";
+  #systemd.services.docker.wantedBy = lib.mkForce [];
+  #systemd.services.docker.serviceConfig.Restart = lib.mkForce "no";
 
   fonts.fontDir.enable = true;
   

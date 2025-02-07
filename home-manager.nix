@@ -190,9 +190,12 @@ in
       thunderbird
       evince
       stress
+      subfinder
       ntfs3g woeusb-ng
       smartmontools rsync
       vlc
+      libreoffice-fresh
+      p7zip iptables nftables inetutils simple-scan
 
       # GStreamer
       gst_all_1.gstreamer
@@ -210,6 +213,15 @@ in
       spotify
       makemkv
     ];
+
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+
+    programs.starship = {
+      enable = true;
+    };
 
     dconf.settings = {
       "org/gnome/desktop/interface" = {
@@ -304,6 +316,7 @@ in
         rust-lang.rust-analyzer
         naumovs.color-highlight
         ziglang.vscode-zig
+        mkhl.direnv
       ];
     };
 
