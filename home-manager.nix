@@ -1,17 +1,19 @@
 { unstable, noice }:
 { config, pkgs, lib, ... }:
 let
-  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
+  # release-24.11
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/9d3d080aec2a35e05a15cedd281c2384767c2cfe.tar.gz";
   oh-my-zsh-plugin = name:
       {
         name = name;
         file = "plugins/${name}/${name}.plugin.zsh";
         src = builtins.fetchGit {
           url = "https://github.com/ohmyzsh/ohmyzsh";
-          rev = "c68ff8aeedc2b779ae42d745457ecd443e22e212";
+          rev = "6e7ac0544e71c7b777746cb50f70de68c6495b86";
         };
       };
   oh-my-zsh-plugins = names: lib.lists.forEach names oh-my-zsh-plugin;
+  zen-browser = (builtins.getFlake "github:0xc000022070/zen-browser-flake/e66c876920bbfbaf391c1188e7ba8db691d92356").packages."${pkgs.system}".beta;
 in
 {
   imports = [
@@ -66,10 +68,11 @@ in
       mimeApps.associations = {
         added = {
           "application/pdf" = "org.gnome.Evince.desktop";
-          "text/html" = "librewolf.desktop";
-          "x-scheme-handler/http" = "librewolf.desktop";
-          "x-scheme-handler/https" = "librewolf.desktop";
-          "x-scheme-handler/about" = "librewolf.desktop";
+          "text/html" = "zen.desktop";
+          "text/x-log" = "org.gnome.gedit.desktop";
+          "x-scheme-handler/http" = "zen.desktop";
+          "x-scheme-handler/https" = "zen.desktop";
+          "x-scheme-handler/about" = "zen.desktop";
           "image/png" = "org.gnome.Loupe.desktop"; 
           "image/jpg" = "org.gnome.Loupe.desktop"; 
           "image/jpeg" = "org.gnome.Loupe.desktop"; 
@@ -85,10 +88,10 @@ in
       };
       mimeApps.defaultApplications = {
         "application/pdf" = "org.gnome.Evince.desktop";
-        "text/html" = "librewolf.desktop";
-        "x-scheme-handler/http" = "librewolf.desktop";
-        "x-scheme-handler/https" = "librewolf.desktop";
-        "x-scheme-handler/about" = "librewolf.desktop";
+        "text/html" = "zen.desktop";
+        "x-scheme-handler/http" = "zen.desktop";
+        "x-scheme-handler/https" = "zen.desktop";
+        "x-scheme-handler/about" = "zen.desktop";
         "image/png" = "org.gnome.Loupe.desktop"; 
         "image/jpg" = "org.gnome.Loupe.desktop"; 
         "image/jpeg" = "org.gnome.Loupe.desktop"; 
@@ -142,7 +145,7 @@ in
       plugins = [
       ] ++ (
         oh-my-zsh-plugins [
-          "git" "history" "shrink-path" "sudo" "transfer"
+          "history" "shrink-path" "sudo" "transfer"
         ]
       );
     };
@@ -159,7 +162,6 @@ in
       gopass gopass-jsonapi
       git curl
       wl-clipboard cliphist wl-clipboard-x11
-      g810-led
       easyeffects
       spaceship-prompt zsh-history-substring-search zsh-completions zsh-z
       nautilus file-roller loupe gedit gnome-calculator
@@ -172,7 +174,7 @@ in
       unzip file zstd tree bat fd brotli
       gparted
       picocom
-      telegram-desktop
+      #telegram-desktop
       polychromatic
       chromium
       protobuf
@@ -196,6 +198,8 @@ in
       vlc
       libreoffice-fresh
       p7zip iptables nftables inetutils simple-scan
+      zen-browser
+      via
 
       # GStreamer
       gst_all_1.gstreamer
@@ -217,6 +221,8 @@ in
     programs.direnv = {
       enable = true;
       nix-direnv.enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
     };
 
     programs.starship = {
@@ -289,7 +295,7 @@ in
       MOZ_ENABLE_WAYLAND = "1";
       LIBVIRT_DEFAULT_URI = "qemu:///system";
       NIXOS_OZONE_WL = "1";
-      DEFAULT_BROWSER = "${pkgs.librewolf}/bin/librewolf";
+      DEFAULT_BROWSER = "${zen-browser}/bin/zen";
       _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=lcd";
     };
 
@@ -310,13 +316,44 @@ in
     programs.vscode = {
       enable = true;
       package = pkgs.vscodium;
+      enableUpdateCheck = false;
+      enableExtensionUpdateCheck = false;
+      mutableExtensionsDir = false;
+      userSettings = {
+	"editor.fontFamily" = "'Iosevka Comfy', monospace";
+	"editor.lineHeight" = 22;
+	"files.autoSave" = "onFocusChange";
+       "files.trimTrailingWhitespace" = true;
+       "terminal.integrated.fontFamily" = "Hasklug Nerd Font Mono";
+	"workbench.startupEditor" = "none";
+	"git.terminalAuthentication" = false;
+	"github.gitAuthentication" = false;
+	"files.enableTrash" = false;
+	"git.autoRepositoryDetection" = "openEditors";
+	"debug.console.fontFamily" = "Hasklug Nerd Font Mono";
+	"editor.inlayHints.enabled" = "off";
+	"terminal.integrated.shellIntegration.history" = 6000;
+	"terminal.integrated.enablePersistentSessions" = false;
+	"editor.rulers" = [ 120 ];
+	"workbench.colorCustomizations" = {
+	  "editorRuler.foreground" = "#242424";
+	};
+	"terminal.integrated.tabs.enabled" = true;
+	"editor.fontSize" = 13;
+	"git.openRepositoryInParentFolders" = "never";
+	"nix.enableLanguageServer" = true;
+	"nix.serverPath" = "nixd";
+      };
       extensions = with pkgs.vscode-extensions; [
-        bungcip.better-toml
+        tamasfe.even-better-toml
         jnoortheen.nix-ide
         rust-lang.rust-analyzer
         naumovs.color-highlight
         ziglang.vscode-zig
         mkhl.direnv
+	ms-azuretools.vscode-docker
+	vadimcn.vscode-lldb
+	matthewpi.caddyfile-support
       ];
     };
 

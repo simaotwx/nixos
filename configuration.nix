@@ -2,7 +2,7 @@
 
 let
   unstable = import
-    (builtins.fetchTarball https://github.com/nixos/nixpkgs/tarball/nixos-unstable) {
+    (builtins.fetchTarball https://github.com/nixos/nixpkgs/archive/04ef94c4c1582fd485bbfdb8c4a8ba250e359195.tar.gz) {
       config = config.nixpkgs.config;
     };
   noice = import /home/simao/tmp/nixpkgs { config = config.nixpkgs.config; };
@@ -244,6 +244,7 @@ in
       polkit-kde-agent
       exfatprogs #bcachefs-tools
       nix-bundle
+      podman-compose
     ];
     defaultPackages = [ ];
     variables = {
@@ -316,6 +317,8 @@ in
   ];
   gtk.iconCache.enable = true;
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   boot.binfmt.registrations.appimage = {
     wrapInterpreterInShell = false;
     interpreter = "${pkgs.appimage-run}/bin/appimage-run";
@@ -329,6 +332,10 @@ in
   boot.swraid.enable = true;
   boot.swraid.mdadmConf = ''
     MAILADDR=nobody@nowhere
+  '';
+
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", ATTRS{idVendor}=="320f", ATTRS{idProduct}=="5088", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
   '';
 
   security.polkit.enable = true;
@@ -374,6 +381,23 @@ in
   #virtualisation.docker.storageDriver = "overlay2";
   #systemd.services.docker.wantedBy = lib.mkForce [];
   #systemd.services.docker.serviceConfig.Restart = lib.mkForce "no";
+
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
+
+  security.pki.certificateFiles = [
+   /home/simao/.local/share/certificates/at2.crt
+  ];
 
   fonts.fontDir.enable = true;
   

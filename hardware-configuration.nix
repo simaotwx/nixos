@@ -62,11 +62,8 @@ in
 
   services.udev = {
     packages = [
-      pkgs.g810-led
+      pkgs.via
     ];
-    extraRules = ''
-      ACTION=="add", SUBSYSTEM=="usb", RUN+="${pkgs.g810-led}/bin/g810-led -p /home/simao/.config/g810-led-profile"
-    '';
   };
 
   networking.useDHCP = lib.mkDefault true;
@@ -89,6 +86,8 @@ in
       #driversi686Linux.amdvlk
     ];
   };
+
+  hardware.keyboard.qmk.enable = true;
 
   hardware.openrazer.enable = true;
   hardware.openrazer.users = [ "simao" ];
