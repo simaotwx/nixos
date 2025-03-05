@@ -1,18 +1,11 @@
 { config, lib, pkgs, inputs, ... }:
 
-let
-  unstable = import
-    (builtins.fetchTarball https://github.com/nixos/nixpkgs/archive/04ef94c4c1582fd485bbfdb8c4a8ba250e359195.tar.gz) {
-      config = config.nixpkgs.config;
-    };
-  noice = import /home/simao/tmp/nixpkgs { config = config.nixpkgs.config; };
-in
 {
   imports =
     [
       ./hardware-configuration.nix
       #./linux-nitrous.nix
-      (import ./home-manager.nix { unstable = unstable; noice = noice; })
+      (import ./home-manager.nix {})
     ];
 
   nix.settings = {
@@ -77,7 +70,16 @@ in
   };
   security.virtualisation.flushL1DataCache = "always";
   networking.nftables.enable = true;
+#  networking.nftables.ruleset = ''
+#    table inet nixos-fw {
+#      chain input-allow-extra {
+#        type filter hook input priority 0;
+#        ip saddr 172.0.0.0/8 ip daddr 172.0.0.0/8 accept comment "Docker"
+#      }
+#    }
+#  '';
   networking.firewall.enable = true;
+  #networking.firewall.checkReversePath = false; # for docker
   networking.firewall.allowedUDPPorts = [ 69 ];
 #  programs.firejail = {
 #    enable = true;
@@ -373,27 +375,33 @@ in
     })
   ];
 
-  #virtualisation.docker.enable = true;
+  virtualisation.docker.enable = true;
   #virtualisation.docker.rootless = {
   #  enable = true;
   #  setSocketVariable = true;
   #};
-  #virtualisation.docker.storageDriver = "overlay2";
-  #systemd.services.docker.wantedBy = lib.mkForce [];
-  #systemd.services.docker.serviceConfig.Restart = lib.mkForce "no";
+  virtualisation.docker.storageDriver = "overlay2";
+  systemd.services.docker.wantedBy = lib.mkForce [];
+  systemd.services.docker.serviceConfig.Restart = lib.mkForce "no";
+  virtualisation.docker.daemon.settings = {
+    userland-proxy = false;
+    ipv6 = true;
+    fixed-cidr-v6 = "fd00::/80";
+  };
+
 
   virtualisation.containers.enable = true;
-  virtualisation = {
-    podman = {
-      enable = true;
-
-      # Create a `docker` alias for podman, to use it as a drop-in replacement
-      dockerCompat = true;
-
-      # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.settings.dns_enabled = true;
-    };
-  };
+#  virtualisation = {
+#    podman = {
+#      enable = true;
+#
+#      # Create a `docker` alias for podman, to use it as a drop-in replacement
+#      dockerCompat = true;
+#
+#      # Required for containers under podman-compose to be able to talk to each other.
+#      defaultNetwork.settings.dns_enabled = true;
+#    };
+#  };
 
   security.pki.certificateFiles = [
    /home/simao/.local/share/certificates/at2.crt

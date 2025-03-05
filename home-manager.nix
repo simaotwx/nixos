@@ -1,4 +1,4 @@
-{ unstable, noice }:
+{ ... }:
 { config, pkgs, lib, ... }:
 let
   # release-24.11
@@ -9,11 +9,11 @@ let
         file = "plugins/${name}/${name}.plugin.zsh";
         src = builtins.fetchGit {
           url = "https://github.com/ohmyzsh/ohmyzsh";
-          rev = "6e7ac0544e71c7b777746cb50f70de68c6495b86";
+          rev = "1c2127727af0ac452292f844ee32306f12906d03";
         };
       };
   oh-my-zsh-plugins = names: lib.lists.forEach names oh-my-zsh-plugin;
-  zen-browser = (builtins.getFlake "github:0xc000022070/zen-browser-flake/e66c876920bbfbaf391c1188e7ba8db691d92356").packages."${pkgs.system}".beta;
+  zen-browser = (builtins.getFlake "github:0xc000022070/zen-browser-flake/7de16ae319e6f6852274fa90b0d41c00049767c9").packages."${pkgs.system}".beta;
 in
 {
   imports = [
@@ -186,9 +186,7 @@ in
       nixd nixpkgs-fmt
       bc
       jellycli
-      unstable.ladybird
       imagemagick
-      noice.yuzu
       thunderbird
       evince
       stress
@@ -316,47 +314,49 @@ in
     programs.vscode = {
       enable = true;
       package = pkgs.vscodium;
-      enableUpdateCheck = false;
-      enableExtensionUpdateCheck = false;
       mutableExtensionsDir = false;
-      userSettings = {
-        "editor.fontFamily" = "'Iosevka Comfy', monospace";
-        "editor.lineHeight" = 22;
-        "files.autoSave" = "onFocusChange";
-        "files.trimTrailingWhitespace" = true;
-        "terminal.integrated.fontFamily" = "Hasklug Nerd Font Mono";
-        "workbench.startupEditor" = "none";
-        "git.terminalAuthentication" = false;
-        "github.gitAuthentication" = false;
-        "files.enableTrash" = false;
-        "git.autoRepositoryDetection" = "openEditors";
-        "debug.console.fontFamily" = "Hasklug Nerd Font Mono";
-        "editor.inlayHints.enabled" = "off";
-        "terminal.integrated.shellIntegration.history" = 6000;
-        "terminal.integrated.enablePersistentSessions" = false;
-        "editor.rulers" = [ 120 ];
-        "workbench.colorCustomizations" = {
-          "editorRuler.foreground" = "#242424";
-        };
-        "terminal.integrated.tabs.enabled" = true;
-        "editor.fontSize" = 13;
-        "git.openRepositoryInParentFolders" = "never";
-        "nix.enableLanguageServer" = true;
-        "nix.serverPath" = "nixd";
-      };
-      extensions = with pkgs.vscode-extensions; [
-        tamasfe.even-better-toml
-        jnoortheen.nix-ide
-        rust-lang.rust-analyzer
-        naumovs.color-highlight
-        ziglang.vscode-zig
-        mkhl.direnv
-        ms-azuretools.vscode-docker
-        vadimcn.vscode-lldb
-        matthewpi.caddyfile-support
-      ];
-    };
+      #profiles.default = {
+        enableUpdateCheck = false;
+        enableExtensionUpdateCheck = false;
 
+        userSettings = {
+          "editor.fontFamily" = "'Iosevka Comfy', monospace";
+          "editor.lineHeight" = 22;
+          "files.autoSave" = "onFocusChange";
+          "files.trimTrailingWhitespace" = true;
+          "terminal.integrated.fontFamily" = "Hasklug Nerd Font Mono";
+          "workbench.startupEditor" = "none";
+          "git.terminalAuthentication" = false;
+          "github.gitAuthentication" = false;
+          "files.enableTrash" = false;
+          "git.autoRepositoryDetection" = "openEditors";
+          "debug.console.fontFamily" = "Hasklug Nerd Font Mono";
+          "editor.inlayHints.enabled" = "off";
+          "terminal.integrated.shellIntegration.history" = 6000;
+          "terminal.integrated.enablePersistentSessions" = false;
+          "editor.rulers" = [ 120 ];
+          "workbench.colorCustomizations" = {
+            "editorRuler.foreground" = "#242424";
+          };
+          "terminal.integrated.tabs.enabled" = true;
+          "editor.fontSize" = 13;
+          "git.openRepositoryInParentFolders" = "never";
+          "nix.enableLanguageServer" = true;
+          "nix.serverPath" = "nixd";
+        };
+        extensions = with pkgs.vscode-extensions; [
+          tamasfe.even-better-toml
+          jnoortheen.nix-ide
+          rust-lang.rust-analyzer
+          naumovs.color-highlight
+          ziglang.vscode-zig
+          mkhl.direnv
+          ms-azuretools.vscode-docker
+          vadimcn.vscode-lldb
+          matthewpi.caddyfile-support
+        ];
+      #};
+    };
   };
 
   qt = {
