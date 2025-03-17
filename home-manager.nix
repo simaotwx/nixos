@@ -13,7 +13,7 @@ let
         };
       };
   oh-my-zsh-plugins = names: lib.lists.forEach names oh-my-zsh-plugin;
-  zen-browser = (builtins.getFlake "github:0xc000022070/zen-browser-flake/7de16ae319e6f6852274fa90b0d41c00049767c9").packages."${pkgs.system}".beta;
+  zen-browser = (builtins.getFlake "github:0xc000022070/zen-browser-flake/30fdea2435aeeb961acba896b9b65bab4fd17003").packages."${pkgs.system}".beta;
 in
 {
   imports = [
@@ -28,6 +28,7 @@ in
     "steam-run"
     "steam-unwrapped"
     "makemkv"
+    "android-studio-stable"
   ];
 
   programs.steam = {
@@ -151,7 +152,6 @@ in
     };
 
     home.packages = with pkgs; [
-      librewolf
       alacritty
       wpaperd eww wofi
       hyprlock hypridle hyprshot
@@ -198,6 +198,8 @@ in
       p7zip iptables nftables inetutils simple-scan
       zen-browser
       via
+      android-studio
+      hwloc
 
       # GStreamer
       gst_all_1.gstreamer
