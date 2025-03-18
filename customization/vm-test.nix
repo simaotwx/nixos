@@ -11,6 +11,9 @@
       hostName = "vm-test";
       keymap = "de";
     };
+    kernel = {
+      sysrq.enable = true;
+    };
     security = {
       network.enable = true;
       hardware.enable = true;
@@ -18,5 +21,19 @@
       fs.enable = true;
       userspace.enable = true;
     };
+    services = {
+      printing = true;
+      scanning = true;
+      networkDiscovery = true;
+    };
+    peripherals = {
+      via.enable = true;
+      razer.enable = true;
+    };
+    shells.zsh.lite.enable = true;
+    shell.simaosSuite.enable = true;
   };
+
+  users.allowNoPasswordLogin = true;
+  services.getty.autologinUser = "root";
 }

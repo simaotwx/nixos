@@ -5,6 +5,7 @@
         default = true;
       };
       printing = lib.mkEnableOption "printing services";
+      scanning = lib.mkEnableOption "scanning services";
       networkDiscovery = lib.mkEnableOption "network discovery services like Avahi";
     };
   };
@@ -15,6 +16,7 @@
   lib.mkIf customization.services.enable (lib.mkMerge [
     {
       services.printing.enable = customization.services.printing;
+      hardware.sane.enable = customization.services.scanning;
     }
     (lib.mkIf customization.services.networkDiscovery {
       services.avahi = {

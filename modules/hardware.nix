@@ -1,4 +1,4 @@
-{ lib, config, ... }: {
+{ lib, config, pkgs, ... }: {
   options = {
     customization = {
       hardware = {
@@ -18,6 +18,28 @@
           type = lib.types.bool;
           default = false;
           description = "Whether the system shall be configured to work on low memory devices";
+        };
+        storage.hasNvme = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Whether the system shall be equipped with necessary drivers and support for NVMe";
+        };
+        io.hasUsb = lib.mkOption {
+          type = lib.types.bool;
+          # I think it's a sensible default to assume USB support
+          default = true;
+          description = "Whether the system shall be set up to support USB, even in initrd.";
+        };
+        board.ahci.enable = lib.mkOption {
+          type = lib.types.bool;
+          default = pkgs.system == "x86_64-linux";
+          description = "Whether the system shall be set up to support AHCI";
+        };
+        firmware.supportsEfi = lib.mkOption {
+          type = lib.types.bool;
+          # Assume EFI is supported on x86_64
+          default = pkgs.system == "x86_64-linux";
+          description = "Whether the system shall be set up to support and use EFI features";
         };
       };
     };

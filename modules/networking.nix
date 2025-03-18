@@ -17,5 +17,6 @@
   in
   lib.mkIf customization.networking.enable {
     networking.networkmanager.enable = customization.networking.solution == "NetworkManager";
+    networking.useDHCP = lib.mkDefault true;
   };
 }

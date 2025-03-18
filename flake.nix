@@ -12,6 +12,7 @@
     inherit (customLib) forEachSystem;
     commonModules = [
       ./modules
+      ./hardware
     ];
   in
   {
@@ -27,7 +28,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit (self) inputs; };
         modules = commonModules ++ [
-          ./customization/aludepp.nix
+          ./customization/aludepp
         ];
       };
     };
