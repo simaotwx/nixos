@@ -31,7 +31,7 @@
       configurationLimit = lib.mkDefault 5;
       consoleMode = lib.mkDefault "max";
     };
-    boot.loader.timeout = lib.mkBefore customization.bootloader.timeout;
-
+    boot.loader.timeout = lib.mkDefault customization.bootloader.timeout;
+    boot.loader.efi.canTouchEfiVariables = true;
   };
 }

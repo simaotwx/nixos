@@ -20,7 +20,7 @@
       enable = true;
       pulse.enable = customization.sound.pulse;
       alsa.enable = true;
-      alsa.support32Bit = customization.sound.support32Bit;
+      alsa.support32Bit = lib.mkDefault customization.sound.support32Bit;
     }
       // (if customization.sound.lowLatency then {
         extraConfig.pipewire = {

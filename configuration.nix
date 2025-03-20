@@ -253,7 +253,7 @@
       EDITOR = "vim";
       VISUAL = "vim";
       PAGER = "less";
-      BROWSER = "librewolf";
+      BROWSER = "zen";
     };
   };
 

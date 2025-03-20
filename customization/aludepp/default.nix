@@ -5,6 +5,8 @@
     common-cpu-amd-pstate
     common-gpu-amd
     common-pc-ssd
+    ./common.nix
+    ./filesystems.nix
   ];
 
   # Customization of modules
@@ -19,6 +21,7 @@
       defaultLocale = "en_US.UTF-8";
       keymap = "de";
     };
+    compat.enable = true;
     graphics =  {
       amd.enable = true;
       amd.overclocking.unlock = true;
@@ -41,9 +44,6 @@
     sound = {
       lowLatency = true;
     };
-    storage =  {
-      hasNvme = true;
-    };
     peripherals = {
       via.enable = true;
       razer.enable = true;
@@ -52,13 +52,14 @@
     shell.simaosSuite.enable = true;
   };
 
-  # Additional configuration
-  i18n.supportedLocales = [
-    "C.UTF-8/UTF-8"
-    "en_US.UTF-8/UTF-8"
-    "en_GB.UTF-8/UTF-8"
-    "de_DE.UTF-8/UTF-8"
+  # Support for Crush 80 wireless
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", ATTRS{idVendor}=="320f", ATTRS{idProduct}=="5088", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+  '';
+
+  security.pki.certificateFiles = [
+   /home/simao/.local/share/certificates/at2.crt
   ];
 
-  services.fwupd.enable = true;
+  services.timesyncd.enable = true;
 }
