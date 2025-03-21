@@ -20,7 +20,7 @@
   in
   lib.mkIf customization.graphics.amd.enable {
     boot.kernelParams =
-      lib.optionals customization.hardware.amd.graphics.overclocking.unlock [ "amdgpu.ppfeaturemask=0xfff7ffff" ] ++
+      lib.optionals customization.graphics.amd.overclocking.unlock [ "amdgpu.ppfeaturemask=0xfff7ffff" ] ++
       [];
 
     hardware.amdgpu.amdvlk = {
