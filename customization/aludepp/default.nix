@@ -58,7 +58,7 @@
   '';
 
   security.pki.certificateFiles = [
-   /home/simao/.local/share/certificates/at2.crt
+    ../../local/certificates/at2.crt
   ];
 
   services.timesyncd.enable = true;
