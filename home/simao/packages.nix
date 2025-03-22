@@ -47,6 +47,7 @@
     via
     hwloc
     inputs.zen-browser.packages."${pkgs.system}".beta
+    gnome-boxes
 
     # GStreamer
     gst_all_1.gstreamer

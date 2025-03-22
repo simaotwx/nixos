@@ -3,6 +3,7 @@
     ../../modules/components/hyprland.nix
     ../../modules/components/zsh.nix
     ../../modules/components/via.nix
+    ../../modules/components/virtd.nix
   ];
 
   customization = {
