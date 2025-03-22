@@ -5,6 +5,10 @@
     };
   };
 
+  boot.supportedFilesystems = {
+    btrfs = true;
+  };
+
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/c5145846-61de-46d5-b2e4-a96dad352de5";
