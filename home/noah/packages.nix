@@ -56,6 +56,7 @@
     gnomeExtensions.caffeine
     gnomeExtensions.transparent-top-bar-adjustable-transparency
     gnomeExtensions.kernel-indicator
+    gnomeExtensions.window-is-ready-remover
 
     # GStreamer
     gst_all_1.gstreamer

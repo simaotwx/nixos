@@ -46,6 +46,7 @@
         caffeine.extensionUuid
         transparent-top-bar-adjustable-transparency.extensionUuid
         kernel-indicator.extensionUuid
+        window-is-ready-remover.extensionUuid
       ];
     };
   };
