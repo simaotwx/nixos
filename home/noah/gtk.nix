@@ -39,4 +39,7 @@
       color-scheme = "prefer-dark";
     };
   };
+  xdg.portal.extraPortals = [
+    pkgs.xdg-desktop-portal-gtk
+  ];
 }

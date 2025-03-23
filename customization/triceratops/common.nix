@@ -2,9 +2,24 @@
   imports = [
     ../../modules/components/zsh.nix
     ../../modules/components/via.nix
+    ../../modules/components/gnome.nix
   ];
 
   customization = {
+    desktop = {
+      gnome = {
+        extensions = with pkgs.gnomeExtensions; [
+          vitals
+          user-themes
+          dock-from-dash
+          clipboard-indicator
+          caffeine
+          transparent-top-bar-adjustable-transparency
+          kernel-indicator
+          window-is-ready-remover
+        ];
+      };
+    };
   };
 
   i18n.supportedLocales = [

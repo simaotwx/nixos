@@ -50,13 +50,6 @@
 
     # Gnome
     pkgs.gnome-tweaks
-    gnomeExtensions.vitals
-    gnomeExtensions.dock-from-dash
-    gnomeExtensions.clipboard-indicator
-    gnomeExtensions.caffeine
-    gnomeExtensions.transparent-top-bar-adjustable-transparency
-    gnomeExtensions.kernel-indicator
-    gnomeExtensions.window-is-ready-remover
 
     # GStreamer
     gst_all_1.gstreamer
@@ -71,7 +64,7 @@
     git-repo xmlstarlet ccache
 
     vesktop
-    spotify
+    spotifywm
     #makemkv
   ];
 
