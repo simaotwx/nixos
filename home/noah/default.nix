@@ -44,6 +44,8 @@
         dock-from-dash.extensionUuid
         clipboard-indicator.extensionUuid
         caffeine.extensionUuid
+        transparent-top-bar-adjustable-transparency.extensionUuid
+        kernel-indicator.extensionUuid
       ];
     };
   };

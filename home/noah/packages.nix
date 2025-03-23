@@ -54,6 +54,8 @@
     gnomeExtensions.dock-from-dash
     gnomeExtensions.clipboard-indicator
     gnomeExtensions.caffeine
+    gnomeExtensions.transparent-top-bar-adjustable-transparency
+    gnomeExtensions.kernel-indicator
 
     # GStreamer
     gst_all_1.gstreamer
