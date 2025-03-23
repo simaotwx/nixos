@@ -47,7 +47,6 @@
     via
     hwloc
     inputs.zen-browser.packages."${pkgs.system}".beta
-    goxlr-utility
 
     # Gnome
     pkgs.gnome-tweaks
