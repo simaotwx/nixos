@@ -36,19 +36,6 @@
   dconf = {
     enable = true;
     settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-    settings."org/gnome/shell" = {
-      disable-user-extensions = false;
-      enabled-extensions = with pkgs.gnomeExtensions; [
-        vitals.extensionUuid
-        user-themes.extensionUuid
-        dock-from-dash.extensionUuid
-        clipboard-indicator.extensionUuid
-        caffeine.extensionUuid
-        transparent-top-bar-adjustable-transparency.extensionUuid
-        kernel-indicator.extensionUuid
-        window-is-ready-remover.extensionUuid
-      ];
-    };
   };
 
   home.stateVersion = "24.11";
