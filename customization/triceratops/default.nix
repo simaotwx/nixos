@@ -57,6 +57,4 @@
   # '';
 
   services.timesyncd.enable = true;
-
-  hardware.enableRedistributableFirmware = true;
 }
