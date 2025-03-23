@@ -151,6 +151,8 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  services.goxlr-utility.enable = true;
+
   programs = {
   gamescope = {
     enable = true;
