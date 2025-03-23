@@ -2,6 +2,7 @@
   imports = [
     ./common.nix
     "${modulesPath}/profiles/qemu-guest.nix"
+    ../vm-common.nix
   ];
 
   boot.supportedFilesystems = lib.mkForce [];
