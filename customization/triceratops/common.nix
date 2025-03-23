@@ -114,6 +114,13 @@
   programs.steam = {
     enable = true;
     package = pkgs.steam;
+    gamescopeSession.enable = true;
+  };
+  programs = {
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
   };
 
   security.polkit.enable = true;
@@ -168,13 +175,4 @@
 
   services.tailscale.enable = true;
 
-  programs = {
-  gamescope = {
-    enable = true;
-    capSysNice = true;
-  };
-  steam = {
-    gamescopeSession.enable = true;
-  };
-};
 }
