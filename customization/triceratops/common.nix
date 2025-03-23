@@ -151,6 +151,8 @@
 
   services.goxlr-utility.enable = true;
 
+  services.tailscale.enable = true;
+
   programs = {
   gamescope = {
     enable = true;
