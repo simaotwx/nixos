@@ -10,7 +10,7 @@
   customization = lib.mkForce {
     hardware.cpu.cores = 12;
     general = {
-      hostName = "aludepp";
+      hostName = "triceratops";
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
       keymap = "de";
