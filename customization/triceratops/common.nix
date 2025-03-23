@@ -12,8 +12,6 @@
     "de_DE.UTF-8/UTF-8"
   ];
 
-  networking.hostName = "triceratops";
-
   services.fwupd.enable = true;
 
   users.users.noah = {
