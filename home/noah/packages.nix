@@ -50,6 +50,10 @@
 
     # Gnome
     pkgs.gnome-tweaks
+    gnomeExtensions.vitals
+    gnomeExtensions.dock-from-dash
+    gnomeExtensions.clipboard-indicator
+    gnomeExtensions.caffeine
 
     # GStreamer
     gst_all_1.gstreamer
