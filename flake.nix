@@ -22,6 +22,9 @@
       simao = homeManager {
         simao = import ./home/simao;
       };
+      noah = homeManager {
+        noah = import ./home/noah;
+      };
     };
   in
   {
@@ -65,6 +68,29 @@
             customization.hyprland.enable = lib.mkForce false;
           }
         ] ++ homeManagerModules.simao;
+      };
+
+      triceratops-vm = lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit (self) inputs; };
+        modules = commonModules ++ [
+          ./customization/triceratops/vm.nix
+        ] ++ homeManagerModules.noah;
+      };
+      triceratops = lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit (self) inputs; };
+        modules = commonModules ++ [
+          ./customization/triceratops
+        ] ++ homeManagerModules.noah;
+      };
+      triceratops-live = lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit (self) inputs; };
+        modules = commonModules ++ [
+          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+          ./customization/triceratops
+        ] ++ homeManagerModules.noah;
       };
     };
 
