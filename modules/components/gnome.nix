@@ -41,7 +41,7 @@
         };
       };
     });
-    services.xserver.displayManager.gdm.enable = true;
+    services.xserver.displayManager.gdm.enable = config.customization.desktop.gnome.useGdm;
     services.xserver.desktopManager.gnome.enable = true;
     nixpkgs.overlays = [
       (final: prev: {
