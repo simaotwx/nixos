@@ -6,6 +6,11 @@
         default = false;
         description = "Whether to set up Razer peripheral support";
       };
+      razer.users = lib.mkOption {
+        type = with lib.types; listOf str;
+        default = config.configurableUsers;
+        description = "Which users to apply razer configuration to. Defaults to all users.";
+      };
     };
   };
 
@@ -14,6 +19,6 @@
   in
   lib.mkIf customization.peripherals.razer.enable {
     hardware.openrazer.enable = true;
-    # TODO: add user hardware.openrazer.users = [
+    hardware.openrazer.users = customization.peripherals.razer.users;
   };
 }
