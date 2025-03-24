@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   xdg = {
     enable = true;
     mimeApps.enable = true;
@@ -42,6 +42,6 @@
       "x-scheme-handler/tonsite" = "org.telegram.desktop.desktop";
       "x-sheme-handler/discord" = "vesktop.desktop";
     };
+    portal.enable = true;
   };
-  xdg.portal.enable = true;
 }
