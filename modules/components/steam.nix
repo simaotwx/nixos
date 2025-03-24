@@ -9,6 +9,11 @@
       };
       gamescope.enable = lib.mkEnableOption "gamescope";
       gamescope.session.enable = lib.mkEnableOption "gamescope session";
+      gamemode.users = lib.mkOption {
+        type = with lib.types; listOf str;
+        default = config.configurableUsers;
+        description = "Which users to apply gamemode configuration to. Defaults to all users.";
+      };
     };
   };
 
@@ -25,6 +30,9 @@
       package = cfg.package;
       gamescopeSession.enable = cfg.gamescope.session.enable;
     };
+    users.users = lib.genAttrs cfg.gamemode.users (username: {
+      extraGroups = [ "gamemode" ];
+    });
   };
 
 }
