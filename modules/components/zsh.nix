@@ -47,6 +47,9 @@
       enable = true;
     };
     home-manager.users = lib.genAttrs customization.shells.zsh.lite.users (username: {
+      home.packages = with pkgs; [
+        spaceship-prompt zsh-history-substring-search zsh-completions zsh-z
+      ];
       programs.zsh = {
         enable = true;
         enableCompletion = true;
