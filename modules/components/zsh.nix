@@ -34,7 +34,7 @@
         file = "plugins/${name}/${name}.plugin.zsh";
         src = builtins.fetchGit {
           url = "https://github.com/ohmyzsh/ohmyzsh";
-          rev = "1c2127727af0ac452292f844ee32306f12906d03";
+          rev = "eeaf9f89b0e8b10a02f16cb6cdd93779c28eb2ea";
         };
       };
     oh-my-zsh-plugins = names: lib.lists.forEach names oh-my-zsh-plugin;
