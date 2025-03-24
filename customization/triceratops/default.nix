@@ -7,6 +7,7 @@
     common-pc-ssd
     ./common.nix
     ./filesystems.nix
+    ../../machines/x86_64
   ];
 
   # Customization of modules

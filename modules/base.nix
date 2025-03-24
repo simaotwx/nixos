@@ -4,6 +4,7 @@
   boot.tmp = {
     useTmpfs = !config.customization.hardware.mem.lowMemory;
   };
+  boot.kernelParams = [ "boot.shell_on_fail" ];
 
   systemd.extraConfig = ''
     DefaultLimitNOFILE=1048576
