@@ -65,7 +65,7 @@
     git-repo xmlstarlet ccache
 
     vesktop
-    spotifywm
+    spotify
     #makemkv
   ];
 
