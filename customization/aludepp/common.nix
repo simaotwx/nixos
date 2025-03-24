@@ -7,7 +7,7 @@
   ];
 
   customization = {
-    hyprland.enable = true;
+    desktop.hyprland.enable = true;
   };
 
   i18n.supportedLocales = [
