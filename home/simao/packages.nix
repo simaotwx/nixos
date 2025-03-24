@@ -64,6 +64,7 @@
     vesktop
     spotify
     makemkv
+    android-studio
   ];
 
 }
