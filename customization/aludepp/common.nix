@@ -4,6 +4,7 @@
     ../../modules/components/zsh.nix
     ../../modules/components/via.nix
     ../../modules/components/virtd.nix
+    ../../modules/components/steam.nix
   ];
 
   customization = {
@@ -31,7 +32,6 @@
 
   services.gvfs.enable = true;
   programs.adb.enable = true;
-  programs.gamemode.enable = true;
   services.libinput.enable = true;
   programs.dconf.enable = true;
 
@@ -130,11 +130,6 @@
   services.dbus.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  programs.steam = {
-    enable = true;
-    package = pkgs.steam;
-  };
 
   security.polkit.enable = true;
 

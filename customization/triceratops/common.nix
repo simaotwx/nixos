@@ -3,6 +3,7 @@
     ../../modules/components/zsh.nix
     ../../modules/components/via.nix
     ../../modules/components/gnome.nix
+    ../../modules/components/steam.nix
   ];
 
   customization = {
@@ -19,6 +20,10 @@
           window-is-ready-remover
         ];
       };
+    };
+    software.steam = {
+      gamescope.enable = true;
+      gamescope.session.enable = true;
     };
   };
 
@@ -41,7 +46,6 @@
 
   services.gvfs.enable = true;
   programs.adb.enable = true;
-  programs.gamemode.enable = true;
   services.libinput.enable = true;
   programs.dconf.enable = true;
 
@@ -110,18 +114,6 @@
   services.dbus.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  programs.steam = {
-    enable = true;
-    package = pkgs.steam;
-    gamescopeSession.enable = true;
-  };
-  programs = {
-    gamescope = {
-      enable = true;
-      capSysNice = true;
-    };
-  };
 
   security.polkit.enable = true;
 
