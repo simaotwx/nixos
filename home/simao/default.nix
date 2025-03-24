@@ -5,7 +5,6 @@
     ./htop.nix
     ./packages.nix
     ./qt.nix
-    ./steam.nix
     ./vscode.nix
     ./xdg.nix
   ];
