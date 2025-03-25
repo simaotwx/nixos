@@ -18,6 +18,7 @@
           transparent-top-bar-adjustable-transparency
           kernel-indicator
           window-is-ready-remover
+          pip-on-top
         ];
       };
     };
