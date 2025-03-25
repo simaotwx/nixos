@@ -11,7 +11,6 @@
     git curl
     wl-clipboard cliphist wl-clipboard-x11
     easyeffects
-    spaceship-prompt zsh-history-substring-search zsh-completions zsh-z
     nautilus file-roller loupe gedit gnome-calculator
     mangohud
     appimage-run
