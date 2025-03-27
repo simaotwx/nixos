@@ -8,6 +8,7 @@
     ./common.nix
     ./filesystems.nix
     ../../machines/x86_64
+    ../../modules/components/linux-nitrous.nix
   ];
 
   # Customization of modules
