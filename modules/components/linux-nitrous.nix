@@ -12,19 +12,25 @@
   config = {
     customization.linux-nitrous.cpuVendor = config.customization.hardware.cpu.vendor;
     boot.kernelPackages = lib.mkOverride 80 (let
-        version = "6.13.8";
+        version = "6.14.0-1";
         suffix = "nitrous";
+        llvm = pkgs.llvmPackages_19;
         linux_nitrous_pkg = { fetchurl, buildLinux, ... } @ args:
 
           buildLinux (args // rec {
             inherit version;
             pname = "linux-${suffix}";
             modDirVersion = lib.versions.pad 3 "${version}-${suffix}";
-            stdenv = pkgs.llvmPackages_19.stdenv;
+            stdenv = pkgs.overrideCC llvm.stdenv (llvm.stdenv.cc.override { inherit (llvm) bintools; });
+            nativeBuildInputs = [ llvm.lld ];
+            extraMakeFlags = [
+              "LLVM=1"
+              "LD=${llvm.lld}/bin/ld.lld"
+            ];
 
             src = fetchurl {
-              url = "https://gitlab.com/xdevs23/linux-nitrous/-/archive/v6.13.8-1/linux-nitrous-v6.13.8-1.tar.gz";
-              hash = "sha256-ljIa8ipTrof47q54jnrcARlBzrAQm1VrmGPH5nPYUQo=";
+              url = "https://gitlab.com/xdevs23/linux-nitrous/-/archive/v${version}/linux-nitrous-v${version}.tar.gz";
+              hash = "sha256-0OUqdYDmu4BDpGbJZcPO072bE69bisuRF7e7Ae4GCtg=";
             };
 
             structuredExtraConfig = with lib.kernel; {
