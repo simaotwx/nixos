@@ -1,4 +1,4 @@
-{ lib, config, ... }: {
+{ lib, config, pkgs, ... }: {
   options = {
     customization.shell = {
       simaosSuite.enable = lib.mkOption {
@@ -17,6 +17,12 @@
       environment.shellAliases = {
         gpick = "git cherry-pick -s";
       };
+      environment.systemPackages = [
+        (pkgs.writeShellScriptBin "pickrange" ''
+          git rev-list --reverse --topo-order $1^..$2 | while read rev
+          do echo "$rev"; done | xargs git cherry-pick -s
+        '')
+      ];
     })
   ]);
 }
