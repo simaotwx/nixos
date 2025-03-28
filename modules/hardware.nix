@@ -8,6 +8,11 @@
           default = 4;
           description = "How many physical CPU cores your machine has";
         };
+        cpu.vendor = lib.mkOption {
+          type = lib.types.enum [ "amd" "intel" "apple" "qcom"];
+          default = "";
+          description = "Vendor of your CPU";
+        };
         cpu.threads = lib.mkOption {
           type = lib.types.ints.positive;
           # We will assume the CPU has SMP.

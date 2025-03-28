@@ -15,6 +15,7 @@
   customization = {
     hardware = {
       cpu.cores = 12;
+      cpu.vendor = "amd";
       storage.hasNvme = true;
     };
     general = {
