@@ -19,6 +19,7 @@
           kernel-indicator
           window-is-ready-remover
           pip-on-top
+          spotify-controls
         ];
       };
     };
