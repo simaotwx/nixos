@@ -13,6 +13,7 @@
     customization.linux-nitrous.cpuVendor = config.customization.hardware.cpu.vendor;
     boot.kernelPackages = lib.mkOverride 80 (let
         version = "6.14.0-1";
+        linuxVersion = lib.head (lib.splitString "-" version);
         suffix = "nitrous";
         llvm = pkgs.llvmPackages_19;
         linux_nitrous_pkg = { fetchurl, buildLinux, ... } @ args:
@@ -20,7 +21,7 @@
           buildLinux (args // rec {
             inherit version;
             pname = "linux-${suffix}";
-            modDirVersion = lib.versions.pad 3 "${version}-${suffix}";
+            modDirVersion = lib.versions.pad 3 "${linuxVersion}-${suffix}";
             stdenv = pkgs.overrideCC llvm.stdenv (llvm.stdenv.cc.override { inherit (llvm) bintools; });
             nativeBuildInputs = [ llvm.lld ];
             extraMakeFlags = [
