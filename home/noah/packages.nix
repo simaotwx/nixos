@@ -67,6 +67,7 @@
     spotify
     #makemkv
     android-studio
+    prismlauncher
   ];
 
 }
