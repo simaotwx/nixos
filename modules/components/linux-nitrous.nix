@@ -37,14 +37,13 @@
             structuredExtraConfig = with lib.kernel; {
               LOCALVERSION_AUTO = no;
               NTSYNC = yes;
-              #DEBUG_LIST = lib.mkForce no;
               LIST_HARDENED = yes;
               #LATENCYTOP = no;
               BCACHEFS_FS = module;
-              DRM_XE = module;
-              #DEBUG_INFO_BTF = lib.mkForce no;
+              DRM_XE = if config.customization.graphics.intel.xe.enable then yes else no;
               #SCHED_CLASS_EXT = lib.mkForce no;
-              #PREEMPT_LAZY = yes;
+              PREEMPT_VOLUNTARY = lib.mkForce no;
+              PREEMPT_LAZY = yes;
               CC_OPTIMIZE_FOR_PERFORMANCE_O3 = yes;
               KVM = yes;
               #LTO_CLANG_THIN = yes;
