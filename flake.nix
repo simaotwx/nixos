@@ -47,29 +47,11 @@
           ./customization/vm-test.nix
         ];
       };
-      aludepp-vm = lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; };
-        modules = commonModules ++ [
-          ./customization/aludepp/vm.nix
-        ] ++ homeManagerModules.simao;
-      };
       aludepp = lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit (self) inputs; };
         modules = commonModules ++ [
           ./customization/aludepp
-        ] ++ homeManagerModules.simao;
-      };
-      aludepp-live = lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; };
-        modules = commonModules ++ [
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-          ./customization/aludepp
-          {
-            customization.hyprland.enable = lib.mkForce false;
-          }
         ] ++ homeManagerModules.simao;
       };
       simao-workbook = lib.nixosSystem {
