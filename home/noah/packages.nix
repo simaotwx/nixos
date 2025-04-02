@@ -1,6 +1,6 @@
 { pkgs, inputs, ... }: {
   home.packages = with pkgs; [
-    alacritty
+    #alacritty
     #wpaperd eww wofi
     #hyprlock hypridle hyprshot
     rose-pine-cursor
@@ -67,6 +67,8 @@
     spotify
     #makemkv
     android-studio
+    prismlauncher
+    postman
   ];
 
 }
