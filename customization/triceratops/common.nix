@@ -128,6 +128,7 @@
     "steam-unwrapped"
     "makemkv"
     "android-studio-stable"
+    "postman"
   ];
 
   virtualisation.docker.enable = true;

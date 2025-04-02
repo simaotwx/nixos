@@ -68,6 +68,7 @@
     #makemkv
     android-studio
     prismlauncher
+    postman
   ];
 
 }
