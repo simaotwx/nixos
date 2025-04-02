@@ -22,6 +22,9 @@
       simao = homeManager {
         simao = import ./home/simao;
       };
+      simaoWork = homeManager {
+        simao = import ./home/simaoWork;
+      };
       noah = homeManager {
         noah = import ./home/noah;
       };
@@ -68,6 +71,13 @@
             customization.hyprland.enable = lib.mkForce false;
           }
         ] ++ homeManagerModules.simao;
+      };
+      simao-workbook = lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit (self) inputs; };
+        modules = commonModules ++ [
+          ./customization/simao-workbook
+        ] ++ homeManagerModules.simaoWork;
       };
 
       triceratops-vm = lib.nixosSystem {
