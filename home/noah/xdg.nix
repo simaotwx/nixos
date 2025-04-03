@@ -5,11 +5,11 @@
     mimeApps.associations = {
       added = {
         "application/pdf" = "org.gnome.Evince.desktop";
-        "text/html" = "zen.desktop";
+        "text/html" = "zen-beta.desktop";
         "text/x-log" = "org.gnome.gedit.desktop";
-        "x-scheme-handler/http" = "zen.desktop";
-        "x-scheme-handler/https" = "zen.desktop";
-        "x-scheme-handler/about" = "zen.desktop";
+        "x-scheme-handler/http" = "zen-beta.desktop";
+        "x-scheme-handler/https" = "zen-beta.desktop";
+        "x-scheme-handler/about" = "zen-beta.desktop";
         "image/png" = "org.gnome.Loupe.desktop";
         "image/jpg" = "org.gnome.Loupe.desktop";
         "image/jpeg" = "org.gnome.Loupe.desktop";

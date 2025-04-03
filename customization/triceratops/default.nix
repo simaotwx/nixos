@@ -149,7 +149,7 @@
       EDITOR = "vim";
       VISUAL = "vim";
       PAGER = "less";
-      BROWSER = "zen";
+      BROWSER = "zen-beta";
     };
   };
 
