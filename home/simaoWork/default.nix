@@ -31,6 +31,5 @@
       _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=lcd";
     };
   };
-
   home.stateVersion = "24.11";
 }

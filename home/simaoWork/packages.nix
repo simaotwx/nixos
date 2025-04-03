@@ -39,7 +39,9 @@
     via
     hwloc
     firefox
+    mattermost-desktop
     gnome-boxes
+    gitleaks
 
     # GStreamer
     gst_all_1.gstreamer
