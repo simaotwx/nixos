@@ -23,7 +23,7 @@
     e2fsprogs
     lm_sensors
     fastfetch
-    jdk
+    jdk jdk17
     nixd nixpkgs-fmt
     bc
     imagemagick
