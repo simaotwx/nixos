@@ -53,7 +53,6 @@
       gnome = {
         extensions = with pkgs.gnomeExtensions; [
           vitals
-          user-themes
           dock-from-dash
           clipboard-indicator
           caffeine

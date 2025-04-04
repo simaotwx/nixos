@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   imports = [
+    ./dconf.nix
     ./direnv.nix
     ./gtk.nix
     ./htop.nix
