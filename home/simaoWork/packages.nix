@@ -50,6 +50,8 @@ in
     gnome-boxes
     gitleaks
     nodejs
+    gettext
+    php
 
     # GStreamer
     gst_all_1.gstreamer
