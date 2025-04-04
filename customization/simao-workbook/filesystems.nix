@@ -1,7 +1,7 @@
 {
   boot.initrd.luks = {
     devices."main" = {
-      device = "/dev/disk/by-uuid/21f1ebd8-81cd-4d73-9148-976a47c5225e";
+      device = "/dev/disk/by-uuid/21f1ebd8-81cd-4d63-9148-976a47c5225e";
     };
   };
 

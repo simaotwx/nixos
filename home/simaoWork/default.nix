@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   imports = [
+    ./dconf.nix
     ./direnv.nix
     ./gtk.nix
     ./htop.nix
@@ -31,6 +32,5 @@
       _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=lcd";
     };
   };
-
   home.stateVersion = "24.11";
 }

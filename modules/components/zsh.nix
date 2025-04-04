@@ -87,7 +87,7 @@
         plugins = [
         ] ++ (
           oh-my-zsh-plugins [
-            "history" "shrink-path" "sudo" "transfer"
+            "history" "shrink-path" "sudo" "transfer" "z"
           ]
         );
       };

@@ -1,4 +1,11 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, lib, ... }:
+let
+  jdks = with pkgs; [
+    jdk17
+    jdk21
+  ];
+in
+{
   home.packages = with pkgs; [
     kitty
     rose-pine-cursor
@@ -39,7 +46,12 @@
     via
     hwloc
     firefox
+    mattermost-desktop
     gnome-boxes
+    gitleaks
+    nodejs
+    gettext
+    php
 
     # GStreamer
     gst_all_1.gstreamer
@@ -61,5 +73,31 @@
     goland
     pycharm-professional
   ]);
+
+  home.file = (builtins.listToAttrs (builtins.concatMap (jdk: [
+    {
+      name = ".jdks/${jdk.version}";
+      value = { source = "${jdk}/lib/openjdk"; };
+    }
+    {
+      name = ".jdks/${jdk.version}.intellij";
+      value = {
+        text = builtins.toJSON rec {
+          vendor = jdk.meta.homepage;
+          product = jdk.pname;
+          flavour = jdk.meta.description;
+          jdk_version_major = lib.versions.major jdk.version;
+          jdk_version = builtins.concatStringsSep "." (lib.take 3 (lib.versions.splitVersion jdk.version));
+          shared_index_aliases = [
+            jdk.name
+            jdk.version
+            "${jdk.pname}-${jdk_version_major}"
+            jdk_version_major
+            jdk_version
+          ];
+        };
+      };
+    }
+  ]) jdks));
 
 }
