@@ -42,6 +42,7 @@
     mattermost-desktop
     gnome-boxes
     gitleaks
+    nodejs
 
     # GStreamer
     gst_all_1.gstreamer
