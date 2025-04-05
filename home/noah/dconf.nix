@@ -46,7 +46,7 @@
     };
     "org/gnome/shell" = {
       favorite-apps = [
-        "signal.desktop.desktop"
+        "signal-desktop.desktop"
         "vesktop.desktop"
         "org.gnome.Nautilus.desktop"
         "org.gnome.Console.desktop"
