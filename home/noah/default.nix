@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   imports = [
+    ./dconf.nix
     ./direnv.nix
     ./gtk.nix
     ./htop.nix
@@ -30,11 +31,6 @@
       NIXOS_OZONE_WL = "1";
       _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=lcd";
     };
-  };
-
-  dconf = {
-    enable = true;
-    settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
   };
 
   home.stateVersion = "24.11";
