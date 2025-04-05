@@ -1,4 +1,10 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, inputs, lib, ... }:
+let
+  jdks = with pkgs; [
+    jdk21
+  ];
+in
+{
   home.packages = with pkgs; [
     #alacritty
     #wpaperd eww wofi
@@ -70,5 +76,31 @@
     prismlauncher
     postman
   ];
+
+  home.file = (builtins.listToAttrs (builtins.concatMap (jdk: [
+    {
+      name = ".jdks/${jdk.version}";
+      value = { source = "${jdk}/lib/openjdk"; };
+    }
+    {
+      name = ".jdks/${jdk.version}.intellij";
+      value = {
+        text = builtins.toJSON rec {
+          vendor = jdk.meta.homepage;
+          product = jdk.pname;
+          flavour = jdk.meta.description;
+          jdk_version_major = lib.versions.major jdk.version;
+          jdk_version = builtins.concatStringsSep "." (lib.take 3 (lib.versions.splitVersion jdk.version));
+          shared_index_aliases = [
+            jdk.name
+            jdk.version
+            "${jdk.pname}-${jdk_version_major}"
+            jdk_version_major
+            jdk_version
+          ];
+        };
+      };
+    }
+  ]) jdks));
 
 }
