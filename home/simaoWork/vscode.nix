@@ -42,6 +42,7 @@
         ms-azuretools.vscode-docker
         vadimcn.vscode-lldb
         matthewpi.caddyfile-support
+        hashicorp.terraform
       ];
     #};
   };
