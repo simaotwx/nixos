@@ -52,6 +52,7 @@ in
     nodejs
     gettext
     php
+    filezilla
 
     # GStreamer
     gst_all_1.gstreamer
