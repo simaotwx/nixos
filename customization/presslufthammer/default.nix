@@ -4,7 +4,6 @@
     common-cpu-intel
     common-pc-ssd
     framework-12th-gen-intel
-    "${modulesPath}/hardware/video/displaylink.nix"
     ./filesystems.nix
     ../../machines/x86_64
     #../../modules/components/linux-nitrous.nix
@@ -92,7 +91,6 @@
   };
 
   services.fprintd.enable = true;
-  boot.extraModulePackages = with config.boot.kernelPackages; [ evdi ];
   fonts = {
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ "FiraCode" "Hasklig" ]; })
@@ -131,7 +129,6 @@
       ripgrep
       exfatprogs
       nix-bundle
-      displaylink
     ];
     defaultPackages = [ ];
     variables = {
@@ -204,26 +201,5 @@
 
   gtk.iconCache.enable = true;
 
-  nixpkgs.overlays = [
-  (final: prev: {
-    linuxPackages_latest =
-      prev.linuxPackages_latest.extend
-        (lpfinal: lpprev: {
-          evdi =
-            lpprev.evdi.overrideAttrs (efinal: eprev: {
-              version = "1.14.9-git";
-              src = prev.fetchFromGitHub {
-                owner = "DisplayLink";
-                repo = "evdi";
-                rev = "26e2fc66da169856b92607cb4cc5ff131319a324";
-                sha256 = "sha256-Y8ScgMgYp1osK+rWZjZgG359Uc+0GP2ciL4LCnMVJJ8=";
-              };
-            });
-        });
-    displaylink = prev.displaylink.override {
-      inherit (final.linuxPackages_latest) evdi;
-    };
-  })];
-  services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
   virtualisation.vmVariant = import ./vm.nix;
 }
