@@ -71,7 +71,6 @@ in
   ] ++ (with jetbrains; [
     idea-ultimate
     phpstorm
-    pycharm-professional
   ]);
 
   home.file = (builtins.listToAttrs (builtins.concatMap (jdk: [
