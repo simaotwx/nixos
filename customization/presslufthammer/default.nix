@@ -132,6 +132,7 @@
       exfatprogs
       nix-bundle
       displaylink
+      intel-vaapi-driver
     ];
     defaultPackages = [ ];
     variables = {
@@ -186,6 +187,18 @@
     ipv6 = true;
     fixed-cidr-v6 = "fd00::/80";
   };
+
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      #... # your Open GL, Vulkan and VAAPI drivers
+      vpl-gpu-rt          # for newer GPUs on NixOS >24.05 or unstable
+      # onevpl-intel-gpu  # for newer GPUs on NixOS <= 24.05
+      # intel-media-sdk   # for older GPUs
+    ];
+  };
+  boot.kernelParams = [ "i915.force_probe=46a6" ];
+  hardware.enableRedistributableFirmware = true;
 
   virtualisation.containers.enable = true;
 #  virtualisation = {
