@@ -25,6 +25,9 @@
       simaoWork = homeManager {
         simao = import ./home/simaoWork;
       };
+      julianWork = homeManager {
+        simao = import ./home/simaoWork;
+      };
       noah = homeManager {
         noah = import ./home/noah;
       };
@@ -62,6 +65,14 @@
         modules = commonModules ++ [
           ./customization/simao-workbook
         ] ++ homeManagerModules.simaoWork;
+      };
+
+      presslufthammer = lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit (self) inputs; };
+        modules = commonModules ++ [
+          ./customization/presslufthammer
+        ] ++ homeManagerModules.julianWork;
       };
 
       triceratops = lib.nixosSystem {
