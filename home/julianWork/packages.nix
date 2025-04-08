@@ -71,7 +71,6 @@ in
   ] ++ (with jetbrains; [
     idea-ultimate
     phpstorm
-    goland
     pycharm-professional
   ]);
 
