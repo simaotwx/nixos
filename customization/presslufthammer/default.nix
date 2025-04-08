@@ -48,7 +48,7 @@
       gnome = {
         extensions = with pkgs.gnomeExtensions; [
           vitals
-          dock-from-dash
+          dash-to-dock
           clipboard-indicator
           caffeine
           transparent-top-bar-adjustable-transparency
@@ -172,6 +172,7 @@
     "pycharm-professional"
     "libfprint-2-tod1-goodix"
     "displaylink"
+    "citrix-workspace"
   ];
 
   virtualisation.docker.enable = true;
