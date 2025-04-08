@@ -26,7 +26,7 @@
         simao = import ./home/simaoWork;
       };
       julianWork = homeManager {
-        simao = import ./home/simaoWork;
+        julian = import ./home/julianWork;
       };
       noah = homeManager {
         noah = import ./home/noah;
