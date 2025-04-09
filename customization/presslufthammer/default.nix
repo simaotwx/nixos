@@ -1,11 +1,9 @@
 { config, pkgs, lib, inputs, modulesPath, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
-    common-cpu-amd
-    common-cpu-amd-pstate
-    common-gpu-amd
+    common-cpu-intel
     common-pc-ssd
-    framework-16-7040-amd
+    framework-12th-gen-intel
     "${modulesPath}/hardware/video/displaylink.nix"
     ./filesystems.nix
     ../../machines/x86_64
@@ -19,19 +17,16 @@
   customization = {
     hardware = {
       cpu.cores = 8;
-      cpu.vendor = "amd";
+      cpu.vendor = "intel";
       storage.hasNvme = true;
     };
     general = {
-      hostName = "simao-workbook";
+      hostName = "presslufthammer";
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
       keymap = "de";
     };
     compat.enable = true;
-    graphics =  {
-      amd.enable = true;
-    };
     kernel = {
       sysrq.enable = true;
     };
@@ -53,7 +48,7 @@
       gnome = {
         extensions = with pkgs.gnomeExtensions; [
           vitals
-          dock-from-dash
+          dash-to-dock
           clipboard-indicator
           caffeine
           transparent-top-bar-adjustable-transparency
@@ -77,15 +72,15 @@
 
   services.fwupd.enable = true;
 
-  users.users.simao = {
+  users.users.julian = {
     isNormalUser = true;
     extraGroups = [ "wheel" "cdrom" ];
     uid = 1000;
-    hashedPassword = "$y$j9T$GRciktyLKmG/y3X1jnnr6/$iFX.kKnW51yzKToh0AdI0KgKLDftWOivZl35A9MXORD";
+    hashedPassword = "$y$j9T$F9ZLmSJrJLk33B1ui9mAf0$Qx5Zq6BzpXPLFWU9HIv0e5Oy6E0cmeucN/gTyuv4Bf7";
     shell = pkgs.zsh;
   };
 
-  users.groups.simao.gid = 1000;
+  users.groups.julian.gid = 1000;
 
   services.gvfs.enable = true;
   programs.adb.enable = true;
@@ -137,6 +132,7 @@
       exfatprogs
       nix-bundle
       displaylink
+      intel-vaapi-driver
     ];
     defaultPackages = [ ];
     variables = {
@@ -176,6 +172,7 @@
     "pycharm-professional"
     "libfprint-2-tod1-goodix"
     "displaylink"
+    "citrix-workspace"
   ];
 
   virtualisation.docker.enable = true;
@@ -191,6 +188,18 @@
     ipv6 = true;
     fixed-cidr-v6 = "fd00::/80";
   };
+
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      #... # your Open GL, Vulkan and VAAPI drivers
+      vpl-gpu-rt          # for newer GPUs on NixOS >24.05 or unstable
+      # onevpl-intel-gpu  # for newer GPUs on NixOS <= 24.05
+      # intel-media-sdk   # for older GPUs
+    ];
+  };
+  boot.kernelParams = [ "i915.force_probe=46a6" ];
+  hardware.enableRedistributableFirmware = true;
 
   virtualisation.containers.enable = true;
 #  virtualisation = {

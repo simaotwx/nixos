@@ -53,6 +53,8 @@ in
     gettext
     php
     filezilla
+    citrix_workspace
+    teams-for-linux
 
     # GStreamer
     gst_all_1.gstreamer
@@ -71,8 +73,6 @@ in
   ] ++ (with jetbrains; [
     idea-ultimate
     phpstorm
-    goland
-    pycharm-professional
   ]);
 
   home.file = (builtins.listToAttrs (builtins.concatMap (jdk: [
