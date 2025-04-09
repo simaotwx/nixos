@@ -22,6 +22,9 @@
       simao = homeManager {
         simao = import ./home/simao;
       };
+      simaoHtpc = homeManager {
+        htpc = import ./home/simaoHtpc;
+      };
       simaoWork = homeManager {
         simao = import ./home/simaoWork;
       };
@@ -57,6 +60,14 @@
         modules = commonModules ++ [
           ./customization/aludepp
         ] ++ homeManagerModules.simao;
+      };
+
+      simao-htpc = lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit (self) inputs; };
+        modules = commonModules ++ [
+          ./customization/simao-htpc
+        ] ++ homeManagerModules.simaoHtpc;
       };
 
       simao-workbook = lib.nixosSystem {

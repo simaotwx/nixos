@@ -7,16 +7,23 @@
       };
       plugins = lib.mkOption {
         type = with lib.types; listOf package;
-        description = "Plugins to install (see kodiPkgs)";
+        description = "Plugins to install (see kodiPackages)";
         default = [];
       };
       widevine = lib.mkEnableOption "Widevine CDM (unfree)";
+      settings = {
+        guisettings = lib.mkOption {
+          type = with lib.types; nullOr lines;
+          description = "XML for GUI settings";
+          default = null;
+        };
+      };
     };
   };
 
   config =
   let cfg = config.customization.kodi;
-  in {
+  in lib.mkMerge [{
     services.xserver.desktopManager.kodi = {
       enable = true;
       package = pkgs.kodi-gbm;
@@ -58,5 +65,17 @@
         target = ".kodi/cdm/manifest.json";
       };
     };
-  };
+  } {
+    home-manager.users.${cfg.user} = {
+      home.file =
+      let
+        kodiData = ".kodi/userdata";
+        settings = cfg.settings;
+      in {
+        "${kodiData}/guisettings.xml" = lib.mkIf (settings.guisettings != null) {
+          text = settings.guisettings;
+        };
+      };
+    };
+  }];
 }
