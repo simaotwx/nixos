@@ -4,6 +4,7 @@
     common-pc-ssd
     hardkernel-odroid-h4
     ./filesystems.nix
+    ./partitions.nix
     ./kodi-config.nix
     ../../machines/x86_64
     ../../modules/components/kodi.nix
@@ -16,6 +17,7 @@
       cpu.vendor = "intel";
       storage.hasNvme = true;
     };
+    debug.enable = true;
     general = {
       hostName = "htpc";
       timeZone = "Europe/Berlin";
@@ -35,6 +37,7 @@
     services = {
       networkDiscovery = true;
     };
+    partitions.dataDevice = "/dev/nvme0n1";
     kodi = {
       user = "htpc";
       widevine = true;
@@ -51,6 +54,7 @@
     uid = 1000;
     shell = pkgs.bash;
   };
+  users.users.root.password = "root";
 
   users.groups.htpc.gid = 1000;
   users.allowNoPasswordLogin = true;
@@ -137,6 +141,11 @@
   fonts.fontDir.enable = true;
 
   gtk.iconCache.enable = true;
+
+  boot.uki.name = "htos";
+  system.nixos.distroId = "htos";
+  system.nixos.distroName = "Home Theater OS";
+  system.image.version = "1";
 
   virtualisation.vmVariant = import ./vm.nix;
 }
