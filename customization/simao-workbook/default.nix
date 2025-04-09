@@ -176,6 +176,7 @@
     "pycharm-professional"
     "libfprint-2-tod1-goodix"
     "displaylink"
+    "citrix-workspace"
   ];
 
   virtualisation.docker.enable = true;
