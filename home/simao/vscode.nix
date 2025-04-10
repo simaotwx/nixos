@@ -31,6 +31,7 @@
         "git.openRepositoryInParentFolders" = "never";
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "nixd";
+        "diffEditor.ignoreTrimWhitespace" = false;
       };
       extensions = with pkgs.vscode-extensions; [
         tamasfe.even-better-toml
