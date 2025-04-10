@@ -5,7 +5,7 @@
 
   options = {
     customization.partitions = {
-      dataDevice = lib.mkOption {
+      systemDisk = lib.mkOption {
         type = lib.types.str;
       };
     };
@@ -46,7 +46,7 @@
               Format = "squashfs";
               Minimize = "off";
               ReadOnly = "yes";
-              SizeMinBytes = "4G";
+              SizeMinBytes = "3G";
               SplitName = "store";
             };
           };
@@ -55,7 +55,7 @@
               Type = "linux-generic";
               Label = "_empty";
               Minimize = "off";
-              SizeMinBytes = "4G";
+              SizeMinBytes = "3G";
               SplitName = "-";
             };
           };
@@ -64,7 +64,7 @@
 
     boot.initrd.systemd.repart = {
       enable = true;
-      device = config.customization.partitions.dataDevice;
+      device = config.customization.partitions.systemDisk;
     };
 
     boot.initrd.systemd.repart.empty = "allow";
@@ -73,7 +73,7 @@
       partitions = {
         "home" = {
           Type = "home";
-          UUID = "933AC7E1-2EB4-4F13-B844-0E14E2AEF915";
+          UUID = lib.toLower "933AC7E1-2EB4-4F13-B844-0E14E2AEF915";
           Format = "btrfs";
           Subvolumes = "/home";
           Label = "home";

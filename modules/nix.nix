@@ -17,6 +17,7 @@
   in
   lib.mkMerge [(lib.mkIf customization.nix.enable {
     nix = {
+      enable = lib.mkForce true;
       gc = {
         automatic = customization.nix.autoGc;
         dates = lib.mkDefault "weekly";

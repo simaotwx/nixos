@@ -36,7 +36,7 @@
       };
     };
   in
-  {
+  rec {
     nixosConfigurations = {
       vm-test = lib.nixosSystem {
         system = "x86_64-linux";
@@ -94,6 +94,10 @@
         ] ++ homeManagerModules.noah;
       };
     };
+
+    packages = forEachSystem (system: {
+      simao-htpc-update = customLib.mkUpdate system nixosConfigurations.simao-htpc;
+    });
 
     formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
   };
