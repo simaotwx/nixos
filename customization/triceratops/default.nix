@@ -60,7 +60,7 @@
         extensions = with pkgs.gnomeExtensions; [
           vitals
           user-themes
-          dock-from-dash
+          dash-to-dock
           clipboard-indicator
           caffeine
           transparent-top-bar-adjustable-transparency
