@@ -9,7 +9,6 @@
     ./filesystems.nix
     ../../machines/x86_64
     ../../modules/components/displaylink.nix
-    #../../modules/components/linux-nitrous.nix
     ../../modules/components/gnome.nix
     ../../modules/components/zsh.nix
     ../../modules/components/virtd.nix
