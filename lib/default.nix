@@ -15,4 +15,20 @@
       });
     }
   ];
+  mkUpdate = system: nixos:
+  let
+    config = nixos.config;
+    pkgs = nixpkgs.legacyPackages.${system};
+  in
+  pkgs.runCommand "update-${config.system.image.version}"
+    {
+      nativeBuildInputs = [ pkgs.zstd ];
+    } ''
+    mkdir -p $out
+    zstd -c11 < ${config.system.build.uki}/${config.system.boot.loader.ukiFile} \
+      > $out/${config.system.boot.loader.ukiFile}.zstd
+    zstd -c11 < ${config.system.build.image}/${config.boot.uki.name}_${config.system.image.version}.store.raw \
+      > $out/store_${config.system.image.version}.img.zstd
+  '';
+
 }

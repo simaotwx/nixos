@@ -41,7 +41,7 @@
       enable = true;
       settings = rec {
         initial_session = {
-          command = "${pkgs.kodi-gbm}/bin/kodi-standalone";
+          command = "${pkgs.bash}/bin/bash";
           user = "htpc";
         };
         default_session = initial_session;
