@@ -29,6 +29,25 @@
     "org/gnome/shell/extensions/caffeine" = {
       indicator-position-max = 1;
     };
+    "org/gnome/shell/extension/dash-to-dock" = {
+      apply-custom-theme = false;
+      background-color = "rgb(28,113,216)";
+      background-opacity = 0.80000000000000004;
+      custom-background-color = false;
+      custom-theme-shrink = false;
+      dash-max-icon-size = 48;
+      disable-overview-on-startup = true;
+      dock-position = "BOTTOM";
+      extend-height = false;
+      height-fraction = 0.90000000000000002;
+      icon-size-fixed = false;
+      isolate-locations = true;
+      running-indicator-style = "DEFAULT";
+      show-icons-notifications-counter = false;
+      show-mounts = false;
+      show-mounts-only-mounted = false;
+      transparency-mode = "FIXED";
+    };
     "org/gnome/shell/extensions/spotify-controls" = {
       position = "leftmost-right";
     };
