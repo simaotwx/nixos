@@ -27,7 +27,7 @@ in
     unzip file zstd tree bat fd brotli
     gparted
     picocom
-    #telegram-desktop
+    telegram-desktop
     #polychromatic
     #chromium
     protobuf
