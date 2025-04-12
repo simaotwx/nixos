@@ -34,17 +34,17 @@
               UUID = lib.toLower "C12A7328-F81F-11D2-BA4B-00A0C93EC93B";
               Format = "vfat";
               SizeMinBytes = "256M";
-              SplitName = "-";
+              SplitName = "esp";
             };
           };
           "store" = {
             storePaths = [ config.system.build.toplevel ];
             stripNixStorePrefix = true;
             repartConfig = {
-              Type = "linux-generic";
+              Type = lib.toLower "00000000-0000-4000-9000-000000000040";
               Label = "store_${config.system.image.version}";
+              UUID = lib.toLower "00000000-0000-4000-9000-100000000040";
               Format = "squashfs";
-              Minimize = "off";
               ReadOnly = "yes";
               SizeMinBytes = "3G";
               SplitName = "store";
@@ -52,7 +52,8 @@
           };
           "store-empty" = {
             repartConfig = {
-              Type = "linux-generic";
+              Type = lib.toLower "00000000-0000-4000-9000-000000000040";
+              UUID = lib.toLower "00000000-0000-4000-9000-100000000050";
               Label = "_empty";
               Minimize = "off";
               SizeMinBytes = "3G";
@@ -68,20 +69,36 @@
     };
 
     boot.initrd.systemd.repart.empty = "allow";
+    boot.initrd.systemd.services.systemd-repart.after = lib.mkForce [ ];
     systemd.repart = {
       enable = true;
       partitions = {
-        "home" = {
+        "20-nix-store-rw" = {
+          Type = lib.toLower "00000000-0000-4000-9000-000000000060";
+          UUID = lib.toLower "00000000-0000-4000-9000-100000000060";
+          Format = "btrfs";
+          Label = "nix-store-rw";
+          Subvolumes = "/upper /work";
+          MakeDirectories = "/upper /work";
+          Minimize = "off";
+          Encrypt = "off";
+          SizeMinBytes = "1G";
+          SizeMaxBytes = "1G";
+          SplitName = "-";
+          FactoryReset = "yes";
+          Priority = -20;
+        };
+        "30-home" = {
           Type = "home";
           UUID = lib.toLower "933AC7E1-2EB4-4F13-B844-0E14E2AEF915";
           Format = "btrfs";
-          Subvolumes = "/home";
           Label = "home";
           Minimize = "off";
           Encrypt = "off";
           SizeMinBytes = "4G";
           SplitName = "-";
           FactoryReset = "yes";
+          Priority = 0;
         };
       };
     };
