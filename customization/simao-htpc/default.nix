@@ -148,6 +148,14 @@
   ];
 
   systemd.network.wait-online.anyInterface = true;
+  systemd.services.NetworkManager-wait-online.enable = true;
+  # Wait for network so that home manager can do some downloads
+  systemd.services.home-manager-htpc.requires = [
+    config.systemd.services.NetworkManager-wait-online.name
+  ];
+  systemd.services.home-manager-htpc.after = [
+    config.systemd.services.NetworkManager-wait-online.name
+  ];
 
   fonts.fontDir.enable = true;
 
@@ -156,7 +164,7 @@
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "3";
+  system.image.version = "6";
 
   virtualisation.vmVariant = import ./vm.nix;
 }
