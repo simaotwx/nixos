@@ -38,7 +38,7 @@
             };
           };
           "store" = {
-            storePaths = [ config.system.build.toplevel ];
+            storePaths = [ config.system.build.toplevel config.home-manager.users.htpc.home.activationPackage ];
             stripNixStorePrefix = true;
             repartConfig = {
               Type = lib.toLower "00000000-0000-4000-9000-000000000040";
