@@ -19,7 +19,6 @@
     dig
     signal-desktop
     unzip file zstd tree bat fd brotli
-    gparted
     picocom
     #telegram-desktop
     polychromatic

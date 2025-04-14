@@ -134,6 +134,7 @@
       ripgrep
       exfatprogs
       nix-bundle
+      gparted
     ];
     defaultPackages = [ ];
     variables = {
