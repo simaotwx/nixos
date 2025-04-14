@@ -52,7 +52,7 @@
       gnome = {
         extensions = with pkgs.gnomeExtensions; [
           vitals
-          dock-from-dash
+          dash-to-dock
           clipboard-indicator
           caffeine
           transparent-top-bar-adjustable-transparency
