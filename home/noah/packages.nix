@@ -56,6 +56,7 @@ in
 
     # Gnome
     pkgs.gnome-tweaks
+    gnome-terminal
 
     # GStreamer
     gst_all_1.gstreamer

@@ -68,7 +68,7 @@
         "signal-desktop.desktop"
         "vesktop.desktop"
         "org.gnome.Nautilus.desktop"
-        "org.gnome.Console.desktop"
+        "org.gnome.Terminal.desktop"
         "codium.desktop"
         "zen-beta.desktop"
         "idea-community.desktop"
@@ -82,6 +82,20 @@
     };
     "org/gnome/desktop/wm/preferences" = {
       button-layout = "appmenu:minimize,maximize,close";
+    };
+    "org/gnome/terminal/legacy" = {
+      new-terminal-mode = "tab";
+    };
+    "org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9" = {
+      background-color = "rgb(0,0,0)";
+      bold-is-bright-color = false;
+      cursor-background-color = "rgb(255,255,255)";
+      cursor-colors-set = false;
+      cursor-foreground-color = "rgb(255,255,255)";
+      default-size-columns = 150;
+      foreground-color = "rgb(255,255,255)";
+      use-theme-colors = false;
+      visible-name = "Main";
     };
   };
 }
