@@ -60,7 +60,7 @@
         extensions = with pkgs.gnomeExtensions; [
           vitals
           user-themes
-          dock-from-dash
+          dash-to-dock
           clipboard-indicator
           caffeine
           transparent-top-bar-adjustable-transparency
@@ -217,6 +217,8 @@
   services.goxlr-utility.enable = true;
 
   services.tailscale.enable = true;
+
+  services.openssh.enable = true;
 
   # Support for Carolina Mech Fossil
   services.udev.extraRules = ''

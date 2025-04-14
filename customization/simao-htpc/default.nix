@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, ... }: {
+{ pkgs, inputs, config, modulesPath, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-pc-ssd
@@ -6,6 +6,8 @@
     ./filesystems.nix
     ./partitions.nix
     ./kodi-config.nix
+    ./minimal.nix
+    ./sysupdate.nix
     ../../machines/x86_64
     ../../modules/components/kodi.nix
   ];
@@ -22,7 +24,7 @@
       hostName = "htpc";
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
-      keymap = "de";
+      keymap = "us";
     };
     kernel = {
       sysrq.enable = true;
@@ -37,7 +39,7 @@
     services = {
       networkDiscovery = true;
     };
-    partitions.dataDevice = "/dev/nvme0n1";
+    partitions.systemDisk = "/dev/nvme0n1";
     kodi = {
       user = "htpc";
       widevine = true;
@@ -55,12 +57,19 @@
     shell = pkgs.bash;
   };
   users.users.root.password = "root";
+  nix.settings.trusted-users = [ "htpc" ];
 
   users.groups.htpc.gid = 1000;
   users.allowNoPasswordLogin = true;
   users.mutableUsers = false;
   services.displayManager.autoLogin.user = config.customization.kodi.user;
   services.getty.autologinUser = config.services.displayManager.autoLogin.user;
+  boot.initrd.systemd.enable = true;
+  boot.tmp.cleanOnBoot = true;
+  boot.initrd.systemd.emergencyAccess = true;
+  boot.initrd.availableKernelModules = [
+    "nvme" "xhci_pci" "ahci"
+  ];
 
   services.timesyncd.enable = true;
 
@@ -138,6 +147,16 @@
     "widevine-cdm"
   ];
 
+  systemd.network.wait-online.anyInterface = true;
+  systemd.services.NetworkManager-wait-online.enable = true;
+  # Wait for network so that home manager can do some downloads
+  systemd.services.home-manager-htpc.requires = [
+    config.systemd.services.NetworkManager-wait-online.name
+  ];
+  systemd.services.home-manager-htpc.after = [
+    config.systemd.services.NetworkManager-wait-online.name
+  ];
+
   fonts.fontDir.enable = true;
 
   gtk.iconCache.enable = true;
@@ -145,7 +164,7 @@
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "1";
+  system.image.version = "6";
 
   virtualisation.vmVariant = import ./vm.nix;
 }
