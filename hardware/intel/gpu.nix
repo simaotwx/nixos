@@ -14,10 +14,17 @@
   let customization = config.customization;
   in
   lib.mkIf customization.graphics.intel.xe.enable {
-    hardware.opengl = {
+    environment.variables = {
+      VDPAU_DRIVER = "va_gl";
+    };
+    hardware.graphics = {
       enable = true;
-      extraPackages = [
-        pkgs.vpl-gpu-rt
+      extraPackages = with pkgs; [
+        intel-vaapi-driver
+        intel-media-driver
+        libvdpau-va-gl
+        intel-compute-runtime
+        vpl-gpu-rt
       ];
     };
   };

@@ -5,7 +5,6 @@
     hardkernel-odroid-h4
     ./filesystems.nix
     ./partitions.nix
-    ./kodi-config.nix
     ./minimal.nix
     ./sysupdate.nix
     ../../machines/x86_64
@@ -19,6 +18,11 @@
       cpu.vendor = "intel";
       storage.hasNvme = true;
     };
+    graphics = {
+      intel.xe.enable = true;
+    };
+    # Sound will be configured by the Kodi module
+    sound.enable = false;
     debug.enable = true;
     general = {
       hostName = "htpc";
@@ -42,6 +46,7 @@
     partitions.systemDisk = "/dev/nvme0n1";
     kodi = {
       user = "htpc";
+      kodiHome = "/kodi";
       widevine = true;
       plugins = with pkgs.kodiPackages; [
         jellycon youtube
@@ -150,21 +155,23 @@
   systemd.network.wait-online.anyInterface = true;
   systemd.services.NetworkManager-wait-online.enable = true;
   # Wait for network so that home manager can do some downloads
-  systemd.services.home-manager-htpc.requires = [
-    config.systemd.services.NetworkManager-wait-online.name
-  ];
-  systemd.services.home-manager-htpc.after = [
-    config.systemd.services.NetworkManager-wait-online.name
-  ];
+  #systemd.services.home-manager-htpc.requires = [
+  #  config.systemd.services.NetworkManager-wait-online.name
+  #];
+  #systemd.services.home-manager-htpc.after = [
+  #  config.systemd.services.NetworkManager-wait-online.name
+  #];
 
   fonts.fontDir.enable = true;
 
   gtk.iconCache.enable = true;
 
+  hardware.enableRedistributableFirmware = true;
+
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "6";
+  system.image.version = "7";
 
   virtualisation.vmVariant = import ./vm.nix;
 }
