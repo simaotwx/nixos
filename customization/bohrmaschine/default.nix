@@ -41,6 +41,7 @@
       fs.enable = true;
       userspace.enable = true;
     };
+    peripherals.qmk.enable = true;
     services = {
       printing = true;
       scanning = true;

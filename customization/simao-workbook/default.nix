@@ -46,6 +46,7 @@
       scanning = true;
       networkDiscovery = true;
     };
+    peripherals.qmk.enable = true;
     shells.zsh.lite.enable = true;
     shell.simaosSuite.enable = true;
     desktop = {
