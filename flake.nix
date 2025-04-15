@@ -28,6 +28,9 @@
       simaoWork = homeManager {
         simao = import ./home/simaoWork;
       };
+      kehoeldWork = homeManager {
+        kehoeld = import ./home/kehoeldWork;
+      };
       julianWork = homeManager {
         julian = import ./home/julianWork;
       };
@@ -76,6 +79,14 @@
         modules = commonModules ++ [
           ./customization/simao-workbook
         ] ++ homeManagerModules.simaoWork;
+      };
+
+      bohrmaschine = lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit (self) inputs; };
+        modules = commonModules ++ [
+          ./customization/bohrmaschine
+        ] ++ homeManagerModules.kehoeldWork;
       };
 
       presslufthammer = lib.nixosSystem {
