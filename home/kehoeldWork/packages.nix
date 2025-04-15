@@ -53,7 +53,7 @@ in
     gettext
     php
     filezilla
-    citrix_workspace
+    #citrix_workspace
     teams-for-linux
 
     # GStreamer
