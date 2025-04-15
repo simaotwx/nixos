@@ -94,7 +94,7 @@
           Format = "btrfs";
           Label = "userdata";
           Subvolumes = "/kodi";
-          MakeDirectories = "/kodi /kodi/upper /kodi/work";
+          MakeDirectories = "/kodi";
           Minimize = "off";
           Encrypt = "off";
           SizeMinBytes = "1G";

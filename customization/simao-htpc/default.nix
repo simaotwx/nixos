@@ -46,7 +46,7 @@
     partitions.systemDisk = "/dev/nvme0n1";
     kodi = {
       user = "htpc";
-      kodiHome = "/kodi";
+      kodiData = "/kodi";
       widevine = true;
       plugins = with pkgs.kodiPackages; [
         jellycon youtube

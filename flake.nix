@@ -11,6 +11,7 @@
 
   outputs = { self, nixpkgs, ... }@flake:
   let
+    flakePath = ./.;
     lib = nixpkgs.lib;
     customLib = import ./lib (flake // { inherit lib; inputs = flake; });
     inherit (customLib) forEachSystem homeManager;
@@ -108,13 +109,8 @@
 
     packages = forEachSystem (system: let pkgs = import nixpkgs { inherit system; }; in {
       simao-htpc-update = customLib.mkUpdate system nixosConfigurations.simao-htpc;
-      simao-htpc-kodi-factory-data = pkgs.stdenv.mkDerivation rec {
-        inherit system;
-        name = "simao-htpc-kodi-factory-data";
-        unpackPhase = "true";
-        installPhase = ''
-          cp -R ${./src/${name}} $out
-        '';
+      simao-htpc-kodi-factory-data = import ./packages/simao-htpc-kodi-factory-data.nix {
+        inherit pkgs nixosConfigurations system flakePath;
       };
     });
 
