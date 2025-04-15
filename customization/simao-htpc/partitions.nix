@@ -38,7 +38,7 @@
             };
           };
           "store" = {
-            storePaths = [ config.system.build.toplevel config.home-manager.users.htpc.home.activationPackage ];
+            storePaths = [ config.system.build.toplevel ];
             stripNixStorePrefix = true;
             repartConfig = {
               Type = lib.toLower "00000000-0000-4000-9000-000000000040";
@@ -88,7 +88,22 @@
           FactoryReset = "yes";
           Priority = -20;
         };
-        "30-home" = {
+        "21-data" = {
+          Type = lib.toLower "00000000-0000-4000-9000-000000000070";
+          UUID = lib.toLower "00000000-0000-4000-9000-100000000070";
+          Format = "btrfs";
+          Label = "userdata";
+          Subvolumes = "/kodi";
+          MakeDirectories = "/kodi /kodi/upper /kodi/work";
+          Minimize = "off";
+          Encrypt = "off";
+          SizeMinBytes = "1G";
+          SizeMaxBytes = "16G";
+          SplitName = "-";
+          FactoryReset = "yes";
+          Priority = -15;
+        };
+        /*"30-home" = {
           Type = "home";
           UUID = lib.toLower "933AC7E1-2EB4-4F13-B844-0E14E2AEF915";
           Format = "btrfs";
@@ -99,7 +114,7 @@
           SplitName = "-";
           FactoryReset = "yes";
           Priority = 0;
-        };
+        };*/
       };
     };
   };

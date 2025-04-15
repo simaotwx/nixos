@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, lib, packages, ... }: {
   boot.initrd.supportedFilesystems = {
     btrfs = true;
     squashfs = true;
@@ -14,6 +14,9 @@
       options = [
         "size=10%"
         "noatime"
+        "mode=0750"
+        "uid=0"
+        "gid=0"
       ];
     };
 
@@ -68,7 +71,39 @@
       ];
     };
 
-    "/home" =
+    "/data" =
+      let partitionConfig = config.systemd.repart.partitions."21-data";
+      in {
+        device = "/dev/disk/by-partuuid/${partitionConfig.UUID}";
+        fsType = partitionConfig.Format;
+        options = [
+          "noatime" "x-systemd.rw-only"
+          "x-systemd.device-timeout=30s"
+        ];
+        neededForBoot = true;
+      };
+
+    "/kodi" = {
+      overlay = {
+        lowerdir = [ "${packages.simao-htpc-kodi-factory-data}" ];
+        upperdir = "/data/kodi/upper";
+        workdir = "/data/kodi/work";
+      };
+      options = [
+        "noatime" "x-systemd.device-timeout=30s"
+      ];
+    };
+
+    "/home" = {
+      fsType = "tmpfs";
+      options = [
+        "size=10%"
+        "noatime"
+      ];
+      neededForBoot = true;
+    };
+
+    /*"/home" =
       let partitionConfig = config.systemd.repart.partitions."30-home";
       in {
         device = "PARTUUID=${partitionConfig.UUID}";
@@ -79,7 +114,7 @@
         ];
         autoResize = true;
         neededForBoot = true;
-      };
+      };*/
   };
 
   systemd.tmpfiles.settings = {
@@ -91,6 +126,8 @@
           user = config.customization.kodi.user;
         };
       };
+    };
+    "var" = {
       "/var/updates" = {
         d = {
           user = "root";
@@ -99,5 +136,17 @@
         };
       };
     };
+    "kodi" = lib.genAttrs [
+      "/data/kodi"
+      "/data/kodi/upper"
+      "/data/kodi/work"
+      "/kodi"
+    ] (_: {
+      d = {
+        group = config.customization.kodi.user;
+        mode = "0750";
+        user = config.customization.kodi.user;
+      };
+    });
   };
 }

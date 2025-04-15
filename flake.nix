@@ -62,12 +62,12 @@
         ] ++ homeManagerModules.simao;
       };
 
-      simao-htpc = lib.nixosSystem {
+      simao-htpc = lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; };
+        specialArgs = { inherit (self) inputs; packages = self.packages.${system}; };
         modules = commonModules ++ [
           ./customization/simao-htpc
-        ] ++ homeManagerModules.simaoHtpc;
+        ];
       };
 
       simao-workbook = lib.nixosSystem {
@@ -95,8 +95,16 @@
       };
     };
 
-    packages = forEachSystem (system: {
+    packages = forEachSystem (system: let pkgs = import nixpkgs { inherit system; }; in {
       simao-htpc-update = customLib.mkUpdate system nixosConfigurations.simao-htpc;
+      simao-htpc-kodi-factory-data = pkgs.stdenv.mkDerivation rec {
+        inherit system;
+        name = "simao-htpc-kodi-factory-data";
+        unpackPhase = "true";
+        installPhase = ''
+          cp -R ${./src/${name}} $out
+        '';
+      };
     });
 
     formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);

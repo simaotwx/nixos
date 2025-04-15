@@ -10,6 +10,10 @@
         description = "Plugins to install (see kodiPackages)";
         default = [];
       };
+      kodiHome = lib.mkOption {
+        type = lib.types.str;
+        default = "${config.customization.kodi.user}/.kodi";
+      };
       widevine = lib.mkEnableOption "Widevine CDM (unfree)";
       settings = {
         guisettings = lib.mkOption {
@@ -22,7 +26,8 @@
   };
 
   config =
-  let cfg = config.customization.kodi;
+  let
+    cfg = config.customization.kodi;
   in lib.mkMerge [{
     services.xserver.desktopManager.kodi = {
       enable = true;
@@ -41,9 +46,9 @@
       enable = true;
       settings = rec {
         initial_session = {
-          command = "${pkgs.bash}/bin/bash";
-          #command = "${pkgs.kodi-gbm}/bin/kodi-standalone";
-          user = "htpc";
+          #command = "${pkgs.bash}/bin/bash";
+          command = "KODI_HOME='${cfg.kodiHome}' ${pkgs.kodi-gbm}/bin/kodi-standalone";
+          user = cfg.user;
         };
         default_session = initial_session;
       };
@@ -56,7 +61,9 @@
     # and it allows us to do HDMI passthrough.
     #hardware.alsa.enable = true; not available on 24.11, is already enabled I guess
     hardware.alsa.enablePersistence = false;
-    home-manager.users.${cfg.user} = lib.mkIf cfg.widevine {
+    services.pipewire.enable = false;
+    services.pipewire.socketActivation = false;
+    /*home-manager.users.${cfg.user} = lib.mkIf cfg.widevine {
       home.file.widevine-lib = {
         source = "${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so";
         target = ".kodi/cdm/libwidevinecdm.so";
@@ -65,9 +72,12 @@
         source = "${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/manifest.json";
         target = ".kodi/cdm/manifest.json";
       };
-    };
+    };*/
   } {
-    home-manager.users.${cfg.user} = {
+    users.users.${cfg.user} = {
+      extraGroups = [ "video" "input" ];
+    };
+    /*home-manager.users.${cfg.user} = {
       home.file =
       let
         kodiData = ".kodi/userdata";
@@ -77,6 +87,6 @@
           text = settings.guisettings;
         };
       };
-    };
+    };*/
   }];
 }
