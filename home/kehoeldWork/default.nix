@@ -32,5 +32,6 @@
       _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=lcd";
     };
   };
+  services.gnome-keyring.enable = true;
   home.stateVersion = "24.11";
 }
