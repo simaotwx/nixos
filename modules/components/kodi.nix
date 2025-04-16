@@ -10,7 +10,7 @@
         description = "Plugins to install (see kodiPackages)";
         default = [];
       };
-      kodiHome = lib.mkOption {
+      kodiData = lib.mkOption {
         type = lib.types.str;
         default = "${config.customization.kodi.user}/.kodi";
       };
@@ -47,7 +47,7 @@
       settings = rec {
         initial_session = {
           #command = "${pkgs.bash}/bin/bash";
-          command = "KODI_HOME='${cfg.kodiHome}' ${pkgs.kodi-gbm}/bin/kodi-standalone";
+          command = "KODI_DATA='${cfg.kodiData}' ${pkgs.kodi-gbm}/bin/kodi-standalone --audio-backend=alsa";
           user = cfg.user;
         };
         default_session = initial_session;
@@ -63,30 +63,9 @@
     hardware.alsa.enablePersistence = false;
     services.pipewire.enable = false;
     services.pipewire.socketActivation = false;
-    /*home-manager.users.${cfg.user} = lib.mkIf cfg.widevine {
-      home.file.widevine-lib = {
-        source = "${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so";
-        target = ".kodi/cdm/libwidevinecdm.so";
-      };
-      home.file.widevine-manifest = {
-        source = "${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/manifest.json";
-        target = ".kodi/cdm/manifest.json";
-      };
-    };*/
   } {
     users.users.${cfg.user} = {
       extraGroups = [ "video" "input" ];
     };
-    /*home-manager.users.${cfg.user} = {
-      home.file =
-      let
-        kodiData = ".kodi/userdata";
-        settings = cfg.settings;
-      in {
-        "${kodiData}/guisettings.xml" = lib.mkIf (settings.guisettings != null) {
-          text = settings.guisettings;
-        };
-      };
-    };*/
   }];
 }

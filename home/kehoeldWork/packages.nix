@@ -70,6 +70,7 @@ in
 
     spotify
     android-studio
+    google-chrome
   ] ++ (with jetbrains; [
     idea-ultimate
     phpstorm

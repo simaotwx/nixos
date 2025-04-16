@@ -1,4 +1,4 @@
-{ config, lib, packages, ... }: {
+{ config, lib, pkgs, packages, ... }: {
   boot.initrd.supportedFilesystems = {
     btrfs = true;
     squashfs = true;
@@ -14,7 +14,7 @@
       options = [
         "size=10%"
         "noatime"
-        "mode=0750"
+        "mode=0755"
         "uid=0"
         "gid=0"
       ];
@@ -83,16 +83,17 @@
         neededForBoot = true;
       };
 
-    "/kodi" = {
-      overlay = {
-        lowerdir = [ "${packages.simao-htpc-kodi-factory-data}" ];
-        upperdir = "/data/kodi/upper";
-        workdir = "/data/kodi/work";
+    "/kodi" =
+      let partitionConfig = config.systemd.repart.partitions."21-data";
+      in {
+        device = "/dev/disk/by-partuuid/${partitionConfig.UUID}";
+        fsType = partitionConfig.Format;
+        options = [
+          "subvol=kodi" "noatime" "x-systemd.rw-only"
+          "x-systemd.device-timeout=30s"
+        ];
+        neededForBoot = true;
       };
-      options = [
-        "noatime" "x-systemd.device-timeout=30s"
-      ];
-    };
 
     "/home" = {
       fsType = "tmpfs";
@@ -137,16 +138,28 @@
       };
     };
     "kodi" = lib.genAttrs [
-      "/data/kodi"
-      "/data/kodi/upper"
-      "/data/kodi/work"
-      "/kodi"
+      "${config.customization.kodi.kodiData}"
     ] (_: {
       d = {
+        user = config.customization.kodi.user;
         group = config.customization.kodi.user;
         mode = "0750";
-        user = config.customization.kodi.user;
       };
     });
+  };
+
+  system.activationScripts.populate-kodi-data = let data = config.customization.kodi.kodiData; in {
+    text = ''
+      ${pkgs.rsync}/bin/rsync -rac --delete '${packages.simao-htpc-kodi-factory-data}'/. ${data}/.
+      ${pkgs.coreutils-full}/bin/install -m644 \
+        '${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so' \
+        '${data}/cdm/libwidevinecdm.so'
+      ${pkgs.coreutils-full}/bin/install -m644 \
+        '${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/manifest.json' \
+        '${data}/cdm/manifest.json'
+      ${pkgs.coreutils-full}/bin/chown -R \
+        '${config.customization.kodi.user}:${config.customization.kodi.user}' '${data}'
+      ${pkgs.coreutils-full}/bin/chmod -R u=rwX,g=rwX,o= '${data}'
+    '';
   };
 }

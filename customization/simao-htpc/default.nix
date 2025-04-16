@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, modulesPath, ... }: {
+{ pkgs, inputs, config, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-pc-ssd
@@ -46,7 +46,7 @@
     partitions.systemDisk = "/dev/nvme0n1";
     kodi = {
       user = "htpc";
-      kodiHome = "/kodi";
+      kodiData = "/kodi";
       widevine = true;
       plugins = with pkgs.kodiPackages; [
         jellycon youtube

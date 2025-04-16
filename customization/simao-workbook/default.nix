@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, modulesPath, ... }: {
+{ pkgs, lib, inputs, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-amd
@@ -6,10 +6,9 @@
     common-gpu-amd
     common-pc-ssd
     framework-16-7040-amd
-    "${modulesPath}/hardware/video/displaylink.nix"
     ./filesystems.nix
     ../../machines/x86_64
-    #../../modules/components/linux-nitrous.nix
+    ../../modules/components/displaylink.nix
     ../../modules/components/gnome.nix
     ../../modules/components/zsh.nix
     ../../modules/components/virtd.nix
@@ -47,13 +46,14 @@
       scanning = true;
       networkDiscovery = true;
     };
+    peripherals.qmk.enable = true;
     shells.zsh.lite.enable = true;
     shell.simaosSuite.enable = true;
     desktop = {
       gnome = {
         extensions = with pkgs.gnomeExtensions; [
           vitals
-          dock-from-dash
+          dash-to-dock
           clipboard-indicator
           caffeine
           transparent-top-bar-adjustable-transparency
@@ -97,7 +97,6 @@
   };
 
   services.fprintd.enable = true;
-  boot.extraModulePackages = with config.boot.kernelPackages; [ evdi ];
   fonts = {
     packages = with pkgs; [
       (nerdfonts.override { fonts = [ "FiraCode" "Hasklig" ]; })
@@ -136,7 +135,7 @@
       ripgrep
       exfatprogs
       nix-bundle
-      displaylink
+      gparted
     ];
     defaultPackages = [ ];
     variables = {
@@ -176,6 +175,7 @@
     "pycharm-professional"
     "libfprint-2-tod1-goodix"
     "displaylink"
+    "citrix-workspace"
   ];
 
   virtualisation.docker.enable = true;
@@ -209,26 +209,6 @@
 
   gtk.iconCache.enable = true;
 
-  nixpkgs.overlays = [
-  (final: prev: {
-    linuxPackages_latest =
-      prev.linuxPackages_latest.extend
-        (lpfinal: lpprev: {
-          evdi =
-            lpprev.evdi.overrideAttrs (efinal: eprev: {
-              version = "1.14.9-git";
-              src = prev.fetchFromGitHub {
-                owner = "DisplayLink";
-                repo = "evdi";
-                rev = "26e2fc66da169856b92607cb4cc5ff131319a324";
-                sha256 = "sha256-Y8ScgMgYp1osK+rWZjZgG359Uc+0GP2ciL4LCnMVJJ8=";
-              };
-            });
-        });
-    displaylink = prev.displaylink.override {
-      inherit (final.linuxPackages_latest) evdi;
-    };
-  })];
-  services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
+
   virtualisation.vmVariant = import ./vm.nix;
 }
