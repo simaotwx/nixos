@@ -4,9 +4,9 @@
 
     transfers = {
       "10-uki" = {
+        InstanceMax = 2;
         Source = {
           MatchPattern = [
-            "${config.boot.uki.name}_@v.efi.zstd"
             "${config.boot.uki.name}_@v.efi.xz"
             "${config.boot.uki.name}_@v.efi"
           ];
@@ -34,9 +34,9 @@
       };
 
       "20-store" = {
+        InstanceMax = 2;
         Source = {
           MatchPattern = [
-            "store_@v.img.zstd"
             "store_@v.img.xz"
             "store_@v.img"
           ];

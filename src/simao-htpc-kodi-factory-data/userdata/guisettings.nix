@@ -43,12 +43,12 @@
         <setting id="locale.audiolanguage">German</setting>
         <setting id="services.devicename">${config.customization.general.hostName}</setting>
         <setting id="services.zeroconf" default="true">true</setting>
-        <!--setting id="services.deviceuuid"></setting-->
-        <setting id="services.webserver">true</setting>
+        <setting id="services.deviceuuid">${config.customization.kodi.settings.deviceUuid}</setting>
+        <setting id="services.webserver">${toString config.customization.kodi.settings.webserver.enable}</setting>
         <setting id="services.webserverport">8081</setting>
         <setting id="services.webserverauthentication" default="true">true</setting>
-        <setting id="services.webserverusername" default="true">kodi</setting>
-        <!--setting id="services.webserverpassword"></setting-->
+        <setting id="services.webserverusername" default="true">${config.customization.kodi.settings.webserver.username}</setting>
+        <setting id="services.webserverpassword">${config.customization.kodi.settings.webserver.password}</setting>
         <setting id="services.webserverssl" default="true">false</setting>
         <setting id="services.webskin" default="true">webinterface.default</setting>
         <setting id="services.esenabled" default="true">true</setting>
@@ -77,11 +77,13 @@
         <setting id="filecache.chunksize">262144</setting>
         <setting id="general.addonupdates">0</setting>
         <setting id="general.addonnotifications" default="true">false</setting>
+        <setting id="addons.updatemode" default="true">0</setting>
         <setting id="cache.harddisk" default="true">256</setting>
         <setting id="cachevideo.lan" default="true">2048</setting>
         <setting id="cachevideo.internet" default="true">4096</setting>
         <setting id="cacheaudio.lan" default="true">256</setting>
         <setting id="cacheaudio.internet" default="true">256</setting>
         <setting id="cacheunknown.internet" default="true">4096</setting>
+        <setting id="weather.addon" default="true">false</setting>
     </settings>
 ''

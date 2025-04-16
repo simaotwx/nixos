@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -9,7 +10,7 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
-  outputs = { self, nixpkgs, ... }@flake:
+  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@flake:
   let
     flakePath = ./.;
     lib = nixpkgs.lib;
@@ -68,7 +69,7 @@
 
       simao-htpc = lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; packages = self.packages.${system}; };
+        specialArgs = { inherit (self) inputs; packages = self.packages.${system}; inherit flakePath system; };
         modules = commonModules ++ [
           ./customization/simao-htpc
         ];

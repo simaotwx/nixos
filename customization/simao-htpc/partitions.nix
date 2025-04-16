@@ -46,7 +46,7 @@
               UUID = lib.toLower "00000000-0000-4000-9000-100000000040";
               Format = "squashfs";
               ReadOnly = "yes";
-              SizeMinBytes = "3G";
+              SizeMinBytes = "4G";
               SplitName = "store";
             };
           };
@@ -56,7 +56,7 @@
               UUID = lib.toLower "00000000-0000-4000-9000-100000000050";
               Label = "_empty";
               Minimize = "off";
-              SizeMinBytes = "3G";
+              SizeMinBytes = "4G";
               SplitName = "-";
             };
           };

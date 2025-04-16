@@ -23,7 +23,7 @@
     "/var/updates" = {
       fsType = "tmpfs";
       options = [
-        "size=50%"
+        "size=60%"
         "noatime"
       ];
     };
@@ -103,19 +103,6 @@
       ];
       neededForBoot = true;
     };
-
-    /*"/home" =
-      let partitionConfig = config.systemd.repart.partitions."30-home";
-      in {
-        device = "PARTUUID=${partitionConfig.UUID}";
-        fsType = partitionConfig.Format;
-        options = [
-          "noatime" "x-systemd.rw-only"
-          "x-systemd.device-timeout=30s"
-        ];
-        autoResize = true;
-        neededForBoot = true;
-      };*/
   };
 
   systemd.tmpfiles.settings = {
@@ -150,7 +137,7 @@
 
   system.activationScripts.populate-kodi-data = let data = config.customization.kodi.kodiData; in {
     text = ''
-      ${pkgs.rsync}/bin/rsync -rac --delete '${packages.simao-htpc-kodi-factory-data}'/. ${data}/.
+      ${pkgs.rsync}/bin/rsync -rac '${packages.simao-htpc-kodi-factory-data}'/. ${data}/.
       ${pkgs.coreutils-full}/bin/install -m644 \
         '${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so' \
         '${data}/cdm/libwidevinecdm.so'
