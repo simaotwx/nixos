@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, ... }: {
+{ pkgs, inputs, config, flakePath, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-pc-ssd
@@ -6,9 +6,11 @@
     ./filesystems.nix
     ./partitions.nix
     ./minimal.nix
+    ./options.nix
     ./sysupdate.nix
     ../../machines/x86_64
     ../../modules/components/kodi.nix
+    "${flakePath}/local/simao-htpc-secrets.nix"
   ];
 
   # Customization of modules
@@ -47,24 +49,44 @@
     kodi = {
       user = "htpc";
       kodiData = "/kodi";
-      widevine = true;
-      plugins = with pkgs.kodiPackages; [
-        jellycon youtube
+      plugins = kodiPkgs: with kodiPkgs; [
+        jellycon
+        (youtube.overrideAttrs (old: rec {
+          name = "youtube-${version}";
+          version = "7.2.0+beta.8";
+          src = old.src.override {
+            owner = "anxdpanic";
+            repo = "plugin.video.youtube";
+            rev = "v${version}";
+            hash = "sha256-9DrKPvygttuje2K9SFMRmhlgZKoODDqnsuIuDPho8PY=";
+          };
+        }))
       ];
     };
   };
 
   users.users.htpc = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "cdrom" ];
+    extraGroups = [ "cdrom" ];
     password = "htpc";
     uid = 1000;
     shell = pkgs.bash;
   };
+  users.users.admin = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+    password = "admin";
+    uid = 1001;
+    shell = pkgs.bash;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK3LlSENwLSVob/uIKNoyjtSrffFs4lzNC9AMqxmEHSz simao@aludepp"
+    ];
+  };
   users.users.root.password = "root";
-  nix.settings.trusted-users = [ "htpc" ];
+  nix.settings.trusted-users = [ "admin" ];
 
-  users.groups.htpc.gid = 1000;
+  users.groups.htpc.gid = config.users.users.htpc.uid;
+  users.groups.admin.gid = config.users.users.admin.uid;
   users.allowNoPasswordLogin = true;
   users.mutableUsers = false;
   services.displayManager.autoLogin.user = config.customization.kodi.user;
@@ -153,14 +175,20 @@
   ];
 
   systemd.network.wait-online.anyInterface = true;
-  systemd.services.NetworkManager-wait-online.enable = true;
-  # Wait for network so that home manager can do some downloads
-  #systemd.services.home-manager-htpc.requires = [
-  #  config.systemd.services.NetworkManager-wait-online.name
-  #];
-  #systemd.services.home-manager-htpc.after = [
-  #  config.systemd.services.NetworkManager-wait-online.name
-  #];
+  systemd.services.NetworkManager-wait-online.enable = false;
+
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      PasswordAuthentication = false;
+      AllowUsers = [ "admin" ];
+      UseDns = true;
+      X11Forwarding = false;
+      PermitRootLogin = "no";
+    };
+  };
+  networking.firewall.allowedTCPPorts = [ 22 ];
 
   fonts.fontDir.enable = true;
 
@@ -171,7 +199,7 @@
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "7";
+  system.image.version = "11";
 
   virtualisation.vmVariant = import ./vm.nix;
 }
