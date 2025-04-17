@@ -25,7 +25,7 @@
     };
     # Sound will be configured by the Kodi module
     sound.enable = false;
-    debug.enable = true;
+    debug.enable = false;
     general = {
       hostName = "htpc";
       timeZone = "Europe/Berlin";
