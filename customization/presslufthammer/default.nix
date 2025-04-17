@@ -216,5 +216,7 @@
 
   gtk.iconCache.enable = true;
 
+  services.tailscale.enable = true;
+
   virtualisation.vmVariant = import ./vm.nix;
 }
