@@ -143,6 +143,7 @@
       polkit-kde-agent
       exfatprogs #bcachefs-tools
       nix-bundle
+      gparted
     ];
     defaultPackages = [ ];
     variables = {
