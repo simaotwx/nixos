@@ -25,7 +25,7 @@
     };
     # Sound will be configured by the Kodi module
     sound.enable = false;
-    debug.enable = true;
+    debug.enable = false;
     general = {
       hostName = "htpc";
       timeZone = "Europe/Berlin";
@@ -188,7 +188,7 @@
       PermitRootLogin = "no";
     };
   };
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [ 22 8081 ];
 
   fonts.fontDir.enable = true;
 
@@ -199,7 +199,7 @@
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "11";
+  system.image.version = "12";
 
   virtualisation.vmVariant = import ./vm.nix;
 }

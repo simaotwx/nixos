@@ -103,18 +103,6 @@
           FactoryReset = "yes";
           Priority = -15;
         };
-        /*"30-home" = {
-          Type = "home";
-          UUID = lib.toLower "933AC7E1-2EB4-4F13-B844-0E14E2AEF915";
-          Format = "btrfs";
-          Label = "home";
-          Minimize = "off";
-          Encrypt = "off";
-          SizeMinBytes = "4G";
-          SplitName = "-";
-          FactoryReset = "yes";
-          Priority = 0;
-        };*/
       };
     };
   };

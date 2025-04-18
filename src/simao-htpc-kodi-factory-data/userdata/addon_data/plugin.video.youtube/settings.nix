@@ -4,7 +4,7 @@ let
 in ''
 <settings version="2">
     <setting id="kodion.setup_wizard">false</setting>
-    <setting id="kodion.setup_wizard.forced_runs">5</setting>
+    <setting id="kodion.setup_wizard.forced_runs">1744070400</setting>
     <setting id="kodion.mpd.videos" default="true">true</setting>
     <setting id="kodion.mpd.stream.select" default="true">3</setting>
     <setting id="kodion.mpd.quality.selection">6</setting>
@@ -27,7 +27,7 @@ in ''
     <setting id="youtube.api.secret">${cfg.apiClientSecret}</setting>
     <setting id="youtube.allow.dev.keys" default="true">true</setting>
     <setting id="youtube.api.config.page" default="true">false</setting>
-    <setting id="youtube.folder.sign.in.show" default="true">false</setting>
+    <setting id="youtube.folder.sign.in.show">false</setting>
     <setting id="youtube.folder.my_subscriptions.show" default="true">true</setting>
     <setting id="youtube.folder.my_subscriptions_filtered.show" default="true">false</setting>
     <setting id="youtube.filter.my_subscriptions_filtered.blacklist" default="true">false</setting>
@@ -35,7 +35,7 @@ in ''
     <setting id="youtube.folder.recommendations.show" default="true">true</setting>
     <setting id="youtube.folder.related.show" default="true">true</setting>
     <setting id="youtube.folder.popular_right_now.show" default="true">true</setting>
-    <setting id="youtube.folder.search.show" default="true">false</setting>
+    <setting id="youtube.folder.search.show">false</setting>
     <setting id="youtube.folder.quick_search.show">true</setting>
     <setting id="youtube.folder.quick_search_incognito.show" default="true">false</setting>
     <setting id="youtube.folder.my_location.show" default="true">true</setting>
@@ -61,17 +61,19 @@ in ''
     <setting id="youtube.folder.settings.advanced.show" default="true">false</setting>
     <setting id="kodion.support.alternative_player" default="true">false</setting>
     <setting id="kodion.alternative_player.web_urls" default="true">false</setting>
-    <setting id="kodion.alternative_player.adaptive" default="true">false</setting>
+    <setting id="kodion.alternative_player.mpd" default="true">false</setting>
     <setting id="kodion.default_player.web_urls" default="true">false</setting>
     <setting id="kodion.video.quality.isa" default="true">true</setting>
     <setting id="kodion.live_stream.selection.1">2</setting>
-    <setting id="kodion.live_stream.selection.2" default="true">0</setting>
+    <setting id="kodion.live_stream.selection.2">0</setting>
     <setting id="kodion.history.local">false</setting>
     <setting id="kodion.history.remote">true</setting>
     <setting id="kodion.cache.size">40</setting>
     <setting id="kodion.search.size">0</setting>
     <setting id="youtube.view.description.details" default="true">true</setting>
     <setting id="youtube.view.label.details" default="true">true</setting>
+    <setting id="youtube.view.shorts.duration" default="true">60</setting>
+    <setting id="youtube.view.filter.list" default="true" />
     <setting id="youtube.view.channel_name.aliases" default="true">cast</setting>
     <setting id="youtube.view.label.color.viewCount" default="true">ffadd8e6</setting>
     <setting id="youtube.view.label.color.likeCount" default="true">ff00ff00</setting>
@@ -88,10 +90,20 @@ in ''
     <setting id="requests.ssl.verify" default="true">true</setting>
     <setting id="requests.timeout.connect" default="true">9</setting>
     <setting id="requests.timeout.read">20</setting>
+    <setting id="requests.proxy.source" default="true">1</setting>
+    <setting id="requests.proxy.enabled" default="true">false</setting>
+    <setting id="requests.proxy.type" default="true">0</setting>
+    <setting id="requests.proxy.server" default="true" />
+    <setting id="requests.proxy.port" default="true">8080</setting>
+    <setting id="requests.proxy.username" default="true" />
+    <setting id="requests.proxy.password" default="true" />
     <setting id="kodion.http.listen">0.0.0.0</setting>
     <setting id="kodion.http.port" default="true">50152</setting>
     <setting id="kodion.http.ip.whitelist" default="true" />
     <setting id="youtube.http.idle_sleep" default="true">true</setting>
+    <setting id="youtube.http.stream_redirect" default="true">false</setting>
+    <setting id="kodion.logging.level" default="true">0</setting>
     <setting id="|end_settings_marker|">true</setting>
+    <setting id="kodion.alternative_player.adaptive" default="true">false</setting>
 </settings>
 ''
