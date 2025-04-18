@@ -43,7 +43,7 @@
     };
 
     "/home/noah/XOS" = {
-      device = "/dev/disk/by-uuid/67d67ea4-1c27-4be4-b1b0-7a60ea3c0e50";
+      device = "/dev/disk/by-uuid/46600c98-15fc-4620-b017-7768ac3e9d3d";
       fsType = "btrfs";
       options = [ "rw" "noatime" "compress=zstd:4" ];
     };
