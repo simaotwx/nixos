@@ -19,6 +19,7 @@
         "audio/ogg" = "io.github.celluloid_player.Celluloid.desktop";
         "audio/wav" = "io.github.celluloid_player.Celluloid.desktop";
         "audio/opus" = "io.github.celluloid_player.Celluloid.desktop";
+        "application/xml" = "org.gnome.gedit.desktop";
       };
     };
     mimeApps.defaultApplications = config.xdg.mimeApps.associations.added;
