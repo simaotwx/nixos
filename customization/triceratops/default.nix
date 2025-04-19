@@ -6,6 +6,7 @@
     common-gpu-amd
     common-pc-ssd
     ./filesystems.nix
+    ./tpm.nix
     ../../machines/x86_64
     ../../modules/components/linux-nitrous.nix
     ../../modules/components/zsh.nix
