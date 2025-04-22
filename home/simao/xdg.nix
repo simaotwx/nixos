@@ -21,6 +21,7 @@
         "audio/opus" = "io.github.celluloid_player.Celluloid.desktop";
         "x-scheme-handler/tg" = "org.telegram.desktop.desktop";
         "x-scheme-handler/tonsite" = "org.telegram.desktop.desktop";
+        "application/xml" = "org.gnome.gedit.desktop";
       };
     };
     mimeApps.defaultApplications = config.xdg.mimeApps.associations.added;
