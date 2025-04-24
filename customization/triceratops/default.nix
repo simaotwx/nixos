@@ -9,7 +9,7 @@
     ./tpm.nix
     ../../machines/x86_64
     ../../modules/components/linux-nitrous.nix
-    ../../modules/components/zsh.nix
+    ../../modules/components/zsh
     ../../modules/components/via.nix
     ../../modules/components/gnome.nix
     ../../modules/components/steam.nix
