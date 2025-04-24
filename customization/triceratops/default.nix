@@ -54,7 +54,7 @@
     peripherals = {
       via.enable = true;
     };
-    shells.zsh.lite.enable = true;
+    shells.zsh.power10k.enable = true;
     shell.simaosSuite.enable = true;
     desktop = {
       gnome = {
