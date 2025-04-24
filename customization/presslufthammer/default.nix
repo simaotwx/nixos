@@ -9,7 +9,7 @@
     ../../modules/components/displaylink.nix
     #../../modules/components/linux-nitrous.nix
     ../../modules/components/gnome.nix
-    ../../modules/components/zsh.nix
+    ../../modules/components/zsh
     ../../modules/components/virtd.nix
   ];
 
