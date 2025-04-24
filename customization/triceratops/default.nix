@@ -54,7 +54,23 @@
     peripherals = {
       via.enable = true;
     };
-    shells.zsh.power10k.enable = true;
+
+    shells.zsh.power10k = {
+      enable = true;
+      colors = {
+        osIconBackground = "#34ABB1";
+        hostBackground = "#348AB1";
+        userBackground = "#296A87";
+        dirBackground = "#7D74E9";
+        dirAnchorBackground = "#6A62C6";
+        osIconForeground = "#0f0f0f";
+        hostForeground = "#0f0f0f";
+        userForeground = "#0f0f0f";
+        dirForeground = "#0f0f0f";
+        dirAnchorForeground = "#0f0f0f";
+      };
+    };
+
     shell.simaosSuite.enable = true;
     desktop = {
       gnome = {
