@@ -136,6 +136,7 @@
       exfatprogs
       nix-bundle
       gparted
+      pop-wallpapers
     ];
     defaultPackages = [ ];
     variables = {
@@ -144,7 +145,18 @@
       PAGER = "less";
       BROWSER = "firefox";
     };
+    pathsToLink = [ "/share/backgrounds" "/share/gnome-background-properties" ];
   };
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      pop-wallpapers = prev.pop-wallpapers.overrideAttrs (finalAttrs: prevAttrs: {
+        fixupPhase = ''
+          sed -i -re 's/\/usr/\/run\/current-system\/sw/g' $out/share/gnome-background-properties/pop-wallpapers.xml
+        '';
+      });
+    })
+  ];
 
   programs.gnupg.agent = {
      enable = true;
