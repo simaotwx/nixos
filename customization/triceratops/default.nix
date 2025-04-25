@@ -6,6 +6,7 @@
     common-gpu-amd
     common-pc-ssd
     ./filesystems.nix
+    ./tpm.nix
     ../../machines/x86_64
     ../../modules/components/linux-nitrous.nix
     ../../modules/components/zsh
@@ -53,7 +54,23 @@
     peripherals = {
       via.enable = true;
     };
-    shells.zsh.lite.enable = true;
+
+    shells.zsh.power10k = {
+      enable = true;
+      colors = {
+        osIconBackground = "#34ABB1";
+        hostBackground = "#348AB1";
+        userBackground = "#296A87";
+        dirBackground = "#7D74E9";
+        dirAnchorBackground = "#6A62C6";
+        osIconForeground = "#0f0f0f";
+        hostForeground = "#0f0f0f";
+        userForeground = "#0f0f0f";
+        dirForeground = "#0f0f0f";
+        dirAnchorForeground = "#0f0f0f";
+      };
+    };
+
     shell.simaosSuite.enable = true;
     desktop = {
       gnome = {
@@ -143,6 +160,7 @@
       polkit-kde-agent
       exfatprogs #bcachefs-tools
       nix-bundle
+      gparted
     ];
     defaultPackages = [ ];
     variables = {
@@ -219,6 +237,8 @@
   services.tailscale.enable = true;
 
   services.openssh.enable = true;
+
+  networking.interfaces.eno2.wakeOnLan.enable = true;
 
   # Support for Carolina Mech Fossil
   services.udev.extraRules = ''
