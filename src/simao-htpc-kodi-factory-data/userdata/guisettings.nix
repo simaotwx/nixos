@@ -1,4 +1,4 @@
-{ config, ... }: ''
+{ config, lib, ... }: ''
     <settings version="2">
         <setting id="gamesgeneral.enable" default="true">true</setting>
         <setting id="gamesgeneral.showosdhelp" default="true">true</setting>
@@ -265,7 +265,7 @@
         <setting id="services.devicename">${config.customization.general.hostName}</setting>
         <setting id="services.zeroconf" default="true">true</setting>
         <setting id="services.deviceuuid">${config.customization.kodi.settings.deviceUuid}</setting>
-        <setting id="services.webserver">${toString config.customization.kodi.settings.webserver.enable}</setting>
+        <setting id="services.webserver">${lib.boolToString config.customization.kodi.settings.webserver.enable}</setting>
         <setting id="services.webserverport">8081</setting>
         <setting id="services.webserverauthentication" default="true">true</setting>
         <setting id="services.webserverusername" default="true">${config.customization.kodi.settings.webserver.username}</setting>

@@ -49,6 +49,7 @@
     kodi = {
       user = "htpc";
       kodiData = "/kodi";
+      settings.webserver.enable = true;
       plugins = kodiPkgs: with kodiPkgs; [
         jellycon
         (youtube.overrideAttrs (old: rec {
@@ -64,6 +65,11 @@
       ];
     };
   };
+
+  boot.loader.timeout = 0;
+  boot.extraModprobeConfig = ''
+    options snd slots=snd-hda-intel
+  '';
 
   users.users.htpc = {
     isNormalUser = true;
@@ -90,7 +96,7 @@
   users.allowNoPasswordLogin = true;
   users.mutableUsers = false;
   services.displayManager.autoLogin.user = config.customization.kodi.user;
-  services.getty.autologinUser = config.services.displayManager.autoLogin.user;
+  #services.getty.autologinUser = config.services.displayManager.autoLogin.user;
   boot.initrd.systemd.enable = true;
   boot.tmp.cleanOnBoot = true;
   boot.initrd.systemd.emergencyAccess = true;
@@ -199,7 +205,7 @@
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "12";
+  system.image.version = "18";
 
   virtualisation.vmVariant = import ./vm.nix;
 }

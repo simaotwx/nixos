@@ -14,6 +14,7 @@
   let
     flakePath = ./.;
     lib = nixpkgs.lib;
+    unstableLib = nixpkgs-unstable.lib;
     customLib = import ./lib (flake // { inherit lib; inputs = flake; });
     inherit (customLib) forEachSystem homeManager;
     commonModules = [
@@ -67,9 +68,14 @@
         ] ++ homeManagerModules.simao;
       };
 
-      simao-htpc = lib.nixosSystem rec {
+      simao-htpc = unstableLib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; packages = self.packages.${system}; inherit flakePath system; };
+        specialArgs = {
+          inputs = {
+            inherit (self.inputs) nixos-hardware nixpkgs-unstable;
+            nixpkgs = nixpkgs-unstable;
+          };
+          packages = self.packages.${system}; inherit flakePath system; };
         modules = commonModules ++ [
           ./customization/simao-htpc
         ];

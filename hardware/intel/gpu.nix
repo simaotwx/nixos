@@ -17,6 +17,9 @@
     environment.variables = {
       VDPAU_DRIVER = "va_gl";
     };
+    environment.systemPackages = with pkgs; [
+      intel-gmmlib
+    ];
     hardware.graphics = {
       enable = true;
       extraPackages = with pkgs; [
@@ -25,6 +28,7 @@
         libvdpau-va-gl
         intel-compute-runtime
         vpl-gpu-rt
+        mesa
       ];
     };
   };
