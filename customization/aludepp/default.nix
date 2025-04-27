@@ -51,6 +51,10 @@
     sound = {
       lowLatency = true;
     };
+    performance = {
+      tuning.enable = true;
+      oomd.enable = true;
+    };
     peripherals = {
       via.enable = true;
       # let's wait for 6.14 support to be merged

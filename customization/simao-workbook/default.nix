@@ -46,6 +46,10 @@
       scanning = true;
       networkDiscovery = true;
     };
+    performance = {
+      tuning.enable = true;
+      oomd.enable = true;
+    };
     peripherals.qmk.enable = true;
     shells.zsh.lite.enable = true;
     shell.simaosSuite.enable = true;

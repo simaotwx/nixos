@@ -43,6 +43,10 @@
       scanning = true;
       networkDiscovery = true;
     };
+    performance = {
+      tuning.enable = true;
+      oomd.enable = true;
+    };
     shells.zsh.power10k.enable = true;
     shell.simaosSuite.enable = true;
     desktop = {

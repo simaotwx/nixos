@@ -46,6 +46,10 @@
       networkDiscovery = true;
     };
     partitions.systemDisk = "/dev/nvme0n1";
+    performance = {
+      tuning.enable = true;
+      oomd.enable = true;
+    };
     kodi = {
       user = "htpc";
       kodiData = "/kodi";

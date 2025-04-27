@@ -10,6 +10,7 @@
     ./kernel.nix
     ./networking.nix
     ./nix.nix
+    ./performance.nix
     ./security.nix
     ./services.nix
     ./shell.nix
