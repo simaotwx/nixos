@@ -32,5 +32,7 @@
     };
   };
 
+  services.gnome-keyring.enable = true;
+
   home.stateVersion = "24.11";
 }
