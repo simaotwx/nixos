@@ -43,6 +43,7 @@
         vadimcn.vscode-lldb
         matthewpi.caddyfile-support
         hashicorp.terraform
+        hashicorp.hcl
       ];
     #};
   };
