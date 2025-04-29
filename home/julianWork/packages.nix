@@ -57,6 +57,7 @@ in
     teams-for-linux
     yaml2json
     azure-cli
+    opentofu
 
     # GStreamer
     gst_all_1.gstreamer
