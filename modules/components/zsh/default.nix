@@ -92,6 +92,7 @@
   config =
   let
     customization = config.customization;
+    zshCacheDir = "$XDG_CACHE_HOME/zsh";
     oh-my-zsh-plugin = name:
       {
         name = name;
@@ -201,6 +202,8 @@
             p10kCfg = customization.shells.zsh.power10k;
           in
           ''
+            mkdir -p "${zshCacheDir}"
+            ZSH_CACHE_DIR="${zshCacheDir}"
             ZSH_THEME="powerlevel10k/powerlevel10k"
             if [ `tput colors` != "256" ] || [[ "$(tty)" == *"/tty"* ]]; then
               export ZSH_THEME="clean"
@@ -228,6 +231,12 @@
               typeset -g POWERLEVEL9K_CUSTOM_OS_ICON="echo $'\u${p10kCfg.osIconCodepoint}'"
             fi
             source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+            [[ -z "$ZSH_LAST_WORKING_DIRECTORY" ]] || return
+            [[ "$PWD" == "$HOME" ]] || return
+
+            if lwd 2>/dev/null; then
+              ZSH_LAST_WORKING_DIRECTORY=1
+            fi
           '';
 
           plugins = [
