@@ -55,6 +55,7 @@ in
     filezilla
     citrix_workspace
     teams-for-linux
+    azure-cli
 
     # GStreamer
     gst_all_1.gstreamer
