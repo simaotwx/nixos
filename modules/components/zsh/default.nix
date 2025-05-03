@@ -1,14 +1,6 @@
 { lib, config, pkgs, ... }: {
   options = {
     customization.shells = {
-      zsh.ah-my-zsh.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = ''
-          Whether to set up the heavy ah-my-zsh suite.
-          NOTE: THIS IS CURRENTLY NOT IMPLEMENTED!
-        '';
-      };
       zsh.lite.enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
