@@ -51,6 +51,10 @@
     sound = {
       lowLatency = false;
     };
+    performance = {
+      tuning.enable = true;
+      oomd.enable = true;
+    };
     peripherals = {
       via.enable = true;
     };
