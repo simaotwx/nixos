@@ -8,8 +8,8 @@
     ./minimal.nix
     ./options.nix
     ./sysupdate.nix
-    ../../machines/x86_64
-    ../../modules/components/kodi.nix
+    "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/components/kodi.nix"
     "${flakePath}/local/simao-htpc-secrets.nix"
   ];
 

@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, ... }: {
+{ inputs, pkgs, lib, flakePath, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-amd
@@ -7,12 +7,12 @@
     common-pc-ssd
     ./filesystems.nix
     ./tpm.nix
-    ../../machines/x86_64
-    ../../modules/components/linux-nitrous.nix
-    ../../modules/components/zsh
-    ../../modules/components/via.nix
-    ../../modules/components/gnome.nix
-    ../../modules/components/steam.nix
+    "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/components/linux-nitrous.nix"
+    "${flakePath}/modules/components/zsh"
+    "${flakePath}/modules/components/via.nix"
+    "${flakePath}/modules/components/gnome.nix"
+    "${flakePath}/modules/components/steam.nix"
   ];
 
   # Customization of modules

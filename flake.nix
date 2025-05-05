@@ -46,14 +46,14 @@
     nixosConfigurations = {
       vm-test = lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; };
+        specialArgs = { inherit (self) inputs; inherit flakePath; };
         modules = commonModules ++ [
           ./customization/vm-test.nix
         ];
       };
       vm-live = lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; };
+        specialArgs = { inherit (self) inputs; inherit flakePath; };
         modules = commonModules ++ [
           "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
           ./customization/vm-test.nix
@@ -62,7 +62,7 @@
 
       aludepp = lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; };
+        specialArgs = { inherit (self) inputs; inherit flakePath; };
         modules = commonModules ++ [
           ./customization/aludepp
         ] ++ homeManagerModules.simao;
@@ -83,7 +83,7 @@
 
       simao-workbook = lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; };
+        specialArgs = { inherit (self) inputs; inherit flakePath; };
         modules = commonModules ++ [
           ./customization/simao-workbook
         ] ++ homeManagerModules.simaoWork;
@@ -91,7 +91,7 @@
 
       bohrmaschine = lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; };
+        specialArgs = { inherit (self) inputs; inherit flakePath; };
         modules = commonModules ++ [
           ./customization/bohrmaschine
         ] ++ homeManagerModules.kehoeldWork;
@@ -99,7 +99,7 @@
 
       presslufthammer = lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; };
+        specialArgs = { inherit (self) inputs; inherit flakePath; };
         modules = commonModules ++ [
           ./customization/presslufthammer
         ] ++ homeManagerModules.julianWork;
@@ -107,7 +107,7 @@
 
       triceratops = lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; };
+        specialArgs = { inherit (self) inputs; inherit flakePath; };
         modules = commonModules ++ [
           ./customization/triceratops
         ] ++ homeManagerModules.noah;

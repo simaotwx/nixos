@@ -1,4 +1,4 @@
-{ pkgs, lib, inputs, ... }: {
+{ pkgs, lib, inputs, flakePath, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-amd
@@ -6,13 +6,13 @@
     common-gpu-amd
     common-pc-ssd
     ./filesystems.nix
-    ../../machines/x86_64
-    ../../modules/components/linux-nitrous.nix
-    ../../modules/components/hyprland.nix
-    ../../modules/components/zsh
-    ../../modules/components/via.nix
-    ../../modules/components/virtd.nix
-    ../../modules/components/steam.nix
+    "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/components/linux-nitrous.nix"
+    "${flakePath}/modules/components/hyprland.nix"
+    "${flakePath}/modules/components/zsh"
+    "${flakePath}/modules/components/via.nix"
+    "${flakePath}/modules/components/virtd.nix"
+    "${flakePath}/modules/components/steam.nix"
   ];
 
   # Customization of modules
@@ -72,7 +72,7 @@
   '';
 
   security.pki.certificateFiles = [
-    ../../local/certificates/at2.crt
+    "${flakePath}/local/certificates/at2.crt"
   ];
 
   services.timesyncd.enable = true;

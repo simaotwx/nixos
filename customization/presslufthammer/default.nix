@@ -1,16 +1,16 @@
-{ pkgs, lib, inputs, ... }: {
+{ pkgs, lib, inputs, flakePath, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-intel
     common-pc-ssd
     framework-12th-gen-intel
     ./filesystems.nix
-    ../../machines/x86_64
-    ../../modules/components/displaylink.nix
-    #../../modules/components/linux-nitrous.nix
-    ../../modules/components/gnome.nix
-    ../../modules/components/zsh
-    ../../modules/components/virtd.nix
+    "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/components/displaylink.nix"
+    #"${flakePath}/modules/components/linux-nitrous.nix"
+    "${flakePath}/modules/components/gnome.nix"
+    "${flakePath}/modules/components/zsh"
+    "${flakePath}/modules/components/virtd.nix"
   ];
 
   # Customization of modules
