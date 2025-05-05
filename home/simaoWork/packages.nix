@@ -7,7 +7,6 @@ let
 in
 {
   home.packages = with pkgs; [
-    kitty
     rose-pine-cursor
     jq pv pwgen
     socat

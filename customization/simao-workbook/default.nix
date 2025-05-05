@@ -8,6 +8,7 @@
     framework-16-7040-amd
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/components/alacritty.nix"
     "${flakePath}/modules/components/displaylink.nix"
     "${flakePath}/modules/components/gnome.nix"
     "${flakePath}/modules/components/zsh"
