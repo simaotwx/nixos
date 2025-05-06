@@ -74,6 +74,7 @@
   boot.extraModprobeConfig = ''
     options snd slots=snd-hda-intel
   '';
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_lqx;
 
   users.users.htpc = {
     isNormalUser = true;
