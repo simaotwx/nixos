@@ -54,7 +54,7 @@ in
     filezilla
     citrix_workspace
     teams-for-linux
-    yaml2json
+    yaml2json yq
     azure-cli
     opentofu
 
