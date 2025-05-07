@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   imports = [
     ./dconf.nix
     ./direnv.nix
@@ -32,6 +32,7 @@
       _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=lcd";
     };
   };
+  programs.alacritty.settings.window.decorations = lib.mkForce "Full";
   services.gnome-keyring.enable = true;
   home.stateVersion = "24.11";
 }

@@ -213,5 +213,9 @@
 
   services.tailscale.enable = true;
 
+  security.pki.certificateFiles = [
+    "${flakePath}/local/certificates/thea_root_ca.crt"
+  ];
+
   virtualisation.vmVariant = import ./vm.nix;
 }
