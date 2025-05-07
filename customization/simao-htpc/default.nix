@@ -66,6 +66,12 @@
             hash = "sha256-9DrKPvygttuje2K9SFMRmhlgZKoODDqnsuIuDPho8PY=";
           };
         }))
+        (buildKodiAddon {
+          pname = "htos-sysinfo-${config.system.image.version}";
+          namespace = "script.htos.sysinfo";
+          version = "1.0.${config.system.image.version}";
+          src = "${flakePath}/src/kodi-htos-sysinfo";
+        })
       ];
     };
   };
