@@ -1,0 +1,6 @@
+<settings>
+    <category label="HTOS Information">
+        <setting id="info_label" type="lsep" label="Home Theater OS Version" />
+        <setting id="info_text" type="labelenum" label="Details" values="This is my custom text." />
+    </category>
+</settings>

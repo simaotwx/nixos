@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, flakePath, ... }: {
+{ pkgs, inputs, config, flakePath, lib, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-pc-ssd
@@ -66,6 +66,12 @@
             hash = "sha256-9DrKPvygttuje2K9SFMRmhlgZKoODDqnsuIuDPho8PY=";
           };
         }))
+        (buildKodiAddon {
+          pname = "htos-sysinfo-${config.system.image.version}";
+          namespace = "script.htos.sysinfo";
+          version = "1.0.${config.system.image.version}";
+          src = "${flakePath}/src/kodi-htos-sysinfo";
+        })
       ];
     };
   };
@@ -74,6 +80,7 @@
   boot.extraModprobeConfig = ''
     options snd slots=snd-hda-intel
   '';
+  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_lqx;
 
   users.users.htpc = {
     isNormalUser = true;
@@ -209,7 +216,7 @@
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "19";
+  system.image.version = "20";
 
   virtualisation.vmVariant = import ./vm.nix;
 }

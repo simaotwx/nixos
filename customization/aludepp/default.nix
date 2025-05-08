@@ -179,6 +179,7 @@
       exfatprogs #bcachefs-tools
       nix-bundle
       podman-compose
+      gparted
     ];
     defaultPackages = [ ];
     variables = {
