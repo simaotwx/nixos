@@ -12,7 +12,7 @@
   config = {
     customization.linux-nitrous.cpuVendor = config.customization.hardware.cpu.vendor;
     boot.kernelPackages = lib.mkOverride 80 (let
-        version = "6.14.5-1";
+        version = "6.14.6-1";
         linuxVersion = lib.head (lib.splitString "-" version);
         suffix = "nitrous";
         llvm = pkgs.llvmPackages_19;
@@ -31,7 +31,7 @@
 
             src = fetchurl {
               url = "https://gitlab.com/xdevs23/linux-nitrous/-/archive/v${version}/linux-nitrous-v${version}.tar.gz";
-              hash = "sha256-E/f0pi1G9lsCUi3K+7Tous2y/yeOJObEtLjuZJphmvU=";
+              hash = "sha256-gTVR4e2nZa+pzCKtnrPyHFRQQLKYwS9iUTsSpLvkS68=";
             };
 
             structuredExtraConfig = with lib.kernel; {
