@@ -13,6 +13,7 @@
     "${flakePath}/modules/components/via.nix"
     "${flakePath}/modules/components/gnome.nix"
     "${flakePath}/modules/components/steam.nix"
+    "${flakePath}/modules/components/zram.nix"
   ];
 
   # Customization of modules
