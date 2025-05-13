@@ -49,9 +49,6 @@
       scanning = true;
       networkDiscovery = true;
     };
-    sound = {
-      lowLatency = true;
-    };
     performance = {
       tuning.enable = true;
       oomd.enable = true;
