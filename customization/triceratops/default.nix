@@ -199,6 +199,7 @@
     "makemkv"
     "android-studio-stable"
     "postman"
+    "teamviewer"
   ];
 
   virtualisation.docker.enable = true;
@@ -241,6 +242,8 @@
   services.tailscale.enable = true;
 
   services.openssh.enable = true;
+
+  services.teamviewer.enable = true;
 
   networking.interfaces.eno2.wakeOnLan.enable = true;
 
