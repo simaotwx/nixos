@@ -58,12 +58,12 @@
         jellycon
         (youtube.overrideAttrs (old: rec {
           name = "youtube-${version}";
-          version = "7.2.0+beta.8";
+          version = "7.2.0+beta.9";
           src = old.src.override {
             owner = "anxdpanic";
             repo = "plugin.video.youtube";
             rev = "v${version}";
-            hash = "sha256-9DrKPvygttuje2K9SFMRmhlgZKoODDqnsuIuDPho8PY=";
+            hash = "sha256-JRaUG2JibtrNI3IDyqS1VuuLQo5xwUMc7cT2PR6xeMc=";
           };
         }))
         (buildKodiAddon {
