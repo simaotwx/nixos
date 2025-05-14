@@ -58,6 +58,8 @@ in
     yaml2json yq
     azure-cli
     opentofu
+    dysk
+    geckodriver
 
     # GStreamer
     gst_all_1.gstreamer
