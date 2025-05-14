@@ -58,6 +58,7 @@ in
     azure-cli
     opentofu
     dysk
+    geckodriver
 
     # GStreamer
     gst_all_1.gstreamer

@@ -57,6 +57,7 @@ in
     teams-for-linux
     azure-cli
     dysk
+    chromedriver
 
     # GStreamer
     gst_all_1.gstreamer
