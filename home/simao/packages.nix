@@ -45,6 +45,7 @@
     hwloc
     inputs.zen-browser.packages."${pkgs.system}".beta
     gnome-boxes
+    dysk
 
     # GStreamer
     gst_all_1.gstreamer
