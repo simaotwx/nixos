@@ -76,6 +76,7 @@ in
     android-studio
     prismlauncher
     postman
+    dysk
   ];
 
   home.file = (builtins.listToAttrs (builtins.concatMap (jdk: [
