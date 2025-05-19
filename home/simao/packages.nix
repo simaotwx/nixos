@@ -46,6 +46,7 @@
     inputs.zen-browser.packages."${pkgs.system}".beta
     gnome-boxes
     dysk
+    brasero
 
     # GStreamer
     gst_all_1.gstreamer
