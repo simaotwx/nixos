@@ -58,7 +58,7 @@
         jellycon
         (youtube.overrideAttrs (old: rec {
           name = "youtube-${version}";
-          version = "7.2.0+beta.9";
+          version = "7.2.0.1";
           src = old.src.override {
             owner = "anxdpanic";
             repo = "plugin.video.youtube";
