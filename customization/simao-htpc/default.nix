@@ -63,7 +63,7 @@
             owner = "anxdpanic";
             repo = "plugin.video.youtube";
             rev = "v${version}";
-            hash = "sha256-JRaUG2JibtrNI3IDyqS1VuuLQo5xwUMc7cT2PR6xeMc=";
+            hash = "sha256-6CT/35jV1cmXPlJBKb7Sm8Hkurmybx163864vP20Ijw=";
           };
         }))
         (buildKodiAddon {
@@ -216,7 +216,7 @@
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "20";
+  system.image.version = "21";
 
   virtualisation.vmVariant = import ./vm.nix;
 }
