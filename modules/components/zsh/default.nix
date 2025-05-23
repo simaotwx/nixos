@@ -188,7 +188,7 @@
             searchUpKey = "$terminfo[kcuu1]";
           };
 
-          initExtra =
+          initContent =
           let
             p10kConfigFile = ./.p10k.zsh;
             p10kCfg = customization.shells.zsh.power10k;
