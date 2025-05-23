@@ -1,5 +1,5 @@
 { lib, config, pkgs, ... }: {
-  system.stateVersion = "24.11";
+  system.stateVersion = lib.mkDefault "24.11";
 
   boot.tmp = {
     useTmpfs = !config.customization.hardware.mem.lowMemory;
