@@ -15,7 +15,7 @@
     flakePath = ./.;
     lib = nixpkgs.lib;
     unstableLib = nixpkgs-unstable.lib;
-    customLib = import ./lib (flake // { inherit lib; inputs = flake; });
+    customLib = import ./lib (flake // { inherit lib flakePath; inputs = flake; });
     inherit (customLib) forEachSystem homeManager;
     commonModules = [
       ./modules

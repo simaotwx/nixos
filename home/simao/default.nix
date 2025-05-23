@@ -1,11 +1,11 @@
-{ pkgs, ... }: {
+{ pkgs, flakePath, ... }: {
   imports = [
     ./direnv.nix
     ./gtk.nix
     ./htop.nix
     ./packages.nix
     ./qt.nix
-    ./vscode.nix
+    "${flakePath}/modules/components/home/vscode.nix"
     ./xdg.nix
   ];
 

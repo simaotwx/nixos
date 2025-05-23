@@ -1,4 +1,4 @@
-{ nixpkgs, home-manager, lib, inputs, ... }: {
+{ nixpkgs, home-manager, lib, inputs, flakePath, ... }: {
   forEachSystem = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
   homeManager = users: let userList = lib.attrsets.mapAttrsToList (name: _: name) users; in [
     home-manager.nixosModules.home-manager
@@ -7,7 +7,7 @@
       home-manager.useUserPackages = true;
       home-manager.users = users;
       home-manager.backupFileExtension = "bak";
-      home-manager.extraSpecialArgs = { inherit inputs; };
+      home-manager.extraSpecialArgs = { inherit inputs flakePath; };
       configurableUsers = userList;
     }
     {
