@@ -16,12 +16,29 @@
   };
 
   config =
-  let customization = config.customization;
+  let
+    customization = config.customization;
+    amdgpuClocks = pkgs.stdenv.mkDerivation rec {
+      name = "amdgpu-clocks";
+      src = pkgs.fetchFromGitHub {
+        owner = "sibradzic";
+        repo = name;
+        rev = "504785df769e1d128d16a6f1545d2f425d70a310";
+        hash = "sha256-z1CpgIo7XZSNcAH8lACGvYkRwvGXkE0HaZTBJnKOXIg=";
+      };
+      installPhase = ''
+        mkdir -p $out/bin
+        install -Dm755 ${name} $out/bin/${name}
+      '';
+    };
   in
   lib.mkIf customization.graphics.amd.enable {
     boot.kernelParams =
       lib.optionals customization.graphics.amd.overclocking.unlock [ "amdgpu.ppfeaturemask=0xfff7ffff" ] ++
       [];
+
+    environment.systemPackages = []
+      ++ (if customization.graphics.amd.overclocking.unlock then [ amdgpuClocks ] else []);
 
     hardware.amdgpu.amdvlk = {
       enable = false;
