@@ -23,7 +23,6 @@ in
     unzip file zstd tree bat fd brotli
     gparted
     picocom
-    polychromatic
     chromium
     protobuf
     e2fsprogs

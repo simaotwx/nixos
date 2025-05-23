@@ -56,10 +56,7 @@
     };
     peripherals = {
       via.enable = true;
-      # let's wait for 6.14 support to be merged
-      # https://github.com/NixOS/nixpkgs/pull/384992
-      # https://github.com/NixOS/nixpkgs/issues/403319
-      #razer.enable = true;
+      razer.enable = true;
     };
     shells.zsh.lite.enable = true;
     shell.simaosSuite.enable = true;

@@ -19,8 +19,6 @@
     signal-desktop
     unzip file zstd tree bat fd brotli
     picocom
-    #telegram-desktop
-    polychromatic
     chromium
     protobuf
     e2fsprogs

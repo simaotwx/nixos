@@ -1,4 +1,4 @@
-{ lib, config, ... }: {
+{ lib, config, pkgs, ... }: {
   options = {
     customization.peripherals = {
       razer.enable = lib.mkOption {
@@ -20,5 +20,9 @@
   lib.mkIf customization.peripherals.razer.enable {
     hardware.openrazer.enable = true;
     hardware.openrazer.users = customization.peripherals.razer.users;
+    environment.systemPackages = with pkgs; [
+      openrazer-daemon
+      polychromatic
+    ];
   };
 }

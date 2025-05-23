@@ -28,7 +28,6 @@ in
     gparted
     picocom
     telegram-desktop
-    #polychromatic
     #chromium
     protobuf
     e2fsprogs
