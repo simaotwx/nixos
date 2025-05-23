@@ -3,14 +3,34 @@
 {
   options = {
     customization.linux-nitrous = {
-      cpuVendor = lib.mkOption {
-        type = lib.types.enum [ "amd" "intel" ];
-        description = "Which vendor to build -march=native for";
+      processorFamily = lib.mkOption {
+        type = lib.types.nullOr (lib.types.enum [
+          # Intel
+          "486sx" "486" "586" "586tsc" "586mmx" "686"
+          "pentiumii" "pentiumiii" "pentiumm" "pentium4"
+          "psc" "atom" "core2" "nehalem" "westmere"
+          "silvermont" "goldmont" "goldmontplus" "sandybridge"
+          "ivybridge" "haswell" "broadwell" "skylake" "skylakex"
+          "cannonlake" "icelake_client" "icelake_server" "cascadelake"
+          "cooperlake" "tigerlake" "sapphirerapids" "rocketlake" "alderlake"
+          "raptorlake" "meteorlake" "emeraldrapids"
+          # AMD
+          "k6" "k7" "k8" "k8sse3" "k10" "barcelona" "bobcat"
+          "jaguar" "bulldozer" "piledriver" "steamroller" "excavator"
+          "elan"
+          "zen" "zen2" "zen3" "zen4" "zen5"
+          # Others
+          "crusoe" "efficeon"
+          "winchipc6" "winchip3d"
+          "geodegx1" "geode_lx"
+          "cyrixiii"
+          "viac3_2" "viac7"
+        ]);
+        default = null;
       };
     };
   };
   config = {
-    customization.linux-nitrous.cpuVendor = config.customization.hardware.cpu.vendor;
     boot.kernelPackages = lib.mkOverride 80 (let
         version = "6.14.8-1";
         linuxVersion = lib.head (lib.splitString "-" version);
@@ -27,6 +47,7 @@
             extraMakeFlags = [
               "LLVM=1"
               "LD=${llvm.lld}/bin/ld.lld"
+              "CC=${lib.getExe llvm.clang-unwrapped}"
             ];
 
             src = fetchurl {
@@ -52,11 +73,11 @@
               FS_SYSCTL_PROTECTED_SYMLINKS = yes;
               FS_SYSCTL_PROTECTED_HARDLINKS = yes;
             } // (
-              if config.customization.linux-nitrous.cpuVendor == "amd" then {
-                MNATIVE_AMD = yes;
-              } else if config.customization.linux-nitrous.cpuVendor == "intel" then {
-                MNATIVE_INTEL = yes;
-              } else {}
+              if config.customization.linux-nitrous.processorFamily != null then {
+                "M${lib.toUpper config.customization.linux-nitrous.processorFamily}" = yes;
+              } else {
+                GENRIC_CPU = yes;
+              }
             );
 
             kernelPatches = [ {

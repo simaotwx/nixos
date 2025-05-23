@@ -102,7 +102,7 @@
   services.fprintd.enable = true;
   fonts = {
     packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "FiraCode" "Hasklig" ]; })
+      nerd-fonts.fira-code nerd-fonts.hasklug
       noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
       liberation_ttf
       fira

@@ -9,7 +9,10 @@
           description = "How many physical CPU cores your machine has";
         };
         cpu.vendor = lib.mkOption {
-          type = lib.types.enum [ "amd" "intel" "apple" "qcom"];
+          type = lib.types.enum [
+            "amd" "intel" "transmeta" "idt" "via"
+            "apple" "qcom" "rockchip" "allwinner" "broadcom" "mediatek" "nxp" "samsung"
+          ];
           default = "";
           description = "Vendor of your CPU";
         };

@@ -3,7 +3,7 @@
     enable = true;
     package = pkgs.vscodium;
     mutableExtensionsDir = false;
-    #profiles.default = {
+    profiles.default = {
       enableUpdateCheck = false;
       enableExtensionUpdateCheck = false;
 
@@ -43,6 +43,6 @@
         vadimcn.vscode-lldb
         matthewpi.caddyfile-support
       ];
-    #};
+    };
   };
 }

@@ -136,7 +136,7 @@
             searchUpKey = "$terminfo[kcuu1]";
           };
 
-          initExtra = ''
+          initContent = ''
             source ${pkgs.spaceship-prompt}/share/zsh/themes/spaceship.zsh-theme
 
             COMPLETION_WAITING_DOTS="true"

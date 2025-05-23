@@ -37,6 +37,7 @@
     kernel = {
       sysrq.enable = true;
     };
+    linux-nitrous.processorFamily = "zen2";
     security = {
       network.enable = true;
       hardware.enable = true;
@@ -138,7 +139,7 @@
 
   fonts = {
     packages = with pkgs; [
-      (nerdfonts.override { fonts = [ "FiraCode" "Hasklig" ]; })
+      nerd-fonts.fira-code nerd-fonts.hasklug
       noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
       liberation_ttf
       fira
@@ -172,8 +173,8 @@
       dust
       duperemove
       ripgrep
-      polkit-kde-agent
-      exfatprogs #bcachefs-tools
+      kdePackages.polkit-kde-agent-1
+      exfatprogs
       nix-bundle
       podman-compose
       gparted
