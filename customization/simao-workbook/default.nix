@@ -193,6 +193,7 @@
     "libfprint-2-tod1-goodix"
     "displaylink"
     "citrix-workspace"
+    "terraform"
   ];
 
   virtualisation.docker.enable = true;

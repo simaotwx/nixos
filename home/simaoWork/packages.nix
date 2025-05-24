@@ -58,6 +58,7 @@ in
     opentofu
     dysk
     geckodriver
+    terraform
 
     # GStreamer
     gst_all_1.gstreamer
