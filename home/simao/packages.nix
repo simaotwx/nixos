@@ -58,7 +58,7 @@
     # AOSP stuff
     git-repo xmlstarlet ccache
 
-    vesktop
+    (vesktop.override { withSystemVencord = true; })
     spotify
     makemkv
     android-studio
