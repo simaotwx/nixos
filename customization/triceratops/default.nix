@@ -257,4 +257,6 @@
   services.timesyncd.enable = true;
 
   virtualisation.vmVariant = import ./vm.nix;
+
+  system.stateVersion = "25.05";
 }
