@@ -60,7 +60,7 @@
               NTSYNC = yes;
               #LATENCYTOP = no;
               BCACHEFS_FS = module;
-              DRM_XE = if config.customization.graphics.intel.xe.enable then yes else no;
+              DRM_XE = if config.customization.graphics.intel.xe.enable then module else no;
               #SCHED_CLASS_EXT = lib.mkForce no;
               PREEMPT_VOLUNTARY = lib.mkForce no;
               PREEMPT_LAZY = yes;
