@@ -1,4 +1,10 @@
-{ pkgs, lib, inputs, flakePath, ... }: {
+{ pkgs, lib, inputs, flakePath, packages, ... }:
+let
+  gpuGamingTune = packages.aludepp-gpu-gaming-tune;
+  gpuStockTune = packages.aludepp-gpu-stock-tune;
+  gpuFanControl = packages.aludepp-gpu-fan-control;
+in
+{
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-amd
@@ -105,27 +111,15 @@
     extraRules = [{
       commands = [
         {
-          command = "/home/simao/gpu-gaming-tune.sh";
+          command = lib.getExe gpuGamingTune;
           options = [ "NOPASSWD" ];
         }
         {
-          command = "/home/simao/gpu-gp-tune.sh";
+          command = lib.getExe gpuStockTune;
           options = [ "NOPASSWD" ];
         }
         {
-          command = "/home/simao/gpu-train-tune.sh";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "/home/simao/gpu-low-tune.sh";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "/home/simao/gpu-stock.sh";
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = "/home/simao/gpu-lite-tune.sh";
+          command = lib.getExe gpuFanControl;
           options = [ "NOPASSWD" ];
         }
       ];
@@ -175,6 +169,13 @@
       nix-bundle
       podman-compose
       gparted
+      gpuGamingTune
+      gpuStockTune
+      gpuFanControl
+      (writeShellScriptBin "gaming-mode" ''
+        sudo ${lib.getExe gpuGamingTune}
+        sudo ${lib.getExe gpuFanControl}
+      '')
     ];
     defaultPackages = [ ];
     variables = {
@@ -182,6 +183,17 @@
       VISUAL = "vim";
       PAGER = "less";
       BROWSER = "zen-beta";
+    };
+  };
+
+  systemd.services.amdgpu-fancontrol = {
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "simple";
+      User = "root";
+      StandardOutput = "null";
+      ExecStart = lib.getExe gpuFanControl;
+      RestartSec = 5;
     };
   };
 
