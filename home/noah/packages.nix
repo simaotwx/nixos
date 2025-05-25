@@ -76,6 +76,7 @@ in
     prismlauncher
     postman
     dysk
+    vulkan-tools
   ];
 
   home.file = (builtins.listToAttrs (builtins.concatMap (jdk: [
