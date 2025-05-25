@@ -113,7 +113,7 @@
 
       triceratops = lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath; };
+        specialArgs = { inherit (self) inputs; inherit flakePath nixpkgs-unstable; };
         modules = commonModules ++ [
           ./customization/triceratops
         ] ++ homeManagerModules.noah;
