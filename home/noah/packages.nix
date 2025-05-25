@@ -76,7 +76,6 @@ in
     prismlauncher
     postman
     dysk
-    discord-ptb
   ];
 
   home.file = (builtins.listToAttrs (builtins.concatMap (jdk: [
