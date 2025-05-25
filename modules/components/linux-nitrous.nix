@@ -76,7 +76,7 @@
               if config.customization.linux-nitrous.processorFamily != null then {
                 "M${lib.toUpper config.customization.linux-nitrous.processorFamily}" = yes;
               } else {
-                GENRIC_CPU = yes;
+                GENERIC_CPU = yes;
               }
             );
 
