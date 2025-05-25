@@ -60,11 +60,15 @@
         ];
       };
 
-      aludepp = lib.nixosSystem {
+      aludepp = let custPath = ./customization/aludepp; in lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath; };
+        specialArgs = {
+          inherit (self) inputs;
+          inherit flakePath;
+          packages = self.packages.${system};
+        };
         modules = commonModules ++ [
-          ./customization/aludepp
+          custPath
         ] ++ homeManagerModules.simao;
       };
 
@@ -75,7 +79,9 @@
             inherit (self.inputs) nixos-hardware nixpkgs-unstable;
             nixpkgs = nixpkgs-unstable;
           };
-          packages = self.packages.${system}; inherit flakePath system; };
+          packages = self.packages.${system};
+          inherit flakePath system;
+        };
         modules = commonModules ++ [
           ./customization/simao-htpc
         ];
@@ -114,11 +120,18 @@
       };
     };
 
-    packages = forEachSystem (system: let pkgs = import nixpkgs { inherit system; }; in {
-      simao-htpc-update = customLib.mkUpdate system nixosConfigurations.simao-htpc;
-      simao-htpc-kodi-factory-data = import ./packages/simao-htpc-kodi-factory-data.nix {
-        inherit pkgs nixosConfigurations system flakePath;
+    packages = forEachSystem (system:
+    let
+      pkgs = import nixpkgs { inherit system; };
+      commonArgs = {
+        inherit pkgs nixosConfigurations system flakePath lib;
       };
+    in {
+      simao-htpc-update = customLib.mkUpdate system nixosConfigurations.simao-htpc;
+      simao-htpc-kodi-factory-data = import ./packages/simao-htpc-kodi-factory-data.nix commonArgs;
+      aludepp-gpu-gaming-tune = import ./customization/aludepp/gpu-gaming-tune.nix commonArgs;
+      aludepp-gpu-stock-tune = import ./customization/aludepp/gpu-stock-tune.nix commonArgs;
+      aludepp-gpu-fan-control = import ./customization/aludepp/gpu-fancontrol.nix commonArgs;
     });
 
     formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
