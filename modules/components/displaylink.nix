@@ -10,13 +10,13 @@
       prev.linuxPackages_latest.extend
         (lpfinal: lpprev: {
           evdi =
-            lpprev.evdi.overrideAttrs (efinal: eprev: {
-              version = "1.14.9-git";
+            lpprev.evdi.overrideAttrs (efinal: eprev: rec {
+              version = "1.14.10";
               src = prev.fetchFromGitHub {
                 owner = "DisplayLink";
                 repo = "evdi";
-                rev = "26e2fc66da169856b92607cb4cc5ff131319a324";
-                sha256 = "sha256-Y8ScgMgYp1osK+rWZjZgG359Uc+0GP2ciL4LCnMVJJ8=";
+                rev = "v${version}";
+                sha256 = "sha256-xB3AHg9t/X8vw5p7ohFQ+WuMjb1P8DAP3pROiwWkVPs=";
               };
             });
         });
