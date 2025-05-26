@@ -134,6 +134,7 @@ in
       noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
       liberation_ttf
       fira
+      adwaita-fonts
       material-icons
       material-symbols
       roboto
@@ -145,8 +146,8 @@ in
       enable = true;
       defaultFonts = {
         serif = [ "Liberation Serif" ];
-        sansSerif = [ "Fira Sans" "Noto" ];
-        monospace = [ "Hasklug" ];
+        sansSerif = [ "Adwaita Sans" "Noto" ];
+        monospace = [ "Adwaita Mono" ];
         emoji = [ "Noto Color Emoji" ];
       };
       hinting = {

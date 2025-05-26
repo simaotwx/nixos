@@ -138,18 +138,17 @@
     packages = with pkgs; [
       noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
       liberation_ttf
-      fira
+      adwaita-fonts
       material-icons
       material-symbols
       roboto
-      hasklig
     ];
     fontconfig = {
       enable = true;
       defaultFonts = {
         serif = [ "Liberation Serif" ];
-        sansSerif = [ "Fira Sans" "Noto" ];
-        monospace = [ "Hasklug" ];
+        sansSerif = [ "Adwaita Sans" "Noto" ];
+        monospace = [ "Adwaita Mono" ];
         emoji = [ "Noto Color Emoji" ];
       };
       hinting = {
