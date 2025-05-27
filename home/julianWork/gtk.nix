@@ -11,8 +11,8 @@
       size = 28;
     };
     font = {
-      package = pkgs.fira;
-      name = "Fira Sans Condensed";
+      package = pkgs.adwaita-fonts;
+      name = "Adwaita Sans";
       size = 11;
     };
     iconTheme = {

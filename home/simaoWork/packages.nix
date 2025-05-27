@@ -83,11 +83,11 @@ in
 
   home.file = (builtins.listToAttrs (builtins.concatMap (jdk: [
     {
-      name = ".jdks/${jdk.version}";
+      name = ".jdks/${lib.versions.major jdk.version}";
       value = { source = "${jdk}/lib/openjdk"; };
     }
     {
-      name = ".jdks/${jdk.version}.intellij";
+      name = ".jdks/${lib.versions.major jdk.version}.intellij";
       value = {
         text = builtins.toJSON rec {
           vendor = jdk.meta.homepage;

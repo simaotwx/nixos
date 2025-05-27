@@ -31,7 +31,6 @@
       MOZ_USE_XINPUT2 = "1";
       LIBVIRT_DEFAULT_URI = "qemu:///system";
       NIXOS_OZONE_WL = "1";
-      _JAVA_OPTIONS = "-Dawt.useSystemAAFontSettings=lcd";
     };
   };
 
