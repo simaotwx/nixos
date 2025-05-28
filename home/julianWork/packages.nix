@@ -105,4 +105,8 @@ in
     }
   ]) jdks));
 
+  programs.vscode.profiles.default.extensions = with pkgs.vscode-extensions; [
+    hashicorp.terraform
+    hashicorp.hcl
+  ];
 }
