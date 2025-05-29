@@ -41,16 +41,18 @@
         noah = import ./home/noah;
       };
     };
+    commonArgs = system: {
+      inherit (self) inputs;
+      inherit flakePath;
+      packages = self.packages.${system};
+      pkgsUnstable = (import nixpkgs-unstable { inherit system; });
+    };
   in
   rec {
     nixosConfigurations = {
       aludepp = let custPath = ./customization/aludepp; in lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = {
-          inherit (self) inputs;
-          inherit flakePath;
-          packages = self.packages.${system};
-        };
+        specialArgs = commonArgs system;
         modules = commonModules ++ [
           custPath
         ] ++ homeManagerModules.simao;
@@ -62,7 +64,7 @@
           inputs = {
             inherit (self.inputs) nixos-hardware nixpkgs-unstable;
             nixpkgs = nixpkgs-unstable;
-          };
+          } ++ (commonArgs system);
           packages = self.packages.${system};
           inherit flakePath system;
         };
@@ -71,33 +73,33 @@
         ];
       };
 
-      simao-workbook = lib.nixosSystem {
+      simao-workbook = lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath; };
+        specialArgs = commonArgs system;
         modules = commonModules ++ [
           ./customization/simao-workbook
         ] ++ homeManagerModules.simaoWork;
       };
 
-      bohrmaschine = lib.nixosSystem {
+      bohrmaschine = lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath; };
+        specialArgs =  commonArgs system;
         modules = commonModules ++ [
           ./customization/bohrmaschine
         ] ++ homeManagerModules.kehoeldWork;
       };
 
-      presslufthammer = lib.nixosSystem {
+      presslufthammer = lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath; };
+        specialArgs =  commonArgs system;
         modules = commonModules ++ [
           ./customization/presslufthammer
         ] ++ homeManagerModules.julianWork;
       };
 
-      triceratops = lib.nixosSystem {
+      triceratops = lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath nixpkgs-unstable; };
+        specialArgs = commonArgs system;
         modules = commonModules ++ [
           ./customization/triceratops
         ] ++ homeManagerModules.noah;
