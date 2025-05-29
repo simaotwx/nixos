@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, flakePath, nixpkgs-unstable, ... }: {
+{ inputs, pkgs, lib, flakePath, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-amd
@@ -258,15 +258,6 @@
   services.timesyncd.enable = true;
 
   virtualisation.vmVariant = import ./vm.nix;
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      mesa = (import nixpkgs-unstable {
-        system = final.system;
-        config.allowUnfree = true;
-      }).mesa;
-    })
-  ];
 
   system.stateVersion = "25.05";
 }

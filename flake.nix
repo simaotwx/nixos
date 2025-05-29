@@ -64,7 +64,7 @@
           inputs = {
             inherit (self.inputs) nixos-hardware nixpkgs-unstable;
             nixpkgs = nixpkgs-unstable;
-          } ++ (commonArgs system);
+          } // (commonArgs system);
           packages = self.packages.${system};
           inherit flakePath system;
         };
@@ -109,15 +109,15 @@
     packages = forEachSystem (system:
     let
       pkgs = import nixpkgs { inherit system; };
-      commonArgs = {
+      commonPackageArgs = {
         inherit pkgs nixosConfigurations system flakePath lib;
       };
     in {
       simao-htpc-update = customLib.mkUpdate system nixosConfigurations.simao-htpc;
-      simao-htpc-kodi-factory-data = import ./packages/simao-htpc-kodi-factory-data.nix commonArgs;
-      aludepp-gpu-gaming-tune = import ./customization/aludepp/gpu-gaming-tune.nix commonArgs;
-      aludepp-gpu-stock-tune = import ./customization/aludepp/gpu-stock-tune.nix commonArgs;
-      aludepp-gpu-fan-control = import ./customization/aludepp/gpu-fancontrol.nix commonArgs;
+      simao-htpc-kodi-factory-data = import ./packages/simao-htpc-kodi-factory-data.nix commonPackageArgs;
+      aludepp-gpu-gaming-tune = import ./customization/aludepp/gpu-gaming-tune.nix commonPackageArgs;
+      aludepp-gpu-stock-tune = import ./customization/aludepp/gpu-stock-tune.nix commonPackageArgs;
+      aludepp-gpu-fan-control = import ./customization/aludepp/gpu-fancontrol.nix commonPackageArgs;
     });
 
     formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
