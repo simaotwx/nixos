@@ -9,6 +9,7 @@
     ./tpm.nix
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/components/linux-nitrous.nix"
+    "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/via.nix"
     "${flakePath}/modules/components/gnome.nix"
