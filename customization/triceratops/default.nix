@@ -12,7 +12,7 @@
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/via.nix"
-    "${flakePath}/modules/components/gnome.nix"
+    "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/steam.nix"
     "${flakePath}/modules/components/zram.nix"
   ];
