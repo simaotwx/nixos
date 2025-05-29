@@ -44,22 +44,6 @@
   in
   rec {
     nixosConfigurations = {
-      vm-test = lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath; };
-        modules = commonModules ++ [
-          ./customization/vm-test.nix
-        ];
-      };
-      vm-live = lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath; };
-        modules = commonModules ++ [
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-          ./customization/vm-test.nix
-        ];
-      };
-
       aludepp = let custPath = ./customization/aludepp; in lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = {

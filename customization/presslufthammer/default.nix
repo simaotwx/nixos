@@ -104,7 +104,7 @@
       noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
       liberation_ttf
       fira
-      awaita-fonts
+      adwaita-fonts
       material-icons
       material-symbols
       roboto
