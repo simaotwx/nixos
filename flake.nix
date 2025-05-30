@@ -41,32 +41,18 @@
         noah = import ./home/noah;
       };
     };
+    commonArgs = system: {
+      inherit (self) inputs;
+      inherit flakePath;
+      packages = self.packages.${system};
+      pkgsUnstable = (import nixpkgs-unstable { inherit system; });
+    };
   in
   rec {
     nixosConfigurations = {
-      vm-test = lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath; };
-        modules = commonModules ++ [
-          ./customization/vm-test.nix
-        ];
-      };
-      vm-live = lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath; };
-        modules = commonModules ++ [
-          "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
-          ./customization/vm-test.nix
-        ];
-      };
-
       aludepp = let custPath = ./customization/aludepp; in lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = {
-          inherit (self) inputs;
-          inherit flakePath;
-          packages = self.packages.${system};
-        };
+        specialArgs = commonArgs system;
         modules = commonModules ++ [
           custPath
         ] ++ homeManagerModules.simao;
@@ -78,7 +64,7 @@
           inputs = {
             inherit (self.inputs) nixos-hardware nixpkgs-unstable;
             nixpkgs = nixpkgs-unstable;
-          };
+          } // (commonArgs system);
           packages = self.packages.${system};
           inherit flakePath system;
         };
@@ -87,33 +73,33 @@
         ];
       };
 
-      simao-workbook = lib.nixosSystem {
+      simao-workbook = lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath; };
+        specialArgs = commonArgs system;
         modules = commonModules ++ [
           ./customization/simao-workbook
         ] ++ homeManagerModules.simaoWork;
       };
 
-      bohrmaschine = lib.nixosSystem {
+      bohrmaschine = lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath; };
+        specialArgs =  commonArgs system;
         modules = commonModules ++ [
           ./customization/bohrmaschine
         ] ++ homeManagerModules.kehoeldWork;
       };
 
-      presslufthammer = lib.nixosSystem {
+      presslufthammer = lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath; };
+        specialArgs =  commonArgs system;
         modules = commonModules ++ [
           ./customization/presslufthammer
         ] ++ homeManagerModules.julianWork;
       };
 
-      triceratops = lib.nixosSystem {
+      triceratops = lib.nixosSystem rec {
         system = "x86_64-linux";
-        specialArgs = { inherit (self) inputs; inherit flakePath nixpkgs-unstable; };
+        specialArgs = commonArgs system;
         modules = commonModules ++ [
           ./customization/triceratops
         ] ++ homeManagerModules.noah;
@@ -123,15 +109,15 @@
     packages = forEachSystem (system:
     let
       pkgs = import nixpkgs { inherit system; };
-      commonArgs = {
+      commonPackageArgs = {
         inherit pkgs nixosConfigurations system flakePath lib;
       };
     in {
       simao-htpc-update = customLib.mkUpdate system nixosConfigurations.simao-htpc;
-      simao-htpc-kodi-factory-data = import ./packages/simao-htpc-kodi-factory-data.nix commonArgs;
-      aludepp-gpu-gaming-tune = import ./customization/aludepp/gpu-gaming-tune.nix commonArgs;
-      aludepp-gpu-stock-tune = import ./customization/aludepp/gpu-stock-tune.nix commonArgs;
-      aludepp-gpu-fan-control = import ./customization/aludepp/gpu-fancontrol.nix commonArgs;
+      simao-htpc-kodi-factory-data = import ./packages/simao-htpc-kodi-factory-data.nix commonPackageArgs;
+      aludepp-gpu-gaming-tune = import ./customization/aludepp/gpu-gaming-tune.nix commonPackageArgs;
+      aludepp-gpu-stock-tune = import ./customization/aludepp/gpu-stock-tune.nix commonPackageArgs;
+      aludepp-gpu-fan-control = import ./customization/aludepp/gpu-fancontrol.nix commonPackageArgs;
     });
 
     formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);

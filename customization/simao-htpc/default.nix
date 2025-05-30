@@ -10,6 +10,7 @@
     ./sysupdate.nix
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/components/kodi.nix"
+    "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/local/simao-htpc-secrets.nix"
   ];
 

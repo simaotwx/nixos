@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, pkgsUnstable, ... }: {
 
   options = {
     customization.graphics = {
@@ -11,6 +11,11 @@
         type = lib.types.bool;
         default = false;
         description = "Whether to unlock the graphics card to support OC/UC/OV/UV features";
+      };
+      amd.latestMesa = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Whether to use the latest Mesa version from nixpkgs-unstable";
       };
     };
   };
@@ -50,10 +55,17 @@
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
+    } // (if customization.graphics.amd.latestMesa then {
+      package = pkgsUnstable.mesa;
+      package32 = pkgsUnstable.driversi686Linux.mesa;
+      extraPackages = with pkgsUnstable; [
+        rocmPackages.clr.icd
+      ];
+    } else {
       extraPackages = with pkgs; [
         rocmPackages.clr.icd
       ];
-    };
+    });
 
     environment.variables = {
       AMD_VULKAN_ICD = "RADV";

@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, flakePath, nixpkgs-unstable, ... }: {
+{ inputs, pkgs, lib, flakePath, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-amd
@@ -9,9 +9,10 @@
     ./tpm.nix
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/components/linux-nitrous.nix"
+    "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/via.nix"
-    "${flakePath}/modules/components/gnome.nix"
+    "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/steam.nix"
     "${flakePath}/modules/components/zram.nix"
   ];
@@ -257,15 +258,6 @@
   services.timesyncd.enable = true;
 
   virtualisation.vmVariant = import ./vm.nix;
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      mesa = (import nixpkgs-unstable {
-        system = final.system;
-        config.allowUnfree = true;
-      }).mesa;
-    })
-  ];
 
   system.stateVersion = "25.05";
 }

@@ -8,7 +8,6 @@
     ./hardware.nix
     ./initrd.nix
     ./kernel.nix
-    ./networking.nix
     ./nix.nix
     ./performance.nix
     ./security.nix
