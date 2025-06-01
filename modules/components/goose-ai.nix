@@ -1,17 +1,16 @@
-{ pkgs, config, ... }: {
+{ pkgsUnstable, config, ... }: {
   environment.systemPackages =
   let
-    ollamaPackage = (pkgs.ollama.override {
+    ollamaPackage = (pkgsUnstable.ollama.override {
       acceleration = if config.customization.graphics.amd.enable then "rocm" else "cuda";
     });
   in
-  with pkgs; [
+  with pkgsUnstable; [
     goose-cli
     ollamaPackage
     (writeShellScriptBin "ollama-rocm" ''
       #!${runtimeShell}
       gfxver="$(${lib.getExe' rocmPackages.rocminfo "rocminfo"} | grep 'Name' | grep 'gfx' | head -n1 | ${lib.getExe gawk} '{ print $2 }')"
-      export HCC_AMDGPU_TARGET="$gfxver"
       version_digits=''${gfxver#gfx}
       num_digits=''${#version_digits}
       if [ "$num_digits" -eq 4 ]; then
