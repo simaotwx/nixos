@@ -34,5 +34,5 @@
   programs.alacritty.settings.window.decorations = lib.mkForce "Full";
   programs.alacritty.settings.window.opacity = lib.mkForce 0.8;
   services.gnome-keyring.enable = true;
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
 }
