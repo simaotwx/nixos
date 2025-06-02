@@ -29,6 +29,7 @@
       MOZ_ENABLE_WAYLAND = "1";
       LIBVIRT_DEFAULT_URI = "qemu:///system";
       NIXOS_OZONE_WL = "1";
+      GOTOOLCHAIN = "local";
     };
   };
   programs.alacritty.settings.window.decorations = lib.mkForce "Full";
