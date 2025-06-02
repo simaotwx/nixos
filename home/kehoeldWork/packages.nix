@@ -57,6 +57,7 @@ in
     azure-cli
     dysk
     chromedriver
+    openssl
 
     # GStreamer
     gst_all_1.gstreamer
