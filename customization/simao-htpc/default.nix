@@ -216,7 +216,7 @@
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "21";
+  system.image.version = "22";
 
   virtualisation.vmVariant = import ./vm.nix;
 
