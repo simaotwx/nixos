@@ -187,17 +187,6 @@ in
     };
   };
 
-  systemd.services.amdgpu-fancontrol = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "simple";
-      User = "root";
-      StandardOutput = "null";
-      ExecStart = lib.getExe gpuFanControl;
-      RestartSec = 5;
-    };
-  };
-
   programs.gnupg.agent = {
      enable = true;
   };
