@@ -187,19 +187,11 @@ in
     };
   };
 
-  programs.gnupg.agent = {
-     enable = true;
-  };
-
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
 
-  services.dbus.enable = true;
-
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  security.polkit.enable = true;
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "discord"
@@ -238,10 +230,6 @@ in
 #      defaultNetwork.settings.dns_enabled = true;
 #    };
 #  };
-
-  fonts.fontDir.enable = true;
-
-  gtk.iconCache.enable = true;
 
   virtualisation.vmVariant = import ./vm.nix;
 

@@ -178,14 +178,6 @@
     };
   };
 
-  programs.gnupg.agent = {
-     enable = true;
-  };
-
-  services.dbus.enable = true;
-
-  security.polkit.enable = true;
-
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "spotify"
     "widevine-cdm"
@@ -206,10 +198,6 @@
     };
   };
   networking.firewall.allowedTCPPorts = [ 22 8081 ];
-
-  fonts.fontDir.enable = true;
-
-  gtk.iconCache.enable = true;
 
   hardware.enableRedistributableFirmware = true;
 
