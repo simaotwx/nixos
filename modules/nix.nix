@@ -16,6 +16,7 @@
     customization = config.customization;
   in
   lib.mkMerge [(lib.mkIf customization.nix.enable {
+    system.rebuild.enableNg = true;
     nix = {
       enable = lib.mkForce true;
       gc = {
@@ -27,6 +28,10 @@
         max-jobs = lib.mkDefault 4;
         cores = customization.hardware.cpu.threads;
       };
+      extraOptions = ''
+        min-free = ${toString (4096 * 1024 * 1024)}
+        max-free = ${toString (8192 * 1024 * 1024)}
+      '';
     };
   }) {
     # Do not disable flakes, otherwise you won't be able to use this

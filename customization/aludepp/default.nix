@@ -15,7 +15,10 @@ in
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/components/alacritty.nix"
     "${flakePath}/modules/components/linux-nitrous.nix"
-    "${flakePath}/modules/components/hyprland.nix"
+    "${flakePath}/modules/components/desktop-environments/hyprland.nix"
+    "${flakePath}/modules/components/networking/network-manager.nix"
+    "${flakePath}/modules/components/ollama.nix"
+    "${flakePath}/modules/components/goose-ai.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/via.nix"
     "${flakePath}/modules/components/virtd.nix"
@@ -78,9 +81,6 @@ in
   ];
 
   services.timesyncd.enable = true;
-  customization = {
-    desktop.hyprland.enable = true;
-  };
 
   i18n.supportedLocales = [
     "C.UTF-8/UTF-8"

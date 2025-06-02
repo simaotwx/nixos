@@ -2,7 +2,6 @@
   options = {
     customization = {
       desktop.hyprland = {
-        enable = lib.mkEnableOption "Hyprland";
         configure.users = lib.mkOption {
           type = with lib.types; listOf str;
           default = config.configurableUsers;
@@ -57,7 +56,7 @@
     };
   };
 
-  config = lib.mkIf config.customization.desktop.hyprland.enable (let cfg = config.customization.desktop.hyprland; in {
+  config = let cfg = config.customization.desktop.hyprland; in {
     nix.settings = {
       substituters = ["https://hyprland.cachix.org"];
       trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
@@ -276,5 +275,5 @@
         ];
       };
     });
-  });
+  };
 }
