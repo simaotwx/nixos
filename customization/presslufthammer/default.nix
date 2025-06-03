@@ -148,17 +148,9 @@
     };
   };
 
-  programs.gnupg.agent = {
-     enable = true;
-  };
-
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
-
-  services.dbus.enable = true;
-
-  security.polkit.enable = true;
 
   services.clamav = {
     updater.enable = true;
@@ -208,10 +200,6 @@
 #      defaultNetwork.settings.dns_enabled = true;
 #    };
 #  };
-
-  fonts.fontDir.enable = true;
-
-  gtk.iconCache.enable = true;
 
   services.tailscale.enable = true;
 

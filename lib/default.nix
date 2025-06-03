@@ -20,16 +20,20 @@
   let
     config = nixos.config;
     pkgs = nixpkgs.legacyPackages.${system};
+    ukiFile = "${config.system.build.uki}/${config.system.boot.loader.ukiFile}";
+    storeFile = "${config.system.build.image}/${config.boot.uki.name}_${config.system.image.version}.store.raw";
+    ukiOutName = "${config.system.boot.loader.ukiFile}.xz";
+    storeOutName = "store_${config.system.image.version}.img.xz";
   in
   pkgs.runCommand "update-${config.system.image.version}"
     {
-      nativeBuildInputs = [ pkgs.xz ];
+      nativeBuildInputs = [ pkgs.xz pkgs.coreutils ];
     } ''
     mkdir -p $out
-    xz -1 -cz ${config.system.build.uki}/${config.system.boot.loader.ukiFile} \
-      > $out/${config.system.boot.loader.ukiFile}.xz
-    xz -1 -cz ${config.system.build.image}/${config.boot.uki.name}_${config.system.image.version}.store.raw \
-      > $out/store_${config.system.image.version}.img.xz
+    xz -1 -cz ${ukiFile} > $out/${ukiOutName}
+    xz -1 -cz ${storeFile} > $out/${storeOutName}
+    cd $out
+    sha256sum ${ukiOutName} ${storeOutName} > SHA256SUMS
   '';
 
 }

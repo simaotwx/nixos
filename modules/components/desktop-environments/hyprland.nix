@@ -1,4 +1,8 @@
-{ pkgs, lib, config, ... }: {
+{ pkgs, lib, config, flakePath, ... }: {
+  imports = [
+    "${flakePath}/modules/components/graphical.nix"
+  ];
+
   options = {
     customization = {
       desktop.hyprland = {

@@ -178,14 +178,6 @@
     };
   };
 
-  programs.gnupg.agent = {
-     enable = true;
-  };
-
-  services.dbus.enable = true;
-
-  security.polkit.enable = true;
-
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "spotify"
     "widevine-cdm"
@@ -207,16 +199,12 @@
   };
   networking.firewall.allowedTCPPorts = [ 22 8081 ];
 
-  fonts.fontDir.enable = true;
-
-  gtk.iconCache.enable = true;
-
   hardware.enableRedistributableFirmware = true;
 
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "21";
+  system.image.version = "22";
 
   virtualisation.vmVariant = import ./vm.nix;
 

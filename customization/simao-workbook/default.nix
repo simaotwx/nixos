@@ -10,6 +10,8 @@
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/components/alacritty.nix"
     "${flakePath}/modules/components/displaylink.nix"
+    "${flakePath}/modules/components/goose-ai.nix"
+    "${flakePath}/modules/components/ollama.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/zsh"
@@ -165,17 +167,9 @@
     })
   ];
 
-  programs.gnupg.agent = {
-     enable = true;
-  };
-
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
-
-  services.dbus.enable = true;
-
-  security.polkit.enable = true;
 
   services.clamav = {
     updater.enable = true;
@@ -224,10 +218,6 @@
 #      defaultNetwork.settings.dns_enabled = true;
 #    };
 #  };
-
-  fonts.fontDir.enable = true;
-
-  gtk.iconCache.enable = true;
 
   security.pki.certificateFiles = [
     "${flakePath}/local/certificates/thea_root_ca.crt"

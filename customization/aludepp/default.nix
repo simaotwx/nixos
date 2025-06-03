@@ -17,6 +17,8 @@ in
     "${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/desktop-environments/hyprland.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
+    "${flakePath}/modules/components/ollama.nix"
+    "${flakePath}/modules/components/goose-ai.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/via.nix"
     "${flakePath}/modules/components/virtd.nix"
@@ -185,30 +187,11 @@ in
     };
   };
 
-  systemd.services.amdgpu-fancontrol = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "simple";
-      User = "root";
-      StandardOutput = "null";
-      ExecStart = lib.getExe gpuFanControl;
-      RestartSec = 5;
-    };
-  };
-
-  programs.gnupg.agent = {
-     enable = true;
-  };
-
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
 
-  services.dbus.enable = true;
-
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  security.polkit.enable = true;
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "discord"
@@ -247,10 +230,6 @@ in
 #      defaultNetwork.settings.dns_enabled = true;
 #    };
 #  };
-
-  fonts.fontDir.enable = true;
-
-  gtk.iconCache.enable = true;
 
   virtualisation.vmVariant = import ./vm.nix;
 
