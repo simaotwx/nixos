@@ -191,6 +191,7 @@
     "android-studio-stable"
     "postman"
     "teamviewer"
+    "discord-ptb"
   ];
 
   virtualisation.docker.enable = true;

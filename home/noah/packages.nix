@@ -77,6 +77,7 @@ in
     postman
     dysk
     vulkan-tools
+    discord-ptb
   ];
 
   home.file = (builtins.listToAttrs (builtins.concatMap (jdk: [
