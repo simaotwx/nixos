@@ -31,6 +31,7 @@ in
       cpu.cores = 12;
       cpu.vendor = "amd";
       storage.hasNvme = true;
+      io.hasOpticalDrive = true;
     };
     general = {
       hostName = "aludepp";
@@ -93,7 +94,7 @@ in
 
   users.users.simao = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "cdrom" ];
+    extraGroups = [ "wheel" ];
     uid = 1000;
     hashedPassword = "$y$j9T$dnI7w6vlAMDavd6yzhEZo/$zG.rUrydeU/An8SRDBs7IEHW9ygTuBL8GNJO.CGLMuB";
     shell = pkgs.zsh;

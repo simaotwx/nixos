@@ -85,7 +85,7 @@
 
   users.users.htpc = {
     isNormalUser = true;
-    extraGroups = [ "cdrom" ];
+    extraGroups = [ ];
     password = "htpc";
     uid = 1000;
     shell = pkgs.bash;

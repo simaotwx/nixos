@@ -83,7 +83,7 @@
 
   users.users.kehoeld = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "cdrom" ];
+    extraGroups = [ "wheel" ];
     uid = 1000;
     hashedPassword = "$y$j9T$g7AdW0GW7SrtXue2hfvuf1$EKvHJVhC91jx0ZUi5POJkPjF5SF8OBMIWIu0k.SdHT0";
     shell = pkgs.zsh;

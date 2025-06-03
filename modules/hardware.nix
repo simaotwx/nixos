@@ -38,6 +38,11 @@
           default = true;
           description = "Whether the system shall be set up to support USB, even in initrd.";
         };
+        io.hasOpticalDrive = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Whether to add support for optical drives";
+        };
         board.ahci.enable = lib.mkOption {
           type = lib.types.bool;
           default = pkgs.system == "x86_64-linux";
