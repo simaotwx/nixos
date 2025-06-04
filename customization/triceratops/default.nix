@@ -107,7 +107,7 @@
 
   users.users.noah = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "cdrom" ];
+    extraGroups = [ "wheel" ];
     uid = 1000;
     hashedPassword = "$y$j9T$MXSMjuO2SULmBg9oXnbNB/$FnU.BdkloQ4eFdBkLdXMT6F7vM6zXN4QWuzcjgH..s1";
     shell = pkgs.zsh;
@@ -117,7 +117,6 @@
 
   services.gvfs.enable = true;
   programs.adb.enable = true;
-  services.libinput.enable = true;
   programs.dconf.enable = true;
 
   security.sudo = {

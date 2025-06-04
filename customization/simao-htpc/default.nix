@@ -59,12 +59,12 @@
         jellycon
         (youtube.overrideAttrs (old: rec {
           name = "youtube-${version}";
-          version = "7.2.0.1";
+          version = "7.2.0.3";
           src = old.src.override {
             owner = "anxdpanic";
             repo = "plugin.video.youtube";
             rev = "v${version}";
-            hash = "sha256-6CT/35jV1cmXPlJBKb7Sm8Hkurmybx163864vP20Ijw=";
+            hash = "sha256-Igw4F/6+Ewrxsz1RI4csYsHmB12bkbW+764fQvqCx+0=";
           };
         }))
         (buildKodiAddon {
@@ -85,7 +85,7 @@
 
   users.users.htpc = {
     isNormalUser = true;
-    extraGroups = [ "cdrom" ];
+    extraGroups = [ ];
     password = "htpc";
     uid = 1000;
     shell = pkgs.bash;
@@ -128,7 +128,6 @@
   services.fwupd.enable = true;
 
   services.gvfs.enable = true;
-  services.libinput.enable = true;
   programs.dconf.enable = true;
 
   security.sudo = {
@@ -204,7 +203,7 @@
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "22";
+  system.image.version = "23";
 
   virtualisation.vmVariant = import ./vm.nix;
 

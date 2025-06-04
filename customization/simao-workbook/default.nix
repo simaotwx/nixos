@@ -87,7 +87,7 @@
 
   users.users.simao = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "cdrom" ];
+    extraGroups = [ "wheel" ];
     uid = 1000;
     hashedPassword = "$y$j9T$GRciktyLKmG/y3X1jnnr6/$iFX.kKnW51yzKToh0AdI0KgKLDftWOivZl35A9MXORD";
     shell = pkgs.zsh;
@@ -97,7 +97,6 @@
 
   services.gvfs.enable = true;
   programs.adb.enable = true;
-  services.libinput.enable = true;
   programs.dconf.enable = true;
 
   security.sudo = {
