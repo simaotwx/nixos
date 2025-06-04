@@ -128,7 +128,6 @@
   services.fwupd.enable = true;
 
   services.gvfs.enable = true;
-  services.libinput.enable = true;
   programs.dconf.enable = true;
 
   security.sudo = {
