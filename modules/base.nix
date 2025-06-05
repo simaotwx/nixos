@@ -27,4 +27,6 @@
   };
 
   boot.kernelPackages = lib.mkOverride 100 pkgs.linuxPackages_latest;
+
+  services.dbus.enable = true;
 }

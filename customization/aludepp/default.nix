@@ -31,6 +31,7 @@ in
       cpu.cores = 12;
       cpu.vendor = "amd";
       storage.hasNvme = true;
+      io.hasOpticalDrive = true;
     };
     general = {
       hostName = "aludepp";
@@ -93,7 +94,7 @@ in
 
   users.users.simao = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "cdrom" ];
+    extraGroups = [ "wheel" ];
     uid = 1000;
     hashedPassword = "$y$j9T$dnI7w6vlAMDavd6yzhEZo/$zG.rUrydeU/An8SRDBs7IEHW9ygTuBL8GNJO.CGLMuB";
     shell = pkgs.zsh;
@@ -103,7 +104,6 @@ in
 
   services.gvfs.enable = true;
   programs.adb.enable = true;
-  services.libinput.enable = true;
   programs.dconf.enable = true;
 
   security.sudo = {
@@ -187,30 +187,11 @@ in
     };
   };
 
-  systemd.services.amdgpu-fancontrol = {
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "simple";
-      User = "root";
-      StandardOutput = "null";
-      ExecStart = lib.getExe gpuFanControl;
-      RestartSec = 5;
-    };
-  };
-
-  programs.gnupg.agent = {
-     enable = true;
-  };
-
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
 
-  services.dbus.enable = true;
-
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  security.polkit.enable = true;
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "discord"
@@ -249,10 +230,6 @@ in
 #      defaultNetwork.settings.dns_enabled = true;
 #    };
 #  };
-
-  fonts.fontDir.enable = true;
-
-  gtk.iconCache.enable = true;
 
   virtualisation.vmVariant = import ./vm.nix;
 

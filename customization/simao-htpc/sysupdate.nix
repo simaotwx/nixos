@@ -31,7 +31,32 @@
           ProtectVersion = "%A";
         };
       };
+      "10-uki-remote" = {
+        Source = {
+          MatchPattern = [
+            "${config.boot.uki.name}_@v.efi.xz"
+            "${config.boot.uki.name}_@v.efi"
+          ];
 
+          Path = "http://aludepp:8080/result";
+          Type = "url-file";
+        };
+
+        Target = {
+          MatchPattern = [
+            "${config.boot.uki.name}_@v.efi"
+          ];
+
+          Path = "/EFI/Linux";
+          PathRelativeTo = "boot";
+
+          Type = "regular-file";
+        };
+
+        Transfer = {
+          ProtectVersion = "%A";
+        };
+      };
       "20-store" = {
         Source = {
           MatchPattern = [
@@ -41,6 +66,23 @@
 
           Path = "/var/updates/";
           Type = "regular-file";
+        };
+
+        Target = {
+          Path = config.customization.partitions.systemDisk;
+          MatchPattern = "store_@v";
+          Type = "partition";
+        };
+      };
+      "20-store-remote" = {
+        Source = {
+          MatchPattern = [
+            "store_@v.img.xz"
+            "store_@v.img"
+          ];
+
+          Path = "http://aludepp:8080/result";
+          Type = "url-file";
         };
 
         Target = {

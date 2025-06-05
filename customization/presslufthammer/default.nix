@@ -80,7 +80,7 @@
 
   users.users.julian = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "cdrom" ];
+    extraGroups = [ "wheel" ];
     uid = 1000;
     hashedPassword = "$y$j9T$F9ZLmSJrJLk33B1ui9mAf0$Qx5Zq6BzpXPLFWU9HIv0e5Oy6E0cmeucN/gTyuv4Bf7";
     shell = pkgs.zsh;
@@ -90,7 +90,6 @@
 
   services.gvfs.enable = true;
   programs.adb.enable = true;
-  services.libinput.enable = true;
   programs.dconf.enable = true;
 
   security.sudo = {
@@ -148,17 +147,9 @@
     };
   };
 
-  programs.gnupg.agent = {
-     enable = true;
-  };
-
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
-
-  services.dbus.enable = true;
-
-  security.polkit.enable = true;
 
   services.clamav = {
     updater.enable = true;
@@ -208,10 +199,6 @@
 #      defaultNetwork.settings.dns_enabled = true;
 #    };
 #  };
-
-  fonts.fontDir.enable = true;
-
-  gtk.iconCache.enable = true;
 
   services.tailscale.enable = true;
 

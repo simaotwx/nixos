@@ -59,12 +59,12 @@
         jellycon
         (youtube.overrideAttrs (old: rec {
           name = "youtube-${version}";
-          version = "7.2.0.1";
+          version = "7.2.0.3";
           src = old.src.override {
             owner = "anxdpanic";
             repo = "plugin.video.youtube";
             rev = "v${version}";
-            hash = "sha256-6CT/35jV1cmXPlJBKb7Sm8Hkurmybx163864vP20Ijw=";
+            hash = "sha256-Igw4F/6+Ewrxsz1RI4csYsHmB12bkbW+764fQvqCx+0=";
           };
         }))
         (buildKodiAddon {
@@ -85,7 +85,7 @@
 
   users.users.htpc = {
     isNormalUser = true;
-    extraGroups = [ "cdrom" ];
+    extraGroups = [ ];
     password = "htpc";
     uid = 1000;
     shell = pkgs.bash;
@@ -128,7 +128,6 @@
   services.fwupd.enable = true;
 
   services.gvfs.enable = true;
-  services.libinput.enable = true;
   programs.dconf.enable = true;
 
   security.sudo = {
@@ -178,14 +177,6 @@
     };
   };
 
-  programs.gnupg.agent = {
-     enable = true;
-  };
-
-  services.dbus.enable = true;
-
-  security.polkit.enable = true;
-
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "spotify"
     "widevine-cdm"
@@ -207,16 +198,12 @@
   };
   networking.firewall.allowedTCPPorts = [ 22 8081 ];
 
-  fonts.fontDir.enable = true;
-
-  gtk.iconCache.enable = true;
-
   hardware.enableRedistributableFirmware = true;
 
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "21";
+  system.image.version = "23";
 
   virtualisation.vmVariant = import ./vm.nix;
 

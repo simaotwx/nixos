@@ -22,6 +22,7 @@
         "x-scheme-handler/tg" = "org.telegram.desktop.desktop";
         "x-scheme-handler/tonsite" = "org.telegram.desktop.desktop";
         "x-sheme-handler/discord" = "vesktop.desktop";
+        "text/plain" = "org.gnome.gedit.desktop";
       };
     };
     mimeApps.defaultApplications = config.xdg.mimeApps.associations.added;

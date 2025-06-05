@@ -107,7 +107,7 @@
 
   users.users.noah = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "cdrom" ];
+    extraGroups = [ "wheel" ];
     uid = 1000;
     hashedPassword = "$y$j9T$MXSMjuO2SULmBg9oXnbNB/$FnU.BdkloQ4eFdBkLdXMT6F7vM6zXN4QWuzcjgH..s1";
     shell = pkgs.zsh;
@@ -117,12 +117,10 @@
 
   services.gvfs.enable = true;
   programs.adb.enable = true;
-  services.libinput.enable = true;
   programs.dconf.enable = true;
 
   security.sudo = {
     enable = true;
-
   };
 
   fonts = {
@@ -175,19 +173,11 @@
     };
   };
 
-  programs.gnupg.agent = {
-     enable = true;
-  };
-
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
 
-  services.dbus.enable = true;
-
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  security.polkit.enable = true;
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "discord"
@@ -228,14 +218,6 @@
 #      defaultNetwork.settings.dns_enabled = true;
 #    };
 #  };
-
-  fonts.fontDir.enable = true;
-
-  gtk.iconCache.enable = true;
-
-  services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
 
   services.goxlr-utility.enable = true;
 

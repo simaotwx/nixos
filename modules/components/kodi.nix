@@ -70,6 +70,8 @@
       libvdpau rtmpdump zvbi nghttp2 libmicrohttpd
       alsa-utils
     ];
+    fonts.fontDir.enable = true;
+    services.libinput.enable = true;
     services.xserver.displayManager.lightdm.greeter.enable = false;
     services.displayManager.autoLogin.user = cfg.user;
     # We want to have ALSA as sound system. Kodi will play well with this
