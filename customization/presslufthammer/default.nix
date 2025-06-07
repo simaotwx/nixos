@@ -180,7 +180,7 @@
   systemd.services.docker.wantedBy = lib.mkForce [];
   systemd.services.docker.serviceConfig.Restart = lib.mkForce "no";
   virtualisation.docker.daemon.settings = {
-    userland-proxy = false;
+    userland-proxy = true;
     ipv6 = true;
     fixed-cidr-v6 = "fd00::/80";
   };

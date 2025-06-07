@@ -59,6 +59,7 @@ in
     dysk
     geckodriver
     terraform
+    openssl
 
     # GStreamer
     gst_all_1.gstreamer

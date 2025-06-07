@@ -61,6 +61,7 @@
       {
         networking.nftables.enable = true;
         networking.firewall.enable = true;
+        networking.firewall.trustedInterfaces = [ "lo" ];
       }
     ]))
     (lib.mkIf customization.security.hardware.enable {

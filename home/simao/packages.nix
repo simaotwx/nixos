@@ -45,6 +45,7 @@
     gnome-boxes
     dysk
     brasero
+    openssl
 
     # GStreamer
     gst_all_1.gstreamer

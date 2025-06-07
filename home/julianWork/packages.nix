@@ -59,6 +59,7 @@ in
     opentofu
     dysk
     geckodriver
+    openssl
 
     # GStreamer
     gst_all_1.gstreamer
