@@ -47,7 +47,7 @@ in
     kernel = {
       sysrq.enable = true;
     };
-    linux-nitrous.processorFamily = "zen2";
+    linux-nitrous.processorFamily = "znver2";
     security = {
       network.enable = true;
       hardware.enable = true;
@@ -66,7 +66,7 @@ in
     };
     peripherals = {
       via.enable = true;
-      razer.enable = true;
+      #razer.enable = true;
     };
     shells.zsh.lite.enable = true;
     shell.simaosSuite.enable = true;

@@ -38,7 +38,7 @@
     kernel = {
       sysrq.enable = true;
     };
-    linux-nitrous.processorFamily = "zen4";
+    linux-nitrous.processorFamily = "znver4";
     security = {
       network.enable = true;
       hardware.enable = true;
