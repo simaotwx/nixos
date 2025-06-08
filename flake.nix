@@ -120,6 +120,8 @@
       aludepp-gpu-fan-control = import ./customization/aludepp/gpu-fancontrol.nix commonPackageArgs;
     });
 
+    linux-nitrous-module = import ./modules/components/linux-nitrous.nix;
+
     formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
   };
 }
