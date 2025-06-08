@@ -6,38 +6,34 @@
       processorFamily = lib.mkOption {
         type = lib.types.nullOr (lib.types.enum [
           # Intel
-          "486sx" "486" "586" "586tsc" "586mmx" "686"
-          "pentiumii" "pentiumiii" "pentiumm" "pentium4"
-          "psc" "atom" "core2" "nehalem" "westmere"
-          "silvermont" "goldmont" "goldmontplus" "sandybridge"
-          "ivybridge" "haswell" "broadwell" "skylake" "skylakex"
-          "cannonlake" "icelake_client" "icelake_server" "cascadelake"
-          "cooperlake" "tigerlake" "sapphirerapids" "rocketlake" "alderlake"
-          "raptorlake" "meteorlake" "emeraldrapids"
+          "nocona" "core2" "penryn" "bonnell" "atom" "silvermont" "slm" "goldmont" "goldmont-plus"
+          "tremont" "nehalem" "corei7" "westmere" "sandybridge" "corei7-avx" "ivybridge" "core-avx-i"
+          "haswell" "core-avx2" "broadwell" "skylake" "skylake-avx512" "skx" "cascadelake" "cooperlake"
+          "cannonlake" "icelake-client" "rocketlake" "icelake-server" "tigerlake" "sapphirerapids"
+          "alderlake" "raptorlake" "meteorlake" "arrowlake" "arrowlake-s" "lunarlake"
+          "gracemont" "pantherlake" "sierraforest" "grandridge" "graniterapids" "graniterapids-d"
+          "emeraldrapids" "clearwaterforest" "diamondrapids"
           # AMD
-          "k6" "k7" "k8" "k8sse3" "k10" "barcelona" "bobcat"
-          "jaguar" "bulldozer" "piledriver" "steamroller" "excavator"
-          "elan"
-          "zen" "zen2" "zen3" "zen4" "zen5"
-          # Others
-          "crusoe" "efficeon"
-          "winchipc6" "winchip3d"
-          "geodegx1" "geode_lx"
-          "cyrixiii"
-          "viac3_2" "viac7"
+          "knl" "knm" "k8" "athlon64" "athlon-fx" "opteron" "k8-sse3"
+          "athlon64-sse3" "opteron-sse3" "amdfam10"
+          "barcelona" "btver1" "btver2"
+          "bdver1" "bdver2" "bdver3" "bdver4"
+          "znver1" "znver2" "znver3" "znver4" "znver5"
+          # Generic
+          "x86-64" "x86-64-v2" "x86-64-v3" "x86-64-v4"
         ]);
         default = null;
       };
+      enableDrmXe = lib.mkEnableOption "Intel Xe support";
     };
   };
   config = {
     boot.kernelPackages = lib.mkOverride 80 (let
-        version = "6.14.10-1";
+        version = "6.15.1-1";
         linuxVersion = lib.head (lib.splitString "-" version);
         suffix = "nitrous";
-        llvm = pkgs.llvmPackages_19;
+        llvm = pkgs.llvmPackages_20;
         linux_nitrous_pkg = { fetchurl, buildLinux, ... } @ args:
-
           buildLinux (args // rec {
             inherit version;
             pname = "linux-${suffix}";
@@ -48,11 +44,18 @@
               "LLVM=1"
               "LD=${llvm.lld}/bin/ld.lld"
               "CC=${lib.getExe llvm.clang-unwrapped}"
-            ];
+            ] ++
+            (let processorFamily = config.customization.linux-nitrous.processorFamily; in
+              if processorFamily != null then [
+                "KCPPFLAGS=-march=${processorFamily}"
+                "KCFLAGS=-march=${processorFamily}"
+                "KRUSTFLAGS=-Ctarget-cpu=${processorFamily}"
+              ] else [ ]
+            );
 
             src = fetchurl {
               url = "https://gitlab.com/xdevs23/linux-nitrous/-/archive/v${version}/linux-nitrous-v${version}.tar.gz";
-              hash = "sha256-MNOYaKjjJAAmi93kEqLlz4sId3UJiGqvwArkr4IUdNM=";
+              hash = "sha256-vAb8emHJjqNfvAQTzuiwrcJOa4otVL80xtBpncrKT5o=";
             };
 
             structuredExtraConfig = with lib.kernel; {
@@ -60,7 +63,7 @@
               NTSYNC = yes;
               #LATENCYTOP = no;
               BCACHEFS_FS = module;
-              DRM_XE = if config.customization.graphics.intel.xe.enable then module else no;
+              DRM_XE = if config.customization.linux-nitrous.enableDrmXe then module else no;
               #SCHED_CLASS_EXT = lib.mkForce no;
               PREEMPT_VOLUNTARY = lib.mkForce no;
               PREEMPT_LAZY = yes;
@@ -72,13 +75,7 @@
               ANDROID_BINDERFS = yes;
               FS_SYSCTL_PROTECTED_SYMLINKS = yes;
               FS_SYSCTL_PROTECTED_HARDLINKS = yes;
-            } // (
-              if config.customization.linux-nitrous.processorFamily != null then {
-                "M${lib.toUpper config.customization.linux-nitrous.processorFamily}" = yes;
-              } else {
-                GENERIC_CPU = yes;
-              }
-            );
+            };
 
             kernelPatches = [ {
               name = "nitrous-config";
