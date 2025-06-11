@@ -58,6 +58,7 @@ in
     dysk
     chromedriver
     openssl
+    fd
 
     # GStreamer
     gst_all_1.gstreamer
