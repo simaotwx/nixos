@@ -1,5 +1,4 @@
-{ config, lib, pkgs, ... }: {
-
+{ config, options, lib, pkgs, ... }: {
   options = {
     customization.graphics = {
       intel.xe.enable = lib.mkOption {
@@ -11,9 +10,11 @@
   };
 
   config =
-  let customization = config.customization;
+  let
+    customization = config.customization;
+    hasLinuxNitrous = builtins.hasAttr "linux-nitrous" options.customization;
   in
-  lib.mkIf customization.graphics.intel.xe.enable {
+  lib.mkIf customization.graphics.intel.xe.enable ({
     environment.variables = {
       VDPAU_DRIVER = "va_gl";
     };
@@ -31,5 +32,7 @@
         mesa
       ];
     };
-  };
+  } // lib.optionalAttrs hasLinuxNitrous {
+    customization.linux-nitrous.enableDrmXe = true;
+  });
 }

@@ -76,6 +76,9 @@ in
     prismlauncher
     postman
     dysk
+    vulkan-tools
+    discord-ptb
+    onlyoffice-desktopeditors
   ];
 
   home.file = (builtins.listToAttrs (builtins.concatMap (jdk: [
