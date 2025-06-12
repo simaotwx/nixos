@@ -45,6 +45,10 @@
           MatchPattern = "store_@v";
           Type = "partition";
         };
+
+        Transfer = {
+          ProtectVersion = "%A";
+        };
       };
     };
   };
