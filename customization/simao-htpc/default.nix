@@ -196,14 +196,15 @@
       PermitRootLogin = "no";
     };
   };
-  networking.firewall.allowedTCPPorts = [ 22 8081 ];
+  networking.firewall.allowedTCPPorts = [ 22 8081 9090 ];
 
   hardware.enableRedistributableFirmware = true;
 
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "23";
+  system.image.version = "26";
+  system.image.id = "simao-htpc-htos";
 
   virtualisation.vmVariant = import ./vm.nix;
 
