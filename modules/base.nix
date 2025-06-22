@@ -26,6 +26,11 @@
     magicOrExtension = ''\x7fELF....AI\x02'';
   };
 
+  environment.systemPackages = with pkgs; [
+    lsof
+    file
+  ];
+
   boot.kernelPackages = lib.mkOverride 100 pkgs.linuxPackages_latest;
 
   services.dbus.enable = true;
