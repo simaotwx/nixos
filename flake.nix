@@ -76,6 +76,20 @@
         ];
       };
 
+      nanonet-minilab = lib.nixosSystem rec {
+        system = "x86_64-linux";
+        specialArgs = {
+          inputs = {
+            inherit (self.inputs) nixos-hardware nixpkgs-unstable;
+          } // (commonArgs system);
+          packages = self.packages.${system};
+          inherit flakePath system;
+        };
+        modules = commonModules ++ [
+          ./customization/nanonet-minilab
+        ];
+      };
+
       simao-workbook = lib.nixosSystem rec {
         system = "x86_64-linux";
         specialArgs = commonArgs system;
@@ -117,6 +131,7 @@
       };
     in {
       simao-htpc-update = customLib.mkUpdate system nixosConfigurations.simao-htpc;
+      nanonet-minilab-update = customLib.mkUpdate system nixosConfigurations.nanonet-minilab;
       simao-htpc-kodi-factory-data = import ./packages/simao-htpc-kodi-factory-data.nix commonPackageArgs;
       aludepp-gpu-gaming-tune = import ./customization/aludepp/gpu-gaming-tune.nix commonPackageArgs;
       aludepp-gpu-stock-tune = import ./customization/aludepp/gpu-stock-tune.nix commonPackageArgs;
