@@ -9,9 +9,8 @@
     ./options.nix
     ./sysupdate.nix
     "${flakePath}/machines/x86_64"
-    "${flakePath}/modules/components/kodi.nix"
-    "${flakePath}/modules/components/networking/network-manager.nix"
-    "${flakePath}/local/simao-htpc-secrets.nix"
+    "${flakePath}/modules/components/networking/systemd-networkd.nix"
+    #"${flakePath}/local/nanonet-minilab.nix"
   ];
 
   # Customization of modules
@@ -24,11 +23,11 @@
     graphics = {
       intel.xe.enable = true;
     };
-    # Sound will be configured by the Kodi module
+    # Sound not needed
     sound.enable = false;
     debug.enable = false;
     general = {
-      hostName = "htpc";
+      hostName = "nanonet-minilab";
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
       keymap = "us";
@@ -51,45 +50,13 @@
       tuning.enable = true;
       oomd.enable = true;
     };
-    kodi = {
-      user = "htpc";
-      kodiData = "/kodi";
-      settings.webserver.enable = true;
-      plugins = kodiPkgs: with kodiPkgs; [
-        jellycon
-        (youtube.overrideAttrs (old: rec {
-          name = "youtube-${version}";
-          version = "7.2.0.3";
-          src = old.src.override {
-            owner = "anxdpanic";
-            repo = "plugin.video.youtube";
-            rev = "v${version}";
-            hash = "sha256-Igw4F/6+Ewrxsz1RI4csYsHmB12bkbW+764fQvqCx+0=";
-          };
-        }))
-        (buildKodiAddon {
-          pname = "htos-sysinfo-${config.system.image.version}";
-          namespace = "script.htos.sysinfo";
-          version = "1.0.${config.system.image.version}";
-          src = "${flakePath}/src/kodi-htos-sysinfo";
-        })
-      ];
-    };
   };
 
   boot.loader.timeout = 0;
   boot.extraModprobeConfig = ''
     options snd slots=snd-hda-intel
   '';
-  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_lqx;
 
-  users.users.htpc = {
-    isNormalUser = true;
-    extraGroups = [ ];
-    password = "htpc";
-    uid = 1000;
-    shell = pkgs.bash;
-  };
   users.users.admin = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
@@ -100,15 +67,11 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK3LlSENwLSVob/uIKNoyjtSrffFs4lzNC9AMqxmEHSz simao@aludepp"
     ];
   };
-  users.users.root.password = "root";
   nix.settings.trusted-users = [ "admin" ];
 
-  users.groups.htpc.gid = config.users.users.htpc.uid;
   users.groups.admin.gid = config.users.users.admin.uid;
   users.allowNoPasswordLogin = true;
   users.mutableUsers = false;
-  services.displayManager.autoLogin.user = config.customization.kodi.user;
-  #services.getty.autologinUser = config.services.displayManager.autoLogin.user;
   boot.initrd.systemd.enable = true;
   boot.tmp.cleanOnBoot = true;
   boot.initrd.systemd.emergencyAccess = true;
@@ -139,9 +102,6 @@
       noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
       liberation_ttf
       adwaita-fonts
-      material-icons
-      material-symbols
-      roboto
     ];
     fontconfig = {
       enable = true;
@@ -165,21 +125,14 @@
       dust
       ripgrep
       exfatprogs
-      nix-bundle
     ];
     defaultPackages = [ ];
     variables = {
       EDITOR = "vim";
       VISUAL = "vim";
       PAGER = "less";
-      BROWSER = "zen-beta";
     };
   };
-
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "spotify"
-    "widevine-cdm"
-  ];
 
   systemd.network.wait-online.anyInterface = true;
   systemd.services.NetworkManager-wait-online.enable = false;
@@ -195,15 +148,24 @@
       PermitRootLogin = "no";
     };
   };
-  networking.firewall.allowedTCPPorts = [ 22 8081 9090 ];
+  networking.firewall.allowedTCPPorts = [ 22 ];
 
   hardware.enableRedistributableFirmware = true;
 
-  boot.uki.name = "htos";
-  system.nixos.distroId = "htos";
-  system.nixos.distroName = "Home Theater OS";
-  system.image.version = "26";
-  system.image.id = "simao-htpc-htos";
+  systemd.network.networks."10-wan" = {
+    matchConfig.Type = "ether";
+    networkConfig = {
+      DHCP = "ipv4";
+      IPv6AcceptRA = true;
+    };
+    linkConfig.RequiredForOnline = "routable";
+  };
+
+  boot.uki.name = "nnmos";
+  system.nixos.distroId = "nnmos";
+  system.nixos.distroName = "nanonet minilab OS";
+  system.image.version = "1";
+  system.image.id = "nanonet-minilab-os";
 
   virtualisation.vmVariant = import ./vm.nix;
 

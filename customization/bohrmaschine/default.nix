@@ -132,7 +132,6 @@
 
   environment = {
     systemPackages = with pkgs; [
-      file
       vim
       dust
       duperemove

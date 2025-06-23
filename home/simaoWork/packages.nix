@@ -61,6 +61,7 @@ in
     terraform
     openssl
     fd
+    nmap
 
     # GStreamer
     gst_all_1.gstreamer

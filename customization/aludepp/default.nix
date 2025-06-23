@@ -23,6 +23,7 @@ in
     "${flakePath}/modules/components/via.nix"
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/steam.nix"
+    "${flakePath}/modules/components/mdraid.nix"
   ];
 
   # Customization of modules
@@ -160,7 +161,6 @@ in
 
   environment = {
     systemPackages = with pkgs; [
-      file
       vim
       dust
       duperemove
