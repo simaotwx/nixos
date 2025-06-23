@@ -171,6 +171,8 @@ in
       podman-compose
       gparted
       strace
+      wget
+      curl
       gpuGamingTune
       gpuStockTune
       gpuFanControl
