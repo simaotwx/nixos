@@ -170,6 +170,7 @@ in
       nix-bundle
       podman-compose
       gparted
+      strace
       gpuGamingTune
       gpuStockTune
       gpuFanControl
