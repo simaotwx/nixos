@@ -115,5 +115,12 @@ in
     hashicorp.terraform
     hashicorp.hcl
     golang.go
+  ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "qt-qml";
+        publisher = "TheQtCompany";
+        version = "1.5.1";
+        sha256 = "sha256-l19OW4lJR8+SxHeLvRzBGtxC+y5seNdOz9jnlK9HDkQ=";
+      }
   ];
 }
