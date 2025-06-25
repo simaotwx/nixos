@@ -62,6 +62,7 @@ in
     openssl
     fd
     nmap
+    brightnessctl
 
     # GStreamer
     gst_all_1.gstreamer
