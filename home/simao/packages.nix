@@ -48,6 +48,7 @@
     openssl
     fd
     nmap
+    lz4
 
     # GStreamer
     gst_all_1.gstreamer
