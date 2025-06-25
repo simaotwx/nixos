@@ -111,6 +111,9 @@ in
     }
   ]) jdks));
 
+  programs.vscode.profiles.default.userSettings = {
+    "qt-qml.qmlls.useQmlImportPathEnvVar" = true;
+  };
   programs.vscode.profiles.default.extensions = with pkgs.vscode-extensions; [
     hashicorp.terraform
     hashicorp.hcl
