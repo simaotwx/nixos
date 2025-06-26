@@ -27,6 +27,7 @@
       settings = {
         max-jobs = lib.mkDefault 4;
         cores = customization.hardware.cpu.threads;
+        build-dir = "/var/tmp";
       };
       extraOptions = ''
         min-free = ${toString (4096 * 1024 * 1024)}
