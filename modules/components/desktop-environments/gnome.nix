@@ -1,13 +1,11 @@
-{ pkgs, lib, config, flakePath, ... }: {
+{ pkgs, lib, config, flakePath, mkConfigurableUsersOption, forEachUser, ... }: {
   imports = [
     "${flakePath}/modules/components/graphical.nix"
   ];
 
   options = {
     customization = {
-      desktop.gnome.configure.users = lib.mkOption {
-        type = with lib.types; listOf str;
-        default = config.configurableUsers;
+      desktop.gnome.configure.users = mkConfigurableUsersOption {
         description = "Which users to apply gnome configuration to. Defaults to all users.";
       };
       desktop.gnome.useGdm = lib.mkEnableOption "whether to use GDM" // {
@@ -22,7 +20,7 @@
   };
 
   config = {
-    home-manager.users = lib.genAttrs config.customization.desktop.gnome.configure.users (username: {
+    home-manager.users = forEachUser config.customization.desktop.gnome.configure.users {
       xdg.portal.config = {
         common = {
           default = [
@@ -44,7 +42,7 @@
           ) config.customization.desktop.gnome.extensions;
         };
       };
-    });
+    };
     services.gnome.gnome-keyring.enable = true;
     services.xserver.displayManager.gdm.enable = config.customization.desktop.gnome.useGdm;
     services.xserver.desktopManager.gnome.enable = true;

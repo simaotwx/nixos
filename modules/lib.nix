@@ -5,7 +5,7 @@
       default = config.configurableUsers;
       inherit description;
     };
-    forEachHomeUser = users: block: lib.genAttrs users (_: block);
-    forEachHomeUser' = users: block: lib.genAttrs users (username: block username);
+    forEachUser = users: block: lib.genAttrs users (_: block);
+    forEachUser' = users: block: lib.genAttrs users (username: block username);
   };
 }

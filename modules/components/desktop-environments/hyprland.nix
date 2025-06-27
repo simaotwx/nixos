@@ -1,4 +1,4 @@
-{ pkgs, lib, config, flakePath, ... }: {
+{ pkgs, lib, config, flakePath, mkConfigurableUsersOption, forEachUser, ... }: {
   imports = [
     "${flakePath}/modules/components/graphical.nix"
   ];
@@ -6,9 +6,7 @@
   options = {
     customization = {
       desktop.hyprland = {
-        configure.users = lib.mkOption {
-          type = with lib.types; listOf str;
-          default = config.configurableUsers;
+        configure.users = mkConfigurableUsersOption {
           description = "Which users to apply hyprland configuration to. Defaults to all users.";
         };
         monitors = lib.mkOption {
@@ -92,7 +90,7 @@
       };
     };
 
-    home-manager.users = lib.genAttrs cfg.configure.users (username: {
+    home-manager.users = forEachUser cfg.configure.users {
       xdg.portal.extraPortals = [
         pkgs.xdg-desktop-portal-hyprland
         pkgs.xdg-desktop-portal-gtk
@@ -278,6 +276,6 @@
           "$mainMod, mouse:273, resizewindow"
         ];
       };
-    });
+    };
   };
 }

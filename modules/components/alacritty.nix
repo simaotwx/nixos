@@ -1,9 +1,7 @@
-{ lib, config, ... }: {
+{ config, mkConfigurableUsersOption, forEachUser, ... }: {
   options = {
     customization.programs.alacritty = {
-      users = lib.mkOption {
-        type = with lib.types; listOf str;
-        default = config.configurableUsers;
+      users = mkConfigurableUsersOption {
         description = "Which users to apply Simao's Alacritty config to. Defaults to all users.";
       };
     };
@@ -11,7 +9,7 @@
 
   config =
   let cfg = config.customization.programs.alacritty; in {
-    home-manager.users = lib.genAttrs cfg.users (username: {
+    home-manager.users = forEachUser cfg.users {
       programs.alacritty.enable = true;
       programs.alacritty.settings = {
         "bell" = {
@@ -80,6 +78,6 @@
           };
         };
       };
-    });
+    };
   };
 }

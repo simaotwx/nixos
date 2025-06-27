@@ -1,4 +1,4 @@
-{ pkgs, config, mkConfigurableUsersOption, forEachHomeUser, ... }:
+{ pkgs, config, mkConfigurableUsersOption, forEachUser, ... }:
 {
   options = {
     customization.qml = {
@@ -9,7 +9,7 @@
   config = let
     cfg = config.customization.qml;
   in {
-    home-manager.users = forEachHomeUser cfg.users {
+    home-manager.users = forEachUser cfg.users {
       home.packages = with pkgs; [ qt6Packages.qtdeclarative ];
       programs.vscode.profiles.default.userSettings = {
         "qt-qml.qmlls.useQmlImportPathEnvVar" = true;
