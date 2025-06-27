@@ -63,6 +63,7 @@ in
     fd
     nmap
     brightnessctl
+    qt6Packages.qtdeclarative
 
     # GStreamer
     gst_all_1.gstreamer
