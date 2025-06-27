@@ -12,6 +12,7 @@
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
+    "${flakePath}/modules/components/qml.nix"
   ];
 
   # Customization of modules

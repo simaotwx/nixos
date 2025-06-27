@@ -17,6 +17,7 @@
     ./shell.nix
     ./sound.nix
     ./compat.nix
+    ./lib.nix
   ];
 
   options = {

@@ -24,6 +24,7 @@ in
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/steam.nix"
     "${flakePath}/modules/components/mdraid.nix"
+    "${flakePath}/modules/components/qml.nix"
   ];
 
   # Customization of modules
