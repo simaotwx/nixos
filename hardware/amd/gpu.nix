@@ -70,6 +70,8 @@
       ];
     });
 
+    nixpkgs.overlays = lib.optional customization.graphics.amd.latestMesa (_: _: { mesa = pkgsUnstable.mesa; });
+
     environment.variables = {
       AMD_VULKAN_ICD = "RADV";
     };
