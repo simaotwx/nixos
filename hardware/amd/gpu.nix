@@ -50,7 +50,8 @@
       support32Bit.enable = false;
     };
     hardware.amdgpu.initrd.enable = true;
-    hardware.amdgpu.opencl.enable = true;
+    # Do not set this to true because the code after it already does the same
+    hardware.amdgpu.opencl.enable =lib.mkForce false;
     hardware.enableRedistributableFirmware = lib.mkDefault true;
     hardware.graphics = {
       enable = true;
@@ -59,10 +60,12 @@
       package = pkgsUnstable.mesa;
       package32 = pkgsUnstable.driversi686Linux.mesa;
       extraPackages = with pkgsUnstable; [
+        rocmPackages.clr
         rocmPackages.clr.icd
       ];
     } else {
       extraPackages = with pkgs; [
+        rocmPackages.clr
         rocmPackages.clr.icd
       ];
     });

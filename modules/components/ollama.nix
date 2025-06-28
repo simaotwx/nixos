@@ -1,15 +1,15 @@
-{ pkgsUnstable, config, ... }:
+{ pkgsUnstable, pkgs, lib, config, rocmPackages, ... }:
 let
   ollamaPackage = (pkgsUnstable.ollama.override {
     acceleration = if config.customization.graphics.amd.enable then "rocm" else "cuda";
   });
 in
 {
-  environment.systemPackages = with pkgsUnstable; [
+  environment.systemPackages = [
     ollamaPackage
-    (writeShellScriptBin "ollama-rocm" ''
-      #!${runtimeShell}
-      gfxver="$(${lib.getExe' rocmPackages.rocminfo "rocminfo"} | grep 'Name' | grep 'gfx' | head -n1 | ${lib.getExe gawk} '{ print $2 }')"
+    (pkgs.writeShellScriptBin "ollama-rocm" ''
+      #!${pkgs.runtimeShell}
+      gfxver="$(${lib.getExe' rocmPackages.rocminfo "rocminfo"} | grep 'Name' | grep 'gfx' | head -n1 | ${lib.getExe pkgs.gawk} '{ print $2 }')"
       version_digits=''${gfxver#gfx}
       num_digits=''${#version_digits}
       if [ "$num_digits" -eq 4 ]; then
