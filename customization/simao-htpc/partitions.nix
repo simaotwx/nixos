@@ -44,7 +44,8 @@
               Type = lib.toLower "00000000-0000-4000-9000-000000000040";
               Label = "store_${config.system.image.version}";
               UUID = lib.toLower "00000000-0000-4000-9000-100000000040";
-              Format = "squashfs";
+              Format = "erofs";
+              Compression = "lz4";
               ReadOnly = "yes";
               SizeMinBytes = "4G";
               SplitName = "store";
