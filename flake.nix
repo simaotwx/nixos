@@ -8,6 +8,7 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, ... }@flake:

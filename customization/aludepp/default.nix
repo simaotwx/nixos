@@ -72,6 +72,35 @@ in
     };
     shells.zsh.lite.enable = true;
     shell.simaosSuite.enable = true;
+    desktop.hyprland =
+    let
+      getSinkIdByName = name:
+        "wpctl status -n | grep -E '${name}' | grep -v 'Audio/Sink' | cut -d '.' -f1 | rev | cut -d ' ' -f1 | rev";
+      wpctl = lib.getExe' pkgs.wireplumber "wpctl";
+      wlCopy = lib.getExe' pkgs.wl-clipboard "wl-copy";
+    in
+    {
+      browser = inputs.zen-browser.packages."${pkgs.system}".beta;
+      execOnce = [
+        "${lib.getExe pkgs.wpaperd} -d"
+        "${lib.getExe pkgs.eww} daemon && ${lib.getExe pkgs.eww} open topbar"
+        "${lib.getExe pkgs.gopass} sync"
+      ];
+      additionalBind = [
+        ''$mainMod SHIFT, S, exec, ${wpctl} set-default $(${getSinkIdByName "alsa_output.usb-Yamaha_Corporation_Steinberg_IXO12-00.analog-stereo"}) && hyprctl notify -1 1000 "rgb(1E88E5)" 'Switched to speakers' ''
+        ''$mainMod, P, exec, ${pkgs.gopass} list --flat | $menu --dmenu -p "Search passwords…" -M multi-contains -i -O alphabetical | xargs ${pkgs.gopass} show -o -u --nosync | ${wlCopy}''
+      ];
+      additionalBinde = [
+        ''$mainMod SHIFT, right, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)+10)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
+        ''$mainMod SHIFT, left, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)-10)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
+        ''$mainMod SHIFT, down, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)+10))''
+        ''$mainMod SHIFT, up, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)-10))''
+        ''$mainMod+ALT SHIFT, right, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)+1)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
+        ''$mainMod+ALT SHIFT, left, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)-1)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
+        ''$mainMod+ALT SHIFT, down, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)+1))''
+        ''$mainMod+ALT SHIFT, up, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)-1))''
+      ];
+    };
   };
 
   # Support for Crush 80 wireless
