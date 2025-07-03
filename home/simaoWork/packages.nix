@@ -64,6 +64,7 @@ in
     nmap
     brightnessctl
     qt6Packages.qtdeclarative
+    bmap-tools
 
     # GStreamer
     gst_all_1.gstreamer
