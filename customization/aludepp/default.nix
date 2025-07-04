@@ -68,7 +68,7 @@ in
     };
     peripherals = {
       via.enable = true;
-      #razer.enable = true;
+      razer.enable = true;
     };
     shells.zsh.lite.enable = true;
     shell.simaosSuite.enable = true;
