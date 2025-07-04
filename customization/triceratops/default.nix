@@ -1,4 +1,4 @@
-{ inputs, pkgs, lib, flakePath, ... }: {
+{ inputs, pkgs, flakePath, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-amd

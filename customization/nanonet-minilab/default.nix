@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, flakePath, lib, ... }: {
+{ pkgs, inputs, config, flakePath, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-pc-ssd
