@@ -49,6 +49,7 @@
     fd
     nmap
     lz4
+    zip
 
     # GStreamer
     gst_all_1.gstreamer

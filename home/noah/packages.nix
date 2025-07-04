@@ -52,6 +52,7 @@ in
     hwloc
     inputs.zen-browser.packages."${pkgs.system}".beta
     gimp3-with-plugins
+    zip
 
     # Gnome
     pkgs.gnome-tweaks

@@ -61,6 +61,7 @@ in
     geckodriver
     openssl
     fd
+    zip
 
     # GStreamer
     gst_all_1.gstreamer

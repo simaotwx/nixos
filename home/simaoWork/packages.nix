@@ -63,6 +63,7 @@ in
     fd
     nmap
     brightnessctl
+    zip
 
     # GStreamer
     gst_all_1.gstreamer
