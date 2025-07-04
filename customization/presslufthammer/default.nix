@@ -1,4 +1,4 @@
-{ pkgs, lib, inputs, flakePath, ... }: {
+{ pkgs, inputs, flakePath, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-intel
@@ -13,6 +13,7 @@
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/qml.nix"
+    "${flakePath}/modules/components/docker.nix"
   ];
 
   # Customization of modules
@@ -171,34 +172,7 @@
     "citrix-workspace"
   ];
 
-  virtualisation.docker.enable = true;
-  #virtualisation.docker.rootless = {
-  #  enable = true;
-  #  setSocketVariable = true;
-  #};
-  virtualisation.docker.storageDriver = "overlay2";
-  systemd.services.docker.wantedBy = lib.mkForce [];
-  systemd.services.docker.serviceConfig.Restart = lib.mkForce "no";
-  virtualisation.docker.daemon.settings = {
-    userland-proxy = true;
-    ipv6 = true;
-    fixed-cidr-v6 = "fd00::/80";
-  };
-
   hardware.enableRedistributableFirmware = true;
-
-  virtualisation.containers.enable = true;
-#  virtualisation = {
-#    podman = {
-#      enable = true;
-#
-#      # Create a `docker` alias for podman, to use it as a drop-in replacement
-#      dockerCompat = true;
-#
-#      # Required for containers under podman-compose to be able to talk to each other.
-#      defaultNetwork.settings.dns_enabled = true;
-#    };
-#  };
 
   services.tailscale.enable = true;
 
