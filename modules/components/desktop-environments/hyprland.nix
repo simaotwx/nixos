@@ -101,13 +101,14 @@
         pkgs.xdg-desktop-portal-gtk
         config.programs.hyprland.portalPackage
       ];
-      xdg.portal.config = {
+      xdg.portal.config = rec {
         common = {
           default = [
             "hyprland"
             "gtk"
           ];
         };
+        preferred = common;
       };
       wayland.windowManager.hyprland.enable = true;
       wayland.windowManager.hyprland.package = config.programs.hyprland.package;

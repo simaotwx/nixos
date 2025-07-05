@@ -1,9 +1,8 @@
-{ pkgs, ... }: {
+{ pkgs, ... }: rec {
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.gnome-themes-extra;
-      name = "Adwaita";
+      name = "Adwaita-dark";
     };
     cursorTheme = {
       package = pkgs.rose-pine-cursor;
@@ -35,7 +34,7 @@
   };
   dconf.settings = {
     "org/gnome/desktop/interface" = {
-      gtk-theme = "Adwaita";
+      gtk-theme = gtk.theme.name;
       color-scheme = "prefer-dark";
     };
   };
