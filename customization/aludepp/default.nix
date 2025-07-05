@@ -89,7 +89,7 @@ in
       ];
       additionalBind = [
         ''$mainMod SHIFT, S, exec, ${wpctl} set-default $(${getSinkIdByName "alsa_output.usb-Yamaha_Corporation_Steinberg_IXO12-00.analog-stereo"}) && hyprctl notify -1 1000 "rgb(1E88E5)" 'Switched to speakers' ''
-        ''$mainMod, P, exec, ${pkgs.gopass} list --flat | $menu --dmenu -p "Search passwords…" -M multi-contains -i -O alphabetical | xargs ${pkgs.gopass} show -o -u --nosync | ${wlCopy}''
+        ''$mainMod, P, exec, ${lib.getExe pkgs.gopass} list --flat | $menu --dmenu -p "Search passwords…" -M multi-contains -i -O alphabetical | xargs ${lib.getExe pkgs.gopass} show -o -u --nosync | ${wlCopy}''
       ];
       additionalBinde = [
         ''$mainMod SHIFT, right, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)+10)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
