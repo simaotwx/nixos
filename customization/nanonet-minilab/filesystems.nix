@@ -39,7 +39,7 @@
         ];
       };
 
-    "/nix/ro-store" =
+    "/nix/store" =
       let partitionConfig = config.image.repart.partitions."store".repartConfig;
       in {
         device = "/dev/disk/by-partlabel/${partitionConfig.Label}";
@@ -47,29 +47,6 @@
         options = [ "noatime" "x-systemd.after=initrd-parse-etc.service" "x-systemd.device-timeout=10s" ];
         neededForBoot = true;
       };
-
-    "/nix/rw-store" =
-      let partitionConfig = config.systemd.repart.partitions."nix-store-rw";
-      in {
-        device = "/dev/disk/by-partuuid/${partitionConfig.UUID}";
-        fsType = partitionConfig.Format;
-        options = [
-          "noatime" "x-systemd.rw-only"
-          "x-systemd.device-timeout=30s"
-        ];
-        neededForBoot = true;
-      };
-
-    "/nix/store" = {
-      overlay = {
-        lowerdir = ["/nix/ro-store"];
-        upperdir = "/nix/rw-store/upper";
-        workdir = "/nix/rw-store/work";
-      };
-      options = [
-        "noatime" "x-systemd.device-timeout=30s"
-      ];
-    };
 
     "/var" =
       let partitionConfig = config.systemd.repart.partitions.var;

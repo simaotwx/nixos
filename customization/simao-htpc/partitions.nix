@@ -45,7 +45,7 @@
               Label = "store_${config.system.image.version}";
               UUID = lib.toLower "00000000-0000-4000-9000-100000000040";
               Format = "erofs";
-              Compression = "lz4";
+              Compression = "lz4hc";
               ReadOnly = "yes";
               SizeMinBytes = "4G";
               SplitName = "store";
@@ -74,21 +74,6 @@
     systemd.repart = {
       enable = true;
       partitions = {
-        "20-nix-store-rw" = {
-          Type = lib.toLower "00000000-0000-4000-9000-000000000060";
-          UUID = lib.toLower "00000000-0000-4000-9000-100000000060";
-          Format = "btrfs";
-          Label = "nix-store-rw";
-          Subvolumes = "/upper /work";
-          MakeDirectories = "/upper /work";
-          Minimize = "off";
-          Encrypt = "off";
-          SizeMinBytes = "1G";
-          SizeMaxBytes = "1G";
-          SplitName = "-";
-          FactoryReset = "yes";
-          Priority = -20;
-        };
         "21-data" = {
           Type = lib.toLower "00000000-0000-4000-9000-000000000070";
           UUID = lib.toLower "00000000-0000-4000-9000-100000000070";
