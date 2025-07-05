@@ -9,6 +9,7 @@
     ./options.nix
     ./sysupdate.nix
     "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/hardware/intel/gpu.nix"
     "${flakePath}/modules/components/networking/systemd-networkd.nix"
     #"${flakePath}/local/nanonet-minilab.nix"
   ];
@@ -19,9 +20,6 @@
       cpu.cores = 4;
       cpu.vendor = "intel";
       storage.hasNvme = true;
-    };
-    graphics = {
-      intel.xe.enable = true;
     };
     # Sound not needed
     sound.enable = false;
