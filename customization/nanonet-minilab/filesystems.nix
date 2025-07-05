@@ -3,6 +3,7 @@
     btrfs = true;
     squashfs = true;
     overlay = true;
+    nfs = true;
   };
   boot.kernelParams = [
     "systemd.setenv=SYSTEMD_REPART_MKFS_OPTIONS_BTRFS=--nodiscard"
@@ -67,6 +68,18 @@
         "noatime"
       ];
       neededForBoot = true;
+    };
+
+    "/mnt/media" = {
+      device = "nashorn.nanonet.rx7.link:/mnt/nas-storage/media";
+      fsType = "nfs";
+      options = [
+        "nfsvers=4.2"
+        "rsize=1048576" "wsize=1048576"
+        "x-systemd.automount" "noauto"
+        "x-systemd.idle-timeout=600"
+        "noatime"
+      ];
     };
   };
 
