@@ -11,6 +11,7 @@
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/hardware/intel/gpu.nix"
     "${flakePath}/modules/components/networking/systemd-networkd.nix"
+    "${flakePath}/modules/components/jellyfin.nix"
     #"${flakePath}/local/nanonet-minilab.nix"
   ];
 
