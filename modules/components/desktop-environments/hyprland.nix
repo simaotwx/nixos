@@ -222,15 +222,25 @@
           workspace_swipe = true;
           workspace_swipe_fingers = 3;
         };
+        render = {
+          direct_scanout = 1;
+        };
         misc = {
           force_default_wallpaper = false;
-          new_window_takes_over_fullscreen = 2;
+          new_window_takes_over_fullscreen = 1;
           middle_click_paste = false;
+          mouse_move_enables_dpms = true;
+          key_press_enables_dpms = true;
+          focus_on_activate = true;
+          allow_session_lock_restore = true;
+          render_unfocused_fps = 240;
           vfr = true;
+          vrr = true;
         };
         layerrule = [
           "ignorealpha, topbar"
           "blur, topbar"
+          "xray on, topbar"
         ];
         windowrulev2 = [
           "float, title:^(Picture-in-Picture)$"
