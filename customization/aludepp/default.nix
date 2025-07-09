@@ -31,7 +31,7 @@ in
   # Customization of modules
   customization = {
     hardware = {
-      cpu.cores = 12;
+      cpu.cores = 16;
       cpu.vendor = "amd";
       storage.hasNvme = true;
       io.hasOpticalDrive = true;
@@ -50,7 +50,7 @@ in
     kernel = {
       sysrq.enable = true;
     };
-    linux-nitrous.processorFamily = "znver2";
+    linux-nitrous.processorFamily = "znver3";
     security = {
       network.enable = true;
       hardware.enable = true;
