@@ -130,6 +130,7 @@
         wofi = lib.getExe config.home-manager.users.${user}.programs.wofi.package;
         playerctl = lib.getExe pkgs.playerctl;
         wpctl = lib.getExe' pkgs.wireplumber "wpctl";
+        awk = lib.getExe pkgs.gawk;
       in
       {
         env = [
@@ -264,7 +265,6 @@
           "$mainMod, 7, workspace, 7"
           "$mainMod, 8, workspace, 8"
           "$mainMod, 9, workspace, 9"
-          "$mainMod, 0, workspace, 10"
           "$mainMod SHIFT, 1, movetoworkspace, 1"
           "$mainMod SHIFT, 2, movetoworkspace, 2"
           "$mainMod SHIFT, 3, movetoworkspace, 3"
@@ -274,7 +274,6 @@
           "$mainMod SHIFT, 7, movetoworkspace, 7"
           "$mainMod SHIFT, 8, movetoworkspace, 8"
           "$mainMod SHIFT, 9, movetoworkspace, 9"
-          "$mainMod SHIFT, 0, movetoworkspace, 10"
           "$mainMod, L, exec, ${loginctl} lock-session"
           ''$mainMod SHIFT, V, exec, ${cliphist} list | $menu --dmenu -p "Search clipboard history…" -M multi-contains -i | ${cliphist} decode | ${wlCopy}''
           ''$mainMod SHIFT, E, exec, ${wlCopy} -c''
@@ -283,8 +282,6 @@
           ''$mainMod+ALT, 5, exec, ps -eo pid,cmd | $menu --dmenu -p "Search process to terminate…" -M multi-contains -i | awk '{ print $1 }' | xargs kill -9''
           ''$mainMod+ALT SHIFT, 9, exec, $menu --dmenu -p "Enter process string to kill…" --exec-search --lines 1 -b | xargs pkill -9''
           ''$mainMod+ALT SHIFT, 5, exec, $menu --dmenu -p "Enter process string to terminate…" --exec-search --lines 1 -b | xargs pkill -9''
-          "$mainMod, mouse_down, workspace, e-1"
-          "$mainMod, mouse_up, workspace, e+1"
           "$mainMod, mouse_left, workspace, e-1"
           "$mainMod, mouse_right, workspace, e+1"
           "ALT SHIFT, KP_Begin, exec, ${ydotool} click C0"
@@ -302,12 +299,26 @@
           '', XF86AudioStop, exec, ${playerctl} stop''
           '', XF86AudioPrev, exec, ${playerctl} previous''
           '', XF86AudioNext, exec, ${playerctl} next''
+          ''$mainMod, mouse_down, exec, hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor | ${awk} '/^float.*/ {print $2 * 1.1}')''
+          ''$mainMod, mouse_up, exec, hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor | ${awk} '/^float.*/ {print $2 * 0.9}')''
+          ''$mainMod SHIFT, plus, exec, hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor | ${awk} '/^float.*/ {print $2 * 1.1}')''
+
+          ''$mainMod SHIFT, mouse_up, exec, hyprctl -q keyword cursor:zoom_factor 1''
+          ''$mainMod SHIFT, mouse_down, exec, hyprctl -q keyword cursor:zoom_factor 1''
+          ''$mainMod SHIFT, minus, exec, hyprctl -q keyword cursor:zoom_factor 1''
+          ''$mainMod SHIFT, KP_SUBTRACT, exec, hyprctl -q keyword cursor:zoom_factor 1''
+          ''$mainMod SHIFT, 0, exec, hyprctl -q keyword cursor:zoom_factor 1''
         ] ++ cfg.additionalBind;
         bindm = [
           "$mainMod, mouse:272, movewindow"
           "$mainMod, mouse:273, resizewindow"
         ] ++ cfg.additionalBindm;
-        binde = [] ++ cfg.additionalBinde;
+        binde = [
+          ''$mainMod, equal, exec, hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor | ${awk} '/^float.*/ {print $2 * 1.1}')''
+          ''$mainMod, minus, exec, hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor | ${awk} '/^float.*/ {print $2 * 0.9}')''
+          ''$mainMod, KP_ADD, exec, hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor | ${awk} '/^float.*/ {print $2 * 1.1}')''
+          ''$mainMod, KP_SUBTRACT, exec, hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor | ${awk} '/^float.*/ {print $2 * 0.9}')''
+        ] ++ cfg.additionalBinde;
       };
       services.hypridle = {
         enable = true;
