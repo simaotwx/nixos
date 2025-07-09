@@ -28,8 +28,8 @@
       src = pkgs.fetchFromGitHub {
         owner = "sibradzic";
         repo = name;
-        rev = "504785df769e1d128d16a6f1545d2f425d70a310";
-        hash = "sha256-z1CpgIo7XZSNcAH8lACGvYkRwvGXkE0HaZTBJnKOXIg=";
+        rev = "60419dcda0987be3ae7afa37a5345c2399af420d";
+        hash = "sha256-Z97jwjRw7/jMembBaZJaAoE2S+xxK3FQ7hAT5dn12rU=";
       };
       installPhase = ''
         mkdir -p $out/bin
