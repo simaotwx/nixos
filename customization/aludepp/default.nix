@@ -104,6 +104,8 @@ in
     };
   };
 
+  hardware.cpu.amd.ryzen-smu.enable = true;
+
   # Support for Crush 80 wireless
   services.udev.extraRules = ''
     KERNEL=="hidraw*", ATTRS{idVendor}=="320f", ATTRS{idProduct}=="5088", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
