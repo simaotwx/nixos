@@ -89,5 +89,9 @@
       per-window = false;
       xkb-options = [ "terminate:ctrl_alt_bksp" "lv3:rwin_switch" ];
     };
+    "org/gnome/desktop/media-handling" = {
+      automount = false;
+      autorun-never = true;
+    };
   };
 }
