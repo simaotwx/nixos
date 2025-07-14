@@ -55,6 +55,13 @@
           ] ["" ""] prevAttrs.fixupPhase;
         });
       })
+      (final: prev: {
+        mattermost-desktop = prev.mattermost-desktop.overrideAttrs (finalAttrs: prevAttrs: {
+          installPhase = builtins.replaceStrings [ "--enable-features" ] [
+            "--disable-features=GlobalShortcutsPortal --enable-features"
+          ] prevAttrs.installPhase;
+        });
+      })
     ];
   };
 }

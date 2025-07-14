@@ -15,7 +15,7 @@
       package = pkgs.rose-pine-cursor;
       gtk.enable = true;
       name = "BreezeX-RosePine-Linux";
-      size = 28;
+      size = 24;
     };
     language = {
       base = "en_US.UTF-8";
