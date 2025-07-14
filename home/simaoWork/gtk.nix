@@ -8,7 +8,7 @@
     cursorTheme = {
       package = pkgs.rose-pine-cursor;
       name = "BreezeX-RosePine-Linux";
-      size = 28;
+      size = 24;
     };
     font = {
       package = pkgs.adwaita-fonts;
