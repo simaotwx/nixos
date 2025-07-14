@@ -9,6 +9,7 @@
         default = true;
         description = options.nix.gc.automatic.description;
       };
+      nix.buildDirOnTmp = lib.mkEnableOption "storing build directories on /tmp which is usually a tmpfs";
     };
   };
   config =
@@ -27,7 +28,7 @@
       settings = {
         max-jobs = lib.mkDefault 4;
         cores = customization.hardware.cpu.threads;
-        build-dir = "/var/tmp";
+        build-dir = if customization.nix.buildDirOnTmp then "/tmp" else "/var/tmp";
       };
       extraOptions = ''
         min-free = ${toString (4096 * 1024 * 1024)}

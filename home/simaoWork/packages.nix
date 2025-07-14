@@ -63,6 +63,7 @@ in
     fd
     nmap
     brightnessctl
+    zip
     qt6Packages.qtdeclarative
     bmap-tools
 
@@ -113,25 +114,9 @@ in
     }
   ]) jdks));
 
-  programs.vscode.profiles.default.userSettings = {
-    "qt-qml.qmlls.useQmlImportPathEnvVar" = true;
-  };
   programs.vscode.profiles.default.extensions = with pkgs.vscode-extensions; [
     hashicorp.terraform
     hashicorp.hcl
     golang.go
-  ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      {
-        name = "qt-qml";
-        publisher = "TheQtCompany";
-        version = "1.5.1";
-        sha256 = "sha256-l19OW4lJR8+SxHeLvRzBGtxC+y5seNdOz9jnlK9HDkQ=";
-      }
-      {
-        name = "qt-core";
-        publisher = "TheQtCompany";
-        version = "1.5.1";
-        sha256 = "sha256-0I41cw809oeL5n78TkNKJ+YdFBu237vaNBZuWv3xKn8=";
-      }
   ];
 }

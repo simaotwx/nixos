@@ -28,8 +28,8 @@
       src = pkgs.fetchFromGitHub {
         owner = "sibradzic";
         repo = name;
-        rev = "504785df769e1d128d16a6f1545d2f425d70a310";
-        hash = "sha256-z1CpgIo7XZSNcAH8lACGvYkRwvGXkE0HaZTBJnKOXIg=";
+        rev = "60419dcda0987be3ae7afa37a5345c2399af420d";
+        hash = "sha256-Z97jwjRw7/jMembBaZJaAoE2S+xxK3FQ7hAT5dn12rU=";
       };
       installPhase = ''
         mkdir -p $out/bin
@@ -50,7 +50,8 @@
       support32Bit.enable = false;
     };
     hardware.amdgpu.initrd.enable = true;
-    hardware.amdgpu.opencl.enable = true;
+    # Do not set this to true because the code after it already does the same
+    hardware.amdgpu.opencl.enable =lib.mkForce false;
     hardware.enableRedistributableFirmware = lib.mkDefault true;
     hardware.graphics = {
       enable = true;
@@ -59,13 +60,17 @@
       package = pkgsUnstable.mesa;
       package32 = pkgsUnstable.driversi686Linux.mesa;
       extraPackages = with pkgsUnstable; [
+        rocmPackages.clr
         rocmPackages.clr.icd
       ];
     } else {
       extraPackages = with pkgs; [
+        rocmPackages.clr
         rocmPackages.clr.icd
       ];
     });
+
+    nixpkgs.overlays = lib.optional customization.graphics.amd.latestMesa (_: _: { mesa = pkgsUnstable.mesa; });
 
     environment.variables = {
       AMD_VULKAN_ICD = "RADV";

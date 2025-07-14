@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }: {
+{ lib, config, pkgs, mkConfigurableUsersOption, forEachUser, ... }: {
   options = {
     customization.shells = {
       zsh.lite.enable = lib.mkOption {
@@ -9,9 +9,7 @@
           Oh My Zsh, plugins etc. This is an opinionated setup.
         '';
       };
-      zsh.lite.users = lib.mkOption {
-        type = with lib.types; listOf str;
-        default = config.configurableUsers;
+      zsh.lite.users = mkConfigurableUsersOption {
         description = "Which users to apply zsh.lite to. Defaults to all users.";
       };
       zsh.power10k.enable = lib.mkOption {
@@ -22,9 +20,7 @@
           Powerlevel10k, Oh My Zsh, plugins etc. This is an opinionated setup.
         '';
       };
-      zsh.power10k.users = lib.mkOption {
-        type = with lib.types; listOf str;
-        default = config.configurableUsers;
+      zsh.power10k.users = mkConfigurableUsersOption {
         description = "Which users to apply zsh.power10k to. Defaults to all users.";
       };
       zsh.power10k.osIconCodepoint = lib.mkOption {
@@ -104,7 +100,7 @@
       programs.starship = {
         enable = true;
       };
-      home-manager.users = lib.genAttrs customization.shells.zsh.lite.users (username: {
+      home-manager.users = forEachUser customization.shells.zsh.lite.users {
         home.packages = with pkgs; [
           spaceship-prompt zsh-history-substring-search zsh-completions zsh-z
         ];
@@ -149,13 +145,13 @@
             ]
           );
         };
-      });
+      };
     })
     (lib.mkIf customization.shells.zsh.power10k.enable {
       environment.pathsToLink = [ "/share/zsh" ];
       programs.zsh.enable = true;
       programs.direnv.enableZshIntegration = true;
-      home-manager.users = lib.genAttrs customization.shells.zsh.lite.users (username: {
+      home-manager.users = forEachUser customization.shells.zsh.power10k.users {
         home.packages = with pkgs; [
           zsh-history-substring-search zsh-completions zsh-z
           thefuck
@@ -244,7 +240,7 @@
             ]
           );
         };
-      });
+      };
     })
   ];
 }

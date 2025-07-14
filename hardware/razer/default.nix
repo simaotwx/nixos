@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }: {
+{ lib, config, pkgsUnstable, mkConfigurableUsersOption, ... }: {
   options = {
     customization.peripherals = {
       razer.enable = lib.mkOption {
@@ -6,9 +6,7 @@
         default = false;
         description = "Whether to set up Razer peripheral support";
       };
-      razer.users = lib.mkOption {
-        type = with lib.types; listOf str;
-        default = config.configurableUsers;
+      razer.users = mkConfigurableUsersOption {
         description = "Which users to apply razer configuration to. Defaults to all users.";
       };
     };
@@ -20,9 +18,17 @@
   lib.mkIf customization.peripherals.razer.enable {
     hardware.openrazer.enable = true;
     hardware.openrazer.users = customization.peripherals.razer.users;
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgsUnstable; [
       openrazer-daemon
       polychromatic
+    ];
+    nixpkgs.overlays = [
+      (final: prev: {
+        linuxPackagesFor = kernel:
+          (prev.linuxPackagesFor kernel).extend (lpfinal: lpprev: {
+            openrazer = (pkgsUnstable.linuxPackagesFor kernel).openrazer;
+          });
+      })
     ];
   };
 }

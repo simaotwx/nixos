@@ -48,6 +48,9 @@
     openssl
     fd
     nmap
+    lz4
+    zip
+    gimp3 pinta krita
 
     # GStreamer
     gst_all_1.gstreamer

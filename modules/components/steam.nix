@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ...}: {
+{ pkgs, lib, config, mkConfigurableUsersOption, forEachUser, ... }: {
   options = {
     customization.software.steam = {
       gamemode.enable = lib.mkEnableOption "gamemode" // { default = true; };
@@ -9,9 +9,7 @@
       };
       gamescope.enable = lib.mkEnableOption "gamescope";
       gamescope.session.enable = lib.mkEnableOption "gamescope session";
-      gamemode.users = lib.mkOption {
-        type = with lib.types; listOf str;
-        default = config.configurableUsers;
+      gamemode.users = mkConfigurableUsersOption {
         description = "Which users to apply gamemode configuration to. Defaults to all users.";
       };
     };
@@ -30,9 +28,9 @@
       package = cfg.package;
       gamescopeSession.enable = cfg.gamescope.session.enable;
     };
-    users.users = lib.genAttrs cfg.gamemode.users (username: {
+    users.users = forEachUser cfg.gamemode.users {
       extraGroups = [ "gamemode" ];
-    });
+    };
   };
 
 }

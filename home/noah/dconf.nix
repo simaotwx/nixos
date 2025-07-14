@@ -42,6 +42,7 @@
       height-fraction = 0.90000000000000002;
       icon-size-fixed = false;
       isolate-locations = true;
+      preferred-monitor-by-connector = "DP-1";
       running-indicator-style = "DEFAULT";
       show-icons-notifications-counter = false;
       show-mounts = false;

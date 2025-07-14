@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, flakePath, lib, ... }: {
+{ pkgs, inputs, config, flakePath, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-pc-ssd
@@ -9,7 +9,9 @@
     ./options.nix
     ./sysupdate.nix
     "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/hardware/intel/gpu.nix"
     "${flakePath}/modules/components/networking/systemd-networkd.nix"
+    "${flakePath}/modules/components/jellyfin.nix"
     #"${flakePath}/local/nanonet-minilab.nix"
   ];
 
@@ -19,9 +21,6 @@
       cpu.cores = 4;
       cpu.vendor = "intel";
       storage.hasNvme = true;
-    };
-    graphics = {
-      intel.xe.enable = true;
     };
     # Sound not needed
     sound.enable = false;
@@ -135,7 +134,6 @@
   };
 
   systemd.network.wait-online.anyInterface = true;
-  systemd.services.NetworkManager-wait-online.enable = false;
 
   services.openssh = {
     enable = true;

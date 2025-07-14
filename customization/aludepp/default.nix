@@ -24,12 +24,14 @@ in
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/steam.nix"
     "${flakePath}/modules/components/mdraid.nix"
+    "${flakePath}/modules/components/qml.nix"
+    "${flakePath}/modules/components/docker.nix"
   ];
 
   # Customization of modules
   customization = {
     hardware = {
-      cpu.cores = 12;
+      cpu.cores = 16;
       cpu.vendor = "amd";
       storage.hasNvme = true;
       io.hasOpticalDrive = true;
@@ -48,7 +50,7 @@ in
     kernel = {
       sysrq.enable = true;
     };
-    linux-nitrous.processorFamily = "znver2";
+    linux-nitrous.processorFamily = "znver3";
     security = {
       network.enable = true;
       hardware.enable = true;
@@ -67,11 +69,42 @@ in
     };
     peripherals = {
       via.enable = true;
-      #razer.enable = true;
+      razer.enable = true;
     };
     shells.zsh.lite.enable = true;
     shell.simaosSuite.enable = true;
+    desktop.hyprland =
+    let
+      getSinkIdByName = name:
+        "wpctl status -n | grep -E '${name}' | grep -v 'Audio/Sink' | cut -d '.' -f1 | rev | cut -d ' ' -f1 | rev";
+      wpctl = lib.getExe' pkgs.wireplumber "wpctl";
+      wlCopy = lib.getExe' pkgs.wl-clipboard "wl-copy";
+    in
+    {
+      browser = inputs.zen-browser.packages."${pkgs.system}".beta;
+      execOnce = [
+        "${lib.getExe pkgs.wpaperd} -d"
+        "${lib.getExe pkgs.eww} daemon && ${lib.getExe pkgs.eww} open topbar"
+        "${lib.getExe pkgs.gopass} sync"
+      ];
+      additionalBind = [
+        ''$mainMod SHIFT, S, exec, ${wpctl} set-default $(${getSinkIdByName "alsa_output.usb-Yamaha_Corporation_Steinberg_IXO12-00.analog-stereo"}) && hyprctl notify -1 1000 "rgb(1E88E5)" 'Switched to speakers' ''
+        ''$mainMod, P, exec, ${lib.getExe pkgs.gopass} list --flat | $menu --dmenu -p "Search passwords…" -M multi-contains -i -O alphabetical | xargs ${lib.getExe pkgs.gopass} show -o -u --nosync | ${wlCopy}''
+      ];
+      additionalBinde = [
+        ''$mainMod SHIFT, right, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)+10)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
+        ''$mainMod SHIFT, left, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)-10)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
+        ''$mainMod SHIFT, down, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)+10))''
+        ''$mainMod SHIFT, up, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)-10))''
+        ''$mainMod+ALT SHIFT, right, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)+1)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
+        ''$mainMod+ALT SHIFT, left, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)-1)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
+        ''$mainMod+ALT SHIFT, down, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)+1))''
+        ''$mainMod+ALT SHIFT, up, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)-1))''
+      ];
+    };
   };
+
+  hardware.cpu.amd.ryzen-smu.enable = true;
 
   # Support for Crush 80 wireless
   services.udev.extraRules = ''
@@ -170,6 +203,9 @@ in
       nix-bundle
       podman-compose
       gparted
+      strace
+      wget
+      curl
       gpuGamingTune
       gpuStockTune
       gpuFanControl
@@ -203,33 +239,6 @@ in
     "makemkv"
     "android-studio-stable"
   ];
-
-  virtualisation.docker.enable = true;
-  #virtualisation.docker.rootless = {
-  #  enable = true;
-  #  setSocketVariable = true;
-  #};
-  virtualisation.docker.storageDriver = "overlay2";
-  systemd.services.docker.wantedBy = lib.mkForce [];
-  systemd.services.docker.serviceConfig.Restart = lib.mkForce "no";
-  virtualisation.docker.daemon.settings = {
-    userland-proxy = true;
-    ipv6 = true;
-    fixed-cidr-v6 = "fd00::/80";
-  };
-
-  virtualisation.containers.enable = true;
-#  virtualisation = {
-#    podman = {
-#      enable = true;
-#
-#      # Create a `docker` alias for podman, to use it as a drop-in replacement
-#      dockerCompat = true;
-#
-#      # Required for containers under podman-compose to be able to talk to each other.
-#      defaultNetwork.settings.dns_enabled = true;
-#    };
-#  };
 
   virtualisation.vmVariant = import ./vm.nix;
 

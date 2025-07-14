@@ -9,6 +9,7 @@
     ./options.nix
     ./sysupdate.nix
     "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/hardware/intel/gpu.nix"
     "${flakePath}/modules/components/kodi.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/local/simao-htpc-secrets.nix"
@@ -20,9 +21,6 @@
       cpu.cores = 4;
       cpu.vendor = "intel";
       storage.hasNvme = true;
-    };
-    graphics = {
-      intel.xe.enable = true;
     };
     # Sound will be configured by the Kodi module
     sound.enable = false;
@@ -67,12 +65,6 @@
             hash = "sha256-Igw4F/6+Ewrxsz1RI4csYsHmB12bkbW+764fQvqCx+0=";
           };
         }))
-        (buildKodiAddon {
-          pname = "htos-sysinfo-${config.system.image.version}";
-          namespace = "script.htos.sysinfo";
-          version = "1.0.${config.system.image.version}";
-          src = "${flakePath}/src/kodi-htos-sysinfo";
-        })
       ];
     };
   };
@@ -202,7 +194,7 @@
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "26";
+  system.image.version = "28";
   system.image.id = "simao-htpc-htos";
 
   virtualisation.vmVariant = import ./vm.nix;

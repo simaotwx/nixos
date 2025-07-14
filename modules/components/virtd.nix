@@ -1,18 +1,16 @@
-{ lib, config, pkgs, ... }: {
+{ config, pkgs, mkConfigurableUsersOption, forEachUser, ... }: {
   options = {
     customization = {
-      virtualisation.virtd.users = lib.mkOption {
-        type = with lib.types; listOf str;
-        default = config.configurableUsers;
+      virtualisation.virtd.users = mkConfigurableUsersOption {
         description = "Which users to apply virtd support to. Defaults to all users.";
       };
     };
   };
 
   config = {
-    users.users = lib.genAttrs config.customization.virtualisation.virtd.users (username: {
+    users.users = forEachUser config.customization.virtualisation.virtd.users {
       extraGroups = [ "libvirtd" ];
-    });
+    };
     virtualisation.libvirtd = {
       enable = true;
       qemu = {

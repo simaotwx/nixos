@@ -29,7 +29,7 @@
   };
   config = {
     boot.kernelPackages = lib.mkOverride 80 (let
-        version = "6.15.3-2";
+        version = "6.15.6-1";
         linuxVersion = lib.head (lib.splitString "-" version);
         suffix = "nitrous";
         llvm = pkgs.llvmPackages_20;
@@ -55,7 +55,7 @@
 
             src = fetchurl {
               url = "https://gitlab.com/xdevs23/linux-nitrous/-/archive/v${version}/linux-nitrous-v${version}.tar.gz";
-              hash = "sha256-CGg6incyiO4R6yjmuXQXYgvvtzwgO75o2UfDfI6t/8s=";
+              hash = "sha256-dwrlfgtJbADdzXI29hbg6jKWUwzSEg0z+/JtFLyUv44=";
             };
 
             structuredExtraConfig = with lib.kernel; {
@@ -92,6 +92,38 @@
           } // (args.argsOverride or {}));
         linux_nitrous = pkgs.callPackage linux_nitrous_pkg {};
       in
-        pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_nitrous));
+        pkgs.recurseIntoAttrs ((pkgs.linuxPackagesFor linux_nitrous).extend (lpfinal: lpprev: {
+          ryzen-smu = lpprev.ryzen-smu.overrideAttrs (oldAttrs:
+            let
+              monitor-cpu = llvm.stdenv.mkDerivation {
+                pname = "monitor-cpu";
+                inherit (oldAttrs) version src;
+                makeFlags = [
+                  "-C userspace"
+                  "CC=${lib.getExe llvm.clang}"
+                ];
+                installPhase = ''
+                  runHook preInstall
+                  install userspace/monitor_cpu -Dm755 -t $out/bin
+                  runHook postInstall
+                '';
+              };
+            in {
+              stdenv = pkgs.overrideCC llvm.stdenv (llvm.stdenv.cc.override { inherit (llvm) bintools; });
+              nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ llvm.lld ];
+              makeFlags = (oldAttrs.makeFlags or []) ++ [
+                "CC=${lib.getExe llvm.clang-unwrapped}"
+                "CXX=${lib.getExe llvm.clang-unwrapped}"
+                "LD=${llvm.lld}/bin/ld.lld"
+              ];
+              installPhase = ''
+                runHook preInstall
+                install ryzen_smu.ko -Dm444 -t $out/lib/modules/${lpprev.kernel.modDirVersion}/kernel/drivers/ryzen_smu
+                install ${monitor-cpu}/bin/monitor_cpu -Dm755 -t $out/bin
+                runHook postInstall
+              '';
+            });
+        }))
+    );
   };
 }
