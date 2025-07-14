@@ -158,6 +158,8 @@
           repeat_rate = 32;
           repeat_delay = 440;
           follow_mouse = 1;
+          follow_mouse_threshold = 2.0;
+          focus_on_close = 1;
 
           touchpad = {
             natural_scroll = true;
@@ -165,6 +167,10 @@
           };
 
           sensitivity = 0;
+        };
+        cursor = {
+          persistent_warps = true;
+          no_warps = true;
         };
         general = {
           gaps_in = 2;
