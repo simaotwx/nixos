@@ -1,4 +1,4 @@
-{ pkgs, inputs, flakePath, ... }: {
+{ pkgs, inputs, flakePath, lib, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-amd
@@ -75,6 +75,9 @@
       };
     };
   };
+
+  services.tailscale.enable = true;
+  systemd.services.tailscaled.wantedBy = lib.mkForce [];
 
   services.timesyncd.enable = true;
 
