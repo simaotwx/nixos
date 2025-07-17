@@ -1,4 +1,4 @@
-{ pkgs, inputs, flakePath, ... }: {
+{ pkgs, inputs, flakePath, lib, ... }: {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-amd
@@ -76,6 +76,9 @@
     };
   };
 
+  services.tailscale.enable = true;
+  systemd.services.tailscaled.wantedBy = lib.mkForce [];
+
   services.timesyncd.enable = true;
 
   i18n.supportedLocales = [
@@ -146,6 +149,45 @@
       nix-bundle
       gparted
       pop-wallpapers
+      (
+        pkgs.writeShellScriptBin "dhcp-setup" ''
+          set -e
+
+          IFACE="$1"
+          CIDR="$2"
+
+          if [ -z "$IFACE" ] || [ -z "$CIDR" ]; then
+            echo "Usage: $0 <interface> <cidr>"
+            exit 1
+          fi
+
+          # Parse CIDR to extract network for DHCP range calculation
+          NETWORK=$(echo "$CIDR" | cut -d'/' -f1)
+          BASE_NETWORK=$(echo "$NETWORK" | cut -d'.' -f1-3)
+
+          # DHCP range: .50 to .150 in the subnet
+          DHCP_START="$BASE_NETWORK.50"
+          DHCP_END="$BASE_NETWORK.150"
+
+          # Gateway will be .1 in the subnet
+          GATEWAY="$BASE_NETWORK.1"
+
+          # Disconnect the interface first
+          ${lib.getExe' pkgs.networkmanager "nmcli"} dev disconnect "$IFACE" || :
+
+          # Add IP address to interface
+          ${lib.getExe' pkgs.iproute2 "ip"} addr add "$CIDR" dev "$IFACE"
+
+          # Bring interface up
+          ${lib.getExe' pkgs.iproute2 "ip"} link set "$IFACE" up
+
+          nixos-firewall-tool open 67
+          nixos-firewall tool open 68
+
+          # Start dnsmasq with DHCP
+          ${lib.getExe pkgs.dnsmasq} -d -i "$IFACE" --port=0 --listen-address="$GATEWAY" --dhcp-range="$DHCP_START,$DHCP_END,12h"
+        ''
+      )
     ];
     defaultPackages = [ ];
     variables = {

@@ -21,6 +21,10 @@
         "audio/opus" = "io.github.celluloid_player.Celluloid.desktop";
         "application/xml" = "org.gnome.gedit.desktop";
         "text/plain" = "org.gnome.gedit.desktop";
+        "application/x-php" = "codium.desktop";
+        "x-scheme-handler/msteams" = "teams-for-linux.desktop";
+        "text/markdown" = "codium.desktop";
+
       };
     };
     mimeApps.defaultApplications = config.xdg.mimeApps.associations.added;
