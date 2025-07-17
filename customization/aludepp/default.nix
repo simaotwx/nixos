@@ -42,7 +42,7 @@ in
     };
     compat.enable = true;
     graphics =  {
-      amd.enable = true;
+      #amd.enable = true;
       amd.overclocking.unlock = true;
     };
     kernel = {
