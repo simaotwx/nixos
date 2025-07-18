@@ -31,7 +31,7 @@
     file
   ];
 
-  boot.kernelPackages = lib.mkOverride 100 pkgs.linuxPackages_latest;
+  boot.kernelPackages = lib.mkOverride 101 pkgs.linuxPackages_latest;
 
   services.dbus.enable = true;
 }

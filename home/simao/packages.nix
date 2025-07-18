@@ -1,7 +1,7 @@
 { pkgs, inputs, ... }: {
   home.packages = with pkgs; [
-    wpaperd eww wofi
-    hyprlock hypridle hyprshot
+    #wpaperd eww wofi
+    #hyprlock hypridle hyprshot
     rose-pine-cursor
     jq pv pwgen
     socat
@@ -25,21 +25,21 @@
     audacity
     lm_sensors
     fastfetch
-    jetbrains.idea-community jdk
+    #jetbrains.idea-community jdk
     nixd nixpkgs-fmt
     bc
-    jellycli
+    #jellycli
     imagemagick
     thunderbird
     evince
     stress
     subfinder
-    ntfs3g woeusb-ng
+    #ntfs3g woeusb-ng
     smartmontools rsync
     vlc
     libreoffice-fresh
     p7zip iptables nftables inetutils simple-scan
-    via
+    #via
     hwloc
     inputs.zen-browser.packages."${pkgs.system}".beta
     gnome-boxes
@@ -64,10 +64,10 @@
     # AOSP stuff
     git-repo xmlstarlet ccache
 
-    (vesktop.override { withSystemVencord = true; })
-    spotify
-    makemkv
-    android-studio
+    #(vesktop.override { withSystemVencord = true; })
+    #spotify
+    #makemkv
+    #android-studio
   ];
 
 }

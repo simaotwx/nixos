@@ -9,6 +9,10 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprland.url = "github:hyprwm/Hyprland";
+    nixos-apple-silicon = {
+      url = "github:nix-community/nixos-apple-silicon";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, ... }@flake:
@@ -61,6 +65,15 @@
           custPath
         ] ++ homeManagerModules.simao;
       };
+
+      simao-m1air = let custPath = ./customization/simao-m1air; in lib.nixosSystem rec {
+        system = "aarch64-linux";
+        specialArgs = commonArgs system;
+        modules = commonModules ++ [
+          custPath
+        ] ++ homeManagerModules.simao;
+      };
+
 
       simao-htpc = unstableLib.nixosSystem rec {
         system = "x86_64-linux";

@@ -7,10 +7,12 @@
       bootloader.choice = lib.mkOption {
         type = lib.types.enum ({
           "x86_64-linux" = [ "systemd-boot" ];
+          "aarch64-linux" = [ "systemd-boot" ];
         }.${pkgs.system} or []);
         description = "Choose the bootloader you'd like to use.";
         default = {
           "x86_64-linux" = "systemd-boot";
+          "aarch64-linux" = "systemd-boot";
         }.${pkgs.system} or null;
       };
       bootloader.timeout = lib.mkOption {
