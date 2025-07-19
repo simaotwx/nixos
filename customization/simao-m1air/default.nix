@@ -1,4 +1,4 @@
-{ pkgs, lib, inputs, flakePath, packages, ... }:
+{ pkgs, inputs, flakePath, ... }:
 {
   imports = [
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
