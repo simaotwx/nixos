@@ -43,4 +43,10 @@
     alacritty.settings.window.decorations = lib.mkForce "Full";
     alacritty.settings.window.opacity = lib.mkForce 0.8;
   };
+
+  dconf.settings."org/gnome/desktop/input-sources" =
+    lib.optionalAttrs osConfig.services.xserver.desktopManager.gnome.enable (with lib.hm.gvariant; {
+      sources = lib.mkForce [ (mkTuple [ "xkb" "us" ]) ];
+      mru-sources = lib.mkForce [ (mkTuple [ "xkb" "us" ]) ];
+    });
 }
