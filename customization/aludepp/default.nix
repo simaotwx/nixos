@@ -17,8 +17,6 @@ in
     "${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/desktop-environments/hyprland.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
-    "${flakePath}/modules/components/ollama.nix"
-    "${flakePath}/modules/components/goose-ai.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/via.nix"
     "${flakePath}/modules/components/virtd.nix"
@@ -44,7 +42,7 @@ in
     };
     compat.enable = true;
     graphics =  {
-      amd.enable = true;
+      #amd.enable = true;
       amd.overclocking.unlock = true;
     };
     kernel = {

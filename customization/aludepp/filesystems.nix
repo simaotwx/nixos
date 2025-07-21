@@ -39,5 +39,11 @@
       fsType = "btrfs";
       options = [ "rw" "noatime" "nosuid" "nodev" "nofail" "compress=no" "subvol=@games" ];
     };
+
+    "/mnt/romsrc" = {
+      device = "/dev/disk/by-label/romsrc";
+      fsType = "btrfs";
+      options = [ "rw" "noatime" "nosuid" "nodev" "nofail" "compress=no" ];
+    };
   };
 }
