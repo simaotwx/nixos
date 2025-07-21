@@ -1,5 +1,7 @@
-{ lib, ... }: {
-  dconf.settings = with lib.hm.gvariant; {
+{ lib, osConfig, ... }: {
+  dconf.settings = lib.optionalAttrs (
+    osConfig.services.xserver.desktopManager.gnome.enable
+  ) (with lib.hm.gvariant; {
     "org/gnome/shell/app-switcher" = {
       current-workspace-only = true;
     };
@@ -78,7 +80,7 @@
     "org/gnome/mutter" = {
       edge-tiling = true;
       attach-modal-dialogs = false;
-      experimental-features = [ "scale-monitor-framebuffer" ];
+      experimental-features = [ "scale-monitor-framebuffer" "xwayland-native-scaling" ];
       overlay-key = "Super_L";
       workspaces-only-on-primary = false;
     };
@@ -93,5 +95,5 @@
       automount = false;
       autorun-never = true;
     };
-  };
+  });
 }

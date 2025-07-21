@@ -1,5 +1,6 @@
-{ pkgs, flakePath, ... }: {
+{ pkgs, flakePath, lib, osConfig, ... }: {
   imports = [
+    ./dconf.nix
     ./direnv.nix
     ./gtk.nix
     ./htop.nix
@@ -37,4 +38,9 @@
   services.gnome-keyring.enable = true;
 
   home.stateVersion = "25.05";
+
+  programs = lib.optionalAttrs osConfig.services.xserver.desktopManager.gnome.enable {
+    alacritty.settings.window.decorations = lib.mkForce "Full";
+    alacritty.settings.window.opacity = lib.mkForce 0.8;
+  };
 }

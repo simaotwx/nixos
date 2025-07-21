@@ -1,7 +1,5 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, inputs, osConfig, ... }: {
   home.packages = with pkgs; [
-    #wpaperd eww wofi
-    #hyprlock hypridle hyprshot
     rose-pine-cursor
     jq pv pwgen
     socat
@@ -25,21 +23,17 @@
     audacity
     lm_sensors
     fastfetch
-    #jetbrains.idea-community jdk
     nixd nixpkgs-fmt
     bc
-    #jellycli
     imagemagick
     thunderbird
     evince
     stress
     subfinder
-    #ntfs3g woeusb-ng
     smartmontools rsync
     vlc
     libreoffice-fresh
     p7zip iptables nftables inetutils simple-scan
-    #via
     hwloc
     inputs.zen-browser.packages."${pkgs.system}".beta
     gnome-boxes
@@ -64,10 +58,13 @@
     # AOSP stuff
     git-repo xmlstarlet ccache
 
-    #(vesktop.override { withSystemVencord = true; })
-    #spotify
-    #makemkv
-    #android-studio
+  ] ++ lib.optionals (osConfig.networking.hostName == "aludepp") [
+    makemkv
+    android-studio
+    (vesktop.override { withSystemVencord = true; })
+    via
+    jetbrains.idea-community jdk
+    spotify
   ];
 
 }

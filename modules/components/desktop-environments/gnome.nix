@@ -33,7 +33,9 @@
         xdg-desktop-portal-gnome
         xdg-desktop-portal-gtk
       ];
-      home.packages = config.customization.desktop.gnome.extensions;
+      home.packages = config.customization.desktop.gnome.extensions ++ [
+        pkgs.gnome-tweaks
+      ];
       dconf = {
         settings."org/gnome/shell" = {
           disable-user-extensions = false;

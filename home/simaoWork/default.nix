@@ -1,6 +1,6 @@
 { pkgs, lib, flakePath, ... }: {
   imports = [
-    ./dconf.nix
+    ./../dconf.nix
     ./direnv.nix
     ./gtk.nix
     ./htop.nix

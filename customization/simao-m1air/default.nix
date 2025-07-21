@@ -1,4 +1,4 @@
-{ pkgs, inputs, flakePath, ... }:
+{ pkgs, lib, inputs, flakePath, ... }:
 {
   imports = [
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
@@ -174,6 +174,10 @@
     extraConfig = "HandlePowerKey=suspend";
     lidSwitch = "suspend";
   };
+
+  services.bpftune.enable = lib.mkForce false;
+
+  console.font = lib.mkForce "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "discord"
