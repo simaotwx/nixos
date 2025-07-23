@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   systemd.sysupdate = {
     enable = true;
 
@@ -54,7 +55,7 @@
   };
 
   environment.systemPackages = [
-    (pkgs.runCommand "systemd-sysupdate" {} ''
+    (pkgs.runCommand "systemd-sysupdate" { } ''
       mkdir -p $out/bin
       ln -s ${config.systemd.package}/lib/systemd/systemd-sysupdate $out/bin
     '')

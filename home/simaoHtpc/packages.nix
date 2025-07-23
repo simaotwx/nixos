@@ -1,25 +1,40 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     rose-pine-cursor
-    jq pv
+    jq
+    pv
     socat
     playerctl
-    git curl
-    wl-clipboard wl-clipboard-x11
+    git
+    curl
+    wl-clipboard
+    wl-clipboard-x11
     appimage-run
     dig
-    unzip file zstd tree bat fd brotli
+    unzip
+    file
+    zstd
+    tree
+    bat
+    fd
+    brotli
     chromium
     protobuf
     e2fsprogs
     lm_sensors
     fastfetch
-    nixd nixpkgs-fmt
+    nixd
+    nixpkgs-fmt
     bc
     imagemagick
     stress
-    smartmontools rsync
-    p7zip iptables nftables inetutils
+    smartmontools
+    rsync
+    p7zip
+    iptables
+    nftables
+    inetutils
     hwloc
 
     # GStreamer

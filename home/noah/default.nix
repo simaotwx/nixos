@@ -1,4 +1,5 @@
-{ pkgs, flakePath, ... }: {
+{ pkgs, flakePath, ... }:
+{
   imports = [
     ./dconf.nix
     ./direnv.nix

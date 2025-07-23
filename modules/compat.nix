@@ -1,4 +1,10 @@
-{ lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options = {
     customization.compat = {
       enable = (lib.mkEnableOption "compatibility") // {
@@ -12,22 +18,22 @@
     # executed directly from a downloaded package, for example.
     programs.nix-ld.enable = true;
     programs.nix-ld.libraries = with pkgs; [
-          alsa-lib
-          libGL
-          xorg.libICE
-          xorg.libSM
-          xorg.libX11
-          xorg.libXcursor
-          xorg.libXext
-          xorg.libXi
-          xorg.libXinerama
-          xorg.libXrandr
-          libpulseaudio
-          libxkbcommon
-          wayland
+      alsa-lib
+      libGL
+      xorg.libICE
+      xorg.libSM
+      xorg.libX11
+      xorg.libXcursor
+      xorg.libXext
+      xorg.libXi
+      xorg.libXinerama
+      xorg.libXrandr
+      libpulseaudio
+      libxkbcommon
+      wayland
 
-          libgcc
-          gcc
+      libgcc
+      gcc
     ];
   };
 }

@@ -1,4 +1,5 @@
-{ config, ... }: {
+{ config, ... }:
+{
   boot.initrd.supportedFilesystems = {
     btrfs = true;
     squashfs = true;
@@ -30,32 +31,45 @@
     };
 
     "/boot" =
-      let partitionConfig = config.image.repart.partitions."esp".repartConfig;
-      in {
+      let
+        partitionConfig = config.image.repart.partitions."esp".repartConfig;
+      in
+      {
         device = "/dev/disk/by-partuuid/${partitionConfig.UUID}";
         fsType = partitionConfig.Format;
         options = [
-          "fmask=0077" "dmask=0077" "noatime"
+          "fmask=0077"
+          "dmask=0077"
+          "noatime"
           "x-systemd.device-timeout=30s"
         ];
       };
 
     "/nix/store" =
-      let partitionConfig = config.image.repart.partitions."store".repartConfig;
-      in {
+      let
+        partitionConfig = config.image.repart.partitions."store".repartConfig;
+      in
+      {
         device = "/dev/disk/by-partlabel/${partitionConfig.Label}";
         fsType = partitionConfig.Format;
-        options = [ "noatime" "x-systemd.after=initrd-parse-etc.service" "x-systemd.device-timeout=10s" ];
+        options = [
+          "noatime"
+          "x-systemd.after=initrd-parse-etc.service"
+          "x-systemd.device-timeout=10s"
+        ];
         neededForBoot = true;
       };
 
     "/var" =
-      let partitionConfig = config.systemd.repart.partitions.var;
-      in {
+      let
+        partitionConfig = config.systemd.repart.partitions.var;
+      in
+      {
         device = "/dev/disk/by-partuuid/${partitionConfig.UUID}";
         fsType = partitionConfig.Format;
         options = [
-          "noatime" "x-systemd.rw-only"
+          "noatime"
+          "x-systemd.rw-only"
           "x-systemd.device-timeout=30s"
         ];
         neededForBoot = true;
@@ -75,8 +89,10 @@
       fsType = "nfs";
       options = [
         "nfsvers=4.2"
-        "rsize=1048576" "wsize=1048576"
-        "x-systemd.automount" "noauto"
+        "rsize=1048576"
+        "wsize=1048576"
+        "x-systemd.automount"
+        "noauto"
         "x-systemd.idle-timeout=600"
         "noatime"
       ];

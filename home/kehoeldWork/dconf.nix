@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   dconf.settings = with lib.hm.gvariant; {
     "org/gnome/shell/app-switcher" = {
       current-workspace-only = true;
@@ -84,10 +85,31 @@
     };
     "org/gnome/desktop/input-sources" = {
       show-all-sources = true;
-      sources = [ (mkTuple [ "xkb" "de" ]) (mkTuple [ "xkb" "us" ]) ];
-      mru-sources = [ (mkTuple [ "xkb" "de" ]) (mkTuple [ "xkb" "us" ]) ];
+      sources = [
+        (mkTuple [
+          "xkb"
+          "de"
+        ])
+        (mkTuple [
+          "xkb"
+          "us"
+        ])
+      ];
+      mru-sources = [
+        (mkTuple [
+          "xkb"
+          "de"
+        ])
+        (mkTuple [
+          "xkb"
+          "us"
+        ])
+      ];
       per-window = false;
-      xkb-options = [ "terminate:ctrl_alt_bksp" "lv3:rwin_switch" ];
+      xkb-options = [
+        "terminate:ctrl_alt_bksp"
+        "lv3:rwin_switch"
+      ];
     };
   };
 }

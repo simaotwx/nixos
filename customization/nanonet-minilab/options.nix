@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   options = {
     customization.nanonet-minilab = {
       acmeEmail = lib.mkOption {

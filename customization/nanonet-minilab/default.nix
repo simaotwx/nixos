@@ -1,4 +1,11 @@
-{ pkgs, inputs, config, flakePath, ... }: {
+{
+  pkgs,
+  inputs,
+  config,
+  flakePath,
+  ...
+}:
+{
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-pc-ssd
@@ -75,7 +82,9 @@
   boot.tmp.cleanOnBoot = true;
   boot.initrd.systemd.emergencyAccess = true;
   boot.initrd.availableKernelModules = [
-    "nvme" "xhci_pci" "ahci"
+    "nvme"
+    "xhci_pci"
+    "ahci"
   ];
 
   services.timesyncd.enable = true;
@@ -98,7 +107,9 @@
 
   fonts = {
     packages = with pkgs; [
-      noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
+      noto-fonts
+      noto-fonts-emoji
+      noto-fonts-cjk-sans
       liberation_ttf
       adwaita-fonts
     ];
@@ -106,7 +117,10 @@
       enable = true;
       defaultFonts = {
         serif = [ "Liberation Serif" ];
-        sansSerif = [ "Adwaita Sans" "Noto" ];
+        sansSerif = [
+          "Adwaita Sans"
+          "Noto"
+        ];
         monospace = [ "Adwaita Mono" ];
         emoji = [ "Noto Color Emoji" ];
       };

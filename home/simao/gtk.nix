@@ -1,4 +1,5 @@
-{ pkgs, ... }: rec {
+{ pkgs, ... }:
+rec {
   gtk = {
     enable = true;
     theme = {

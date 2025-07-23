@@ -4,7 +4,7 @@ let
 in
 builtins.toJSON {
   keys = {
-    developer = {};
+    developer = { };
     personal = {
       api_key = cfg.apiKey;
       client_id = cfg.apiClientId;

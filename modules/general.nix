@@ -1,4 +1,10 @@
-{ lib, config, options, ... }: {
+{
+  lib,
+  config,
+  options,
+  ...
+}:
+{
   options = {
     customization.general = {
       hostName = lib.mkOption {
@@ -24,15 +30,16 @@
   };
 
   config =
-  let customization = config.customization;
-  in
-  {
-    time.timeZone = lib.mkDefault customization.general.timeZone;
-    i18n.supportedLocales = [
-      "C.UTF-8/UTF-8"
-      "en_US.UTF-8/UTF-8"
-    ];
-    users.mutableUsers =  false;
-    networking.hostName = customization.general.hostName;
-  };
+    let
+      customization = config.customization;
+    in
+    {
+      time.timeZone = lib.mkDefault customization.general.timeZone;
+      i18n.supportedLocales = [
+        "C.UTF-8/UTF-8"
+        "en_US.UTF-8/UTF-8"
+      ];
+      users.mutableUsers = false;
+      networking.hostName = customization.general.hostName;
+    };
 }

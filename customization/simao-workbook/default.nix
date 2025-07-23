@@ -1,4 +1,11 @@
-{ pkgs, inputs, flakePath, lib, ... }: {
+{
+  pkgs,
+  inputs,
+  flakePath,
+  lib,
+  ...
+}:
+{
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-amd
@@ -74,7 +81,7 @@
   };
 
   services.tailscale.enable = true;
-  systemd.services.tailscaled.wantedBy = lib.mkForce [];
+  systemd.services.tailscaled.wantedBy = lib.mkForce [ ];
 
   services.timesyncd.enable = true;
 
@@ -108,8 +115,11 @@
   services.fprintd.enable = true;
   fonts = {
     packages = with pkgs; [
-      nerd-fonts.fira-code nerd-fonts.hasklug
-      noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
+      nerd-fonts.fira-code
+      nerd-fonts.hasklug
+      noto-fonts
+      noto-fonts-emoji
+      noto-fonts-cjk-sans
       liberation_ttf
       fira
       adwaita-fonts
@@ -124,7 +134,10 @@
       enable = true;
       defaultFonts = {
         serif = [ "Liberation Serif" ];
-        sansSerif = [ "Adwaita Sans" "Noto" ];
+        sansSerif = [
+          "Adwaita Sans"
+          "Noto"
+        ];
         monospace = [ "Adwaita Mono" ];
         emoji = [ "Noto Color Emoji" ];
       };
@@ -146,44 +159,42 @@
       nix-bundle
       gparted
       pop-wallpapers
-      (
-        pkgs.writeShellScriptBin "dhcp-setup" ''
-          set -e
+      (pkgs.writeShellScriptBin "dhcp-setup" ''
+        set -e
 
-          IFACE="$1"
-          CIDR="$2"
+        IFACE="$1"
+        CIDR="$2"
 
-          if [ -z "$IFACE" ] || [ -z "$CIDR" ]; then
-            echo "Usage: $0 <interface> <cidr>"
-            exit 1
-          fi
+        if [ -z "$IFACE" ] || [ -z "$CIDR" ]; then
+          echo "Usage: $0 <interface> <cidr>"
+          exit 1
+        fi
 
-          # Parse CIDR to extract network for DHCP range calculation
-          NETWORK=$(echo "$CIDR" | cut -d'/' -f1)
-          BASE_NETWORK=$(echo "$NETWORK" | cut -d'.' -f1-3)
+        # Parse CIDR to extract network for DHCP range calculation
+        NETWORK=$(echo "$CIDR" | cut -d'/' -f1)
+        BASE_NETWORK=$(echo "$NETWORK" | cut -d'.' -f1-3)
 
-          # DHCP range: .50 to .150 in the subnet
-          DHCP_START="$BASE_NETWORK.50"
-          DHCP_END="$BASE_NETWORK.150"
+        # DHCP range: .50 to .150 in the subnet
+        DHCP_START="$BASE_NETWORK.50"
+        DHCP_END="$BASE_NETWORK.150"
 
-          # Gateway will be .1 in the subnet
-          GATEWAY="$BASE_NETWORK.1"
+        # Gateway will be .1 in the subnet
+        GATEWAY="$BASE_NETWORK.1"
 
-          # Disconnect the interface first
-          ${lib.getExe' pkgs.networkmanager "nmcli"} dev disconnect "$IFACE" || :
+        # Disconnect the interface first
+        ${lib.getExe' pkgs.networkmanager "nmcli"} dev disconnect "$IFACE" || :
 
-          # Add IP address to interface
-          ${lib.getExe' pkgs.iproute2 "ip"} addr add "$CIDR" dev "$IFACE"
+        # Add IP address to interface
+        ${lib.getExe' pkgs.iproute2 "ip"} addr add "$CIDR" dev "$IFACE"
 
-          # Bring interface up
-          ${lib.getExe' pkgs.iproute2 "ip"} link set "$IFACE" up
+        # Bring interface up
+        ${lib.getExe' pkgs.iproute2 "ip"} link set "$IFACE" up
 
-          nixos-firewall-tool open udp 67
-          nixos-firewall-tool open udp 68
+        nixos-firewall-tool open udp 67
+        nixos-firewall-tool open udp 68
 
-          # Start dnsmasq with DHCP
-          ${lib.getExe pkgs.dnsmasq} -d -i "$IFACE" --bind-interfaces --except-interface=lo --port=0 --listen-address="$GATEWAY" --dhcp-range="$DHCP_START,$DHCP_END,12h"        ''
-      )
+        # Start dnsmasq with DHCP
+        ${lib.getExe pkgs.dnsmasq} -d -i "$IFACE" --bind-interfaces --except-interface=lo --port=0 --listen-address="$GATEWAY" --dhcp-range="$DHCP_START,$DHCP_END,12h"        '')
     ];
     defaultPackages = [ ];
     variables = {
@@ -192,16 +203,21 @@
       PAGER = "less";
       BROWSER = "firefox";
     };
-    pathsToLink = [ "/share/backgrounds" "/share/gnome-background-properties" ];
+    pathsToLink = [
+      "/share/backgrounds"
+      "/share/gnome-background-properties"
+    ];
   };
 
   nixpkgs.overlays = [
     (final: prev: {
-      pop-wallpapers = prev.pop-wallpapers.overrideAttrs (finalAttrs: prevAttrs: {
-        fixupPhase = ''
-          sed -i -re 's/\/usr/\/run\/current-system\/sw/g' $out/share/gnome-background-properties/pop-wallpapers.xml
-        '';
-      });
+      pop-wallpapers = prev.pop-wallpapers.overrideAttrs (
+        finalAttrs: prevAttrs: {
+          fixupPhase = ''
+            sed -i -re 's/\/usr/\/run\/current-system\/sw/g' $out/share/gnome-background-properties/pop-wallpapers.xml
+          '';
+        }
+      );
     })
   ];
 
@@ -217,18 +233,20 @@
     fangfrisch.interval = "*-*-* 00/4:00:00";
   };
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "spotify"
-    "android-studio-stable"
-    "idea-ultimate"
-    "phpstorm"
-    "goland"
-    "pycharm-professional"
-    "libfprint-2-tod1-goodix"
-    "displaylink"
-    "citrix-workspace"
-    "terraform"
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (pkgs.lib.getName pkg) [
+      "spotify"
+      "android-studio-stable"
+      "idea-ultimate"
+      "phpstorm"
+      "goland"
+      "pycharm-professional"
+      "libfprint-2-tod1-goodix"
+      "displaylink"
+      "citrix-workspace"
+      "terraform"
+    ];
 
   security.pki.certificateFiles = [
     "${flakePath}/local/certificates/thea_root_ca.crt"

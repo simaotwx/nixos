@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: pkgs.stdenv.mkDerivation rec {
+{ pkgs, lib, ... }:
+pkgs.stdenv.mkDerivation rec {
   name = "amdgpu-custom-fancontrol";
   src = pkgs.fetchFromGitHub {
     owner = "grmat";

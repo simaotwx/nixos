@@ -1,4 +1,10 @@
-{ pkgs, inputs, flakePath, ... }: {
+{
+  pkgs,
+  inputs,
+  flakePath,
+  ...
+}:
+{
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-amd
@@ -100,8 +106,11 @@
   services.fprintd.enable = true;
   fonts = {
     packages = with pkgs; [
-      nerd-fonts.fira-code nerd-fonts.hasklug
-      noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
+      nerd-fonts.fira-code
+      nerd-fonts.hasklug
+      noto-fonts
+      noto-fonts-emoji
+      noto-fonts-cjk-sans
       liberation_ttf
       fira
       adwaita-fonts
@@ -116,7 +125,10 @@
       enable = true;
       defaultFonts = {
         serif = [ "Liberation Serif" ];
-        sansSerif = [ "Adwaita Sans" "Noto" ];
+        sansSerif = [
+          "Adwaita Sans"
+          "Noto"
+        ];
         monospace = [ "Adwaita Mono" ];
         emoji = [ "Noto Color Emoji" ];
       };
@@ -160,18 +172,20 @@
     fangfrisch.interval = "*-*-* 00/4:00:00";
   };
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "spotify"
-    "android-studio-stable"
-    "idea-ultimate"
-    "phpstorm"
-    "goland"
-    "pycharm-professional"
-    "libfprint-2-tod1-goodix"
-    "displaylink"
-    "citrix-workspace"
-    "google-chrome"
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (pkgs.lib.getName pkg) [
+      "spotify"
+      "android-studio-stable"
+      "idea-ultimate"
+      "phpstorm"
+      "goland"
+      "pycharm-professional"
+      "libfprint-2-tod1-goodix"
+      "displaylink"
+      "citrix-workspace"
+      "google-chrome"
+    ];
 
   services.tailscale.enable = true;
 

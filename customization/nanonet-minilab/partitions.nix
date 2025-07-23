@@ -1,4 +1,11 @@
-{ config, pkgs, lib, modulesPath, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  modulesPath,
+  ...
+}:
+{
   imports = [
     "${modulesPath}/image/repart.nix"
   ];
@@ -13,8 +20,10 @@
 
   config = {
     image.repart =
-      let efiArch = "x64";
-      in {
+      let
+        efiArch = "x64";
+      in
+      {
         name = config.boot.uki.name;
         split = true;
 
@@ -25,9 +34,11 @@
                 "${pkgs.systemd}/lib/systemd/boot/efi/systemd-boot${efiArch}.efi";
               "/EFI/Linux/${config.system.boot.loader.ukiFile}".source =
                 "${config.system.build.uki}/${config.system.boot.loader.ukiFile}";
-              "/loader/loader.conf".source = (pkgs.writeText "$out" ''
-                timeout ${toString config.boot.loader.timeout}
-              '');
+              "/loader/loader.conf".source = (
+                pkgs.writeText "$out" ''
+                  timeout ${toString config.boot.loader.timeout}
+                ''
+              );
             };
             repartConfig = {
               Type = "esp";

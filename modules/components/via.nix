@@ -1,4 +1,10 @@
-{ lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options = {
     customization.peripherals = {
       via.enable = lib.mkOption {
@@ -11,14 +17,15 @@
   };
 
   config =
-  let customization = config.customization;
-  in
-  lib.mkIf customization.peripherals.via.enable {
-    hardware.keyboard.qmk.enable = true;
-    services.udev = {
-      packages = [
-        pkgs.via
-      ];
+    let
+      customization = config.customization;
+    in
+    lib.mkIf customization.peripherals.via.enable {
+      hardware.keyboard.qmk.enable = true;
+      services.udev = {
+        packages = [
+          pkgs.via
+        ];
+      };
     };
-  };
 }

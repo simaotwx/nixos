@@ -1,4 +1,5 @@
-{ lib, config, ... }: {
+{ lib, config, ... }:
+{
   options = {
     customization.sound = {
       enable = (lib.mkEnableOption "sound module") // {
@@ -12,15 +13,16 @@
   };
 
   config =
-  let customization = config.customization;
-  in
-  lib.mkIf customization.sound.enable {
-    services.pipewire = {
-      enable = true;
-      pulse.enable = customization.sound.pulse;
-      alsa.enable = true;
-      alsa.support32Bit = lib.mkDefault customization.sound.support32Bit;
+    let
+      customization = config.customization;
+    in
+    lib.mkIf customization.sound.enable {
+      services.pipewire = {
+        enable = true;
+        pulse.enable = customization.sound.pulse;
+        alsa.enable = true;
+        alsa.support32Bit = lib.mkDefault customization.sound.support32Bit;
+      };
+      security.rtkit.enable = true;
     };
-    security.rtkit.enable = true;
-  };
 }

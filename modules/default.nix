@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   imports = [
     ./base.nix
     ./bootloader.nix
@@ -24,7 +25,7 @@
     configurableUsers = lib.mkOption {
       type = with lib.types; listOf str;
       description = "This will be set automatically if you use the predefined home manager stuff";
-      default = [];
+      default = [ ];
     };
   };
 }

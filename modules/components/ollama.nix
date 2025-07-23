@@ -1,8 +1,17 @@
-{ pkgsUnstable, pkgs, lib, rocmPackages ? pkgs.rocmPackages, amdGpuSupport ? false, ... }:
+{
+  pkgsUnstable,
+  pkgs,
+  lib,
+  rocmPackages ? pkgs.rocmPackages,
+  amdGpuSupport ? false,
+  ...
+}:
 let
-  ollamaPackage = (pkgsUnstable.ollama.override {
-    acceleration = if amdGpuSupport then "rocm" else "cuda";
-  });
+  ollamaPackage = (
+    pkgsUnstable.ollama.override {
+      acceleration = if amdGpuSupport then "rocm" else "cuda";
+    }
+  );
 in
 {
   environment.systemPackages = [

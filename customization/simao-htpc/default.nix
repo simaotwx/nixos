@@ -1,4 +1,12 @@
-{ pkgs, inputs, config, flakePath, lib, ... }: {
+{
+  pkgs,
+  inputs,
+  config,
+  flakePath,
+  lib,
+  ...
+}:
+{
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-pc-ssd
@@ -53,19 +61,20 @@
       user = "htpc";
       kodiData = "/kodi";
       settings.webserver.enable = true;
-      plugins = kodiPkgs: with kodiPkgs; [
-        jellycon
-        (youtube.overrideAttrs (old: rec {
-          name = "youtube-${version}";
-          version = "7.2.0.3";
-          src = old.src.override {
-            owner = "anxdpanic";
-            repo = "plugin.video.youtube";
-            rev = "v${version}";
-            hash = "sha256-Igw4F/6+Ewrxsz1RI4csYsHmB12bkbW+764fQvqCx+0=";
-          };
-        }))
-      ];
+      plugins =
+        kodiPkgs: with kodiPkgs; [
+          jellycon
+          (youtube.overrideAttrs (old: rec {
+            name = "youtube-${version}";
+            version = "7.2.0.3";
+            src = old.src.override {
+              owner = "anxdpanic";
+              repo = "plugin.video.youtube";
+              rev = "v${version}";
+              hash = "sha256-Igw4F/6+Ewrxsz1RI4csYsHmB12bkbW+764fQvqCx+0=";
+            };
+          }))
+        ];
     };
   };
 
@@ -105,7 +114,9 @@
   boot.tmp.cleanOnBoot = true;
   boot.initrd.systemd.emergencyAccess = true;
   boot.initrd.availableKernelModules = [
-    "nvme" "xhci_pci" "ahci"
+    "nvme"
+    "xhci_pci"
+    "ahci"
   ];
 
   services.timesyncd.enable = true;
@@ -128,7 +139,9 @@
 
   fonts = {
     packages = with pkgs; [
-      noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
+      noto-fonts
+      noto-fonts-emoji
+      noto-fonts-cjk-sans
       liberation_ttf
       adwaita-fonts
       material-icons
@@ -139,7 +152,10 @@
       enable = true;
       defaultFonts = {
         serif = [ "Liberation Serif" ];
-        sansSerif = [ "Adwaita Sans" "Noto" ];
+        sansSerif = [
+          "Adwaita Sans"
+          "Noto"
+        ];
         monospace = [ "Adwaita Mono" ];
         emoji = [ "Noto Color Emoji" ];
       };
@@ -168,10 +184,12 @@
     };
   };
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "spotify"
-    "widevine-cdm"
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (pkgs.lib.getName pkg) [
+      "spotify"
+      "widevine-cdm"
+    ];
 
   systemd.network.wait-online.anyInterface = true;
   systemd.services.NetworkManager-wait-online.enable = false;
@@ -187,7 +205,11 @@
       PermitRootLogin = "no";
     };
   };
-  networking.firewall.allowedTCPPorts = [ 22 8081 9090 ];
+  networking.firewall.allowedTCPPorts = [
+    22
+    8081
+    9090
+  ];
 
   hardware.enableRedistributableFirmware = true;
 

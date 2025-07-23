@@ -1,4 +1,10 @@
-{ pkgs, lib, inputs, flakePath, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  flakePath,
+  ...
+}:
 {
   imports = [
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
@@ -17,9 +23,13 @@
     inputs.nixos-apple-silicon.overlays.apple-silicon-overlay
   ];
 
-  hardware.asahi = let asahiFiles = flakePath + "/local/asahi"; in {
-    peripheralFirmwareDirectory = lib.mkIf (lib.filesystem.pathIsDirectory asahiFiles) asahiFiles;
-  };
+  hardware.asahi =
+    let
+      asahiFiles = flakePath + "/local/asahi";
+    in
+    {
+      peripheralFirmwareDirectory = lib.mkIf (lib.filesystem.pathIsDirectory asahiFiles) asahiFiles;
+    };
 
   # Customization of modules
   customization = {
@@ -108,8 +118,11 @@
 
   fonts = {
     packages = with pkgs; [
-      nerd-fonts.fira-code nerd-fonts.hasklug
-      noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
+      nerd-fonts.fira-code
+      nerd-fonts.hasklug
+      noto-fonts
+      noto-fonts-emoji
+      noto-fonts-cjk-sans
       liberation_ttf
       fira
       adwaita-fonts
@@ -124,7 +137,10 @@
       enable = true;
       defaultFonts = {
         serif = [ "Liberation Serif" ];
-        sansSerif = [ "Adwaita Sans" "Noto" ];
+        sansSerif = [
+          "Adwaita Sans"
+          "Noto"
+        ];
         monospace = [ "Adwaita Mono" ];
         emoji = [ "Noto Color Emoji" ];
       };
@@ -179,16 +195,18 @@
 
   console.font = lib.mkForce "${pkgs.terminus_font}/share/consolefonts/ter-v32n.psf.gz";
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "discord"
-    "spotify"
-    "steam"
-    "steam-original"
-    "steam-run"
-    "steam-unwrapped"
-    "makemkv"
-    "android-studio-stable"
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (pkgs.lib.getName pkg) [
+      "discord"
+      "spotify"
+      "steam"
+      "steam-original"
+      "steam-run"
+      "steam-unwrapped"
+      "makemkv"
+      "android-studio-stable"
+    ];
 
   virtualisation.vmVariant = import ./vm.nix;
 

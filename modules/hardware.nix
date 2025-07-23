@@ -1,4 +1,11 @@
-{ lib, config, pkgs, pkgsUnstable, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  pkgsUnstable,
+  ...
+}:
+{
   options = {
     customization = {
       hardware = {
@@ -10,8 +17,19 @@
         };
         cpu.vendor = lib.mkOption {
           type = lib.types.enum [
-            "amd" "intel" "transmeta" "idt" "via"
-            "apple" "qcom" "rockchip" "allwinner" "broadcom" "mediatek" "nxp" "samsung"
+            "amd"
+            "intel"
+            "transmeta"
+            "idt"
+            "via"
+            "apple"
+            "qcom"
+            "rockchip"
+            "allwinner"
+            "broadcom"
+            "mediatek"
+            "nxp"
+            "samsung"
           ];
           default = "";
           description = "Vendor of your CPU";
@@ -65,7 +83,8 @@
       package32 = lib.mkIf config.hardware.graphics.enable32Bit pkgsUnstable.driversi686Linux.mesa;
     };
 
-    nixpkgs.overlays =
-      lib.optional config.customization.hardware.graphics.latestMesa (_: _: { mesa = pkgsUnstable.mesa; });
+    nixpkgs.overlays = lib.optional config.customization.hardware.graphics.latestMesa (
+      _: _: { mesa = pkgsUnstable.mesa; }
+    );
   };
 }

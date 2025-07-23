@@ -1,4 +1,10 @@
-{ pkgs, lib, flakePath, ... }: {
+{
+  pkgs,
+  lib,
+  flakePath,
+  ...
+}:
+{
   imports = [
     ../simao/dconf.nix
     ./direnv.nix

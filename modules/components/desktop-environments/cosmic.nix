@@ -1,4 +1,5 @@
-{ lib, flakePath, ... }: {
+{ lib, flakePath, ... }:
+{
   imports = [
     "${flakePath}/modules/components/graphical.nix"
   ];

@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "json2nix" ''
       #!${pkgs.runtimeShell}

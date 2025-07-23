@@ -1,5 +1,6 @@
 { config, lib, ... }:
-let customization = config.customization;
+let
+  customization = config.customization;
 in
 {
   options = {
@@ -11,9 +12,9 @@ in
   config = {
     boot = {
       kernelParams =
-        lib.optionals customization.hardware.firmware.supportsEfi [ "add_efi_memmap" ] ++
-        lib.optionals customization.kernel.sysrq.enable [ "sysrq_always_enabled=1" ] ++
-        [];
+        lib.optionals customization.hardware.firmware.supportsEfi [ "add_efi_memmap" ]
+        ++ lib.optionals customization.kernel.sysrq.enable [ "sysrq_always_enabled=1" ]
+        ++ [ ];
     };
   };
 }

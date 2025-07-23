@@ -1,6 +1,6 @@
 {
   virtualisation = {
-    memorySize =  4096;
+    memorySize = 4096;
     cores = 4;
     qemu.options = [
       "-vga qxl"

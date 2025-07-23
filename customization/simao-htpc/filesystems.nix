@@ -1,4 +1,11 @@
-{ config, lib, pkgs, packages, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  packages,
+  ...
+}:
+{
   boot.initrd.supportedFilesystems = {
     btrfs = true;
     squashfs = true;
@@ -29,44 +36,61 @@
     };
 
     "/boot" =
-      let partitionConfig = config.image.repart.partitions."esp".repartConfig;
-      in {
+      let
+        partitionConfig = config.image.repart.partitions."esp".repartConfig;
+      in
+      {
         device = "/dev/disk/by-partuuid/${partitionConfig.UUID}";
         fsType = partitionConfig.Format;
         options = [
-          "fmask=0077" "dmask=0077" "noatime"
+          "fmask=0077"
+          "dmask=0077"
+          "noatime"
           "x-systemd.device-timeout=30s"
         ];
       };
 
     "/nix/store" =
-      let partitionConfig = config.image.repart.partitions."store".repartConfig;
-      in {
+      let
+        partitionConfig = config.image.repart.partitions."store".repartConfig;
+      in
+      {
         device = "/dev/disk/by-partlabel/${partitionConfig.Label}";
         fsType = partitionConfig.Format;
-        options = [ "noatime" "x-systemd.after=initrd-parse-etc.service" "x-systemd.device-timeout=10s" ];
+        options = [
+          "noatime"
+          "x-systemd.after=initrd-parse-etc.service"
+          "x-systemd.device-timeout=10s"
+        ];
         neededForBoot = true;
       };
 
     "/data" =
-      let partitionConfig = config.systemd.repart.partitions."21-data";
-      in {
+      let
+        partitionConfig = config.systemd.repart.partitions."21-data";
+      in
+      {
         device = "/dev/disk/by-partuuid/${partitionConfig.UUID}";
         fsType = partitionConfig.Format;
         options = [
-          "noatime" "x-systemd.rw-only"
+          "noatime"
+          "x-systemd.rw-only"
           "x-systemd.device-timeout=30s"
         ];
         neededForBoot = true;
       };
 
     "/kodi" =
-      let partitionConfig = config.systemd.repart.partitions."21-data";
-      in {
+      let
+        partitionConfig = config.systemd.repart.partitions."21-data";
+      in
+      {
         device = "/dev/disk/by-partuuid/${partitionConfig.UUID}";
         fsType = partitionConfig.Format;
         options = [
-          "subvol=kodi" "noatime" "x-systemd.rw-only"
+          "subvol=kodi"
+          "noatime"
+          "x-systemd.rw-only"
           "x-systemd.device-timeout=30s"
         ];
         neededForBoot = true;
@@ -92,29 +116,36 @@
         };
       };
     };
-    "kodi" = lib.genAttrs [
-      "${config.customization.kodi.kodiData}"
-    ] (_: {
-      d = {
-        user = config.customization.kodi.user;
-        group = config.customization.kodi.user;
-        mode = "0750";
-      };
-    });
+    "kodi" =
+      lib.genAttrs
+        [
+          "${config.customization.kodi.kodiData}"
+        ]
+        (_: {
+          d = {
+            user = config.customization.kodi.user;
+            group = config.customization.kodi.user;
+            mode = "0750";
+          };
+        });
   };
 
-  system.activationScripts.populate-kodi-data = let data = config.customization.kodi.kodiData; in {
-    text = ''
-      ${pkgs.rsync}/bin/rsync -rac '${packages.simao-htpc-kodi-factory-data}'/. ${data}/.
-      ${pkgs.coreutils-full}/bin/install -m644 \
-        '${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so' \
-        '${data}/cdm/libwidevinecdm.so'
-      ${pkgs.coreutils-full}/bin/install -m644 \
-        '${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/manifest.json' \
-        '${data}/cdm/manifest.json'
-      ${pkgs.coreutils-full}/bin/chown -R \
-        '${config.customization.kodi.user}:${config.customization.kodi.user}' '${data}'
-      ${pkgs.coreutils-full}/bin/chmod -R u=rwX,g=rwX,o= '${data}'
-    '';
-  };
+  system.activationScripts.populate-kodi-data =
+    let
+      data = config.customization.kodi.kodiData;
+    in
+    {
+      text = ''
+        ${pkgs.rsync}/bin/rsync -rac '${packages.simao-htpc-kodi-factory-data}'/. ${data}/.
+        ${pkgs.coreutils-full}/bin/install -m644 \
+          '${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so' \
+          '${data}/cdm/libwidevinecdm.so'
+        ${pkgs.coreutils-full}/bin/install -m644 \
+          '${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/manifest.json' \
+          '${data}/cdm/manifest.json'
+        ${pkgs.coreutils-full}/bin/chown -R \
+          '${config.customization.kodi.user}:${config.customization.kodi.user}' '${data}'
+        ${pkgs.coreutils-full}/bin/chmod -R u=rwX,g=rwX,o= '${data}'
+      '';
+    };
 }

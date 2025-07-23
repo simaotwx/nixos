@@ -1,5 +1,6 @@
 # Opinionated vscodium setup
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;

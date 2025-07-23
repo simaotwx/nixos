@@ -1,4 +1,11 @@
-{ pkgs, lib, inputs, flakePath, packages, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  flakePath,
+  packages,
+  ...
+}:
 let
   gpuGamingTune = packages.aludepp-gpu-gaming-tune;
   gpuStockTune = packages.aludepp-gpu-stock-tune;
@@ -44,7 +51,7 @@ in
       keymap = "de-latin1";
     };
     compat.enable = true;
-    graphics =  {
+    graphics = {
       amd.overclocking.unlock = true;
     };
     kernel = {
@@ -73,34 +80,35 @@ in
     shells.zsh.lite.enable = true;
     shell.simaosSuite.enable = true;
     desktop.hyprland =
-    let
-      getSinkIdByName = name:
-        "wpctl status -n | grep -E '${name}' | grep -v 'Audio/Sink' | cut -d '.' -f1 | rev | cut -d ' ' -f1 | rev";
-      wpctl = lib.getExe' pkgs.wireplumber "wpctl";
-      wlCopy = lib.getExe' pkgs.wl-clipboard "wl-copy";
-    in
-    {
-      browser = inputs.zen-browser.packages."${pkgs.system}".beta;
-      execOnce = [
-        "${lib.getExe pkgs.wpaperd} -d"
-        "${lib.getExe pkgs.eww} daemon && ${lib.getExe pkgs.eww} open topbar"
-        "${lib.getExe pkgs.gopass} sync"
-      ];
-      additionalBind = [
-        ''$mainMod SHIFT, S, exec, ${wpctl} set-default $(${getSinkIdByName "alsa_output.usb-Yamaha_Corporation_Steinberg_IXO12-00.analog-stereo"}) && hyprctl notify -1 1000 "rgb(1E88E5)" 'Switched to speakers' ''
-        ''$mainMod, P, exec, ${lib.getExe pkgs.gopass} list --flat | $menu --dmenu -p "Search passwords…" -M multi-contains -i -O alphabetical | xargs ${lib.getExe pkgs.gopass} show -o -u --nosync | ${wlCopy}''
-      ];
-      additionalBinde = [
-        ''$mainMod SHIFT, right, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)+10)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
-        ''$mainMod SHIFT, left, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)-10)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
-        ''$mainMod SHIFT, down, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)+10))''
-        ''$mainMod SHIFT, up, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)-10))''
-        ''$mainMod+ALT SHIFT, right, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)+1)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
-        ''$mainMod+ALT SHIFT, left, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)-1)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
-        ''$mainMod+ALT SHIFT, down, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)+1))''
-        ''$mainMod+ALT SHIFT, up, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)-1))''
-      ];
-    };
+      let
+        getSinkIdByName =
+          name:
+          "wpctl status -n | grep -E '${name}' | grep -v 'Audio/Sink' | cut -d '.' -f1 | rev | cut -d ' ' -f1 | rev";
+        wpctl = lib.getExe' pkgs.wireplumber "wpctl";
+        wlCopy = lib.getExe' pkgs.wl-clipboard "wl-copy";
+      in
+      {
+        browser = inputs.zen-browser.packages."${pkgs.system}".beta;
+        execOnce = [
+          "${lib.getExe pkgs.wpaperd} -d"
+          "${lib.getExe pkgs.eww} daemon && ${lib.getExe pkgs.eww} open topbar"
+          "${lib.getExe pkgs.gopass} sync"
+        ];
+        additionalBind = [
+          ''$mainMod SHIFT, S, exec, ${wpctl} set-default $(${getSinkIdByName "alsa_output.usb-Yamaha_Corporation_Steinberg_IXO12-00.analog-stereo"}) && hyprctl notify -1 1000 "rgb(1E88E5)" 'Switched to speakers' ''
+          ''$mainMod, P, exec, ${lib.getExe pkgs.gopass} list --flat | $menu --dmenu -p "Search passwords…" -M multi-contains -i -O alphabetical | xargs ${lib.getExe pkgs.gopass} show -o -u --nosync | ${wlCopy}''
+        ];
+        additionalBinde = [
+          ''$mainMod SHIFT, right, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)+10)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
+          ''$mainMod SHIFT, left, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)-10)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
+          ''$mainMod SHIFT, down, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)+10))''
+          ''$mainMod SHIFT, up, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)-10))''
+          ''$mainMod+ALT SHIFT, right, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)+1)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
+          ''$mainMod+ALT SHIFT, left, exec, hyprctl dispatch movecursor $(($(hyprctl cursorpos | cut -d ',' -f1)-1)) $(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)''
+          ''$mainMod+ALT SHIFT, down, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)+1))''
+          ''$mainMod+ALT SHIFT, up, exec, hyprctl dispatch movecursor $(hyprctl cursorpos | cut -d ',' -f1) $(($(hyprctl cursorpos | cut -d ',' -f2 | cut -c2-)-1))''
+        ];
+      };
   };
 
   hardware.cpu.amd.ryzen-smu.enable = true;
@@ -141,30 +149,35 @@ in
 
   security.sudo = {
     enable = true;
-    extraRules = [{
-      commands = [
-        {
-          command = lib.getExe gpuGamingTune;
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = lib.getExe gpuStockTune;
-          options = [ "NOPASSWD" ];
-        }
-        {
-          command = lib.getExe gpuFanControl;
-          options = [ "NOPASSWD" ];
-        }
-      ];
-      users = [ "simao" ];
-      runAs = "root:root";
-    }];
+    extraRules = [
+      {
+        commands = [
+          {
+            command = lib.getExe gpuGamingTune;
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = lib.getExe gpuStockTune;
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = lib.getExe gpuFanControl;
+            options = [ "NOPASSWD" ];
+          }
+        ];
+        users = [ "simao" ];
+        runAs = "root:root";
+      }
+    ];
   };
 
   fonts = {
     packages = with pkgs; [
-      nerd-fonts.fira-code nerd-fonts.hasklug
-      noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
+      nerd-fonts.fira-code
+      nerd-fonts.hasklug
+      noto-fonts
+      noto-fonts-emoji
+      noto-fonts-cjk-sans
       liberation_ttf
       fira
       adwaita-fonts
@@ -179,7 +192,10 @@ in
       enable = true;
       defaultFonts = {
         serif = [ "Liberation Serif" ];
-        sansSerif = [ "Adwaita Sans" "Noto" ];
+        sansSerif = [
+          "Adwaita Sans"
+          "Noto"
+        ];
         monospace = [ "Adwaita Mono" ];
         emoji = [ "Noto Color Emoji" ];
       };
@@ -228,16 +244,18 @@ in
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "discord"
-    "spotify"
-    "steam"
-    "steam-original"
-    "steam-run"
-    "steam-unwrapped"
-    "makemkv"
-    "android-studio-stable"
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (pkgs.lib.getName pkg) [
+      "discord"
+      "spotify"
+      "steam"
+      "steam-original"
+      "steam-run"
+      "steam-unwrapped"
+      "makemkv"
+      "android-studio-stable"
+    ];
 
   virtualisation.vmVariant = import ./vm.nix;
 

@@ -1,4 +1,11 @@
-{ pkgs, flakePath, lib, osConfig, ... }: {
+{
+  pkgs,
+  flakePath,
+  lib,
+  osConfig,
+  ...
+}:
+{
   imports = [
     ./dconf.nix
     ./direnv.nix
@@ -45,8 +52,22 @@
   };
 
   dconf.settings."org/gnome/desktop/input-sources" =
-    lib.optionalAttrs osConfig.services.xserver.desktopManager.gnome.enable (with lib.hm.gvariant; {
-      sources = lib.mkForce [ (mkTuple [ "xkb" "us" ]) ];
-      mru-sources = lib.mkForce [ (mkTuple [ "xkb" "us" ]) ];
-    });
+    lib.optionalAttrs osConfig.services.xserver.desktopManager.gnome.enable
+      (
+        with lib.hm.gvariant;
+        {
+          sources = lib.mkForce [
+            (mkTuple [
+              "xkb"
+              "us"
+            ])
+          ];
+          mru-sources = lib.mkForce [
+            (mkTuple [
+              "xkb"
+              "us"
+            ])
+          ];
+        }
+      );
 }

@@ -1,4 +1,10 @@
-{ inputs, pkgs, flakePath, ... }: {
+{
+  inputs,
+  pkgs,
+  flakePath,
+  ...
+}:
+{
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     common-cpu-amd
@@ -124,8 +130,11 @@
 
   fonts = {
     packages = with pkgs; [
-      nerd-fonts.fira-code nerd-fonts.hasklug
-      noto-fonts noto-fonts-emoji noto-fonts-cjk-sans
+      nerd-fonts.fira-code
+      nerd-fonts.hasklug
+      noto-fonts
+      noto-fonts-emoji
+      noto-fonts-cjk-sans
       liberation_ttf
       fira
       adwaita-fonts
@@ -140,7 +149,10 @@
       enable = true;
       defaultFonts = {
         serif = [ "Liberation Serif" ];
-        sansSerif = [ "Adwaita Sans" "Noto" ];
+        sansSerif = [
+          "Adwaita Sans"
+          "Noto"
+        ];
         monospace = [ "Adwaita Mono" ];
         emoji = [ "Noto Color Emoji" ];
       };
@@ -177,19 +189,21 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "discord"
-    "spotify"
-    "steam"
-    "steam-original"
-    "steam-run"
-    "steam-unwrapped"
-    "makemkv"
-    "android-studio-stable"
-    "postman"
-    "teamviewer"
-    "discord-ptb"
-  ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (pkgs.lib.getName pkg) [
+      "discord"
+      "spotify"
+      "steam"
+      "steam-original"
+      "steam-run"
+      "steam-unwrapped"
+      "makemkv"
+      "android-studio-stable"
+      "postman"
+      "teamviewer"
+      "discord-ptb"
+    ];
 
   services.goxlr-utility.enable = true;
 

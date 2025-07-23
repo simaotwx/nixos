@@ -1,4 +1,13 @@
-{ pkgs, lib, config, flakePath, mkConfigurableUsersOption, forEachUser, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  flakePath,
+  mkConfigurableUsersOption,
+  forEachUser,
+  ...
+}:
+{
   imports = [
     "${flakePath}/modules/components/graphical.nix"
   ];
@@ -13,7 +22,7 @@
       };
       desktop.gnome.extensions = lib.mkOption {
         type = with lib.types; listOf package;
-        default = [];
+        default = [ ];
         description = "Extension packages to install and enable";
       };
     };
@@ -50,19 +59,31 @@
     services.xserver.desktopManager.gnome.enable = true;
     nixpkgs.overlays = [
       (final: prev: {
-        spotify = prev.spotify.overrideAttrs (finalAttrs: prevAttrs: {
-          fixupPhase = builtins.replaceStrings [
-            ''--add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime=true}}"''
-            ''--add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland}}"''
-          ] ["" ""] prevAttrs.fixupPhase;
-        });
+        spotify = prev.spotify.overrideAttrs (
+          finalAttrs: prevAttrs: {
+            fixupPhase =
+              builtins.replaceStrings
+                [
+                  ''--add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime=true}}"''
+                  ''--add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland}}"''
+                ]
+                [ "" "" ]
+                prevAttrs.fixupPhase;
+          }
+        );
       })
       (final: prev: {
-        mattermost-desktop = prev.mattermost-desktop.overrideAttrs (finalAttrs: prevAttrs: {
-          installPhase = builtins.replaceStrings [ "--enable-features" ] [
-            "--disable-features=GlobalShortcutsPortal --enable-features"
-          ] prevAttrs.installPhase;
-        });
+        mattermost-desktop = prev.mattermost-desktop.overrideAttrs (
+          finalAttrs: prevAttrs: {
+            installPhase =
+              builtins.replaceStrings
+                [ "--enable-features" ]
+                [
+                  "--disable-features=GlobalShortcutsPortal --enable-features"
+                ]
+                prevAttrs.installPhase;
+          }
+        );
       })
     ];
   };

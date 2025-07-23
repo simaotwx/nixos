@@ -1,4 +1,9 @@
-{ pkgs, inputs, lib, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 let
   jdks = with pkgs; [
     jdk21
@@ -10,21 +15,37 @@ in
     #wpaperd eww wofi
     #hyprlock hypridle hyprshot
     rose-pine-cursor
-    jq pv pwgen
+    jq
+    pv
+    pwgen
     socat
-    pavucontrol playerctl
+    pavucontrol
+    playerctl
     #gopass gopass-jsonapi
-    git curl
-    wl-clipboard cliphist wl-clipboard-x11
+    git
+    curl
+    wl-clipboard
+    cliphist
+    wl-clipboard-x11
     easyeffects
-    nautilus file-roller loupe gedit gnome-calculator
+    nautilus
+    file-roller
+    loupe
+    gedit
+    gnome-calculator
     mangohud
     appimage-run
     celluloid
     #orca-slicer
     dig
     signal-desktop
-    unzip file zstd tree bat fd brotli
+    unzip
+    file
+    zstd
+    tree
+    bat
+    fd
+    brotli
     gparted
     picocom
     telegram-desktop
@@ -34,8 +55,10 @@ in
     #audacity
     lm_sensors
     fastfetch
-    jetbrains.idea-community jdk
-    nixd nixpkgs-fmt
+    jetbrains.idea-community
+    jdk
+    nixd
+    nixpkgs-fmt
     bc
     #jellycli
     imagemagick
@@ -43,11 +66,17 @@ in
     evince
     stress
     subfinder
-    ntfs3g woeusb-ng
-    smartmontools rsync
+    ntfs3g
+    woeusb-ng
+    smartmontools
+    rsync
     vlc
     #libreoffice-fresh
-    p7zip iptables nftables inetutils simple-scan
+    p7zip
+    iptables
+    nftables
+    inetutils
+    simple-scan
     via
     hwloc
     inputs.zen-browser.packages."${pkgs.system}".beta
@@ -68,7 +97,9 @@ in
     gst_all_1.gst-vaapi
 
     # AOSP stuff
-    git-repo xmlstarlet ccache
+    git-repo
+    xmlstarlet
+    ccache
 
     (vesktop.override { withSystemVencord = true; })
     spotify
@@ -82,30 +113,36 @@ in
     onlyoffice-desktopeditors
   ];
 
-  home.file = (builtins.listToAttrs (builtins.concatMap (jdk: [
-    {
-      name = ".jdks/${lib.versions.major jdk.version}";
-      value = { source = "${jdk}/lib/openjdk"; };
-    }
-    {
-      name = ".jdks/${lib.versions.major jdk.version}.intellij";
-      value = {
-        text = builtins.toJSON rec {
-          vendor = jdk.meta.homepage;
-          product = jdk.pname;
-          flavour = jdk.meta.description;
-          jdk_version_major = lib.versions.major jdk.version;
-          jdk_version = builtins.concatStringsSep "." (lib.take 3 (lib.versions.splitVersion jdk.version));
-          shared_index_aliases = [
-            jdk.name
-            jdk.version
-            "${jdk.pname}-${jdk_version_major}"
-            jdk_version_major
-            jdk_version
-          ];
-        };
-      };
-    }
-  ]) jdks));
+  home.file = (
+    builtins.listToAttrs (
+      builtins.concatMap (jdk: [
+        {
+          name = ".jdks/${lib.versions.major jdk.version}";
+          value = {
+            source = "${jdk}/lib/openjdk";
+          };
+        }
+        {
+          name = ".jdks/${lib.versions.major jdk.version}.intellij";
+          value = {
+            text = builtins.toJSON rec {
+              vendor = jdk.meta.homepage;
+              product = jdk.pname;
+              flavour = jdk.meta.description;
+              jdk_version_major = lib.versions.major jdk.version;
+              jdk_version = builtins.concatStringsSep "." (lib.take 3 (lib.versions.splitVersion jdk.version));
+              shared_index_aliases = [
+                jdk.name
+                jdk.version
+                "${jdk.pname}-${jdk_version_major}"
+                jdk_version_major
+                jdk_version
+              ];
+            };
+          };
+        }
+      ]) jdks
+    )
+  );
 
 }

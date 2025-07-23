@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ lib, ... }:
+{
   options = {
     customization.kodi = {
       settings = {

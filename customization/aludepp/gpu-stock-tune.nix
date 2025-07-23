@@ -11,18 +11,18 @@ let
       done
     '';
   };
-  in
-  pkgs.writeShellScriptBin "gpu-${tuneType}-tune" ''
-    set -e
-    echo manual > /sys/class/drm/card?/device/power_dpm_force_performance_level
-    sleep 0.25
-    echo 1 > /sys/class/drm/card?/device/pp_dpm_mclk
-    echo "0 1" > /sys/class/drm/card?/device/pp_dpm_mclk
-    echo 0 > /sys/class/drm/card?/device/pp_dpm_mclk
-    echo 0 > /sys/class/drm/card?/device/pp_dpm_sclk
-    USER_STATES_PATH=${tune}/ amdgpu-clocks
-    set -x
-    echo 0 > /sys/class/drm/card?/device/pp_power_profile_mode || :
-    echo auto > /sys/class/drm/card?/device/power_dpm_force_performance_level
-    set +x
-  ''
+in
+pkgs.writeShellScriptBin "gpu-${tuneType}-tune" ''
+  set -e
+  echo manual > /sys/class/drm/card?/device/power_dpm_force_performance_level
+  sleep 0.25
+  echo 1 > /sys/class/drm/card?/device/pp_dpm_mclk
+  echo "0 1" > /sys/class/drm/card?/device/pp_dpm_mclk
+  echo 0 > /sys/class/drm/card?/device/pp_dpm_mclk
+  echo 0 > /sys/class/drm/card?/device/pp_dpm_sclk
+  USER_STATES_PATH=${tune}/ amdgpu-clocks
+  set -x
+  echo 0 > /sys/class/drm/card?/device/pp_power_profile_mode || :
+  echo auto > /sys/class/drm/card?/device/power_dpm_force_performance_level
+  set +x
+''

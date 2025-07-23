@@ -1,4 +1,5 @@
-{ lib, flakePath, ... }: {
+{ lib, flakePath, ... }:
+{
   imports = [
     # It just makes sense to have this around so that you can enter your password
     "${flakePath}/modules/components/gnupg.nix"

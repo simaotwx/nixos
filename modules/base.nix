@@ -1,4 +1,10 @@
-{ lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   system.stateVersion = lib.mkDefault "24.11";
 
   boot.tmp = {
@@ -10,12 +16,14 @@
     DefaultLimitNOFILE=1048576
   '';
 
-  security.pam.loginLimits = [{
-    type = "hard";
-    domain = "*";
-    item = "nofile";
-    value = "1048576";
-  }];
+  security.pam.loginLimits = [
+    {
+      type = "hard";
+      domain = "*";
+      item = "nofile";
+      value = "1048576";
+    }
+  ];
 
   boot.binfmt.registrations.appimage = {
     wrapInterpreterInShell = false;

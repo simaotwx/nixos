@@ -1,4 +1,11 @@
-{ config, pkgs, mkConfigurableUsersOption, forEachUser, ... }: {
+{
+  config,
+  pkgs,
+  mkConfigurableUsersOption,
+  forEachUser,
+  ...
+}:
+{
   options = {
     customization = {
       virtualisation.virtd.users = mkConfigurableUsersOption {
@@ -19,10 +26,12 @@
         swtpm.enable = true;
         ovmf = {
           enable = true;
-          packages = [(pkgs.OVMF.override {
-            secureBoot = true;
-            tpmSupport = true;
-          }).fd];
+          packages = [
+            (pkgs.OVMF.override {
+              secureBoot = true;
+              tpmSupport = true;
+            }).fd
+          ];
         };
       };
     };
