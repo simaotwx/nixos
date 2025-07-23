@@ -17,7 +17,9 @@
     inputs.nixos-apple-silicon.overlays.apple-silicon-overlay
   ];
 
-  hardware.asahi.peripheralFirmwareDirectory = flakePath + "/local/asahi";
+  hardware.asahi = let asahiFiles = flakePath + "/local/asahi"; in {
+    peripheralFirmwareDirectory = lib.mkIf (lib.filesystem.pathIsDirectory asahiFiles) asahiFiles;
+  };
 
   # Customization of modules
   customization = {
