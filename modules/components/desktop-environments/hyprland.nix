@@ -150,7 +150,7 @@
         ] ++ cfg.execOnce;
 
         input = {
-          kb_layout = config.customization.general.keymap;
+          kb_layout = builtins.head (lib.strings.splitString "-" config.customization.general.keymap);
           kb_variant = "";
           kb_model = "";
           kb_options = "";
