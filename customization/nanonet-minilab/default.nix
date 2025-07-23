@@ -12,7 +12,7 @@
     "${flakePath}/modules/hardware/intel/gpu.nix"
     "${flakePath}/modules/components/networking/systemd-networkd.nix"
     "${flakePath}/modules/components/jellyfin.nix"
-    #"${flakePath}/local/nanonet-minilab.nix"
+    "${flakePath}/local/nanonet-minilab-secrets.nix"
   ];
 
   # Customization of modules
@@ -162,12 +162,12 @@
   services.caddy = rec {
     enable = true;
     globalConfig = ''
-      email ${config.customization.nanonet-minilab.acmeEmail}
+      email ${config.customization.nanonet-minilab.acmeEmail or ""}
     '';
     extraConfig = ''
       (common_tls) {
         tls {
-          dns cloudflare "${config.customization.nanonet-minilab.cfApiToken}"
+          dns cloudflare "${config.customization.nanonet-minilab.cfApiToken or ""}"
         }
       }
     '';
