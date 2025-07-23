@@ -33,7 +33,7 @@
     };
   in {
     _module.args.rocmPackages =
-      if customization.graphics.latestMesa then pkgsUnstable.rocmPackages else pkgs.rocmPackages;
+      if customization.hardware.graphics.latestMesa then pkgsUnstable.rocmPackages else pkgs.rocmPackages;
     _module.args.amdGpuSupport = true;
 
     boot.kernelParams =
