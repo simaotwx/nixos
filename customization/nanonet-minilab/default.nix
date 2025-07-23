@@ -159,6 +159,30 @@
     linkConfig.RequiredForOnline = "routable";
   };
 
+  services.caddy = rec {
+    enable = true;
+    globalConfig = ''
+      email ${config.customization.nanonet-minilab.acmeEmail}
+    '';
+    extraConfig = ''
+      (common_tls) {
+        tls {
+          dns cloudflare "${config.customization.nanonet-minilab.cfApiToken}"
+        }
+      }
+    '';
+    virtualHosts = {
+      "jelly.nanonet.rx7.link" = {
+        extraConfig = ''
+          import common_tls
+          reverse_proxy localhost:8096
+        '';
+      };
+      "jelly-ts.nanonet.rx7.link, jelly-ts-ipv4.nanonet.nanonet.rx7.link" =
+        virtualHosts."jelly.nanonet.rx7.link";
+    };
+  };
+
   boot.uki.name = "nnmos";
   system.nixos.distroId = "nnmos";
   system.nixos.distroName = "nanonet minilab OS";
