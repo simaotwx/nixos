@@ -13,6 +13,7 @@ in
     common-pc-ssd
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/hardware/amd/gpu.nix"
     "${flakePath}/modules/components/alacritty.nix"
     "${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/desktop-environments/hyprland.nix"
@@ -42,7 +43,6 @@ in
     };
     compat.enable = true;
     graphics =  {
-      amd.enable = true;
       amd.overclocking.unlock = true;
     };
     kernel = {

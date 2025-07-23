@@ -8,6 +8,7 @@
     ./filesystems.nix
     ./tpm.nix
     "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/hardware/amd/gpu.nix"
     "${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/zsh"
@@ -32,10 +33,6 @@
       keymap = "de";
     };
     compat.enable = true;
-    graphics =  {
-      amd.enable = true;
-      amd.overclocking.unlock = false;
-    };
     kernel = {
       sysrq.enable = true;
     };

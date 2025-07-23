@@ -2,11 +2,6 @@
 
   options = {
     customization.graphics = {
-      amd.enable = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Whether to set up AMD graphics support";
-      };
       amd.overclocking.unlock = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -36,8 +31,11 @@
         install -Dm755 ${name} $out/bin/${name}
       '';
     };
-  in
-  lib.mkIf customization.graphics.amd.enable {
+  in {
+    _module.args.rocmPackages =
+      if config.customization.graphics.amd.latestMesa then pkgsUnstable.rocmPackages else pkgs.rocmPackages;
+    _module.args.amdGpuSupport = true;
+
     boot.kernelParams =
       lib.optionals customization.graphics.amd.overclocking.unlock [ "amdgpu.ppfeaturemask=0xfff7ffff" ] ++
       [];
@@ -51,7 +49,7 @@
     };
     hardware.amdgpu.initrd.enable = true;
     # Do not set this to true because the code after it already does the same
-    hardware.amdgpu.opencl.enable =lib.mkForce false;
+    hardware.amdgpu.opencl.enable = lib.mkForce false;
     hardware.enableRedistributableFirmware = lib.mkDefault true;
     hardware.graphics = {
       enable = true;

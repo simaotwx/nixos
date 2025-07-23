@@ -8,6 +8,7 @@
     framework-16-7040-amd
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/hardware/amd/gpu.nix"
     "${flakePath}/modules/components/alacritty.nix"
     "${flakePath}/modules/components/displaylink.nix"
     "${flakePath}/modules/components/goose-ai.nix"
@@ -34,9 +35,6 @@
       keymap = "de";
     };
     compat.enable = true;
-    graphics =  {
-      amd.enable = true;
-    };
     kernel = {
       sysrq.enable = true;
     };
