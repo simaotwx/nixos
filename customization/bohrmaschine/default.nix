@@ -28,7 +28,7 @@
       hostName = "bohrmaschine";
       timeZone = "Europe/Berlin";
       defaultLocale = "de_DE.UTF-8";
-      keymap = "de";
+      keymap = "de-latin1";
     };
     compat.enable = true;
     kernel = {

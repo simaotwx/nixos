@@ -31,7 +31,7 @@
       hostName = "triceratops";
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
-      keymap = "de";
+      keymap = "de-latin1";
     };
     compat.enable = true;
     kernel = {
