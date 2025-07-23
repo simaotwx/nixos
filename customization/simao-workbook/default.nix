@@ -181,12 +181,11 @@
           # Bring interface up
           ${lib.getExe' pkgs.iproute2 "ip"} link set "$IFACE" up
 
-          nixos-firewall-tool open 67
-          nixos-firewall tool open 68
+          nixos-firewall-tool open udp 67
+          nixos-firewall-tool open udp 68
 
           # Start dnsmasq with DHCP
-          ${lib.getExe pkgs.dnsmasq} -d -i "$IFACE" --port=0 --listen-address="$GATEWAY" --dhcp-range="$DHCP_START,$DHCP_END,12h"
-        ''
+          ${lib.getExe pkgs.dnsmasq} -d -i "$IFACE" --bind-interfaces --except-interface=lo --port=0 --listen-address="$GATEWAY" --dhcp-range="$DHCP_START,$DHCP_END,12h"        ''
       )
     ];
     defaultPackages = [ ];
