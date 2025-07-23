@@ -253,6 +253,7 @@
           "size 640 360, title:^(Picture-in-Picture)$"
           "float, class:^(org.kde.polkit-kde-authentication-agent.*)$"
           "noblur, xwayland:1"
+          "suppressevent maximize, class:.*"
         ];
         "$mainMod" = cfg.mainMod;
         "$screenShotDir" = "~/Pictures/Screenshots";
