@@ -14,7 +14,7 @@
   let customization = config.customization;
   in
   lib.mkIf customization.peripherals.via.enable {
-    customization.peripherals.qmk.enable = true;
+    hardware.keyboard.qmk.enable = true;
     services.udev = {
       packages = [
         pkgs.via

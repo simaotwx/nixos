@@ -24,7 +24,6 @@
     inherit (customLib) forEachSystem homeManager;
     commonModules = [
       ./modules
-      ./hardware
       {
         system.configurationRevision = toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown");
       }
