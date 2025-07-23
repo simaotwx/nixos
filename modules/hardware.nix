@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }: {
+{ lib, config, pkgs, pkgsUnstable, ... }: {
   options = {
     customization = {
       hardware = {
@@ -54,7 +54,18 @@
           default = pkgs.system == "x86_64-linux";
           description = "Whether the system shall be set up to support and use EFI features";
         };
+        graphics.latestMesa = lib.mkEnableOption "latest mesa from nixos-unstable";
       };
     };
+  };
+
+  config = {
+    hardware.graphics = lib.optionalAttrs config.customization.hardware.graphics.latestMesa {
+      package = pkgsUnstable.mesa;
+      package32 = lib.mkIf config.hardware.graphics.enable32Bit pkgsUnstable.driversi686Linux.mesa;
+    };
+
+    nixpkgs.overlays =
+      lib.optional config.customization.hardware.graphics.latestMesa (_: _: { mesa = pkgsUnstable.mesa; });
   };
 }

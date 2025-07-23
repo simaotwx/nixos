@@ -33,7 +33,7 @@
     };
   in {
     _module.args.rocmPackages =
-      if config.customization.graphics.amd.latestMesa then pkgsUnstable.rocmPackages else pkgs.rocmPackages;
+      if customization.graphics.latestMesa then pkgsUnstable.rocmPackages else pkgs.rocmPackages;
     _module.args.amdGpuSupport = true;
 
     boot.kernelParams =
@@ -54,21 +54,11 @@
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
-    } // (if customization.graphics.amd.latestMesa then {
-      package = pkgsUnstable.mesa;
-      package32 = pkgsUnstable.driversi686Linux.mesa;
-      extraPackages = with pkgsUnstable; [
+      extraPackages = with (if customization.hardware.graphics.latestMesa then pkgsUnstable else pkgs); [
         rocmPackages.clr
         rocmPackages.clr.icd
       ];
-    } else {
-      extraPackages = with pkgs; [
-        rocmPackages.clr
-        rocmPackages.clr.icd
-      ];
-    });
-
-    nixpkgs.overlays = lib.optional customization.graphics.amd.latestMesa (_: _: { mesa = pkgsUnstable.mesa; });
+    };
 
     environment.variables = {
       AMD_VULKAN_ICD = "RADV";

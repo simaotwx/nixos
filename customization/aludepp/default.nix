@@ -35,6 +35,7 @@ in
       cpu.vendor = "amd";
       storage.hasNvme = true;
       io.hasOpticalDrive = true;
+      graphics.latestMesa = true;
     };
     general = {
       hostName = "aludepp";
