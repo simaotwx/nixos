@@ -14,6 +14,7 @@ in
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/hardware/amd/gpu.nix"
+    "${flakePath}/modules/hardware/razer/peripherals.nix"
     "${flakePath}/modules/components/alacritty.nix"
     "${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/desktop-environments/hyprland.nix"
@@ -67,7 +68,6 @@ in
     };
     peripherals = {
       via.enable = true;
-      razer.enable = true;
     };
     shells.zsh.lite.enable = true;
     shell.simaosSuite.enable = true;
