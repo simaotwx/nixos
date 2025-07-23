@@ -34,8 +34,6 @@
       keymap = "en";
     };
     compat.enable = true;
-    graphics =  {
-    };
     kernel = {
       sysrq.enable = true;
     };
