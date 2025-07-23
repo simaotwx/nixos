@@ -188,22 +188,22 @@
           rounding = 7;
 
           blur = {
-              enabled = true;
-              size = 3;
-              passes = 3;
-              noise = 0.01;
-              contrast = 0.92;
-              brightness = 0.92;
-              vibrancy = 0.18;
-              vibrancy_darkness = 0.1;
+            enabled = true;
+            size = 3;
+            passes = 3;
+            noise = 0.01;
+            contrast = 0.92;
+            brightness = 0.92;
+            vibrancy = 0.18;
+            vibrancy_darkness = 0.1;
           };
 
           shadow = {
-              enabled = true;
-              range = 2;
-              render_power = 2;
-              color = "rgba(1a1a1a1a)";
-              color_inactive = "rgba(1a1a1a9a)";
+            enabled = true;
+            range = 2;
+            render_power = 2;
+            color = "rgba(1a1a1a1a)";
+            color_inactive = "rgba(1a1a1a9a)";
           };
         };
         animations = {
