@@ -220,9 +220,11 @@
 
   hardware.cpu.amd.ryzen-smu.enable = true;
 
-  # Support for Carolina Mech Fossil
+  # Support for Carolina Mech Fossil and Lemokey L5 HE 8k
   services.udev.extraRules = ''
     KERNEL=="hidraw*", ATTRS{idVendor}=="4069", ATTRS{idProduct}=="0002", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+
+    KERNEL=="hidraw*", ATTRS{idVendor}=="362d", ATTRS{idProduct}=="0551", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
   '';
 
   services.timesyncd.enable = true;
