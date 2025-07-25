@@ -99,6 +99,7 @@ in
       pinta
       krita
       ddrescue
+      hdparm
 
       # GStreamer
       gst_all_1.gstreamer
