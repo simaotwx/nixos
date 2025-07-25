@@ -45,6 +45,7 @@ in
       chromium
       protobuf
       e2fsprogs
+      audacity
       lm_sensors
       fastfetch
       jdk
@@ -90,9 +91,14 @@ in
       fd
       nmap
       brightnessctl
+      lz4
       zip
       qt6Packages.qtdeclarative
       bmap-tools
+      gimp3
+      pinta
+      krita
+      ddrescue
 
       # GStreamer
       gst_all_1.gstreamer

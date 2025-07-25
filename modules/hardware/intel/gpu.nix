@@ -34,6 +34,7 @@
       '';
     in
     rec {
+      _module.args.intelGpuSupport = true;
       boot.initrd.kernelModules = [ "xe" ];
       environment.variables = {
         VDPAU_DRIVER = "va_gl";
