@@ -5,6 +5,7 @@
   ...
 }:
 {
+  _module.args.appleGpuSupport = true;
   hardware.graphics.enable32Bit = lib.mkForce false;
   hardware.asahi.useExperimentalGPUDriver = true;
   hardware.asahi.extractPeripheralFirmware =
