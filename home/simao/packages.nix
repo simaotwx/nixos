@@ -78,6 +78,7 @@
       gimp3
       pinta
       krita
+      ddrescue
 
       # GStreamer
       gst_all_1.gstreamer
