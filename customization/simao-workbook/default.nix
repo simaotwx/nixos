@@ -18,8 +18,6 @@
     "${flakePath}/modules/hardware/amd/gpu.nix"
     "${flakePath}/modules/components/alacritty.nix"
     "${flakePath}/modules/components/displaylink.nix"
-    "${flakePath}/modules/components/goose-ai.nix"
-    "${flakePath}/modules/components/ollama.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/zsh"
