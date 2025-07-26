@@ -1,27 +1,20 @@
 {
-  pkgs,
-  lib,
   inputs,
   flakePath,
-  packages,
+  lib,
+  pkgs,
   ...
 }:
-let
-  gpuGamingTune = packages.aludepp-gpu-gaming-tune;
-  gpuStockTune = packages.aludepp-gpu-stock-tune;
-  gpuFanControl = packages.aludepp-gpu-fan-control;
-in
 {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
+    common-pc-ssd
     common-cpu-amd
     common-cpu-amd-pstate
-    common-gpu-amd
-    common-pc-ssd
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
-    "${flakePath}/modules/hardware/amd/gpu.nix"
     "${flakePath}/modules/hardware/razer/peripherals.nix"
+    "${flakePath}/modules/hardware/intel/gpu.nix"
     "${flakePath}/modules/components/alacritty.nix"
     "${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/desktop-environments/hyprland.nix"
@@ -52,7 +45,7 @@ in
     };
     compat.enable = true;
     graphics = {
-      amd.overclocking.unlock = true;
+      intel.rgbFix = true;
     };
     kernel = {
       sysrq.enable = true;
@@ -149,26 +142,6 @@ in
 
   security.sudo = {
     enable = true;
-    extraRules = [
-      {
-        commands = [
-          {
-            command = lib.getExe gpuGamingTune;
-            options = [ "NOPASSWD" ];
-          }
-          {
-            command = lib.getExe gpuStockTune;
-            options = [ "NOPASSWD" ];
-          }
-          {
-            command = lib.getExe gpuFanControl;
-            options = [ "NOPASSWD" ];
-          }
-        ];
-        users = [ "simao" ];
-        runAs = "root:root";
-      }
-    ];
   };
 
   fonts = {
@@ -221,13 +194,6 @@ in
       strace
       wget
       curl
-      gpuGamingTune
-      gpuStockTune
-      gpuFanControl
-      (writeShellScriptBin "gaming-mode" ''
-        sudo ${lib.getExe gpuGamingTune}
-        sudo ${lib.getExe gpuFanControl}
-      '')
     ];
     defaultPackages = [ ];
     variables = {

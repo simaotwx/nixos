@@ -195,9 +195,6 @@
           simao-htpc-update = customLib.mkUpdate system nixosConfigurations.simao-htpc;
           nanonet-minilab-update = customLib.mkUpdate system nixosConfigurations.nanonet-minilab;
           simao-htpc-kodi-factory-data = import ./packages/simao-htpc-kodi-factory-data.nix commonPackageArgs;
-          aludepp-gpu-gaming-tune = import ./customization/aludepp/gpu-gaming-tune.nix commonPackageArgs;
-          aludepp-gpu-stock-tune = import ./customization/aludepp/gpu-stock-tune.nix commonPackageArgs;
-          aludepp-gpu-fan-control = import ./customization/aludepp/gpu-fancontrol.nix commonPackageArgs;
         }
       );
 
