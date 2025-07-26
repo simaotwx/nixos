@@ -13,13 +13,10 @@
     let
       hasLinuxNitrous = builtins.hasAttr "linux-nitrous" options.customization;
       intelRgbFix = pkgs.writeShellScript "intel-rgb-fix" ''
-        set +e
         while ! ${lib.getExe' pkgs.libdrm "proptest"} -M xe -D /dev/dri/card* 2>/dev/null | grep -q "Broadcast RGB"; do
           sleep 0.5
         done
 
-        (
-        set -e
         ${lib.getExe' pkgs.libdrm "proptest"} -M xe -D /dev/dri/card* | grep -E "^Connector [0-9]+" | while read -r line; do
           connector=$(echo "$line" | ${lib.getExe pkgs.gawk} '{print $2}')
 
@@ -30,7 +27,6 @@
             ${lib.getExe' pkgs.libdrm "proptest"} -M xe -D /dev/dri/card* "$connector" connector "$prop_id" 1
           fi
         done
-        ) || :
       '';
     in
     rec {
@@ -70,7 +66,7 @@
 
             serviceConfig = {
               Type = "oneshot";
-              ExecStart = "${intelRgbFix}";
+              ExecStart = "-${intelRgbFix}";
               RemainAfterExit = false;
               StandardOutput = "journal";
               StandardError = "journal";
