@@ -49,7 +49,7 @@ in
     gparted
     picocom
     telegram-desktop
-    #chromium
+    chromium
     protobuf
     e2fsprogs
     #audacity
