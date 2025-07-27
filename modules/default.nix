@@ -2,7 +2,6 @@
 {
   imports = [
     ./base.nix
-    ./bootloader.nix
     ./cdrom.nix
     ./commands.nix
     ./console.nix

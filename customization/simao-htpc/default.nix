@@ -19,6 +19,7 @@
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/hardware/intel/gpu.nix"
     "${flakePath}/modules/components/kodi.nix"
+    "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/local/simao-htpc-secrets.nix"
   ];
