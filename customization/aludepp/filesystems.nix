@@ -39,18 +39,6 @@
       ];
     };
 
-    "/mnt/extension1" = {
-      device = "/dev/disk/by-uuid/bd955d0e-727d-4095-8364-30f5d64aea9c";
-      fsType = "xfs";
-      options = [
-        "rw"
-        "noatime"
-        "nosuid"
-        "nodev"
-        "nofail"
-      ];
-    };
-
     "/mnt/games" = {
       device = "/dev/disk/by-label/games";
       fsType = "btrfs";
@@ -67,6 +55,19 @@
 
     "/mnt/romsrc" = {
       device = "/dev/disk/by-label/romsrc";
+      fsType = "btrfs";
+      options = [
+        "rw"
+        "noatime"
+        "nosuid"
+        "nodev"
+        "nofail"
+        "compress=no"
+      ];
+    };
+
+    "/mnt/romout" = {
+      device = "/dev/disk/by-partlabel/romout";
       fsType = "btrfs";
       options = [
         "rw"
