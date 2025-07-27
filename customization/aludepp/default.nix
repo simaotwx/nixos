@@ -13,6 +13,7 @@
     common-cpu-amd-pstate
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/hardware/generic/any/cdrom.nix"
     "${flakePath}/modules/hardware/razer/peripherals.nix"
     "${flakePath}/modules/hardware/intel/gpu.nix"
     "${flakePath}/modules/components/alacritty.nix"
@@ -35,7 +36,6 @@
       cpu.cores = 16;
       cpu.vendor = "amd";
       storage.hasNvme = true;
-      io.hasOpticalDrive = true;
       graphics.latestMesa = true;
     };
     general = {
