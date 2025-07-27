@@ -11,7 +11,6 @@ in
         "usbhid"
         "xhci_pci"
       ]
-      ++ lib.optionals customization.hardware.board.ahci.enable [ "ahci" ]
       ++ [ "sd_mod" ];
     systemd.enable = true;
   };

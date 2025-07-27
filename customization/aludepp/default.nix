@@ -13,6 +13,7 @@
     common-cpu-amd-pstate
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/hardware/generic/any/ahci.nix"
     "${flakePath}/modules/hardware/generic/any/cdrom.nix"
     "${flakePath}/modules/hardware/razer/peripherals.nix"
     "${flakePath}/modules/hardware/intel/gpu.nix"

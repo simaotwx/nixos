@@ -16,6 +16,7 @@
     ./options.nix
     ./sysupdate.nix
     "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/hardware/generic/any/ahci.nix"
     "${flakePath}/modules/hardware/intel/gpu.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/systemd-networkd.nix"

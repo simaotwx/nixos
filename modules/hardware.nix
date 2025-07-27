@@ -56,11 +56,6 @@
           default = true;
           description = "Whether the system shall be set up to support USB, even in initrd.";
         };
-        board.ahci.enable = lib.mkOption {
-          type = lib.types.bool;
-          default = pkgs.system == "x86_64-linux";
-          description = "Whether the system shall be set up to support AHCI";
-        };
         firmware.supportsEfi = lib.mkOption {
           type = lib.types.bool;
           # Assume EFI is supported on x86_64
