@@ -8,7 +8,7 @@
   config = {
     virtualisation.docker.enable = true;
     virtualisation.docker.rootless =
-      lib.mkIf config.customization.virtualisation.docker.rootless.enable
+      lib.optionalAttrs config.customization.virtualisation.docker.rootless.enable
         {
           enable = true;
           setSocketVariable = true;
@@ -17,10 +17,8 @@
     systemd.services.docker.wantedBy =
       if config.customization.virtualisation.docker.autostart then lib.mkForce [ ] else [ ];
     systemd.services.docker.serviceConfig =
-      if config.customization.virtualisation.docker.autostart then
-        { Restart = lib.mkForce "no"; }
-      else
-        { };
+      lib.optionalAttrs (!config.customization.virtualisation.docker.autostart)
+        { Restart = lib.mkForce "no"; };
     virtualisation.docker.daemon.settings = {
       userland-proxy = true;
       ipv6 = true;
