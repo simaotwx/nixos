@@ -46,9 +46,6 @@
         simao = homeManager {
           simao = import ./home/simao;
         };
-        simaoHtpc = homeManager {
-          htpc = import ./home/simaoHtpc;
-        };
         simaoWork = homeManager {
           simao = import ./home/simaoWork;
         };
