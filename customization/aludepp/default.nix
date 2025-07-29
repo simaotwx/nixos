@@ -29,6 +29,7 @@
     "${flakePath}/modules/components/mdraid.nix"
     "${flakePath}/modules/components/qml.nix"
     "${flakePath}/modules/components/docker.nix"
+    "${flakePath}/modules/components/shell/utilities/git.nix"
   ];
 
   # Customization of modules
@@ -73,7 +74,6 @@
       via.enable = true;
     };
     shells.zsh.lite.enable = true;
-    shell.simaosSuite.enable = true;
     desktop.hyprland =
       let
         getSinkIdByName =

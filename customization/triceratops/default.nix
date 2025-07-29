@@ -25,6 +25,7 @@
     "${flakePath}/modules/components/steam.nix"
     "${flakePath}/modules/components/zram.nix"
     "${flakePath}/modules/components/docker.nix"
+    "${flakePath}/modules/components/shell/utilities/git.nix"
   ];
 
   # Customization of modules
@@ -82,7 +83,6 @@
       };
     };
 
-    shell.simaosSuite.enable = true;
     desktop = {
       gnome = {
         extensions = with pkgs.gnomeExtensions; [

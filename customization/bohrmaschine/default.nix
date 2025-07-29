@@ -23,6 +23,7 @@
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/docker.nix"
+    "${flakePath}/modules/components/shell/utilities/git.nix"
   ];
 
   # Customization of modules
@@ -59,7 +60,6 @@
       oomd.enable = true;
     };
     shells.zsh.lite.enable = true;
-    shell.simaosSuite.enable = true;
     desktop = {
       gnome = {
         extensions = with pkgs.gnomeExtensions; [

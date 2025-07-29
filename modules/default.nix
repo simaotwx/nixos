@@ -13,7 +13,6 @@
     ./performance.nix
     ./security.nix
     ./services.nix
-    ./shell.nix
     ./sound.nix
     ./compat.nix
     ./lib.nix
