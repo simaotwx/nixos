@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   environment.shellAliases = {
     gpick = "git cherry-pick -s";
   };

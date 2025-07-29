@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
   users.users = lib.genAttrs config.configurableUsers (username: {
     extraGroups = [ "cdrom" ];
   });

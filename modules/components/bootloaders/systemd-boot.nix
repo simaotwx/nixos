@@ -18,7 +18,8 @@
   config =
     let
       customization = config.customization;
-    in {
+    in
+    {
       boot.loader.systemd-boot = {
         enable = true;
         configurationLimit = lib.mkDefault 5;
