@@ -80,6 +80,7 @@
       krita
       ddrescue
       hdparm
+      feishin mpv
 
       # GStreamer
       gst_all_1.gstreamer
