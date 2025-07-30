@@ -82,6 +82,8 @@
       hdparm
       feishin
       mpv
+      inputs.quickshell.packages.${system}.default
+      qt6Packages.qtdeclarative
 
       # GStreamer
       gst_all_1.gstreamer
