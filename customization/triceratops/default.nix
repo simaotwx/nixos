@@ -175,6 +175,7 @@
       exfatprogs
       nix-bundle
       gparted
+      nodejs
     ];
     defaultPackages = [ ];
     variables = {
