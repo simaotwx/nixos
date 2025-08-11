@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import Quickshell.Widgets
 
 ShellRoot {
     Variants {
@@ -8,7 +9,6 @@ ShellRoot {
 
         PanelWindow {
             id: panel
-
             property var modelData
             screen: modelData
 
@@ -18,29 +18,28 @@ ShellRoot {
                 right: true
             }
 
+            implicitHeight: 48  // Increased by 2px more
             color: "transparent"
 
             Rectangle {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.margins: 4
+                anchors.fill: parent
+                anchors.margins: 6  // Margin around the bar for the pill shape
                 color: "#20000000"
-                radius: 9999
-                implicitHeight: 32
+                radius: height / 2  // Perfect pill shape
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.margins: 2
+                    anchors.leftMargin: 8
+                    anchors.rightMargin: 8  // Back to 8px since bar is bigger
                     spacing: 8
 
                     // Clock pill
                     Rectangle {
                         Layout.alignment: Qt.AlignVCenter
-                        implicitWidth: clockText.implicitWidth + 16
-                        implicitHeight: 24
+                        implicitWidth: clockText.implicitWidth + 20  // Increased from 16 to 20 (2px on each side)
+                        implicitHeight: 28  // Increased height for better proportions
                         color: "#40000000"
-                        radius: 9999
+                        radius: height / 2
 
                         Text {
                             id: clockText
@@ -56,6 +55,9 @@ ShellRoot {
                     Item {
                         Layout.fillWidth: true
                     }
+
+                    // Power controls on the right
+                    PowerMenuWidget {}
                 }
             }
         }
