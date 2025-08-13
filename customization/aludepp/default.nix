@@ -30,6 +30,7 @@
     "${flakePath}/modules/components/qml.nix"
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
+    "${flakePath}/modules/components/compat.nix"
     "${flakePath}/modules/components/shell/utilities/git.nix"
   ];
 
@@ -47,7 +48,6 @@
       defaultLocale = "en_US.UTF-8";
       keymap = "de-latin1";
     };
-    compat.enable = true;
     graphics = {
       intel.rgbFix = true;
     };

@@ -13,7 +13,6 @@
     ./performance.nix
     ./security.nix
     ./services.nix
-    ./compat.nix
     ./lib.nix
   ];
 
