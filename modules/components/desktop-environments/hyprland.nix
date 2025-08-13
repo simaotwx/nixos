@@ -266,6 +266,9 @@
               "ignorealpha, topbar"
               "blur, topbar"
               "xray on, topbar"
+              "ignorealpha, quickshell"
+              "blur, quickshell"
+              "xray on, quickshell"
             ];
             windowrulev2 = [
               "float, title:^(Picture-in-Picture)$"
