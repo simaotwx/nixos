@@ -3,6 +3,7 @@
   flakePath,
   lib,
   pkgs,
+  wrapQuickshell,
   ...
 }:
 {
@@ -22,6 +23,7 @@
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/desktop-environments/hyprland.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
+    "${flakePath}/modules/components/gui/quickshell"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/via.nix"
     "${flakePath}/modules/components/virtd.nix"
@@ -87,7 +89,7 @@
         browser = inputs.zen-browser.packages."${pkgs.system}".beta;
         execOnce = [
           "${lib.getExe pkgs.wpaperd} -d"
-          "${lib.getExe pkgs.eww} daemon && ${lib.getExe pkgs.eww} open topbar"
+          "${lib.getExe (wrapQuickshell { config = ./quickshell; })}"
           "${lib.getExe pkgs.gopass} sync"
         ];
         additionalBind = [

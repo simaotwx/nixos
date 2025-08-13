@@ -18,26 +18,37 @@ ShellRoot {
                 right: true
             }
 
-            implicitHeight: 48  // Increased by 2px more
+            margins {
+                top: 4
+                left: 4
+                right: 4
+            }
+
+            implicitHeight: 34
             color: "transparent"
 
-            Rectangle {
+            WrapperRectangle {
                 anchors.fill: parent
-                anchors.margins: 6  // Margin around the bar for the pill shape
                 color: "#20000000"
-                radius: height / 2  // Perfect pill shape
+                radius: height / 2
+
+                // Only add horizontal margins
+                leftMargin: 1
+                rightMargin: 1
+                topMargin: 1
+                bottomMargin: 1
 
                 RowLayout {
                     anchors.fill: parent
-                    anchors.leftMargin: 8
-                    anchors.rightMargin: 8  // Back to 8px since bar is bigger
+                    anchors.leftMargin: 4
+                    anchors.rightMargin: 8
                     spacing: 8
 
                     // Clock pill
                     Rectangle {
                         Layout.alignment: Qt.AlignVCenter
-                        implicitWidth: clockText.implicitWidth + 20  // Increased from 16 to 20 (2px on each side)
-                        implicitHeight: 28  // Increased height for better proportions
+                        implicitWidth: clockText.implicitWidth + 20
+                        implicitHeight: 32
                         color: "#40000000"
                         radius: height / 2
 
@@ -47,7 +58,7 @@ ShellRoot {
                             text: Time.time
                             color: "#B8FFFFFF"
                             font.pixelSize: 14
-                            font.weight: Font.DemiBold
+                            font.weight: 600
                         }
                     }
 
