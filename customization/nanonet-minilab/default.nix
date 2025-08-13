@@ -31,8 +31,6 @@
       cpu.vendor = "intel";
       storage.hasNvme = true;
     };
-    # Sound not needed
-    sound.enable = false;
     debug.enable = false;
     general = {
       hostName = "nanonet-minilab";
