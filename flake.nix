@@ -65,7 +65,7 @@
       };
       commonArgs = system: {
         inherit (self) inputs;
-        inherit flakePath;
+        inherit flakePath system;
         packages = self.packages.${system};
         pkgsUnstable = (import nixpkgs-unstable { inherit system; });
       };

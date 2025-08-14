@@ -25,6 +25,7 @@
     "${flakePath}/modules/components/steam.nix"
     "${flakePath}/modules/components/zram.nix"
     "${flakePath}/modules/components/docker.nix"
+    "${flakePath}/modules/components/sound.nix"
     "${flakePath}/modules/components/shell/utilities/git.nix"
   ];
 

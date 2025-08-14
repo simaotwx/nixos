@@ -18,6 +18,8 @@
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/docker.nix"
+    "${flakePath}/modules/components/sound.nix"
+    "${flakePath}/modules/components/compat.nix"
     "${flakePath}/modules/components/shell/utilities/git.nix"
   ];
 
@@ -47,7 +49,6 @@
       defaultLocale = "en_US.UTF-8";
       keymap = "en";
     };
-    compat.enable = true;
     kernel = {
       sysrq.enable = true;
     };

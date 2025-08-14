@@ -31,8 +31,6 @@
       cpu.vendor = "intel";
       storage.hasNvme = true;
     };
-    # Sound will be configured by the Kodi module
-    sound.enable = false;
     debug.enable = false;
     general = {
       hostName = "htpc";
