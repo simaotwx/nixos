@@ -16,9 +16,9 @@
     virtualisation.docker.storageDriver = "overlay2";
     systemd.services.docker.wantedBy =
       if config.customization.virtualisation.docker.autostart then lib.mkForce [ ] else [ ];
-    systemd.services.docker.serviceConfig =
-      lib.optionalAttrs (!config.customization.virtualisation.docker.autostart)
-        { Restart = lib.mkForce "no"; };
+    systemd.services.docker.serviceConfig = lib.optionalAttrs (
+      !config.customization.virtualisation.docker.autostart
+    ) { Restart = lib.mkForce "no"; };
     virtualisation.docker.daemon.settings = {
       userland-proxy = true;
       ipv6 = true;

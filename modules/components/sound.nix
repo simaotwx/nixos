@@ -12,7 +12,8 @@
   config =
     let
       customization = config.customization;
-    in {
+    in
+    {
       services.pipewire = {
         enable = true;
         pulse.enable = customization.sound.pulse;

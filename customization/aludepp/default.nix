@@ -89,7 +89,9 @@
         browser = inputs.zen-browser.packages."${pkgs.system}".beta;
         execOnce = [
           "${lib.getExe pkgs.wpaperd} -d"
-          "${lib.getExe (wrapQuickshell { config = ./quickshell; })}"
+          "${lib.getExe (wrapQuickshell {
+            config = ./quickshell;
+          })}"
           "${lib.getExe pkgs.gopass} sync"
         ];
         additionalBind = [
