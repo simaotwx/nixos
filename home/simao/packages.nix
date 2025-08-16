@@ -84,6 +84,7 @@
       mpv
       inputs.quickshell.packages.${system}.default
       qt6Packages.qtdeclarative
+      aider-chat-full
 
       # GStreamer
       gst_all_1.gstreamer
