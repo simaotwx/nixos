@@ -42,7 +42,6 @@
       defaultLocale = "en_US.UTF-8";
       keymap = "de-latin1";
     };
-    compat.enable = true;
     kernel = {
       sysrq.enable = true;
     };
