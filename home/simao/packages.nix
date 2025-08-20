@@ -111,4 +111,9 @@
       spotify
     ];
 
+
+  programs.vscode.profiles.default.extensions = with pkgs.vscode-extensions; [
+    bradlc.vscode-tailwindcss
+    golang.go
+  ];
 }
