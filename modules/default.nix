@@ -14,6 +14,7 @@
     ./security.nix
     ./services.nix
     ./lib.nix
+    ./targets
   ];
 
   options = {
