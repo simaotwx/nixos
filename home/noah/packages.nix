@@ -100,6 +100,7 @@ in
     git-repo
     xmlstarlet
     ccache
+    apktool
 
     (vesktop.override { withSystemVencord = true; })
     spotify
