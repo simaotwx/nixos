@@ -34,9 +34,5 @@
         };
       })
     ];
-
-    _module.args.pkgsUnstable =
-      builtins.warn "DEPRECATED: use pkgs.unstable.<pkg> instead of pkgsUnstable"
-        pkgs.unstable;
   };
 }

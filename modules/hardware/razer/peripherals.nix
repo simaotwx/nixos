@@ -1,6 +1,6 @@
 {
   config,
-  pkgsUnstable,
+  pkgs,
   mkConfigurableUsersOption,
   ...
 }:
@@ -20,7 +20,7 @@
     {
       hardware.openrazer.enable = true;
       hardware.openrazer.users = customization.peripherals.razer.users;
-      environment.systemPackages = with pkgsUnstable; [
+      environment.systemPackages = with pkgs.unstable; [
         openrazer-daemon
         polychromatic
       ];
@@ -30,7 +30,7 @@
             kernel:
             (prev.linuxPackagesFor kernel).extend (
               lpfinal: lpprev: {
-                openrazer = (pkgsUnstable.linuxPackagesFor kernel).openrazer;
+                openrazer = (pkgs.unstable.linuxPackagesFor kernel).openrazer;
               }
             );
         })
