@@ -1,6 +1,6 @@
-{ pkgsUnstable, ... }:
+{ pkgs, ... }:
 {
-  environment.systemPackages = with pkgsUnstable; [
+  environment.systemPackages = with pkgs.unstable; [
     goose-cli
   ];
 }

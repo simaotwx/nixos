@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  pkgsUnstable,
   ...
 }:
 {
@@ -41,7 +40,7 @@
     in
     {
       _module.args.rocmPackages =
-        if customization.hardware.graphics.latestMesa then pkgsUnstable.rocmPackages else pkgs.rocmPackages;
+        if customization.hardware.graphics.latestMesa then pkgs.unstable.rocmPackages else pkgs.rocmPackages;
       _module.args.amdGpuSupport = true;
 
       boot.kernelParams =
@@ -62,7 +61,7 @@
       hardware.graphics = {
         enable = true;
         enable32Bit = true;
-        extraPackages = with (if customization.hardware.graphics.latestMesa then pkgsUnstable else pkgs); [
+        extraPackages = with (if customization.hardware.graphics.latestMesa then pkgs.unstable else pkgs); [
           rocmPackages.clr
           rocmPackages.clr.icd
         ];

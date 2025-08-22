@@ -2,7 +2,6 @@
   lib,
   config,
   pkgs,
-  pkgsUnstable,
   ...
 }:
 {
@@ -69,12 +68,12 @@
 
   config = {
     hardware.graphics = lib.optionalAttrs config.customization.hardware.graphics.latestMesa {
-      package = pkgsUnstable.mesa;
-      package32 = lib.mkIf config.hardware.graphics.enable32Bit pkgsUnstable.driversi686Linux.mesa;
+      package = pkgs.unstable.mesa;
+      package32 = lib.mkIf config.hardware.graphics.enable32Bit pkgs.unstable.driversi686Linux.mesa;
     };
 
     nixpkgs.overlays = lib.optional config.customization.hardware.graphics.latestMesa (
-      _: _: { mesa = pkgsUnstable.mesa; }
+      _: _: { mesa = pkgs.unstable.mesa; }
     );
   };
 }
