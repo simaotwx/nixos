@@ -100,6 +100,7 @@ in
     git-repo
     xmlstarlet
     ccache
+    apktool
 
     (vesktop.override { withSystemVencord = true; })
     spotify
@@ -147,6 +148,7 @@ in
 
   programs.vscode.profiles.default.extensions = with pkgs.vscode-extensions; [
     vue.volar
+    mathiasfrohlich.kotlin
   ];
 
 }
