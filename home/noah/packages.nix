@@ -104,7 +104,7 @@ in
     (vesktop.override { withSystemVencord = true; })
     spotify
     #makemkv
-    android-studio
+    unstable.android-studio
     prismlauncher
     postman
     dysk

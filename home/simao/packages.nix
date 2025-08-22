@@ -103,7 +103,7 @@
     ]
     ++ lib.optionals (osConfig.networking.hostName == "aludepp") [
       makemkv
-      android-studio
+      unstable.android-studio
       (vesktop.override { withSystemVencord = true; })
       via
       jetbrains.idea-community
