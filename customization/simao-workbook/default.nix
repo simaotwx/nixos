@@ -27,6 +27,7 @@
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     "${flakePath}/modules/components/shell/utilities/git.nix"
+    "${flakePath}/modules/components/compat.nix"
   ];
 
   # Customization of modules
