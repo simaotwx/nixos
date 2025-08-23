@@ -177,6 +177,7 @@
       nix-bundle
       gparted
       nodejs
+      openrgb-with-all-plugins
     ];
     defaultPackages = [ ];
     variables = {
@@ -223,6 +224,7 @@
   networking.interfaces.enp10s0.wakeOnLan.enable = true;
 
   hardware.cpu.amd.ryzen-smu.enable = true;
+  hardware.i2c.enable = true;
 
   # Support for Carolina Mech Fossil and Lemokey L5 HE 8k
   services.udev.extraRules = ''
