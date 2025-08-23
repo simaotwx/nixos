@@ -29,8 +29,8 @@
         done
       '';
     in
-    rec {
-      _module.args.intelGpuSupport = true;
+    lib.mkMerge [(rec {
+      customization.hardware.gpu.intelSupport = true;
       boot.initrd.kernelModules = [ "xe" ];
       environment.variables = {
         VDPAU_DRIVER = "va_gl";
@@ -89,8 +89,8 @@
       boot.initrd.services.udev.rules =
         lib.mkIf config.customization.graphics.intel.rgbFix services.udev.extraRules;
 
-    }
-    // lib.optionalAttrs hasLinuxNitrous {
+    })
+    (lib.optionalAttrs hasLinuxNitrous {
       customization.linux-nitrous.enableDrmXe = true;
-    };
+    })];
 }

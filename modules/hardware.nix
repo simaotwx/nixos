@@ -62,6 +62,15 @@
           description = "Whether the system shall be set up to support and use EFI features";
         };
         graphics.latestMesa = lib.mkEnableOption "latest mesa from nixos-unstable";
+        gpu = {
+          amdSupport = lib.mkEnableOption "Enable AMD GPU support (ROCm, amdgpu)";
+          intelSupport = lib.mkEnableOption "Enable Intel GPU support (oneAPI/Level Zero)";
+          rocmPackages = lib.mkOption {
+            type = lib.types.attrs;
+            default = pkgs.rocmPackages;
+            description = "ROCm package set to use when amdSupport = true.";
+          };
+        };
       };
     };
   };
