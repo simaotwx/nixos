@@ -229,6 +229,7 @@
       "steam-unwrapped"
       "makemkv"
       "android-studio-stable"
+      "crush" # irrecovably becomes free after a while
     ];
 
   virtualisation.vmVariant = import ./vm.nix;
