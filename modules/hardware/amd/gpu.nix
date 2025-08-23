@@ -39,9 +39,9 @@
       };
     in
     {
-      _module.args.rocmPackages =
+      customization.hardware.gpu.amdSupport = true;
+      customization.hardware.gpu.rocmPackages =
         if customization.hardware.graphics.latestMesa then pkgs.unstable.rocmPackages else pkgs.rocmPackages;
-      _module.args.amdGpuSupport = true;
 
       boot.kernelParams =
         lib.optionals customization.graphics.amd.overclocking.unlock [ "amdgpu.ppfeaturemask=0xfff7ffff" ]
