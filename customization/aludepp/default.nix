@@ -89,7 +89,7 @@
       {
         browser = inputs.zen-browser.packages."${pkgs.system}".beta;
         execOnce = [
-          "${lib.getExe pkgs.wpaperd} -d"
+          "${lib.getExe pkgs.unstable.wpaperd} -d"
           "${lib.getExe (wrapQuickshell {
             config = ./quickshell;
           })}"
