@@ -116,7 +116,7 @@ in
       ccache
 
       spotify
-      android-studio
+      unstable.android-studio
     ]
     ++ (with jetbrains; [
       idea-ultimate

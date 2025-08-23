@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, inputs, config, ... }:
 {
   imports = [
     ./base.nix
@@ -23,5 +23,16 @@
       description = "This will be set automatically if you use the predefined home manager stuff";
       default = [ ];
     };
+  };
+
+  config = {
+    nixpkgs.overlays = [
+      (final: prev: {
+        unstable = import inputs.nixpkgs-unstable {
+          inherit (prev) system;
+          config = config.nixpkgs.config;
+        };
+      })
+    ];
   };
 }

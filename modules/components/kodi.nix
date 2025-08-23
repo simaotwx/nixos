@@ -1,8 +1,7 @@
 {
   lib,
   config,
-  inputs,
-  system,
+  pkgs,
   ...
 }:
 {
@@ -27,8 +26,7 @@
   config =
     let
       cfg = config.customization.kodi;
-      pkgsUnstable = import inputs.nixpkgs-unstable { inherit system; };
-      kodiPackage = pkgsUnstable.kodi-gbm.withPackages cfg.plugins;
+      kodiPackage = pkgs.unstable.kodi-gbm.withPackages cfg.plugins;
     in
     lib.mkMerge [
       {
@@ -55,7 +53,7 @@
             TimeoutStopFailureMode = "kill";
           };
         };
-        environment.systemPackages = with pkgsUnstable; [
+        environment.systemPackages = with pkgs.unstable; [
           kodiPackage
           # Important codec packages
           libde265

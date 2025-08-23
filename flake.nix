@@ -67,7 +67,6 @@
         inherit (self) inputs;
         inherit flakePath system;
         packages = self.packages.${system};
-        pkgsUnstable = (import nixpkgs-unstable { inherit system; });
       };
     in
     rec {

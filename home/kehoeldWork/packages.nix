@@ -102,7 +102,7 @@ in
       ccache
 
       spotify
-      android-studio
+      unstable.android-studio
       google-chrome
     ]
     ++ (with jetbrains; [

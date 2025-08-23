@@ -27,6 +27,7 @@
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     "${flakePath}/modules/components/shell/utilities/git.nix"
+    "${flakePath}/modules/components/compat.nix"
   ];
 
   # Customization of modules
@@ -42,7 +43,6 @@
       defaultLocale = "en_US.UTF-8";
       keymap = "de-latin1";
     };
-    compat.enable = true;
     kernel = {
       sysrq.enable = true;
     };
@@ -247,10 +247,6 @@
       "citrix-workspace"
       "terraform"
     ];
-
-  security.pki.certificateFiles = [
-    "${flakePath}/local/certificates/thea_root_ca.crt"
-  ];
 
   virtualisation.vmVariant = import ./vm.nix;
 
