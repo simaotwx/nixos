@@ -441,6 +441,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1755987658,
+        "narHash": "sha256-esAmx3QmIOFi9UZ57lLFvE5IEIB2Ype7dGKbzai/V9E=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d4afb13c90f78a690dc7bf1edac13caa20895bda",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1755615617,
@@ -540,6 +556,7 @@
         "nixos-apple-silicon": "nixos-apple-silicon",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "quickshell": "quickshell",
         "zen-browser": "zen-browser"
