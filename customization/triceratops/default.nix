@@ -220,7 +220,7 @@
   #systemd.services.teamviewerd.wantedBy = lib.mkForce [];
   #systemd.services.teamviewerd.serviceConfig.Restart = lib.mkForce "no";
 
-  networking.interfaces.eno2.wakeOnLan.enable = true;
+  networking.interfaces.enp10s0.wakeOnLan.enable = true;
 
   hardware.cpu.amd.ryzen-smu.enable = true;
 
