@@ -26,7 +26,7 @@
         };
         terminal = lib.mkOption {
           type = lib.types.package;
-          default = pkgs.alacritty;
+          default = pkgs.unstable.alacritty;
           description = "Default terminal application";
         };
         fileManager = lib.mkOption {
@@ -454,6 +454,7 @@
         };
         programs.wofi = {
           enable = true;
+          package = pkgs.unstable.wofi;
           style = ''
             #outer-box {
               background-color: rgba(0, 0, 0, 0.32);
