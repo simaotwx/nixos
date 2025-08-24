@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   flakePath,
+  config,
   ...
 }:
 {
@@ -194,6 +195,8 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  boot.initrd.kernelModules = [ "msr" ];
+
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (pkgs.lib.getName pkg) [
@@ -223,7 +226,7 @@
 
   networking.interfaces.enp10s0.wakeOnLan.enable = true;
 
-  hardware.cpu.amd.ryzen-smu.enable = true;
+  #hardware.cpu.amd.ryzen-smu.enable = true;
   hardware.i2c.enable = true;
 
   # Support for Carolina Mech Fossil and Lemokey L5 HE 8k
