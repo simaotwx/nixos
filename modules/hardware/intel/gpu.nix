@@ -28,7 +28,10 @@
           fi
         done
       '';
-      defaultXpuPkgs = with pkgs; [
+      defaultXpuPkgs = with (
+        if config.customization.hardware.graphics.latestMesa
+        then pkgs.unstable else pkgs
+      ); [
         level-zero
         intel-compute-runtime
         intel-media-driver
@@ -36,6 +39,8 @@
         libva-vdpau-driver
         libvdpau-va-gl
         mesa
+        ocl-icd
+        oneDNN
       ];
     in
     lib.mkMerge [ rec {
@@ -46,9 +51,22 @@
       environment.variables = {
         VDPAU_DRIVER = "va_gl";
         LIBVA_DRIVER_NAME = "iHD";
+        ZES_ENABLE_SYSMAN=1;
+        SYCL_DEVICE_FILTER="level_zero:gpu";
       };
-      environment.systemPackages = with pkgs; [
+      environment.systemPackages = with (
+        if config.customization.hardware.graphics.latestMesa
+        then pkgs.unstable else pkgs
+      ); [
         intel-gmmlib
+        opencl-headers
+        sycl-info
+        oneDNN
+        intel-graphics-compiler
+        intel-gpu-tools
+        clinfo
+        libva-utils
+        vulkan-tools
       ];
       hardware.enableRedistributableFirmware = true;
       hardware.graphics = {

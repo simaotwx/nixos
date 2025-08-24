@@ -15,7 +15,7 @@
       package = lib.mkOption {
         type = lib.types.package;
         description = "Steam package to use";
-        default = pkgs.steam;
+        default = if config.customization.hardware.graphics.latestMesa then pkgs.unstable.steam else pkgs.steam;
       };
       gamescope.enable = lib.mkEnableOption "gamescope";
       gamescope.session.enable = lib.mkEnableOption "gamescope session";
@@ -36,6 +36,9 @@
       programs.gamescope = {
         enable = cfg.gamescope.enable;
         capSysNice = lib.mkDefault true;
+        package =
+          if config.customization.hardware.graphics.latestMesa
+          then pkgs.unstable.gamescope else pkgs.gamescope;
       };
       programs.steam = {
         enable = true;
