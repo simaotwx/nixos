@@ -179,6 +179,12 @@
             ryzen-smu = lpprev.ryzen-smu.overrideAttrs (
               oldAttrs:
               let
+                newSrc = oldAttrs.src.override {
+                  owner = "amkillam";
+                  repo = "ryzen_smu";
+                  rev = "172c316f53ac8f066afd7cb9e1da517084273368";
+                  hash = "sha256-U2UMWY7XgLXOpNgl2OsFBRvZSC4/qLa9rzJxFOpZ830=";
+                };
                 monitor-cpu = llvm.stdenv.mkDerivation {
                   pname = "monitor-cpu";
                   inherit (oldAttrs) version src;
@@ -194,6 +200,7 @@
                 };
               in
               {
+                src = newSrc;
                 stdenv = pkgs.overrideCC llvm.stdenv (llvm.stdenv.cc.override { inherit (llvm) bintools; });
                 nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ llvm.lld ];
                 makeFlags = (oldAttrs.makeFlags or [ ]) ++ [
