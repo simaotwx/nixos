@@ -32,6 +32,10 @@
           inherit (prev) system;
           config = config.nixpkgs.config;
         };
+        master = import inputs.nixpkgs-master {
+          inherit (prev) system;
+          config = config.nixpkgs.config;
+        };
       })
     ];
   };

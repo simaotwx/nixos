@@ -21,16 +21,27 @@
           connector=$(echo "$line" | ${lib.getExe pkgs.gawk} '{print $2}')
 
           prop_info=$(${lib.getExe' pkgs.libdrm "proptest"} -M xe -D /dev/dri/card* | grep -B9999999 "Connector $connector" | grep "Broadcast RGB" | head -n1)
-          prop_id=$(echo "$prop_info" | sed -re "s/[^0-9]*?([0-9]+).*?/\1/")
+          prop_id=$(echo "$prop_info" | sed -re "s/[^0-9]*?([0-9]+).*?/\\1/")
 
           if [ -n "$prop_id" ]; then
             ${lib.getExe' pkgs.libdrm "proptest"} -M xe -D /dev/dri/card* "$connector" connector "$prop_id" 1
           fi
         done
       '';
+      defaultXpuPkgs = with pkgs; [
+        level-zero
+        intel-compute-runtime
+        intel-media-driver
+        vpl-gpu-rt
+        libva-vdpau-driver
+        libvdpau-va-gl
+        mesa
+      ];
     in
-    rec {
-      _module.args.intelGpuSupport = true;
+    lib.mkMerge [ rec {
+      customization.hardware.gpu.intelSupport = true;
+      customization.hardware.gpu.xpuPackages = defaultXpuPkgs;
+
       boot.initrd.kernelModules = [ "xe" ];
       environment.variables = {
         VDPAU_DRIVER = "va_gl";
@@ -42,14 +53,7 @@
       hardware.enableRedistributableFirmware = true;
       hardware.graphics = {
         enable = true;
-        extraPackages = with pkgs; [
-          intel-media-driver
-          libva-vdpau-driver
-          libvdpau-va-gl
-          intel-compute-runtime
-          vpl-gpu-rt
-          mesa
-        ];
+        extraPackages = config.customization.hardware.gpu.xpuPackages;
       };
 
       services.udev = lib.optionalAttrs config.customization.graphics.intel.rgbFix {
@@ -90,7 +94,7 @@
         lib.mkIf config.customization.graphics.intel.rgbFix services.udev.extraRules;
 
     }
-    // lib.optionalAttrs hasLinuxNitrous {
+    (lib.optionalAttrs hasLinuxNitrous {
       customization.linux-nitrous.enableDrmXe = true;
-    };
+    })];
 }

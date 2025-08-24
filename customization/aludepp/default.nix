@@ -33,6 +33,7 @@
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     "${flakePath}/modules/components/compat.nix"
+    "${flakePath}/modules/components/ollama.nix"
     "${flakePath}/modules/components/shell/utilities/git.nix"
   ];
 
@@ -88,7 +89,7 @@
       {
         browser = inputs.zen-browser.packages."${pkgs.system}".beta;
         execOnce = [
-          "${lib.getExe pkgs.wpaperd} -d"
+          "${lib.getExe pkgs.unstable.wpaperd} -d"
           "${lib.getExe (wrapQuickshell {
             config = ./quickshell;
           })}"
@@ -228,6 +229,7 @@
       "steam-unwrapped"
       "makemkv"
       "android-studio-stable"
+      "crush" # irrecovably becomes free after a while
     ];
 
   virtualisation.vmVariant = import ./vm.nix;

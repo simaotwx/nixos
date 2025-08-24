@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,6 +17,10 @@
     quickshell = {
       url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=refs/tags/v0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    quickshell-unstable = {
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
