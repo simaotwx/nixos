@@ -18,6 +18,10 @@
       url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=refs/tags/v0.2.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    quickshell-unstable = {
+      url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
