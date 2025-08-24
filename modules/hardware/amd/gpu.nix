@@ -47,8 +47,15 @@
         lib.optionals customization.graphics.amd.overclocking.unlock [ "amdgpu.ppfeaturemask=0xfff7ffff" ]
         ++ [ ];
 
-      environment.systemPackages =
-        [ ] ++ (if customization.graphics.amd.overclocking.unlock then [ amdgpuClocks ] else [ ]);
+      environment.systemPackages = with (
+        if config.customization.hardware.graphics.latestMesa
+        then pkgs.unstable else pkgs
+      ); [
+        opencl-headers
+        clinfo
+        amdgpu_top
+        vulkan-tools
+      ] ++ (if customization.graphics.amd.overclocking.unlock then [ amdgpuClocks ] else [ ]);
 
       hardware.amdgpu.amdvlk = {
         enable = false;
