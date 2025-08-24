@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   flakePath,
+  config,
   ...
 }:
 {
@@ -177,6 +178,7 @@
       nix-bundle
       gparted
       nodejs
+      openrgb-with-all-plugins
     ];
     defaultPackages = [ ];
     variables = {
@@ -192,6 +194,8 @@
   ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  boot.initrd.kernelModules = [ "msr" ];
 
   nixpkgs.config.allowUnfreePredicate =
     pkg:
@@ -220,9 +224,10 @@
   #systemd.services.teamviewerd.wantedBy = lib.mkForce [];
   #systemd.services.teamviewerd.serviceConfig.Restart = lib.mkForce "no";
 
-  networking.interfaces.eno2.wakeOnLan.enable = true;
+  networking.interfaces.enp10s0.wakeOnLan.enable = true;
 
-  hardware.cpu.amd.ryzen-smu.enable = true;
+  #hardware.cpu.amd.ryzen-smu.enable = true;
+  hardware.i2c.enable = true;
 
   # Support for Carolina Mech Fossil and Lemokey L5 HE 8k
   services.udev.extraRules = ''
