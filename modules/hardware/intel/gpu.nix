@@ -30,7 +30,7 @@
       '';
       defaultXpuPkgs = with (
         if config.customization.hardware.graphics.latestMesa
-        then pkgs.unstable else pkgs
+        then pkgs.nixpkgs-mesa else pkgs
       ); [
         level-zero
         intel-compute-runtime
@@ -56,7 +56,7 @@
       };
       environment.systemPackages = with (
         if config.customization.hardware.graphics.latestMesa
-        then pkgs.unstable else pkgs
+        then pkgs.nixpkgs-mesa else pkgs
       ); [
         intel-gmmlib
         opencl-headers

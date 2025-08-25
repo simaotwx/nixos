@@ -41,7 +41,7 @@
     {
       customization.hardware.gpu.amdSupport = true;
       customization.hardware.gpu.rocmPackages =
-        if customization.hardware.graphics.latestMesa then pkgs.unstable.rocmPackages else pkgs.rocmPackages;
+        if customization.hardware.graphics.latestMesa then pkgs.nixpkgs-mesa.rocmPackages else pkgs.rocmPackages;
 
       boot.kernelParams =
         lib.optionals customization.graphics.amd.overclocking.unlock [ "amdgpu.ppfeaturemask=0xfff7ffff" ]
@@ -49,7 +49,7 @@
 
       environment.systemPackages = with (
         if config.customization.hardware.graphics.latestMesa
-        then pkgs.unstable else pkgs
+        then pkgs.nixpkgs-mesa else pkgs
       ); [
         opencl-headers
         clinfo
@@ -68,7 +68,7 @@
       hardware.graphics = {
         enable = true;
         enable32Bit = true;
-        extraPackages = with (if customization.hardware.graphics.latestMesa then pkgs.unstable else pkgs); [
+        extraPackages = with (if customization.hardware.graphics.latestMesa then pkgs.nixpkgs-mesa else pkgs); [
           rocmPackages.clr
           rocmPackages.clr.icd
         ];
