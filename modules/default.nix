@@ -36,10 +36,6 @@
           inherit (prev) system;
           config = config.nixpkgs.config;
         };
-        nixpkgs-mesa = import inputs.nixpkgs-mesa {
-          inherit (prev) system;
-          config = config.nixpkgs.config;
-        };
       })
     ];
   };
