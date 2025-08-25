@@ -55,7 +55,7 @@ in
     #audacity
     lm_sensors
     fastfetch
-    jetbrains.idea-community
+    unstable.jetbrains.idea-community
     jdk
     nixd
     nixpkgs-fmt

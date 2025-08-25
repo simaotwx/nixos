@@ -105,7 +105,7 @@ in
       unstable.android-studio
       google-chrome
     ]
-    ++ (with jetbrains; [
+    ++ (with unstable.jetbrains; [
       idea-ultimate
       phpstorm
       goland

@@ -106,7 +106,7 @@
       unstable.android-studio
       (vesktop.override { withSystemVencord = true; })
       via
-      jetbrains.idea-community
+      unstable.jetbrains.idea-community
       jdk
       spotify
     ];
