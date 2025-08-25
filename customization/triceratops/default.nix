@@ -37,7 +37,6 @@
       cpu.cores = 16;
       cpu.vendor = "amd";
       storage.hasNvme = true;
-      graphics.latestMesa = true;
     };
     general = {
       hostName = "triceratops";
