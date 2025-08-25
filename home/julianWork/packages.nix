@@ -107,7 +107,7 @@ in
       spotify
       unstable.android-studio
     ]
-    ++ (with jetbrains; [
+    ++ (with unstable.jetbrains; [
       idea-ultimate
       phpstorm
     ]);
