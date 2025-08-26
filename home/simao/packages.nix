@@ -93,6 +93,12 @@
           hash = "sha256-3wBGN3Uit1Xw8ZQ4WyR4PhA66Cfhl6YljMEbpaaJP60=";
         };
         vendorHash = "sha256-qUcgVu6+cSFYDCsIB1pB5Vy3adWua2Rs8P9SNXJEjcA=";
+        patches = [
+          (fetchpatch {
+            url = "https://patch-diff.githubusercontent.com/raw/charmbracelet/crush/pull/746.diff";
+            hash = "sha256-ANPvNwq0rq8SpoU6C2Jse6fqWngFJ7uoaU5i+PRz4QU=";
+          })
+        ];
       })).override { buildGoModule = master.buildGo125Module; })
 
       # GStreamer
