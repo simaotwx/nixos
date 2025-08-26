@@ -26,7 +26,7 @@
           };
           "colors" = {
             "bright" = {
-              "black" = "#424242";
+              "black" = "#212121";
               "blue" = "#0099ff";
               "cyan" = "#00a5ab";
               "green" = "#11ab00";
@@ -41,7 +41,7 @@
             };
             "draw_bold_text_with_bright_colors" = true;
             "normal" = {
-              "black" = "#343434";
+              "black" = "#121212";
               "blue" = "#448AFF";
               "cyan" = "#00a5ab";
               "green" = "#00E676";
@@ -80,7 +80,7 @@
           };
           "window" = {
             "decorations" = "none";
-            "opacity" = 0.56;
+            "opacity" = 0.6;
             "padding" = {
               "x" = 8;
               "y" = 8;
