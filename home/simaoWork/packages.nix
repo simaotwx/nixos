@@ -100,6 +100,7 @@ in
       krita
       ddrescue
       hdparm
+      crush-latest
 
       # GStreamer
       gst_all_1.gstreamer
