@@ -36,7 +36,7 @@
       storage.hasNvme = true;
     };
     general = {
-      hostName = "presslufthammer";
+      hostName = "julian-notebook";
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
       keymap = "de-latin1";

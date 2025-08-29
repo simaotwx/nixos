@@ -42,5 +42,9 @@
       overlay-key = "Super_L";
       workspaces-only-on-primary = false;
     };
+    "org/gnome/desktop/media-handling" = {
+      automount = false;
+      autorun-never = true;
+    };
   };
 }

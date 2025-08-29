@@ -89,6 +89,7 @@ in
       openssl
       fd
       zip
+      bmap-tools
 
       # GStreamer
       gst_all_1.gstreamer

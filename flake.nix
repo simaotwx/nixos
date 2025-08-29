@@ -159,13 +159,13 @@
             ++ homeManagerModules.kehoeldWork;
         };
 
-        presslufthammer = lib.nixosSystem rec {
+        julian-notebook = lib.nixosSystem rec {
           system = "x86_64-linux";
           specialArgs = commonArgs system;
           modules =
             commonModules
             ++ [
-              ./customization/presslufthammer
+              ./customization/julian-notebook
             ]
             ++ homeManagerModules.julianWork;
         };
