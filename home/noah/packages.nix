@@ -110,7 +110,13 @@ in
     vulkan-tools
     discord-ptb
     onlyoffice-desktopeditors
-  ];
+  ]
+  ++ lib.optionals (osConfig.networking.hostName == "triceratops") [
+
+    ]
+  ++ lib.optionals (osConfig.networking.hostName == "pteranodon") [
+
+    ];
 
   home.file = (
     builtins.listToAttrs (
