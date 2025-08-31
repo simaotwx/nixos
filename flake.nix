@@ -110,7 +110,7 @@
           system = "x86_64-linux";
           specialArgs = {
             inputs = {
-              inherit (self.inputs) nixos-hardware nixpkgs-unstable;
+              inherit (self.inputs) nixos-hardware nixpkgs-unstable nixpkgs-master;
               nixpkgs = nixpkgs-unstable;
             }
             // (commonArgs system);

@@ -12,10 +12,6 @@
   };
   boot.kernelParams = [ "boot.shell_on_fail" ];
 
-  systemd.extraConfig = ''
-    DefaultLimitNOFILE=1048576
-  '';
-
   security.pam.loginLimits = [
     {
       type = "hard";

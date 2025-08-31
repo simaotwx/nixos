@@ -138,10 +138,10 @@
       text = ''
         ${pkgs.rsync}/bin/rsync -rac '${packages.simao-htpc-kodi-factory-data}'/. ${data}/.
         ${pkgs.coreutils-full}/bin/install -m644 \
-          '${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so' \
+          '${pkgs.master.widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so' \
           '${data}/cdm/libwidevinecdm.so'
         ${pkgs.coreutils-full}/bin/install -m644 \
-          '${pkgs.widevine-cdm}/share/google/chrome/WidevineCdm/manifest.json' \
+          '${pkgs.master.widevine-cdm}/share/google/chrome/WidevineCdm/manifest.json' \
           '${data}/cdm/manifest.json'
         ${pkgs.coreutils-full}/bin/chown -R \
           '${config.customization.kodi.user}:${config.customization.kodi.user}' '${data}'
