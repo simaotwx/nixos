@@ -97,7 +97,7 @@
     _module.args.hasLinuxNitrous = true;
     boot.kernelPackages = lib.mkOverride 80 (
       let
-        version = "6.16.3-1";
+        version = "6.16.5-1";
         linuxVersion = lib.head (lib.splitString "-" version);
         suffix = "nitrous";
         llvm = pkgs.llvmPackages_20;
@@ -132,7 +132,7 @@
 
               src = fetchurl {
                 url = "https://gitlab.com/xdevs23/linux-nitrous/-/archive/v${version}/linux-nitrous-v${version}.tar.gz";
-                hash = "sha256-hunBA1T59CqGYGobzk5/A3A56Pz50qjfuZvFGbOwTRY=";
+                hash = "sha256-vI91ALl0looCY9Utj0P/lYDsf1DzW4cY/ox2gj67cG4=";
               };
 
               structuredExtraConfig = with lib.kernel; {
