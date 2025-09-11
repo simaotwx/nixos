@@ -119,6 +119,7 @@ in
 
       spotify
       unstable.android-studio
+      devenv
     ]
     ++ (with unstable.jetbrains; [
       idea-ultimate
