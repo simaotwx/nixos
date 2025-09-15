@@ -5,7 +5,7 @@
   inputs,
   flakePath,
   ...
-}:
+}@args:
 {
   forEachSystem = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
   homeManager =
@@ -53,5 +53,5 @@
         cd $out
         sha256sum ${ukiOutName} ${storeOutName} > SHA256SUMS
       '';
-
+  images = import ./images.nix args;
 }

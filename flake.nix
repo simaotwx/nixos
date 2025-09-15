@@ -68,10 +68,10 @@
           noah = import ./home/noah;
         };
       };
-      commonArgs = system: {
+      commonArgs = system:
+      {
         inherit (self) inputs;
         inherit flakePath system;
-        packages = self.packages.${system};
       };
     in
     rec {
@@ -183,23 +183,10 @@
       };
 
       packages = forEachSystem (
-        system:
-        let
-          pkgs = import nixpkgs { inherit system; };
-          commonPackageArgs = {
-            inherit
-              pkgs
-              nixosConfigurations
-              system
-              flakePath
-              lib
-              ;
-          };
-        in
-        {
-          simao-htpc-update = customLib.mkUpdate system nixosConfigurations.simao-htpc;
-          nanonet-minilab-update = customLib.mkUpdate system nixosConfigurations.nanonet-minilab;
-          simao-htpc-kodi-factory-data = import ./packages/simao-htpc-kodi-factory-data.nix commonPackageArgs;
+        system: customLib.images.mkTargetOutputs {
+          name = "simao-htpc";
+          deviceName = "odroid-h4";
+          nixosConfiguration = nixosConfigurations.simao-htpc;
         }
       );
 

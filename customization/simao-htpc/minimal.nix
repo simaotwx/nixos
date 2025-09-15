@@ -29,4 +29,6 @@ in
 
   system.switch.enable = false;
   boot.initrd.systemd.enable = lib.mkDefault true;
+
+  services.lvm.enable = lib.mkDefault false;
 }

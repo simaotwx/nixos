@@ -3,8 +3,12 @@
   lib,
   pkgs,
   packages,
+  flakePath,
   ...
-}:
+}@args:
+let
+  simao-htpc-kodi-factory-data = import "${flakePath}/packages/simao-htpc-kodi-factory-data.nix" args;
+in
 {
   boot.initrd.supportedFilesystems = {
     btrfs = true;
@@ -136,7 +140,7 @@
     in
     {
       text = ''
-        ${pkgs.rsync}/bin/rsync -rac '${packages.simao-htpc-kodi-factory-data}'/. ${data}/.
+        ${pkgs.rsync}/bin/rsync -rac '${simao-htpc-kodi-factory-data}'/. ${data}/.
         ${pkgs.coreutils-full}/bin/install -m644 \
           '${pkgs.master.widevine-cdm}/share/google/chrome/WidevineCdm/_platform_specific/linux_x64/libwidevinecdm.so' \
           '${data}/cdm/libwidevinecdm.so'

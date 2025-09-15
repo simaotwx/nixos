@@ -11,18 +11,25 @@
     common-pc-ssd
     hardkernel-odroid-h4
     ./filesystems.nix
-    ./partitions.nix
     ./minimal.nix
     ./options.nix
-    ./sysupdate.nix
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/hardware/generic/any/ahci.nix"
     "${flakePath}/modules/hardware/intel/gpu.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/systemd-networkd.nix"
     "${flakePath}/modules/components/jellyfin.nix"
+    "${flakePath}/modules/filesystem/tmpfs-root.nix"
+    "${flakePath}/modules/filesystem/nix-store.nix"
+    "${flakePath}/modules/filesystem/var.nix"
+    "${flakePath}/modules/images/read-only.nix"
+    "${flakePath}/modules/partition/layouts/ab.nix"
+    "${flakePath}/modules/boot/auto-detect-system-disk.nix"
+    "${flakePath}/modules/ota/systemd-sysupdate.nix"
     "${flakePath}/local/nanonet-minilab-secrets.nix"
   ];
+
+  target.ota.updateServer = "http://aludepp:8080/result";
 
   # Customization of modules
   customization = {
@@ -51,7 +58,6 @@
     services = {
       networkDiscovery = true;
     };
-    partitions.systemDisk = "/dev/nvme0n1";
     performance = {
       tuning.enable = true;
       oomd.enable = true;

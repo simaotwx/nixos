@@ -77,6 +77,8 @@
     };
   };
 
+  nix.enable = false;
+
   boot.loader.timeout = 0;
   boot.extraModprobeConfig = ''
     options snd slots=snd-hda-intel
@@ -143,9 +145,6 @@
       noto-fonts-cjk-sans
       liberation_ttf
       adwaita-fonts
-      material-icons
-      material-symbols
-      roboto
     ];
     fontconfig = {
       enable = true;
@@ -172,14 +171,12 @@
       dust
       ripgrep
       exfatprogs
-      nix-bundle
     ];
     defaultPackages = [ ];
     variables = {
       EDITOR = "vim";
       VISUAL = "vim";
       PAGER = "less";
-      BROWSER = "zen-beta";
     };
   };
 
@@ -215,7 +212,7 @@
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "30";
+  system.image.version = "31";
   system.image.id = "simao-htpc-htos";
 
   virtualisation.vmVariant = import ./vm.nix;
