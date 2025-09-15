@@ -10,7 +10,6 @@
     common-pc
     common-pc-ssd
     hardkernel-odroid-h4
-    ./filesystems.nix
     ./minimal.nix
     ./options.nix
     "${flakePath}/machines/x86_64"

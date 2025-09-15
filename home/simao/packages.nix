@@ -45,7 +45,6 @@
       chromium
       protobuf
       e2fsprogs
-      audacity
       lm_sensors
       fastfetch
       nixd
@@ -59,7 +58,6 @@
       smartmontools
       rsync
       vlc
-      libreoffice-fresh
       p7zip
       iptables
       nftables
@@ -67,25 +65,13 @@
       simple-scan
       hwloc
       inputs.zen-browser.packages."${pkgs.system}".beta
-      gnome-boxes
       dysk
-      brasero
       openssl
       fd
       nmap
       lz4
       zip
-      gimp3
-      pinta
-      krita
-      ddrescue
-      hdparm
-      feishin
       mpv
-      inputs.quickshell.packages.${system}.default
-      qt6Packages.qtdeclarative
-      aider-chat-full
-      crush-latest
 
       # GStreamer
       gst_all_1.gstreamer
@@ -95,12 +81,6 @@
       gst_all_1.gst-plugins-ugly
       gst_all_1.gst-libav
       gst_all_1.gst-vaapi
-
-      # AOSP stuff
-      git-repo
-      xmlstarlet
-      ccache
-
     ]
     ++ lib.optionals (osConfig.networking.hostName == "aludepp") [
       makemkv
@@ -110,6 +90,25 @@
       unstable.jetbrains.idea-community
       jdk
       spotify
+      inputs.quickshell.packages.${system}.default
+      qt6Packages.qtdeclarative
+      aider-chat-full
+      crush-latest
+      gimp3
+      pinta
+      krita
+      ddrescue
+      hdparm
+      feishin
+      brasero
+      gnome-boxes
+      libreoffice-fresh
+      audacity
+
+      # AOSP stuff
+      git-repo
+      xmlstarlet
+      ccache
     ];
 
 

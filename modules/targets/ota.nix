@@ -36,7 +36,7 @@
         sys = config.system;
         artifacts = config.system.build.ota.artifacts;
       in
-      pkgs.runCommand "update-${sys.image.name}-${sys.image.version}" {
+      pkgs.runCommand "update-${sys.image.id}-${sys.image.version}" {
         allowSubstitutes = false;
         dontFixup = true;
         nativeBuildInputs = [ pkgs.coreutils ];
