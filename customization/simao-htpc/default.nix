@@ -4,6 +4,7 @@
   config,
   flakePath,
   lib,
+  compressorXz,
   ...
 }:
 {
@@ -19,6 +20,7 @@
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/hardware/intel/gpu.nix"
     "${flakePath}/modules/components/kodi.nix"
+    "${flakePath}/modules/compressors/xz.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/local/simao-htpc-secrets.nix"
@@ -208,6 +210,26 @@
   ];
 
   hardware.enableRedistributableFirmware = true;
+
+  system.build.ota.artifacts =
+    let
+      ukiFile = "${config.system.build.uki}/${config.system.boot.loader.ukiFile}";
+      storeFile = "${config.system.build.image}/${config.boot.uki.name}_${config.system.image.version}.store.raw";
+      ukiOutName = config.system.boot.loader.ukiFile;
+      storeOutName = "store_${config.system.image.version}.img";
+    in
+    {
+      ${ukiOutName} = {
+        source = ukiFile;
+        compressor = compressorXz;
+        compressedExtension = "xz";
+      };
+      ${storeOutName} = {
+        source = storeFile;
+        compressor = compressorXz;
+        compressedExtension = "xz";
+      };
+    };
 
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";

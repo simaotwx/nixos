@@ -10,7 +10,23 @@
           compressionLevel = lib.mkOption {
             type = lib.types.int;
             default = 4;
-            description = "Compression level for pigz (1-9)";
+            description = "Compression level for compressor";
+          };
+          compressedExtension = lib.mkOption {
+            type = lib.types.str;
+            default = "gz";
+          };
+          compressor = lib.mkOption {
+            type = lib.types.functionTo lib.types.package;
+            default = { name, inputFile, compressionLevel }:
+              pkgs.runCommand name {
+                allowSubstitutes = false;
+                dontFixup = true;
+                nativeBuildInputs = [ pkgs.pigz ];
+              } ''
+                pigz -${toString compressionLevel} -c ${inputFile} > $out
+              '';
+            description = "Compressor to use, defaults to pigz";
           };
         };
       });
@@ -19,18 +35,7 @@
     };
   };
 
-  config =
-  let
-    mkCompressed = { name, inputFile, compressionLevel }:
-      pkgs.runCommand name {
-        allowSubstitutes = false;
-        dontFixup = true;
-        nativeBuildInputs = [ pkgs.pigz ];
-      } ''
-        pigz -${toString compressionLevel} -c ${inputFile} > $out
-      '';
-  in
-  {
+  config = {
     system.build.otaUpdate =
       let
         sys = config.system;
@@ -47,7 +52,9 @@
         '') artifacts)}
         ${lib.optionalString (artifacts != {}) ''
           cd $out
-          sha256sum ${lib.concatStringsSep " " (lib.attrNames artifacts)} > SHA256SUMS
+          ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: artifact: ''
+            sha256sum ${name} >> SHA256SUMS
+          '') artifacts)}
         ''}
       '';
 
@@ -64,18 +71,20 @@
         mkdir -p $out
         ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: artifact:
           let
-            compressed = mkCompressed {
-              name = "compressed-${name}.gz";
+            compressed = artifact.compressor {
+              name = "compressed-${name}.${artifact.compressedExtension}";
               inputFile = artifact.source;
               compressionLevel = artifact.compressionLevel;
             };
           in ''
-            cp --reflink=auto ${compressed} $out/${name}.gz
+            cp --reflink=auto ${compressed} $out/${name}.${artifact.compressedExtension}
           ''
         ) artifacts)}
         ${lib.optionalString (artifacts != {}) ''
           cd $out
-          sha256sum ${lib.concatStringsSep " " (map (n: "${n}.gz") (lib.attrNames artifacts))} > SHA256SUMS
+          ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: artifact: ''
+            sha256sum ${name}.${artifact.compressedExtension} >> SHA256SUMS
+          '') artifacts)}
         ''}
       '';
   };
