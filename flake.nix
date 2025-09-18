@@ -182,13 +182,7 @@
         };
       };
 
-      packages = forEachSystem (
-        system: customLib.images.mkTargetOutputs {
-          name = "simao-htpc";
-          deviceName = "odroid-h4";
-          nixosConfiguration = nixosConfigurations.simao-htpc;
-        }
-      );
+      packages = {};
 
       nixosModules = {
         linux-nitrous-module = import ./modules/components/linux-nitrous.nix;
