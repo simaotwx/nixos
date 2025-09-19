@@ -104,6 +104,7 @@
       gnome-boxes
       libreoffice-fresh
       audacity
+      devenv
 
       # AOSP stuff
       git-repo
