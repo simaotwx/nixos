@@ -22,6 +22,7 @@
         "audio/opus" = "io.github.celluloid_player.Celluloid.desktop";
         "application/xml" = "org.gnome.gedit.desktop";
         "text/plain" = "org.gnome.gedit.desktop";
+        "x-scheme-handler/msteams" = "teams-for-linux.desktop";
       };
     };
     mimeApps.defaultApplications = config.xdg.mimeApps.associations.added;
