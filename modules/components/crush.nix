@@ -3,7 +3,7 @@
     (final: prev: with pkgs; {
       crush-latest =
       # as of 2025-08-24, Go 1.25 is only in master and Crush >= 0.6.3 needs 1.25
-      ((master.crush.overrideAttrs (old: rec {
+      (master.crush.overrideAttrs (old: rec {
         version = "0.7.1";
         src = old.src.override {
           inherit version;
@@ -16,7 +16,7 @@
             hash = "sha256-ANPvNwq0rq8SpoU6C2Jse6fqWngFJ7uoaU5i+PRz4QU=";
           })
         ];
-      })).override { buildGoModule = master.buildGo125Module; });
+      }));
     })
   ];
 }

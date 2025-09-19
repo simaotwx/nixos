@@ -4,6 +4,7 @@
   config,
   flakePath,
   lib,
+  compressorXz,
   ...
 }:
 {
@@ -19,6 +20,7 @@
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/hardware/intel/gpu.nix"
     "${flakePath}/modules/components/kodi.nix"
+    "${flakePath}/modules/compressors/xz.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/local/simao-htpc-secrets.nix"
@@ -76,6 +78,8 @@
         ];
     };
   };
+
+  nix.enable = false;
 
   boot.loader.timeout = 0;
   boot.extraModprobeConfig = ''
@@ -143,9 +147,6 @@
       noto-fonts-cjk-sans
       liberation_ttf
       adwaita-fonts
-      material-icons
-      material-symbols
-      roboto
     ];
     fontconfig = {
       enable = true;
@@ -172,14 +173,12 @@
       dust
       ripgrep
       exfatprogs
-      nix-bundle
     ];
     defaultPackages = [ ];
     variables = {
       EDITOR = "vim";
       VISUAL = "vim";
       PAGER = "less";
-      BROWSER = "zen-beta";
     };
   };
 
@@ -212,10 +211,30 @@
 
   hardware.enableRedistributableFirmware = true;
 
+  system.build.ota.artifacts =
+    let
+      ukiFile = "${config.system.build.uki}/${config.system.boot.loader.ukiFile}";
+      storeFile = "${config.system.build.image}/${config.boot.uki.name}_${config.system.image.version}.store.raw";
+      ukiOutName = config.system.boot.loader.ukiFile;
+      storeOutName = "store_${config.system.image.version}.img";
+    in
+    {
+      ${ukiOutName} = {
+        source = ukiFile;
+        compressor = compressorXz;
+        compressedExtension = "xz";
+      };
+      ${storeOutName} = {
+        source = storeFile;
+        compressor = compressorXz;
+        compressedExtension = "xz";
+      };
+    };
+
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "30";
+  system.image.version = "31";
   system.image.id = "simao-htpc-htos";
 
   virtualisation.vmVariant = import ./vm.nix;

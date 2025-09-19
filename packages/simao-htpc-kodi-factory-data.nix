@@ -1,10 +1,10 @@
 {
   pkgs,
-  nixosConfigurations,
+  config,
   system,
   flakePath,
   ...
-}:
+}@args:
 pkgs.stdenv.mkDerivation rec {
   inherit system;
   name = "simao-htpc-kodi-factory-data";
@@ -12,19 +12,19 @@ pkgs.stdenv.mkDerivation rec {
   installPhase =
     let
       guisettings = pkgs.writeText "" (
-        import "${flakePath}/src/${name}/userdata/guisettings.nix" nixosConfigurations.simao-htpc
+        import "${flakePath}/src/${name}/userdata/guisettings.nix" args
       );
       youtubeSettings = pkgs.writeText "" (
-        import "${flakePath}/src/${name}/userdata/addon_data/plugin.video.youtube/settings.nix" nixosConfigurations.simao-htpc
+        import "${flakePath}/src/${name}/userdata/addon_data/plugin.video.youtube/settings.nix" args
       );
       youtubeApiKeys = pkgs.writeText "" (
-        import "${flakePath}/src/${name}/userdata/addon_data/plugin.video.youtube/api_keys.nix" nixosConfigurations.simao-htpc
+        import "${flakePath}/src/${name}/userdata/addon_data/plugin.video.youtube/api_keys.nix" args
       );
       jellyconSettings = pkgs.writeText "" (
-        import "${flakePath}/src/${name}/userdata/addon_data/plugin.video.jellycon/settings.nix" nixosConfigurations.simao-htpc
+        import "${flakePath}/src/${name}/userdata/addon_data/plugin.video.jellycon/settings.nix" args
       );
       jellyconAuth = pkgs.writeText "" (
-        import "${flakePath}/src/${name}/userdata/addon_data/plugin.video.jellycon/auth.nix" nixosConfigurations.simao-htpc
+        import "${flakePath}/src/${name}/userdata/addon_data/plugin.video.jellycon/auth.nix" args
       );
     in
     ''
