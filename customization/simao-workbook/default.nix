@@ -64,6 +64,7 @@
       tuning.enable = true;
       oomd.enable = true;
     };
+    nix.buildDirOnTmp = false;
     shells.zsh.lite.enable = true;
     desktop = {
       gnome = {
@@ -226,6 +227,15 @@
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
+
+  security.pki.certificateFiles = [
+    "${flakePath}/local/certificates/thea_root_ca.crt"
+  ];
+
+  services.printing.drivers = [ pkgs.brlaser ];
+  networking.firewall.allowedTCPPorts = [7236 7250];
+
+  networking.firewall.allowedUDPPorts = [7236 5353];
 
   services.clamav = {
     updater.enable = true;

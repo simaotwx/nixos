@@ -102,6 +102,7 @@ in
       hdparm
       crush-latest
       remmina
+      gnome-network-displays
 
       # GStreamer
       gst_all_1.gstreamer
