@@ -54,4 +54,12 @@
         sha256sum ${ukiOutName} ${storeOutName} > SHA256SUMS
       '';
   images = import ./images.nix args;
+  defaultModuleArgs = rec {
+    maybeImport = file: import (
+      if builtins.pathExists file then file else "${flakePath}/lib/empty.nix"
+    );
+    maybeImportedModule = file: args: {
+      config = maybeImport file;
+    };
+  };
 }

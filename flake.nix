@@ -72,7 +72,7 @@
       {
         inherit (self) inputs;
         inherit flakePath system;
-      };
+      } // customLib.defaultModuleArgs;
     in
     rec {
       nixosConfigurations = {
@@ -108,14 +108,12 @@
 
         simao-htpc = unstableLib.nixosSystem rec {
           system = "x86_64-linux";
-          specialArgs = {
+          specialArgs = lib.recursiveUpdate (commonArgs system) {
             inputs = {
               inherit (self.inputs) nixos-hardware nixpkgs-unstable nixpkgs-master;
               nixpkgs = nixpkgs-unstable;
-            }
-            // (commonArgs system);
+            };
             packages = self.packages.${system};
-            inherit flakePath system;
           };
           modules = commonModules ++ [
             ./customization/simao-htpc
