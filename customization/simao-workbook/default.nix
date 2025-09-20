@@ -64,6 +64,7 @@
       tuning.enable = true;
       oomd.enable = true;
     };
+    nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
     desktop = {
       gnome = {

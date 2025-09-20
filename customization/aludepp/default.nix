@@ -77,6 +77,7 @@
     peripherals = {
       via.enable = true;
     };
+    nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
     desktop.hyprland =
       let

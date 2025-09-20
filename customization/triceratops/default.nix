@@ -33,6 +33,7 @@
 
   # Customization of modules
   customization = {
+    nix.buildDirOnTmp = true;
     hardware = {
       cpu.cores = 16;
       cpu.vendor = "amd";
