@@ -5,6 +5,7 @@
       settings = {
         deviceUuid = lib.mkOption {
           description = "UUID of your device. Please generate one or reuse from previous installation.";
+          default = "";
           type = lib.types.str;
         };
         webserver = {
@@ -22,16 +23,16 @@
       addons = {
         "plugin.video.youtube" = {
           settings = {
-            apiKey = lib.mkOption { type = lib.types.str; };
-            apiClientId = lib.mkOption { type = lib.types.str; };
-            apiClientSecret = lib.mkOption { type = lib.types.str; };
+            apiKey = lib.mkOption { type = lib.types.str; default = ""; };
+            apiClientId = lib.mkOption { type = lib.types.str; default = ""; };
+            apiClientSecret = lib.mkOption { type = lib.types.str; default = ""; };
           };
         };
         "plugin.video.jellycon" = {
           settings = {
-            username = lib.mkOption { type = lib.types.str; };
-            serverAddress = lib.mkOption { type = lib.types.str; };
-            users = lib.mkOption { type = with lib.types; attrsOf (attrsOf str); };
+            username = lib.mkOption { type = lib.types.str; default = ""; };
+            serverAddress = lib.mkOption { type = lib.types.str; default = ""; };
+            users = lib.mkOption { type = with lib.types; attrsOf (attrsOf str); default = {}; };
           };
         };
       };
