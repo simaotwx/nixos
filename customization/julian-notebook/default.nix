@@ -196,6 +196,8 @@
   security.pki.certificateFiles = [
     "${flakePath}/local/certificates/thea_root_ca.crt"
   ];
+  
+  customization.virtualisation.docker.rootless.enable = true;
 
   virtualisation.vmVariant = import ./vm.nix;
 
