@@ -35,7 +35,6 @@
     "${flakePath}/modules/components/compat.nix"
     "${flakePath}/modules/components/ollama.nix"
     "${flakePath}/modules/components/crush.nix"
-    "${flakePath}/modules/components/opencode.nix"
     "${flakePath}/modules/components/shell/utilities/git.nix"
   ];
 

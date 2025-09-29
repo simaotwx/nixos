@@ -105,7 +105,7 @@
       libreoffice-fresh
       audacity
       devenv
-      opencode-latest
+      master.opencode
 
       # AOSP stuff
       git-repo
