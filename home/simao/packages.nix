@@ -106,6 +106,7 @@
       audacity
       devenv
       master.opencode
+      unstable.zed-editor
 
       # AOSP stuff
       git-repo
@@ -118,4 +119,8 @@
     bradlc.vscode-tailwindcss
     golang.go
   ];
+
+  home.file.".zed_server" = {
+    source = "${pkgs.unstable.zed-editor.remote_server}/bin";
+  };
 }
