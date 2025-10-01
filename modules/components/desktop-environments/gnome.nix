@@ -6,7 +6,7 @@
   forEachUser,
   ...
 }:
-
+{
   options = {
     customization = {
       desktop.gnome.configure.users = mkConfigurableUsersOption {
