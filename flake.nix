@@ -3,6 +3,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    foundrix = {
+      url = "github:xdevs23/foundrix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,6 +33,7 @@
       self,
       nixpkgs,
       nixpkgs-unstable,
+      foundrix,
       ...
     }@flake:
     let
@@ -39,6 +44,7 @@
         flake
         // {
           inherit lib flakePath;
+          foundrixModules = foundrix.nixosModules;
           inputs = flake;
         }
       );
@@ -72,7 +78,7 @@
       {
         inherit (self) inputs;
         inherit flakePath system;
-      };
+      } // customLib.defaultModuleArgs // foundrix.nixosModules.foundrixSpecialArgs;
     in
     rec {
       nixosConfigurations = {
@@ -108,14 +114,12 @@
 
         simao-htpc = unstableLib.nixosSystem rec {
           system = "x86_64-linux";
-          specialArgs = {
+          specialArgs = lib.recursiveUpdate (commonArgs system) {
             inputs = {
               inherit (self.inputs) nixos-hardware nixpkgs-unstable nixpkgs-master;
               nixpkgs = nixpkgs-unstable;
-            }
-            // (commonArgs system);
+            };
             packages = self.packages.${system};
-            inherit flakePath system;
           };
           modules = commonModules ++ [
             ./customization/simao-htpc
@@ -182,7 +186,13 @@
         };
       };
 
-      packages = {};
+      packages = forEachSystem (
+        system: customLib.images.mkTargetOutputs {
+          name = "simao-htpc";
+          deviceName = "odroid-h4";
+          nixosConfiguration = nixosConfigurations.simao-htpc;
+        }
+      );
 
       nixosModules = {
         linux-nitrous-module = import ./modules/components/linux-nitrous.nix;

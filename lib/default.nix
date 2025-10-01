@@ -4,6 +4,7 @@
   lib,
   inputs,
   flakePath,
+  foundrixModules,
   ...
 }@args:
 {
@@ -20,7 +21,7 @@
         home-manager.useUserPackages = true;
         home-manager.users = users;
         home-manager.backupFileExtension = "bak";
-        home-manager.extraSpecialArgs = { inherit inputs flakePath; };
+        home-manager.extraSpecialArgs = { inherit inputs flakePath foundrixModules; };
         configurableUsers = userList;
       }
       {
@@ -54,4 +55,12 @@
         sha256sum ${ukiOutName} ${storeOutName} > SHA256SUMS
       '';
   images = import ./images.nix args;
+  defaultModuleArgs = rec {
+    maybeImport = file: import (
+      if builtins.pathExists file then file else "${flakePath}/lib/empty.nix"
+    );
+    maybeImportedModule = file: args: {
+      config = maybeImport file;
+    };
+  };
 }

@@ -2,17 +2,12 @@
   pkgs,
   lib,
   config,
-  flakePath,
   inputs,
   mkConfigurableUsersOption,
   forEachUser',
   ...
 }:
 {
-  imports = [
-    "${flakePath}/modules/components/graphical.nix"
-  ];
-
   options = {
     customization = {
       desktop.hyprland = {

@@ -5,6 +5,7 @@
   flakePath,
   lib,
   compressorXz,
+  maybeImport,
   ...
 }:
 {
@@ -23,7 +24,7 @@
     "${flakePath}/modules/compressors/xz.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
-    "${flakePath}/local/simao-htpc-secrets.nix"
+    (maybeImport "${flakePath}/local/simao-htpc-secrets.nix")
   ];
 
   # Customization of modules

@@ -3,6 +3,7 @@
   pkgs,
   flakePath,
   config,
+  foundrixModules,
   ...
 }:
 {
@@ -12,6 +13,7 @@
     common-cpu-amd-pstate
     common-gpu-amd
     common-pc-ssd
+    foundrixModules.profiles.desktop-full
     ./filesystems.nix
     ./tpm.nix
     "${flakePath}/machines/x86_64"
@@ -27,12 +29,13 @@
     "${flakePath}/modules/components/zram.nix"
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
-    "${flakePath}/modules/components/compat.nix"
+    foundrixModules.config.compat
     "${flakePath}/modules/components/shell/utilities/git.nix"
   ];
 
   # Customization of modules
   customization = {
+    nix.buildDirOnTmp = true;
     hardware = {
       cpu.cores = 16;
       cpu.vendor = "amd";

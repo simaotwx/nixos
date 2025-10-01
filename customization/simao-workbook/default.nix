@@ -3,6 +3,7 @@
   inputs,
   flakePath,
   lib,
+  foundrixModules,
   ...
 }:
 {
@@ -13,10 +14,10 @@
     common-gpu-amd
     common-pc-ssd
     framework-16-7040-amd
+    foundrixModules.profiles.desktop-full
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/hardware/amd/gpu.nix"
-    "${flakePath}/modules/components/alacritty.nix"
     "${flakePath}/modules/components/displaylink.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
@@ -27,7 +28,7 @@
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     "${flakePath}/modules/components/shell/utilities/git.nix"
-    "${flakePath}/modules/components/compat.nix"
+    foundrixModules.config.compat
     "${flakePath}/modules/components/ollama.nix"
     "${flakePath}/modules/components/crush.nix"
   ];
@@ -64,7 +65,7 @@
       tuning.enable = true;
       oomd.enable = true;
     };
-    nix.buildDirOnTmp = false;
+    nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
     desktop = {
       gnome = {

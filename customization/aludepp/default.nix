@@ -4,6 +4,7 @@
   lib,
   pkgs,
   wrapQuickshell,
+  foundrixModules,
   ...
 }:
 {
@@ -12,13 +13,13 @@
     common-pc-ssd
     common-cpu-amd
     common-cpu-amd-pstate
+    foundrixModules.profiles.desktop-full
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/hardware/generic/any/ahci.nix"
     "${flakePath}/modules/hardware/generic/any/cdrom.nix"
     "${flakePath}/modules/hardware/razer/peripherals.nix"
     "${flakePath}/modules/hardware/intel/gpu.nix"
-    "${flakePath}/modules/components/alacritty.nix"
     "${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/desktop-environments/hyprland.nix"
@@ -28,11 +29,11 @@
     "${flakePath}/modules/components/via.nix"
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/steam.nix"
-    "${flakePath}/modules/components/mdraid.nix"
+    foundrixModules.config.mdraid
     "${flakePath}/modules/components/qml.nix"
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
-    "${flakePath}/modules/components/compat.nix"
+    foundrixModules.config.compat
     "${flakePath}/modules/components/ollama.nix"
     "${flakePath}/modules/components/crush.nix"
     "${flakePath}/modules/components/shell/utilities/git.nix"
@@ -77,6 +78,7 @@
     peripherals = {
       via.enable = true;
     };
+    nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
     desktop.hyprland =
       let

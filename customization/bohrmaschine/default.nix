@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   flakePath,
+  foundrixModules,
   ...
 }:
 {
@@ -12,6 +13,7 @@
     common-gpu-amd
     common-pc-ssd
     framework-16-7040-amd
+    foundrixModules.profiles.desktop-full
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/hardware/amd/gpu.nix"
@@ -24,7 +26,7 @@
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
-    "${flakePath}/modules/components/compat.nix"
+    foundrixModules.config.compat
     "${flakePath}/modules/components/shell/utilities/git.nix"
   ];
 
