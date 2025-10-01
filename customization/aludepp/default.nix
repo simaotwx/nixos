@@ -30,8 +30,7 @@
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/steam.nix"
     foundrixModules.config.mdraid
-    "${flakePath}/modules/components/qml.nix"
-    "${flakePath}/modules/components/docker.nix"
+        "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
     "${flakePath}/modules/components/ollama.nix"
