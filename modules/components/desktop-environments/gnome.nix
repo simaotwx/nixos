@@ -2,15 +2,10 @@
   pkgs,
   lib,
   config,
-  flakePath,
   mkConfigurableUsersOption,
   forEachUser,
   ...
 }:
-{
-  imports = [
-    "${flakePath}/modules/components/graphical.nix"
-  ];
 
   options = {
     customization = {
