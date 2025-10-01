@@ -29,7 +29,7 @@
     "${flakePath}/modules/components/via.nix"
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/steam.nix"
-    "${flakePath}/modules/components/mdraid.nix"
+    foundrixModules.config.mdraid
     "${flakePath}/modules/components/qml.nix"
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
