@@ -26,7 +26,7 @@
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/gui/quickshell"
     "${flakePath}/modules/components/zsh"
-    "${flakePath}/modules/components/via.nix"
+    foundrixModules.config.via
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/steam.nix"
     foundrixModules.config.mdraid
@@ -73,9 +73,6 @@
     performance = {
       tuning.enable = true;
       oomd.enable = true;
-    };
-    peripherals = {
-      via.enable = true;
     };
     nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
