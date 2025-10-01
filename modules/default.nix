@@ -2,7 +2,6 @@
 {
   imports = [
     ./base.nix
-    ./commands.nix
     ./console.nix
     ./debug.nix
     ./general.nix

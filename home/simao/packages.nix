@@ -71,6 +71,7 @@
       lz4
       zip
       mpv
+      inputs.foundrix.packages.${pkgs.system}.json2nix
 
       # GStreamer
       gst_all_1.gstreamer
