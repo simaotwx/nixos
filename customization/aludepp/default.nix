@@ -33,7 +33,7 @@
     "${flakePath}/modules/components/qml.nix"
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
-    "${flakePath}/modules/components/compat.nix"
+    foundrixModules.config.compat
     "${flakePath}/modules/components/ollama.nix"
     "${flakePath}/modules/components/crush.nix"
     "${flakePath}/modules/components/shell/utilities/git.nix"
