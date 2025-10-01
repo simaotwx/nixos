@@ -3,6 +3,7 @@
   pkgs,
   flakePath,
   config,
+  foundrixModules,
   ...
 }:
 {
@@ -12,6 +13,7 @@
     common-cpu-amd-pstate
     common-gpu-amd
     common-pc-ssd
+    foundrixModules.profiles.desktop-full
     ./filesystems.nix
     ./tpm.nix
     "${flakePath}/machines/x86_64"

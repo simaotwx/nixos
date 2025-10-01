@@ -3,6 +3,7 @@
   inputs,
   flakePath,
   lib,
+  foundrixModules,
   ...
 }:
 {
@@ -13,6 +14,7 @@
     common-gpu-amd
     common-pc-ssd
     framework-16-7040-amd
+    foundrixModules.profiles.desktop-full
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/hardware/amd/gpu.nix"

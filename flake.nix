@@ -3,6 +3,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    foundrix = {
+      url = "github:xdevs23/foundrix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,6 +33,7 @@
       self,
       nixpkgs,
       nixpkgs-unstable,
+      foundrix,
       ...
     }@flake:
     let
@@ -72,7 +77,7 @@
       {
         inherit (self) inputs;
         inherit flakePath system;
-      } // customLib.defaultModuleArgs;
+      } // customLib.defaultModuleArgs // foundrix.nixosModules.foundrixSpecialArgs;
     in
     rec {
       nixosConfigurations = {

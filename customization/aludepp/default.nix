@@ -4,6 +4,7 @@
   lib,
   pkgs,
   wrapQuickshell,
+  foundrixModules,
   ...
 }:
 {
@@ -12,6 +13,7 @@
     common-pc-ssd
     common-cpu-amd
     common-cpu-amd-pstate
+    foundrixModules.profiles.desktop-full
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/hardware/generic/any/ahci.nix"

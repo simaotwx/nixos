@@ -31,7 +31,6 @@ in
       gedit
       gnome-calculator
       mangohud
-      appimage-run
       celluloid
       dig
       unzip

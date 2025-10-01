@@ -64,6 +64,26 @@
         "type": "github"
       }
     },
+    "foundrix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1759278418,
+        "narHash": "sha256-xr/mng19BhSZLSztzIig722fC/jDdP7/9849UOvKw5Q=",
+        "owner": "xdevs23",
+        "repo": "foundrix",
+        "rev": "0bba29458dd93c8a93c8136966e3a6705b290f92",
+        "type": "github"
+      },
+      "original": {
+        "owner": "xdevs23",
+        "repo": "foundrix",
+        "type": "github"
+      }
+    },
     "gitignore": {
       "inputs": {
         "nixpkgs": [
@@ -571,6 +591,7 @@
     },
     "root": {
       "inputs": {
+        "foundrix": "foundrix",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nixos-apple-silicon": "nixos-apple-silicon",

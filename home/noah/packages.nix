@@ -34,7 +34,6 @@ in
     gedit
     gnome-calculator
     mangohud
-    appimage-run
     celluloid
     #orca-slicer
     dig

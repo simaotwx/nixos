@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   flakePath,
+  foundrixModules,
   ...
 }:
 {
@@ -10,6 +11,7 @@
     common-cpu-intel
     common-pc-ssd
     framework-12th-gen-intel
+    foundrixModules.profiles.desktop-full
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/hardware/generic/any/ahci.nix"

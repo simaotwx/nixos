@@ -3,11 +3,13 @@
   lib,
   inputs,
   flakePath,
+  foundrixModules,
   ...
 }:
 {
   imports = [
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
+    foundrixModules.profiles.desktop-full
     ./filesystems.nix
     "${flakePath}/machines/arm64"
     "${flakePath}/modules/hardware/apple/asahi.nix"
