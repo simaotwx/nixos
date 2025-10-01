@@ -7,7 +7,7 @@
   forEachUser',
   ...
 }:
-
+{
   options = {
     customization = {
       desktop.hyprland = {
