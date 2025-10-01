@@ -13,7 +13,6 @@
     ./filesystems.nix
     "${flakePath}/machines/arm64"
     "${flakePath}/modules/hardware/apple/asahi.nix"
-    "${flakePath}/modules/components/alacritty.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"

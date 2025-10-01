@@ -3,6 +3,7 @@
   flakePath,
   lib,
   osConfig,
+  foundrixModules,
   ...
 }:
 {
@@ -15,6 +16,7 @@
     ./qt.nix
     "${flakePath}/modules/components/home/vscode.nix"
     ./xdg.nix
+    foundrixModules.home.alacritty
   ];
 
   home = {

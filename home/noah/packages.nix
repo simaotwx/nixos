@@ -11,7 +11,6 @@ let
 in
 {
   home.packages = with pkgs; [
-    #alacritty
     #wpaperd eww wofi
     #hyprlock hypridle hyprshot
     rose-pine-cursor

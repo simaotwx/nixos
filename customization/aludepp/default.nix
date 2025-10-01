@@ -20,7 +20,6 @@
     "${flakePath}/modules/hardware/generic/any/cdrom.nix"
     "${flakePath}/modules/hardware/razer/peripherals.nix"
     "${flakePath}/modules/hardware/intel/gpu.nix"
-    "${flakePath}/modules/components/alacritty.nix"
     "${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/desktop-environments/hyprland.nix"

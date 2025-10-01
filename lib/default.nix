@@ -4,6 +4,7 @@
   lib,
   inputs,
   flakePath,
+  foundrixModules,
   ...
 }@args:
 {
@@ -20,7 +21,7 @@
         home-manager.useUserPackages = true;
         home-manager.users = users;
         home-manager.backupFileExtension = "bak";
-        home-manager.extraSpecialArgs = { inherit inputs flakePath; };
+        home-manager.extraSpecialArgs = { inherit inputs flakePath foundrixModules; };
         configurableUsers = userList;
       }
       {

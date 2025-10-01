@@ -44,6 +44,7 @@
         flake
         // {
           inherit lib flakePath;
+          foundrixModules = foundrix.nixosModules;
           inputs = flake;
         }
       );
