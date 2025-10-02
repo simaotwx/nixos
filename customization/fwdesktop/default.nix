@@ -33,7 +33,7 @@
       storage.hasNvme = true;
     };
     general = {
-      hostName = "aludepp";
+      hostName = "fwdesktop";
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
       keymap = "de-latin1";
