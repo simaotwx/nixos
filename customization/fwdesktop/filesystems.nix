@@ -1,0 +1,49 @@
+{
+  boot.supportedFilesystems = {
+    btrfs = true;
+  };
+
+  fileSystems = {
+    "/" = {
+      fsType = "tmpfs";
+      options = [
+        "size=10%"
+        "noatime"
+        "mode=0755"
+        "uid=0"
+        "gid=0"
+      ];
+    };
+
+    "/nix/store" = {
+      device = "/dev/disk/by-partlabel/main";
+      fsType = "btrfs";
+      options = [
+        "subvol=@store"
+        "compress=lzo"
+        "noatime"
+      ];
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-partlabel/ESP";
+      fsType = "vfat";
+      options = [
+        "fmask=0077"
+        "dmask=0077"
+        "noatime"
+        "x-systemd.device-timeout=30s"
+      ];
+    };
+
+    "/home" = {
+      device = "/dev/disk/by-partlabel/main";
+      fsType = "btrfs";
+      options = [
+        "subvol=@home"
+        "compress=lzo"
+        "noatime"
+      ];
+    };
+  };
+}

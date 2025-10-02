@@ -1,6 +1,7 @@
 {
   nixpkgs,
   home-manager,
+  home-manager-master,
   lib,
   inputs,
   flakePath,
@@ -16,6 +17,27 @@
     in
     [
       home-manager.nixosModules.home-manager
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.users = users;
+        home-manager.backupFileExtension = "bak";
+        home-manager.extraSpecialArgs = { inherit inputs flakePath foundrixModules; };
+        configurableUsers = userList;
+      }
+      {
+        home-manager.users = lib.genAttrs userList (username: {
+          home.preferXdgDirectories = true;
+        });
+      }
+    ];
+   homeManagerMaster =
+    users:
+    let
+      userList = lib.attrsets.mapAttrsToList (name: _: name) users;
+    in
+    [
+      home-manager-master.nixosModules.home-manager
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
