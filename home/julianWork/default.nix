@@ -9,6 +9,7 @@
     ./qt.nix
     "${flakePath}/modules/components/home/vscode.nix"
     ./xdg.nix
+    foundrixModules.home.qml
   ];
 
   home = {

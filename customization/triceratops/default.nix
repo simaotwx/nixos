@@ -23,7 +23,7 @@
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/zsh"
-    "${flakePath}/modules/components/via.nix"
+    foundrixModules.config.via
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/steam.nix"
     "${flakePath}/modules/components/zram.nix"
@@ -66,9 +66,6 @@
     performance = {
       tuning.enable = true;
       oomd.enable = true;
-    };
-    peripherals = {
-      via.enable = true;
     };
 
     shells.zsh.power10k = {
