@@ -161,5 +161,23 @@
       "crush" # irrecovably becomes free after a while
     ];
 
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      PasswordAuthentication = true;
+      AllowUsers = null;
+      UseDns = true;
+      X11Forwarding = false;
+      PermitRootLogin = "prohibit-password";
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = [ 80 443 5353 22 2222 7236 7250 ];
+
+  users.users."fwdesktop".openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM7/qrzpmP/mK592MQUjYvjyGNcyaUDTOKfnBWWULvE simao@simao-workbook"
+  ];
+
   system.stateVersion = "25.05";
 }
