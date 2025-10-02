@@ -15,11 +15,11 @@
       ];
     };
 
-    "/nix/store" = {
+    "/nix" = {
       device = "/dev/disk/by-partlabel/main";
       fsType = "btrfs";
       options = [
-        "subvol=@store"
+        "subvol=@nixos"
         "compress=lzo"
         "noatime"
       ];
