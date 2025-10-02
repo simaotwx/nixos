@@ -59,6 +59,21 @@
     };
     nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
+    desktop = {
+      gnome = {
+        extensions = with pkgs.gnomeExtensions; [
+          vitals
+          dash-to-dock
+          clipboard-indicator
+          caffeine
+          transparent-top-bar-adjustable-transparency
+          window-is-ready-remover
+          bluetooth-quick-connect
+          removable-drive-menu
+          tray-icons-reloaded
+        ];
+      };
+    };
   };
 
   services.timesyncd.enable = true;
