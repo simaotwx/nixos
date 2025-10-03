@@ -112,7 +112,7 @@ in
     onlyoffice-desktopeditors
   ]
   ++ lib.optionals (osConfig.networking.hostName == "triceratops") [
-
+      ddrescue
     ]
   ++ lib.optionals (osConfig.networking.hostName == "pteranodon") [
 
