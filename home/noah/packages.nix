@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   lib,
+  osConfig,
   ...
 }:
 let
