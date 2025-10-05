@@ -36,6 +36,7 @@
     "${flakePath}/modules/components/ollama.nix"
     "${flakePath}/modules/components/crush.nix"
     "${flakePath}/modules/components/shell/utilities/git.nix"
+    foundrixModules.config.oomd
   ];
 
   # Customization of modules
@@ -69,10 +70,6 @@
       printing = true;
       scanning = true;
       networkDiscovery = true;
-    };
-    performance = {
-      tuning.enable = true;
-      oomd.enable = true;
     };
     nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
@@ -226,6 +223,8 @@
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
+
+  services.bpftune.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 

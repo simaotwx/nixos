@@ -9,7 +9,6 @@
     ./initrd.nix
     ./kernel.nix
     ./nix.nix
-    ./performance.nix
     ./security.nix
     ./services.nix
     ./lib.nix

@@ -22,6 +22,7 @@
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
     "${flakePath}/modules/components/shell/utilities/git.nix"
+    foundrixModules.config.oomd
   ];
 
   nixpkgs.overlays = [
@@ -64,10 +65,6 @@
       printing = true;
       scanning = true;
       networkDiscovery = true;
-    };
-    performance = {
-      tuning.enable = true;
-      oomd.enable = true;
     };
     shells.zsh.lite.enable = true;
     desktop = {
