@@ -64,7 +64,7 @@
       inetutils
       simple-scan
       hwloc
-      inputs.zen-browser.packages."${pkgs.system}".beta
+      inputs.zen-browser.packages.${pkgs.system}.beta
       dysk
       openssl
       fd

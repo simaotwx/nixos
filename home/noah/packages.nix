@@ -77,7 +77,7 @@ in
     simple-scan
     via
     hwloc
-    inputs.zen-browser.packages."${pkgs.system}".beta
+    inputs.zen-browser.packages.${pkgs.system}.beta
     gimp3-with-plugins
     zip
 

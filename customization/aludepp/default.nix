@@ -81,7 +81,7 @@
         wlCopy = lib.getExe' pkgs.wl-clipboard "wl-copy";
       in
       {
-        browser = inputs.zen-browser.packages."${pkgs.system}".beta;
+        browser = inputs.zen-browser.packages.${pkgs.system}.beta;
         execOnce = [
           "${lib.getExe pkgs.unstable.wpaperd} -d"
           "${lib.getExe (wrapQuickshell {
