@@ -116,7 +116,7 @@ in
       xmlstarlet
       ccache
 
-      spotify
+      unstable.spotify
       unstable.android-studio
       devenv
     ]
