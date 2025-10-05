@@ -29,7 +29,6 @@
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
-    "${flakePath}/modules/components/shell/utilities/git.nix"
     foundrixModules.config.oomd
   ];
 

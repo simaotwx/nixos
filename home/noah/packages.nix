@@ -10,7 +10,7 @@ let
   ];
 in
 {
-  home.packages = with pkgs; [
+  home.packages = with pkgs; let foundrixPkgs = inputs.foundrix.packages.${pkgs.system}; in [
     #wpaperd eww wofi
     #hyprlock hypridle hyprshot
     rose-pine-cursor
@@ -110,6 +110,8 @@ in
     vulkan-tools
     discord-ptb
     onlyoffice-desktopeditors
+    foundrixPkgs.git-aliases
+    foundrixPkgs.pickrange
   ];
 
   home.file = (
