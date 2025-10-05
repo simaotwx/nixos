@@ -89,7 +89,7 @@
       via
       unstable.jetbrains.idea-community
       jdk
-      spotify
+      unstable.spotify
       inputs.quickshell.packages.${system}.default
       qt6Packages.qtdeclarative
       aider-chat-full

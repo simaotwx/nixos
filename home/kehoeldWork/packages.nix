@@ -100,7 +100,7 @@ in
       xmlstarlet
       ccache
 
-      spotify
+      unstable.spotify
       unstable.android-studio
       google-chrome
     ]

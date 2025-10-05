@@ -102,7 +102,7 @@ in
     apktool
 
     (vesktop.override { withSystemVencord = true; })
-    spotify
+    unstable.spotify
     #makemkv
     unstable.android-studio
     prismlauncher
