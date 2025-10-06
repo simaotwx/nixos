@@ -26,10 +26,10 @@
     "${flakePath}/modules/components/virtd.nix"
         "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
-    "${flakePath}/modules/components/shell/utilities/git.nix"
     foundrixModules.config.compat
     "${flakePath}/modules/components/ollama.nix"
     "${flakePath}/modules/components/crush.nix"
+    foundrixModules.config.oomd
   ];
 
   # Customization of modules
@@ -59,10 +59,6 @@
       printing = true;
       scanning = true;
       networkDiscovery = true;
-    };
-    performance = {
-      tuning.enable = true;
-      oomd.enable = true;
     };
     nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
@@ -211,6 +207,8 @@
       "/share/gnome-background-properties"
     ];
   };
+
+  services.bpftune.enable = true;
 
   nixpkgs.overlays = [
     (final: prev: {

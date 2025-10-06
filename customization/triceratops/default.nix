@@ -2,7 +2,6 @@
   inputs,
   pkgs,
   flakePath,
-  config,
   foundrixModules,
   ...
 }:
@@ -30,7 +29,7 @@
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
-    "${flakePath}/modules/components/shell/utilities/git.nix"
+    foundrixModules.config.oomd
   ];
 
   # Customization of modules
@@ -62,10 +61,6 @@
       printing = true;
       scanning = true;
       networkDiscovery = true;
-    };
-    performance = {
-      tuning.enable = true;
-      oomd.enable = true;
     };
 
     shells.zsh.power10k = {
@@ -191,6 +186,8 @@
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
+
+  services.bpftune.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 

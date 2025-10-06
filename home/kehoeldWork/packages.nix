@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 let
   jdks = with pkgs; [
     jdk17
@@ -8,6 +8,7 @@ in
 {
   home.packages =
     with pkgs;
+    let foundrixPkgs = inputs.foundrix.packages.${pkgs.system}; in
     [
       kitty
       rose-pine-cursor
@@ -103,6 +104,8 @@ in
       unstable.spotify
       unstable.android-studio
       google-chrome
+      foundrixPkgs.git-aliases
+      foundrixPkgs.pickrange
     ]
     ++ (with unstable.jetbrains; [
       idea-ultimate

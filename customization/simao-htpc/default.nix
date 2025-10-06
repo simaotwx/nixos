@@ -6,6 +6,7 @@
   lib,
   compressorXz,
   maybeImport,
+  foundrixModules,
   ...
 }:
 {
@@ -25,6 +26,7 @@
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     (maybeImport "${flakePath}/local/simao-htpc-secrets.nix")
+    foundrixModules.config.oomd
   ];
 
   # Customization of modules
@@ -55,11 +57,7 @@
       networkDiscovery = true;
     };
     partitions.systemDisk = "/dev/nvme0n1";
-    performance = {
-      tuning.enable = true;
-      oomd.enable = true;
-    };
-    kodi = {
+        kodi = {
       user = "htpc";
       kodiData = "/kodi";
       settings.webserver.enable = true;
@@ -79,6 +77,9 @@
         ];
     };
   };
+
+  # Enable bpftune for performance tuning
+  services.bpftune.enable = true;
 
   nix.enable = false;
 

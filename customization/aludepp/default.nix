@@ -35,7 +35,7 @@
     foundrixModules.config.compat
     "${flakePath}/modules/components/ollama.nix"
     "${flakePath}/modules/components/crush.nix"
-    "${flakePath}/modules/components/shell/utilities/git.nix"
+    foundrixModules.config.oomd
   ];
 
   # Customization of modules
@@ -70,10 +70,6 @@
       scanning = true;
       networkDiscovery = true;
     };
-    performance = {
-      tuning.enable = true;
-      oomd.enable = true;
-    };
     nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
     desktop.hyprland =
@@ -85,7 +81,7 @@
         wlCopy = lib.getExe' pkgs.wl-clipboard "wl-copy";
       in
       {
-        browser = inputs.zen-browser.packages."${pkgs.system}".beta;
+        browser = inputs.zen-browser.packages.${pkgs.system}.beta;
         execOnce = [
           "${lib.getExe pkgs.unstable.wpaperd} -d"
           "${lib.getExe (wrapQuickshell {
@@ -226,6 +222,8 @@
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
+
+  services.bpftune.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 

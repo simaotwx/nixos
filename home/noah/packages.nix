@@ -11,7 +11,7 @@ let
   ];
 in
 {
-  home.packages = with pkgs; [
+  home.packages = with pkgs; let foundrixPkgs = inputs.foundrix.packages.${pkgs.system}; in [
     #wpaperd eww wofi
     #hyprlock hypridle hyprshot
     rose-pine-cursor
@@ -78,7 +78,7 @@ in
     simple-scan
     via
     hwloc
-    inputs.zen-browser.packages."${pkgs.system}".beta
+    inputs.zen-browser.packages.${pkgs.system}.beta
     gimp3-with-plugins
     zip
 
@@ -111,6 +111,8 @@ in
     vulkan-tools
     discord-ptb
     onlyoffice-desktopeditors
+    foundrixPkgs.git-aliases
+    foundrixPkgs.pickrange
   ]
   ++ lib.optionals (osConfig.networking.hostName == "triceratops") [
       ddrescue

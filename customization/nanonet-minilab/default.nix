@@ -3,6 +3,7 @@
   inputs,
   config,
   flakePath,
+  foundrixModules,
   ...
 }:
 {
@@ -26,6 +27,7 @@
     "${flakePath}/modules/boot/auto-detect-system-disk.nix"
     "${flakePath}/modules/ota/systemd-sysupdate.nix"
     "${flakePath}/local/nanonet-minilab-secrets.nix"
+    foundrixModules.config.oomd
   ];
 
   target.ota.updateServer = "http://aludepp:8080/result";
@@ -57,11 +59,10 @@
     services = {
       networkDiscovery = true;
     };
-    performance = {
-      tuning.enable = true;
-      oomd.enable = true;
-    };
   };
+
+  # Enable bpftune for performance tuning
+  services.bpftune.enable = true;
 
   boot.loader.timeout = 0;
   boot.extraModprobeConfig = ''

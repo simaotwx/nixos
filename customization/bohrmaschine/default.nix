@@ -27,7 +27,7 @@
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
-    "${flakePath}/modules/components/shell/utilities/git.nix"
+    foundrixModules.config.oomd
   ];
 
   # Customization of modules
@@ -58,10 +58,6 @@
       scanning = true;
       networkDiscovery = true;
     };
-    performance = {
-      tuning.enable = true;
-      oomd.enable = true;
-    };
     shells.zsh.lite.enable = true;
     desktop = {
       gnome = {
@@ -87,6 +83,8 @@
     "en_US.UTF-8/UTF-8"
     "de_DE.UTF-8/UTF-8"
   ];
+
+  services.bpftune.enable = true;
 
   services.fwupd.enable = true;
 

@@ -7,6 +7,7 @@
 {
   home.packages =
     with pkgs;
+    let foundrixPkgs = inputs.foundrix.packages.${pkgs.system}; in
     [
       rose-pine-cursor
       jq
@@ -63,7 +64,7 @@
       inetutils
       simple-scan
       hwloc
-      inputs.zen-browser.packages."${pkgs.system}".beta
+      inputs.zen-browser.packages.${pkgs.system}.beta
       dysk
       openssl
       fd
@@ -71,7 +72,9 @@
       lz4
       zip
       mpv
-      inputs.foundrix.packages.${pkgs.system}.json2nix
+      foundrixPkgs.json2nix
+      foundrixPkgs.git-aliases
+      foundrixPkgs.pickrange
 
       # GStreamer
       gst_all_1.gstreamer
