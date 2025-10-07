@@ -19,7 +19,7 @@
     "${flakePath}/modules/hardware/generic/any/ahci.nix"
     "${flakePath}/modules/hardware/generic/any/cdrom.nix"
     "${flakePath}/modules/hardware/razer/peripherals.nix"
-    "${flakePath}/modules/hardware/intel/gpu.nix"
+    foundrixModules.hardware.gpu.intel
     "${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/desktop-environments/hyprland.nix"
@@ -50,9 +50,6 @@
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
       keymap = "de-latin1";
-    };
-    graphics = {
-      intel.rgbFix = true;
     };
     kernel = {
       sysrq.enable = true;
@@ -118,6 +115,8 @@
         ];
       };
   };
+
+  foundrix.hardware.gpu.intel.rgbFix = true;
 
   hardware.cpu.amd.ryzen-smu.enable = true;
 

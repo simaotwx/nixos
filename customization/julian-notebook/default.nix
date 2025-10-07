@@ -15,7 +15,7 @@
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
     "${flakePath}/modules/hardware/generic/any/ahci.nix"
-    "${flakePath}/modules/hardware/intel/gpu.nix"
+    foundrixModules.hardware.gpu.intel
     "${flakePath}/modules/components/displaylink.nix"
     #"${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"

@@ -1,8 +1,8 @@
 { pkgs, lib, config, ... }:
 let
-  amdGpuSupport   = config.customization.hardware.gpu.amdSupport;
-  intelGpuSupport = config.customization.hardware.gpu.intelSupport;
-  rocmPackages    = config.customization.hardware.gpu.rocmPackages;
+  amdGpuSupport   = config.foundrix.hardware.gpu.amd.isSupported or false;
+  intelGpuSupport = config.foundrix.hardware.gpu.intel.isSupported or false;
+  rocmPackages    = config.foundrix.hardware.gpu.amd.rocmPackages or [];
 
   ollamaPackage =
     if intelGpuSupport then

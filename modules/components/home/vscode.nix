@@ -34,6 +34,7 @@
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "nixd";
         "diffEditor.ignoreTrimWhitespace" = false;
+        "workbench.sideBar.location" = "right";
       };
       extensions = with pkgs.vscode-extensions; [
         tamasfe.even-better-toml

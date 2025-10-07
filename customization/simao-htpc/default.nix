@@ -20,7 +20,7 @@
     ./options.nix
     ./sysupdate.nix
     "${flakePath}/machines/x86_64"
-    "${flakePath}/modules/hardware/intel/gpu.nix"
+    foundrixModules.hardware.gpu.intel
     "${flakePath}/modules/components/kodi.nix"
     "${flakePath}/modules/compressors/xz.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"

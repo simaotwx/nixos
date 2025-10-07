@@ -16,7 +16,7 @@
     foundrixModules.profiles.desktop-full
     ./filesystems.nix
     "${flakePath}/machines/x86_64"
-    "${flakePath}/modules/hardware/amd/gpu.nix"
+    foundrixModules.hardware.gpu.amd
     "${flakePath}/modules/hardware/generic/any/ahci.nix"
     #"${flakePath}/modules/components/displaylink.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
