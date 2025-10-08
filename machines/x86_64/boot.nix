@@ -1,3 +1,0 @@
-{
-  boot.kernelParams = [ "elevator=bfq" ];
-}

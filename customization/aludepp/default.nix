@@ -15,8 +15,7 @@
     common-cpu-amd-pstate
     foundrixModules.profiles.desktop-full
     ./filesystems.nix
-    "${flakePath}/machines/x86_64"
-    "${flakePath}/modules/hardware/generic/any/ahci.nix"
+    foundrixModules.hardware.platform.x86_64
     "${flakePath}/modules/hardware/generic/any/cdrom.nix"
     "${flakePath}/modules/hardware/razer/peripherals.nix"
     foundrixModules.hardware.gpu.intel

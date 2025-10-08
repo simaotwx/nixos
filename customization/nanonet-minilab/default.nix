@@ -13,8 +13,7 @@
     hardkernel-odroid-h4
     ./minimal.nix
     ./options.nix
-    "${flakePath}/machines/x86_64"
-    "${flakePath}/modules/hardware/generic/any/ahci.nix"
+        foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.intel
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/systemd-networkd.nix"

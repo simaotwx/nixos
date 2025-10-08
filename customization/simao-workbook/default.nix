@@ -16,8 +16,7 @@
     framework-16-7040-amd
     foundrixModules.profiles.desktop-full
     ./filesystems.nix
-    "${flakePath}/machines/x86_64"
-    foundrixModules.hardware.gpu.amd
+        foundrixModules.hardware.gpu.amd
     "${flakePath}/modules/components/displaylink.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"

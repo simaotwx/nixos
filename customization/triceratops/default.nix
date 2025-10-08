@@ -15,9 +15,8 @@
     foundrixModules.profiles.desktop-full
     ./filesystems.nix
     ./tpm.nix
-    "${flakePath}/machines/x86_64"
-    foundrixModules.hardware.gpu.amd
-    "${flakePath}/modules/hardware/generic/any/ahci.nix"
+        foundrixModules.hardware.gpu.amd
+    foundrixModules.hardware.platform.x86_64
     "${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"

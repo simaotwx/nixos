@@ -13,8 +13,7 @@
     framework-12th-gen-intel
     foundrixModules.profiles.desktop-full
     ./filesystems.nix
-    "${flakePath}/machines/x86_64"
-    "${flakePath}/modules/hardware/generic/any/ahci.nix"
+        foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.intel
     "${flakePath}/modules/components/displaylink.nix"
     #"${flakePath}/modules/components/linux-nitrous.nix"
