@@ -3,7 +3,7 @@
   lib,
   config,
   inputs,
-  mkConfigurableUsersOption,
+  mkConfigurableUsersOptionOld,
   forEachUser',
   ...
 }:
@@ -11,7 +11,7 @@
   options = {
     customization = {
       desktop.hyprland = {
-        configure.users = mkConfigurableUsersOption {
+        configure.users = mkConfigurableUsersOptionOld {
           description = "Which users to apply hyprland configuration to. Defaults to all users.";
         };
         monitors = lib.mkOption {

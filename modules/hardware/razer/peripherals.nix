@@ -1,13 +1,13 @@
 {
   config,
   pkgs,
-  mkConfigurableUsersOption,
+  mkConfigurableUsersOptionOld,
   ...
 }:
 {
   options = {
     customization.peripherals = {
-      razer.users = mkConfigurableUsersOption {
+      razer.users = mkConfigurableUsersOptionOld {
         description = "Which users to apply razer configuration to. Defaults to all users.";
       };
     };

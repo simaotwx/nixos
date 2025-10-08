@@ -1,14 +1,14 @@
 {
   config,
   pkgs,
-  mkConfigurableUsersOption,
+  mkConfigurableUsersOptionOld,
   forEachUser,
   ...
 }:
 {
   options = {
     customization = {
-      virtualisation.virtd.users = mkConfigurableUsersOption {
+      virtualisation.virtd.users = mkConfigurableUsersOptionOld {
         description = "Which users to apply virtd support to. Defaults to all users.";
       };
     };

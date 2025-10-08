@@ -2,7 +2,7 @@
   pkgs,
   lib,
   config,
-  mkConfigurableUsersOption,
+  mkConfigurableUsersOptionOld,
   forEachUser,
   ...
 }:
@@ -20,7 +20,7 @@
       };
       gamescope.enable = lib.mkEnableOption "gamescope";
       gamescope.session.enable = lib.mkEnableOption "gamescope session";
-      gamemode.users = mkConfigurableUsersOption {
+      gamemode.users = mkConfigurableUsersOptionOld {
         description = "Which users to apply gamemode configuration to. Defaults to all users.";
       };
     };

@@ -1,7 +1,7 @@
 { lib, config, ... }:
 {
   _module.args = {
-    mkConfigurableUsersOption =
+    mkConfigurableUsersOptionOld =
       {
         description ? "",
       }:

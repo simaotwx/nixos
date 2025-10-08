@@ -2,7 +2,7 @@
   lib,
   config,
   pkgs,
-  mkConfigurableUsersOption,
+  mkConfigurableUsersOptionOld,
   forEachUser,
   ...
 }:
@@ -17,7 +17,7 @@
           Oh My Zsh, plugins etc. This is an opinionated setup.
         '';
       };
-      zsh.lite.users = mkConfigurableUsersOption {
+      zsh.lite.users = mkConfigurableUsersOptionOld {
         description = "Which users to apply zsh.lite to. Defaults to all users.";
       };
       zsh.power10k.enable = lib.mkOption {
@@ -28,7 +28,7 @@
           Powerlevel10k, Oh My Zsh, plugins etc. This is an opinionated setup.
         '';
       };
-      zsh.power10k.users = mkConfigurableUsersOption {
+      zsh.power10k.users = mkConfigurableUsersOptionOld {
         description = "Which users to apply zsh.power10k to. Defaults to all users.";
       };
       zsh.power10k.osIconCodepoint = lib.mkOption {

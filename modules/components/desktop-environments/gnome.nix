@@ -2,14 +2,14 @@
   pkgs,
   lib,
   config,
-  mkConfigurableUsersOption,
+  mkConfigurableUsersOptionOld,
   forEachUser,
   ...
 }:
 {
   options = {
     customization = {
-      desktop.gnome.configure.users = mkConfigurableUsersOption {
+      desktop.gnome.configure.users = mkConfigurableUsersOptionOld {
         description = "Which users to apply gnome configuration to. Defaults to all users.";
       };
       desktop.gnome.useGdm = lib.mkEnableOption "whether to use GDM" // {
