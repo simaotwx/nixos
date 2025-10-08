@@ -11,10 +11,8 @@
     framework-desktop-amd-ai-max-300-series
     foundrixModules.profiles.desktop-full
     ./filesystems.nix
-    "${flakePath}/machines/x86_64"
-    "${flakePath}/modules/hardware/generic/any/ahci.nix"
-    "${flakePath}/modules/hardware/generic/any/cdrom.nix"
-    "${flakePath}/modules/hardware/amd/gpu.nix"
+    foundrixModules.hardware.platform.x86_64
+    foundrixModules.hardware.gpu.amd
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
