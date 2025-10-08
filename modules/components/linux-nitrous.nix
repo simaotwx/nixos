@@ -97,10 +97,10 @@
     _module.args.hasLinuxNitrous = true;
     boot.kernelPackages = lib.mkOverride 80 (
       let
-        version = "6.16.8-1";
+        version = "6.17.1-1";
         linuxVersion = lib.head (lib.splitString "-" version);
         suffix = "nitrous";
-        llvm = pkgs.llvmPackages_20;
+        llvm = pkgs.unstable.llvmPackages_20;
         linux_nitrous_pkg =
           { fetchurl, buildLinux, ... }@args:
           buildLinux (
@@ -109,7 +109,7 @@
               inherit version;
               pname = "linux-${suffix}";
               modDirVersion = lib.versions.pad 3 "${linuxVersion}-${suffix}";
-              stdenv = pkgs.overrideCC llvm.stdenv (llvm.stdenv.cc.override { inherit (llvm) bintools; });
+              stdenv = pkgs.unstable.overrideCC llvm.stdenv (llvm.stdenv.cc.override { inherit (llvm) bintools; });
               nativeBuildInputs = [ llvm.lld ];
               extraMakeFlags = [
                 "LLVM=1"
@@ -132,7 +132,7 @@
 
               src = fetchurl {
                 url = "https://gitlab.com/xdevs23/linux-nitrous/-/archive/v${version}/linux-nitrous-v${version}.tar.gz";
-                hash = "sha256-0u0g0/Z448HnLSWr8n5YlSayB+xqrCrwIQ1xuBRUI3c=";
+                hash = "sha256-Xzm+cD5VkZI80O8zVYkSBdtQ//F/aGwzFghHjp+04to=";
               };
 
               structuredExtraConfig = with lib.kernel; {
@@ -174,7 +174,7 @@
         linux_nitrous = pkgs.callPackage linux_nitrous_pkg { };
       in
       pkgs.recurseIntoAttrs (
-        (pkgs.linuxPackagesFor linux_nitrous).extend (
+        (pkgs.unstable.linuxPackagesFor linux_nitrous).extend (
           lpfinal: lpprev: {
             ryzen-smu = lpprev.ryzen-smu.overrideAttrs (
               oldAttrs:
@@ -201,7 +201,7 @@
               in
               {
                 src = newSrc;
-                stdenv = pkgs.overrideCC llvm.stdenv (llvm.stdenv.cc.override { inherit (llvm) bintools; });
+                stdenv = pkgs.unstable.overrideCC llvm.stdenv (llvm.stdenv.cc.override { inherit (llvm) bintools; });
                 nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ llvm.lld ];
                 makeFlags = (oldAttrs.makeFlags or [ ]) ++ [
                   "CC=${lib.getExe llvm.clang-unwrapped}"
