@@ -111,6 +111,7 @@ in
       remmina
       foundrixPkgs.git-aliases
       foundrixPkgs.pickrange
+      gnome-network-displays
 
       # GStreamer
       gst_all_1.gstreamer

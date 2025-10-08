@@ -11,6 +11,10 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager-master = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     hyprland.url = "github:hyprwm/Hyprland";
@@ -48,7 +52,7 @@
           inputs = flake;
         }
       );
-      inherit (customLib) forEachSystem homeManager;
+      inherit (customLib) forEachSystem homeManager homeManagerMaster;
       commonModules = [
         ./modules
         {
@@ -60,6 +64,9 @@
       homeManagerModules = {
         simao = homeManager {
           simao = import ./home/simao;
+        };
+        fwdesktop = homeManagerMaster {
+          fwdesktop = import ./home/fwdesktop;
         };
         simaoWork = homeManager {
           simao = import ./home/simaoWork;
@@ -98,6 +105,27 @@
                 custPath
               ]
               ++ homeManagerModules.simao;
+          };
+
+        fwdesktop =
+          let
+            custPath = ./customization/fwdesktop;
+          in
+          unstableLib.nixosSystem rec {
+            system = "x86_64-linux";
+            specialArgs = lib.recursiveUpdate (commonArgs system) {
+              inputs = {
+                inherit (self.inputs) nixos-hardware nixpkgs-unstable nixpkgs-master;
+                nixpkgs = nixpkgs-unstable;
+              };
+              packages = self.packages.${system};
+            };
+            modules =
+              commonModules
+              ++ [
+                custPath
+              ]
+              ++ homeManagerModules.fwdesktop;
           };
 
         simao-m1air =

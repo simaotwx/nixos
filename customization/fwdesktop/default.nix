@@ -1,42 +1,39 @@
 {
-  pkgs,
   inputs,
   flakePath,
+  pkgs,
   foundrixModules,
   ...
 }:
 {
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
-    common-cpu-intel
-    common-pc-ssd
-    framework-12th-gen-intel
+    framework-desktop-amd-ai-max-300-series
     foundrixModules.profiles.desktop-full
     ./filesystems.nix
-    foundrixModules.hardware.platform.x86_64
-    foundrixModules.hardware.gpu.intel
-    "${flakePath}/modules/components/displaylink.nix"
-    #"${flakePath}/modules/components/linux-nitrous.nix"
+    "${flakePath}/machines/x86_64"
+    "${flakePath}/modules/hardware/generic/any/ahci.nix"
+    "${flakePath}/modules/hardware/generic/any/cdrom.nix"
+    "${flakePath}/modules/hardware/amd/gpu.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
-    "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
+    "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/zsh"
-    "${flakePath}/modules/components/virtd.nix"
-    "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
-    foundrixModules.config.oomd
+    "${flakePath}/modules/components/ollama.nix"
+    "${flakePath}/modules/components/shell/utilities/git.nix"
   ];
 
   # Customization of modules
   customization = {
     hardware = {
-      cpu.cores = 8;
-      cpu.vendor = "intel";
+      cpu.cores = 16;
+      cpu.vendor = "amd";
       storage.hasNvme = true;
     };
     general = {
-      hostName = "julian-notebook";
+      hostName = "fwdesktop";
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
       keymap = "de-latin1";
@@ -56,7 +53,12 @@
       scanning = true;
       networkDiscovery = true;
     };
-    shells.zsh.power10k.enable = true;
+    performance = {
+      tuning.enable = true;
+      oomd.enable = true;
+    };
+    nix.buildDirOnTmp = true;
+    shells.zsh.lite.enable = true;
     desktop = {
       gnome = {
         extensions = with pkgs.gnomeExtensions; [
@@ -83,29 +85,25 @@
     "de_DE.UTF-8/UTF-8"
   ];
 
-  services.bpftune.enable = true;
-
   services.fwupd.enable = true;
 
-  users.users.julian = {
+  users.users.fwdesktop = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     uid = 1000;
-    hashedPassword = "$y$j9T$F9ZLmSJrJLk33B1ui9mAf0$Qx5Zq6BzpXPLFWU9HIv0e5Oy6E0cmeucN/gTyuv4Bf7";
+    password = "framework";
     shell = pkgs.zsh;
   };
 
-  users.groups.julian.gid = 1000;
+  users.groups.fwdesktop.gid = 1000;
 
   services.gvfs.enable = true;
-  programs.adb.enable = true;
   programs.dconf.enable = true;
 
   security.sudo = {
     enable = true;
   };
 
-  services.fprintd.enable = true;
   fonts = {
     packages = with pkgs; [
       nerd-fonts.fira-code
@@ -150,7 +148,10 @@
       ripgrep
       exfatprogs
       nix-bundle
-      intel-vaapi-driver
+      gparted
+      strace
+      wget
+      curl
     ];
     defaultPackages = [ ];
     variables = {
@@ -161,43 +162,37 @@
     };
   };
 
-  services.udev.packages = with pkgs; [
-    android-udev-rules
-  ];
-
-  services.clamav = {
-    updater.enable = true;
-    fangfrisch.enable = true;
-    daemon.enable = true;
-    updater.interval = "*-*-* 00/4:00:00";
-    fangfrisch.interval = "*-*-* 00/4:00:00";
-  };
-
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (pkgs.lib.getName pkg) [
+      "discord"
       "spotify"
+      "steam"
+      "steam-original"
+      "steam-run"
+      "steam-unwrapped"
+      "makemkv"
       "android-studio-stable"
-      "idea-ultimate"
-      "phpstorm"
-      "goland"
-      "pycharm-professional"
-      "libfprint-2-tod1-goodix"
-      "displaylink"
-      "citrix-workspace"
+      "crush" # irrecovably becomes free after a while
     ];
 
-  hardware.enableRedistributableFirmware = true;
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      PasswordAuthentication = true;
+      AllowUsers = null;
+      UseDns = true;
+      X11Forwarding = false;
+      PermitRootLogin = "prohibit-password";
+    };
+  };
 
-  services.tailscale.enable = true;
+  networking.firewall.allowedTCPPorts = [ 80 443 5353 22 2222 7236 7250 ];
 
-  security.pki.certificateFiles = [
-    "${flakePath}/local/certificates/thea_root_ca.crt"
+  users.users."fwdesktop".openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM7/qrzpmP/mK592MQUjYvjyGNcyaUDTOKfnBWWULvE simao@simao-workbook"
   ];
-  
-  customization.virtualisation.docker.rootless.enable = true;
-
-  virtualisation.vmVariant = import ./vm.nix;
 
   system.stateVersion = "25.05";
 }

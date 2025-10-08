@@ -225,6 +225,15 @@
     android-udev-rules
   ];
 
+  security.pki.certificateFiles = [
+    "${flakePath}/local/certificates/thea_root_ca.crt"
+  ];
+
+  services.printing.drivers = [ pkgs.brlaser ];
+  networking.firewall.allowedTCPPorts = [7236 7250];
+
+  networking.firewall.allowedUDPPorts = [7236 5353];
+
   services.clamav = {
     updater.enable = true;
     fangfrisch.enable = true;
