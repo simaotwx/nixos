@@ -56,9 +56,8 @@
       '';
   images = import ./images.nix args;
   defaultModuleArgs = rec {
-    maybeImport = file: import (
-      if builtins.pathExists file then file else "${flakePath}/lib/empty.nix"
-    );
+    maybeImport =
+      file: import (if builtins.pathExists file then file else "${flakePath}/lib/empty.nix");
     maybeImportedModule = file: args: {
       config = maybeImport file;
     };

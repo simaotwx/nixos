@@ -6,7 +6,7 @@
 {
   options = {
     target.storage.system.readOnly = lib.mkEnableOption "read-only system storage (immutable OS)";
-    
+
     target.storage.layout.nixStore.device = lib.mkOption {
       type = lib.types.str;
       description = "Device path for /nix/store mount (set by A/B or A-only modules)";

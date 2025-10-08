@@ -6,7 +6,9 @@
   config,
   ...
 }:
-let nixConfig = config; in
+let
+  nixConfig = config;
+in
 {
   _module.args.wrapQuickshell =
     {
@@ -15,11 +17,15 @@ let nixConfig = config; in
       name ? "quickshell-wrapped",
     }:
     pkgs.writeShellScriptBin name ''
-      ${lib.getExe (
-        if nixConfig.customization.hardware.graphics.latestMesa
-        then inputs.quickshell-unstable
-        else inputs.quickshell
-      ).packages.${system}.default} \
+      ${
+        lib.getExe
+          (
+            if nixConfig.customization.hardware.graphics.latestMesa then
+              inputs.quickshell-unstable
+            else
+              inputs.quickshell
+          ).packages.${system}.default
+      } \
         -c "${config}" ${additionalArgs}
     '';
 }

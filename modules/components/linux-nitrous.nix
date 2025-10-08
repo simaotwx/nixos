@@ -109,7 +109,9 @@
               inherit version;
               pname = "linux-${suffix}";
               modDirVersion = lib.versions.pad 3 "${linuxVersion}-${suffix}";
-              stdenv = pkgs.unstable.overrideCC llvm.stdenv (llvm.stdenv.cc.override { inherit (llvm) bintools; });
+              stdenv = pkgs.unstable.overrideCC llvm.stdenv (
+                llvm.stdenv.cc.override { inherit (llvm) bintools; }
+              );
               nativeBuildInputs = [ llvm.lld ];
               extraMakeFlags = [
                 "LLVM=1"
@@ -201,7 +203,9 @@
               in
               {
                 src = newSrc;
-                stdenv = pkgs.unstable.overrideCC llvm.stdenv (llvm.stdenv.cc.override { inherit (llvm) bintools; });
+                stdenv = pkgs.unstable.overrideCC llvm.stdenv (
+                  llvm.stdenv.cc.override { inherit (llvm) bintools; }
+                );
                 nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ llvm.lld ];
                 makeFlags = (oldAttrs.makeFlags or [ ]) ++ [
                   "CC=${lib.getExe llvm.clang-unwrapped}"

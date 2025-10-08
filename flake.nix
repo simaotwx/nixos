@@ -74,11 +74,14 @@
           noah = import ./home/noah;
         };
       };
-      commonArgs = system:
-      {
-        inherit (self) inputs;
-        inherit flakePath system;
-      } // customLib.defaultModuleArgs // foundrix.nixosModules.foundrixSpecialArgs;
+      commonArgs =
+        system:
+        {
+          inherit (self) inputs;
+          inherit flakePath system;
+        }
+        // customLib.defaultModuleArgs
+        // foundrix.nixosModules.foundrixSpecialArgs;
     in
     rec {
       nixosConfigurations = {
@@ -187,7 +190,8 @@
       };
 
       packages = forEachSystem (
-        system: customLib.images.mkTargetOutputs {
+        system:
+        customLib.images.mkTargetOutputs {
           name = "simao-htpc";
           deviceName = "odroid-h4";
           nixosConfiguration = nixosConfigurations.simao-htpc;

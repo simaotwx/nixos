@@ -240,13 +240,13 @@
             };
             gestures = {
               gesture = [
-                "3, left, workspace, +1"      # Swipe left to go to next workspace
-                "3, right, workspace, -1"     # Swipe right to go to previous workspace
-                "3, up, fullscreen, maximize"  # Swipe up to maximize window
-                "3, down, float"               # Swipe down to float/unfloat window
-                "4, down, close"               # Swipe down with 4 fingers to close window
-                "3, horizontal, mod: SUPER, move"    # Hold Super + swipe to move window
-                "3, vertical, mod: SUPER, resize"    # Hold Super + vertical swipe to resize
+                "3, left, workspace, +1" # Swipe left to go to next workspace
+                "3, right, workspace, -1" # Swipe right to go to previous workspace
+                "3, up, fullscreen, maximize" # Swipe up to maximize window
+                "3, down, float" # Swipe down to float/unfloat window
+                "4, down, close" # Swipe down with 4 fingers to close window
+                "3, horizontal, mod: SUPER, move" # Hold Super + swipe to move window
+                "3, vertical, mod: SUPER, resize" # Hold Super + vertical swipe to resize
               ];
             };
             render = {

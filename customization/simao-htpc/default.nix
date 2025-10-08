@@ -19,7 +19,7 @@
     ./minimal.nix
     ./options.nix
     ./sysupdate.nix
-        foundrixModules.hardware.gpu.intel
+    foundrixModules.hardware.gpu.intel
     "${flakePath}/modules/components/kodi.nix"
     "${flakePath}/modules/compressors/xz.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
@@ -56,7 +56,7 @@
       networkDiscovery = true;
     };
     partitions.systemDisk = "/dev/nvme0n1";
-        kodi = {
+    kodi = {
       user = "htpc";
       kodiData = "/kodi";
       settings.webserver.enable = true;

@@ -73,7 +73,7 @@
           # Declared here, populated by modules/hardware/intel/gpu.nix
           xpuPackages = lib.mkOption {
             type = lib.types.listOf lib.types.package;
-            default = [];
+            default = [ ];
             description = "Intel oneAPI/XPU runtime packages; set by the Intel GPU module.";
           };
         };

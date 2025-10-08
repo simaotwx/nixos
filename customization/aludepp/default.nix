@@ -29,7 +29,7 @@
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/steam.nix"
     foundrixModules.config.mdraid
-        "${flakePath}/modules/components/docker.nix"
+    "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
     "${flakePath}/modules/components/ollama.nix"
@@ -86,20 +86,30 @@
           "${lib.getExe pkgs.gopass} sync"
         ];
         additionalBind = [
-          (let devName = "alsa_output.usb-Yamaha_Corporation_Steinberg_IXO12-00.analog-stereo"; in lib.concatStringsSep " " [
-            "$mainMod SHIFT, S, exec,"
-            "${wpctl} set-default $(${getSinkIdByName devName})"
-            "${wpctl} set-volume $(${getSinkIdByName devName}) '100%'"
-            "&&"
-            "hyprctl notify -1 1000 \"rgb(1E88E5)\" 'Switched to speakers'"
-          ])
-          (let devName = "alsa_output.usb-SteelSeries_Arctis_Pro_Wireless-00.stereo-game"; in lib.concatStringsSep " " [
-            "$mainMod SHIFT, H, exec,"
-            "${wpctl} set-default $(${getSinkIdByName devName})"
-            "${wpctl} set-volume $(${getSinkIdByName devName}) '100%'"
-            "&&"
-            "hyprctl notify -1 1000 \"rgb(1EE588)\" 'Switched to headphones'"
-          ])
+          (
+            let
+              devName = "alsa_output.usb-Yamaha_Corporation_Steinberg_IXO12-00.analog-stereo";
+            in
+            lib.concatStringsSep " " [
+              "$mainMod SHIFT, S, exec,"
+              "${wpctl} set-default $(${getSinkIdByName devName})"
+              "${wpctl} set-volume $(${getSinkIdByName devName}) '100%'"
+              "&&"
+              "hyprctl notify -1 1000 \"rgb(1E88E5)\" 'Switched to speakers'"
+            ]
+          )
+          (
+            let
+              devName = "alsa_output.usb-SteelSeries_Arctis_Pro_Wireless-00.stereo-game";
+            in
+            lib.concatStringsSep " " [
+              "$mainMod SHIFT, H, exec,"
+              "${wpctl} set-default $(${getSinkIdByName devName})"
+              "${wpctl} set-volume $(${getSinkIdByName devName}) '100%'"
+              "&&"
+              "hyprctl notify -1 1000 \"rgb(1EE588)\" 'Switched to headphones'"
+            ]
+          )
           ''$mainMod, P, exec, ${lib.getExe pkgs.gopass} list --flat | $menu --dmenu -p "Search passwords…" -M multi-contains -i -O alphabetical | xargs ${lib.getExe pkgs.gopass} show -o -u --nosync | ${wlCopy}''
         ];
         additionalBinde = [

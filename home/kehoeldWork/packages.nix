@@ -1,4 +1,9 @@
-{ pkgs, lib, inputs, ... }:
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 let
   jdks = with pkgs; [
     jdk17
@@ -8,7 +13,9 @@ in
 {
   home.packages =
     with pkgs;
-    let foundrixPkgs = inputs.foundrix.packages.${pkgs.system}; in
+    let
+      foundrixPkgs = inputs.foundrix.packages.${pkgs.system};
+    in
     [
       kitty
       rose-pine-cursor

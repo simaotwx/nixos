@@ -7,7 +7,9 @@
 {
   home.packages =
     with pkgs;
-    let foundrixPkgs = inputs.foundrix.packages.${pkgs.system}; in
+    let
+      foundrixPkgs = inputs.foundrix.packages.${pkgs.system};
+    in
     [
       rose-pine-cursor
       jq
@@ -116,7 +118,6 @@
       xmlstarlet
       ccache
     ];
-
 
   programs.vscode.profiles.default.extensions = with pkgs.vscode-extensions; [
     bradlc.vscode-tailwindcss

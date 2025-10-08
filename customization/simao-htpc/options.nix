@@ -23,16 +23,34 @@
       addons = {
         "plugin.video.youtube" = {
           settings = {
-            apiKey = lib.mkOption { type = lib.types.str; default = ""; };
-            apiClientId = lib.mkOption { type = lib.types.str; default = ""; };
-            apiClientSecret = lib.mkOption { type = lib.types.str; default = ""; };
+            apiKey = lib.mkOption {
+              type = lib.types.str;
+              default = "";
+            };
+            apiClientId = lib.mkOption {
+              type = lib.types.str;
+              default = "";
+            };
+            apiClientSecret = lib.mkOption {
+              type = lib.types.str;
+              default = "";
+            };
           };
         };
         "plugin.video.jellycon" = {
           settings = {
-            username = lib.mkOption { type = lib.types.str; default = ""; };
-            serverAddress = lib.mkOption { type = lib.types.str; default = ""; };
-            users = lib.mkOption { type = with lib.types; attrsOf (attrsOf str); default = {}; };
+            username = lib.mkOption {
+              type = lib.types.str;
+              default = "";
+            };
+            serverAddress = lib.mkOption {
+              type = lib.types.str;
+              default = "";
+            };
+            users = lib.mkOption {
+              type = with lib.types; attrsOf (attrsOf str);
+              default = { };
+            };
           };
         };
       };

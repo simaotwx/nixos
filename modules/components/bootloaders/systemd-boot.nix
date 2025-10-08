@@ -9,7 +9,7 @@
   options = {
     target.boot.loader.systemd-boot.extraConfig = lib.mkOption {
       type = with lib.types; listOf str;
-      default = [];
+      default = [ ];
       description = "Extra configuration lines for systemd-boot loader.conf";
     };
     customization = {

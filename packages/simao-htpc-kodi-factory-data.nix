@@ -11,9 +11,7 @@ pkgs.stdenv.mkDerivation rec {
   unpackPhase = "true";
   installPhase =
     let
-      guisettings = pkgs.writeText "" (
-        import "${flakePath}/src/${name}/userdata/guisettings.nix" args
-      );
+      guisettings = pkgs.writeText "" (import "${flakePath}/src/${name}/userdata/guisettings.nix" args);
       youtubeSettings = pkgs.writeText "" (
         import "${flakePath}/src/${name}/userdata/addon_data/plugin.video.youtube/settings.nix" args
       );

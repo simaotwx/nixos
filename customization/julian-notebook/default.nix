@@ -13,7 +13,7 @@
     framework-12th-gen-intel
     foundrixModules.profiles.desktop-full
     ./filesystems.nix
-        foundrixModules.hardware.platform.x86_64
+    foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.intel
     "${flakePath}/modules/components/displaylink.nix"
     #"${flakePath}/modules/components/linux-nitrous.nix"
@@ -22,7 +22,7 @@
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
-        "${flakePath}/modules/components/docker.nix"
+    "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
     foundrixModules.config.oomd

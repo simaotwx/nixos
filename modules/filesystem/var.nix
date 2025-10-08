@@ -35,7 +35,8 @@
         "discard"
         "x-systemd.after=initrd-parse-etc.service"
         "subvol=var"
-      ] ++ lib.optionals config.boot.initrd.systemd.repart.enable [
+      ]
+      ++ lib.optionals config.boot.initrd.systemd.repart.enable [
         "x-systemd.after=systemd-repart.service"
       ];
     };
