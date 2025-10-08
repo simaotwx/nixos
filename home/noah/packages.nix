@@ -2,6 +2,7 @@
   pkgs,
   inputs,
   lib,
+  osConfig,
   ...
 }:
 let
@@ -117,6 +118,12 @@ in
       onlyoffice-desktopeditors
       foundrixPkgs.git-aliases
       foundrixPkgs.pickrange
+    ]
+  ++ lib.optionals (osConfig.networking.hostName == "triceratops") [
+      ddrescue
+    ]
+  ++ lib.optionals (osConfig.networking.hostName == "pteranodon") [
+
     ];
 
   home.file = (
