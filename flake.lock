@@ -73,11 +73,11 @@
         "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "lastModified": 1760047514,
-        "narHash": "sha256-DAOGR1KuFJgboTPmbLlfwnnfXnXYblw4PDN4L3S0j9Y=",
+        "lastModified": 1760047634,
+        "narHash": "sha256-We86kYqQ6GUCNJOSrghoe7rj8Muy5fUfcx2CfyO0/X0=",
         "owner": "xdevs23",
         "repo": "foundrix",
-        "rev": "c55652f64f64201a24d6e89f896df6330c007cfb",
+        "rev": "99ebe55d8445983e30770e363a55268e6905ef1e",
         "type": "github"
       },
       "original": {

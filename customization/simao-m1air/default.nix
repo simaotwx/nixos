@@ -11,8 +11,8 @@
   imports = [
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
     foundrixModules.profiles.desktop-full
+    foundrixModules.hardware.platform.arm64
     ./filesystems.nix
-    "${flakePath}/machines/arm64"
     "${flakePath}/modules/hardware/apple/asahi.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
