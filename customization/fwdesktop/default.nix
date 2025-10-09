@@ -33,7 +33,6 @@
       hostName = "fwdesktop";
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
-      keymap = "de-latin1";
     };
     kernel = {
       sysrq.enable = true;
@@ -72,6 +71,8 @@
       };
     };
   };
+
+  foundrix.general.keymap = "de-latin1";
 
   services.timesyncd.enable = true;
 

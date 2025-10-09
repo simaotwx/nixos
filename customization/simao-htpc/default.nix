@@ -40,7 +40,6 @@
       hostName = "htpc";
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
-      keymap = "us";
     };
     kernel = {
       sysrq.enable = true;
@@ -122,6 +121,8 @@
     "xhci_pci"
     "ahci"
   ];
+
+  foundrix.general.keymap = "us";
 
   services.timesyncd.enable = true;
 

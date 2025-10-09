@@ -38,7 +38,6 @@
       hostName = "bohrmaschine";
       timeZone = "Europe/Berlin";
       defaultLocale = "de_DE.UTF-8";
-      keymap = "de-latin1";
     };
     kernel = {
       sysrq.enable = true;
@@ -72,6 +71,8 @@
       };
     };
   };
+
+  foundrix.general.keymap = "de-latin1";
 
   services.timesyncd.enable = true;
 

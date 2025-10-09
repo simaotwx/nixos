@@ -7,7 +7,6 @@
 {
   imports = [
     ./base.nix
-    ./console.nix
     ./debug.nix
     ./general.nix
     ./hardware.nix

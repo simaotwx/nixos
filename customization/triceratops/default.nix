@@ -42,7 +42,6 @@
       hostName = "triceratops";
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
-      keymap = "de-latin1";
     };
     kernel = {
       sysrq.enable = true;
@@ -230,6 +229,8 @@
 
     KERNEL=="hidraw*", ATTRS{idVendor}=="362d", ATTRS{idProduct}=="0551", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
   '';
+
+  foundrix.general.keymap = "de-latin1";
 
   services.timesyncd.enable = true;
 

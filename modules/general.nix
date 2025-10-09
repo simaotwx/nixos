@@ -21,11 +21,6 @@
         description = options.i18n.defaultLocale.description;
         default = "en_US.UTF-8";
       };
-      keymap = lib.mkOption {
-        type = lib.types.str;
-        description = "Keymap to use like en or de";
-        default = "en";
-      };
     };
   };
 

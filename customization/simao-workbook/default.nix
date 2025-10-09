@@ -42,7 +42,6 @@
       hostName = "simao-workbook";
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
-      keymap = "de-latin1";
     };
     kernel = {
       sysrq.enable = true;
@@ -124,6 +123,8 @@
 
   services.tailscale.enable = true;
   systemd.services.tailscaled.wantedBy = lib.mkForce [ ];
+
+  foundrix.general.keymap = "de-latin1";
 
   services.timesyncd.enable = true;
 

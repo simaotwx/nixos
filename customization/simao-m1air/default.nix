@@ -47,7 +47,6 @@
       hostName = "simao-m1air";
       timeZone = "Europe/Berlin";
       defaultLocale = "en_US.UTF-8";
-      keymap = "en";
     };
     kernel = {
       sysrq.enable = true;
@@ -86,6 +85,8 @@
   services.udev.extraRules = ''
     KERNEL=="hidraw*", ATTRS{idVendor}=="320f", ATTRS{idProduct}=="5088", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
   '';
+
+  foundrix.general.keymap = "us";
 
   services.timesyncd.enable = true;
 
