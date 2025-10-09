@@ -29,6 +29,7 @@
     "${flakePath}/modules/components/shell/utilities/git.nix"
     foundrixModules.config.compat
     "${flakePath}/modules/components/ollama.nix"
+    "${flakePath}/modules/components/chat-ui.nix"
     "${flakePath}/modules/components/crush.nix"
   ];
 
@@ -59,6 +60,50 @@
       printing = true;
       scanning = true;
       networkDiscovery = true;
+      chatUi = {
+        enable = true;
+        port = 3000;
+        host = "127.0.0.1";
+        openFirewall = false; # Local only
+        mongodbPort = 27018;
+        mongodbDbPath = "/var/db/mongodb-hf-chat-ui";
+        # Configure to work with local Ollama instance
+        openaiBaseUrl = "http://127.0.0.1:11434";
+        models = [
+          {
+            id = "llama3.2:3b";
+            name = "Llama 3.2 3B (Local)";
+            description = "Local Llama 3.2 3B model via Ollama";
+            websiteUrl = "https://ollama.com/library/llama3.2";
+            modelUrl = "http://127.0.0.1:11434/api/generate";
+            parameters = {
+              temperature = 0.7;
+              max_new_tokens = 2048;
+              stop = ["<|eot_id|>" "<|end_of_text|>"];
+            };
+            promptTemplate = {
+              prefix = "<|begin_of_text|><|start_header_id|>user<|end_header_id|>\n\n";
+              suffix = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n";
+            };
+          }
+          {
+            id = "llama3.2:1b";
+            name = "Llama 3.2 1B (Local)";
+            description = "Local Llama 3.2 1B model via Ollama";
+            websiteUrl = "https://ollama.com/library/llama3.2";
+            modelUrl = "http://127.0.0.1:11434/api/generate";
+            parameters = {
+              temperature = 0.7;
+              max_new_tokens = 1024;
+              stop = ["<|eot_id|>" "<|end_of_text|>"];
+            };
+            promptTemplate = {
+              prefix = "<|begin_of_text|><|start_header_id|>user<|end_header_id|>\n\n";
+              suffix = "<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n";
+            };
+          }
+        ];
+      };
     };
     performance = {
       tuning.enable = true;
@@ -259,6 +304,7 @@
       "citrix-workspace"
       "terraform"
       "crush"
+      "mongodb"
     ];
 
   virtualisation.vmVariant = import ./vm.nix;
