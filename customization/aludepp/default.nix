@@ -17,7 +17,7 @@
     ./filesystems.nix
     foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.storage.cdrom
-    "${flakePath}/modules/hardware/razer/peripherals.nix"
+    foundrixModules.hardware.peripherals.razer
     foundrixModules.hardware.gpu.intel
     "${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
