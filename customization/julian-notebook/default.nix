@@ -16,7 +16,6 @@
     foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.intel
     "${flakePath}/modules/components/displaylink.nix"
-    #"${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
@@ -194,7 +193,7 @@
   security.pki.certificateFiles = [
     "${flakePath}/local/certificates/thea_root_ca.crt"
   ];
-  
+
   customization.virtualisation.docker.rootless.enable = true;
 
   virtualisation.vmVariant = import ./vm.nix;

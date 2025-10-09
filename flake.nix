@@ -30,6 +30,10 @@
       url = "git+https://git.outfoxxed.me/quickshell/quickshell?ref=master";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    linux-nitrous = {
+      url = "file+https://gitlab.com/xdevs23/linux-nitrous/-/raw/914bcc173748b97da4a283c8cce17914b7578862/default.nix";
+      flake = false;
+    };
   };
 
   outputs =
@@ -225,10 +229,6 @@
           nixosConfiguration = nixosConfigurations.simao-htpc;
         }
       );
-
-      nixosModules = {
-        linux-nitrous-module = import ./modules/components/linux-nitrous.nix;
-      };
 
       formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
     };

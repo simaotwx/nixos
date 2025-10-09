@@ -17,7 +17,6 @@
     ./tpm.nix
     foundrixModules.hardware.gpu.amd
     foundrixModules.hardware.platform.x86_64
-    "${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/zsh"
@@ -29,6 +28,7 @@
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
     foundrixModules.config.oomd
+    inputs.linux-nitrous.outPath
   ];
 
   # Customization of modules
@@ -48,7 +48,6 @@
     kernel = {
       sysrq.enable = true;
     };
-    linux-nitrous.processorFamily = "znver4";
     security = {
       network.enable = true;
       hardware.enable = true;
@@ -99,6 +98,8 @@
       gamescope.session.enable = true;
     };
   };
+
+  linux-nitrous.processorFamily = "znver4";
 
   i18n.supportedLocales = [
     "en_US.UTF-8/UTF-8"

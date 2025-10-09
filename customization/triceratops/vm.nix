@@ -1,14 +1,12 @@
 {
   lib,
   modulesPath,
-  flakePath,
   ...
 }:
 {
   imports = [
     "${modulesPath}/profiles/qemu-guest.nix"
     ../vm-common.nix
-    "${flakePath}/modules/components/linux-nitrous.nix"
   ];
 
   boot.supportedFilesystems = lib.mkForce [ ];

@@ -430,6 +430,18 @@
         "type": "github"
       }
     },
+    "linux-nitrous": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-gXWV8fqUfkL0PNjT6UBw26m3w6YiaKG8sAFfUAoalrw=",
+        "type": "file",
+        "url": "https://gitlab.com/xdevs23/linux-nitrous/-/raw/914bcc173748b97da4a283c8cce17914b7578862/default.nix"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://gitlab.com/xdevs23/linux-nitrous/-/raw/914bcc173748b97da4a283c8cce17914b7578862/default.nix"
+      }
+    },
     "nixos-apple-silicon": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -650,6 +662,7 @@
         "home-manager": "home-manager",
         "home-manager-master": "home-manager-master",
         "hyprland": "hyprland",
+        "linux-nitrous": "linux-nitrous",
         "nixos-apple-silicon": "nixos-apple-silicon",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",

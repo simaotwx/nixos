@@ -19,7 +19,6 @@
     foundrixModules.hardware.storage.cdrom
     foundrixModules.hardware.peripherals.razer
     foundrixModules.hardware.gpu.intel
-    "${flakePath}/modules/components/linux-nitrous.nix"
     "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/desktop-environments/hyprland.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
@@ -35,6 +34,7 @@
     "${flakePath}/modules/components/ollama.nix"
     "${flakePath}/modules/components/crush.nix"
     foundrixModules.config.oomd
+    inputs.linux-nitrous.outPath
   ];
 
   # Customization of modules
@@ -53,7 +53,6 @@
     kernel = {
       sysrq.enable = true;
     };
-    linux-nitrous.processorFamily = "znver3";
     security = {
       network.enable = true;
       hardware.enable = true;
@@ -124,6 +123,8 @@
         ];
       };
   };
+
+  linux-nitrous.processorFamily = "znver3";
 
   foundrix.hardware.gpu.intel.rgbFix = true;
 
