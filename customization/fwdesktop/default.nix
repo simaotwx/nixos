@@ -192,6 +192,7 @@
 
   users.users."fwdesktop".openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM7/qrzpmP/mK592MQUjYvjyGNcyaUDTOKfnBWWULvE simao@simao-workbook"
+    "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDf1dw5ZW8Bz26VfoBdLeIKyscBV2u1gjCj7J9w3WgsHAfmrTou33esnw8dyhd97jPsaAPlkyIChwJUUPNtGwv3Qb26hvehej1OtSbPJd8uRF6W3oCJFl0/CJ44mB5PDoUHq9xojK5TEQdBvbK4Pf1E7grd3K0jJDRruZ1cA9MMpymPyohNR/eucr4Q6xDlpQvb9+2G81dRB7vlLsofvqf1hOHJ1Klscmk6smqi40gJ35xchG0kxCdE+8Fadin9ywVB0D9UkLWB+tHcWQcEP8fugSHTPnzkUwsA0Qfppcf3GzdLcdXjY4fdQ2psBiQLRujK289m6GxYwjkjSzSOSWGGA+8/zSUOuQd6FZg1AM9YNQdaZ1F02f+zJ4P5GcEqmQI4LL9EcYzhkyzsKiLXHRUpet1aTj/VyAKR24C1RIjyGj1QHzwJBznD5R2110x+sHorOyg4AmxLCqxeO/DKPuwC4Oe0J1FNvO0QMG4yVeDCc4ih7/ULD9RS10HoVFqrq10="
   ];
 
   system.stateVersion = "25.05";
