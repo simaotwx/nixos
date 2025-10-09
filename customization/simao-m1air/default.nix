@@ -21,6 +21,7 @@
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
     foundrixModules.config.oomd
+    foundrixModules.config.lowmem
   ];
 
   nixpkgs.overlays = [
@@ -41,7 +42,6 @@
       cpu.cores = 8;
       cpu.vendor = "apple";
       storage.hasNvme = true;
-      mem.lowMemory = true;
     };
     general = {
       hostName = "simao-m1air";

@@ -39,11 +39,6 @@
           default = config.customization.hardware.cpu.cores * 2;
           description = "How many logical CPU threads your machine has";
         };
-        mem.lowMemory = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          description = "Whether the system shall be configured to work on low memory devices";
-        };
         storage.hasNvme = lib.mkOption {
           type = lib.types.bool;
           default = false;
