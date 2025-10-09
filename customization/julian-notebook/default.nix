@@ -3,6 +3,7 @@
   inputs,
   flakePath,
   foundrixModules,
+  options,
   ...
 }:
 {
@@ -32,11 +33,6 @@
       cpu.cores = 8;
       cpu.vendor = "intel";
       storage.hasNvme = true;
-    };
-    general = {
-      hostName = "julian-notebook";
-      timeZone = "Europe/Berlin";
-      defaultLocale = "en_US.UTF-8";
     };
     kernel = {
       sysrq.enable = true;
@@ -73,11 +69,13 @@
 
   foundrix.general.keymap = "de-latin1";
 
+  networking.hostName = "julian-notebook";
+
+  time.timeZone = "Europe/Berlin";
+
   services.timesyncd.enable = true;
 
-  i18n.supportedLocales = [
-    "C.UTF-8/UTF-8"
-    "en_US.UTF-8/UTF-8"
+  i18n.supportedLocales = options.i18n.supportedLocales.default ++ [
     "en_GB.UTF-8/UTF-8"
     "de_DE.UTF-8/UTF-8"
   ];

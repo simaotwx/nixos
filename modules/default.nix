@@ -8,7 +8,6 @@
   imports = [
     ./base.nix
     ./debug.nix
-    ./general.nix
     ./hardware.nix
     ./initrd.nix
     ./kernel.nix

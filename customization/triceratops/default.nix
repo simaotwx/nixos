@@ -3,6 +3,7 @@
   pkgs,
   flakePath,
   foundrixModules,
+  options,
   ...
 }:
 {
@@ -37,11 +38,6 @@
       cpu.cores = 16;
       cpu.vendor = "amd";
       storage.hasNvme = true;
-    };
-    general = {
-      hostName = "triceratops";
-      timeZone = "Europe/Berlin";
-      defaultLocale = "en_US.UTF-8";
     };
     kernel = {
       sysrq.enable = true;
@@ -99,8 +95,7 @@
 
   linux-nitrous.processorFamily = "znver4";
 
-  i18n.supportedLocales = [
-    "en_US.UTF-8/UTF-8"
+  i18n.supportedLocales = options.i18n.supportedLocales.default ++ [
     "de_DE.UTF-8/UTF-8"
   ];
 
@@ -231,6 +226,10 @@
   '';
 
   foundrix.general.keymap = "de-latin1";
+
+  networking.hostName = "triceratops";
+
+  time.timeZone = "Europe/Berlin";
 
   services.timesyncd.enable = true;
 

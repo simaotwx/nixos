@@ -24,7 +24,7 @@
       <setting id="locale.activekeyboardlayout" default="true">German QWERTZ</setting>
       <setting id="locale.country">Central Europe</setting>
       <setting id="locale.timezonecountry">Germany</setting>
-      <setting id="locale.timezone" default="true">${config.customization.general.timeZone}</setting>
+      <setting id="locale.timezone" default="true">${config.time.timeZone}</setting>
       <setting id="locale.shortdateformat">DD.MM.YYYY</setting>
       <setting id="locale.longdateformat" default="true">regional</setting>
       <setting id="locale.timeformat">HH:mm:ss</setting>
@@ -263,7 +263,7 @@
       <setting id="pvrparental.pin" default="true" />
       <setting id="pvrparental.duration" default="true">300</setting>
       <setting id="pvrtimers.hidedisabledtimers" default="true">false</setting>
-      <setting id="services.devicename">${config.customization.general.hostName}</setting>
+      <setting id="services.devicename">${config.networking.hostName}</setting>
       <setting id="services.zeroconf" default="true">true</setting>
       <setting id="services.deviceuuid">${config.customization.kodi.settings.deviceUuid}</setting>
       <setting id="services.webserver">${lib.boolToString config.customization.kodi.settings.webserver.enable}</setting>
