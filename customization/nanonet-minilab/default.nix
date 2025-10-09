@@ -13,9 +13,9 @@
     hardkernel-odroid-h4
     ./minimal.nix
     ./options.nix
+    foundrixModules.profiles.server-baseline
     foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.intel
-    "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/networking/systemd-networkd.nix"
     "${flakePath}/modules/components/jellyfin.nix"
     "${flakePath}/modules/filesystem/tmpfs-root.nix"

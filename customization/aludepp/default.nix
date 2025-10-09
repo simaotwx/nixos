@@ -19,7 +19,6 @@
     foundrixModules.hardware.storage.cdrom
     foundrixModules.hardware.peripherals.razer
     foundrixModules.hardware.gpu.intel
-    "${flakePath}/modules/components/bootloaders/systemd-boot.nix"
     "${flakePath}/modules/components/desktop-environments/hyprland.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/gui/quickshell"
