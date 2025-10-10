@@ -272,6 +272,8 @@
     "${flakePath}/local/certificates/thea_root_ca.crt"
   ];
 
+  boot.tmp.tmpfsSize = "75%";
+
   services.printing.drivers = [ pkgs.brlaser ];
   networking.firewall.allowedTCPPorts = [7236 7250];
 
