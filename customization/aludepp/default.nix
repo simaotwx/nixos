@@ -232,6 +232,7 @@
   ];
 
   services.bpftune.enable = true;
+  services.printing.drivers = [ pkgs.brlaser ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
