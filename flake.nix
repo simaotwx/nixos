@@ -6,6 +6,8 @@
     foundrix = {
       url = "github:xdevs23/foundrix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+      inputs.nixpkgs-master.follows = "nixpkgs-master";
     };
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
