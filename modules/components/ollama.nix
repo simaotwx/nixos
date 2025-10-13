@@ -13,7 +13,7 @@ let
     if intelGpuSupport then
       pkgs.unstable.ollama
     else if amdGpuSupport then
-      pkgs.unstable.ollama.override { acceleration = "rocm"; }
+      pkgs.unstable.ollama-rocm.override { inherit rocmPackages; }
     else
       pkgs.unstable.ollama;
 in
