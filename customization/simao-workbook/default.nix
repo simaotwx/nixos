@@ -270,6 +270,7 @@
 
   security.pki.certificateFiles = [
     "${flakePath}/local/certificates/thea_root_ca.crt"
+    "${flakePath}/local/certificates/ordf_root_ca.crt"
   ];
 
   boot.tmp.tmpfsSize = "75%";
