@@ -4,6 +4,7 @@
   pkgs,
   foundrixModules,
   options,
+  lib,
   ...
 }:
 {
@@ -14,13 +15,14 @@
     ./filesystems.nix
     foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.amd
+    foundrixModules.config.oomd
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/sound.nix"
+    "${flakePath}/modules/components/docker.nix"
     foundrixModules.config.compat
     "${flakePath}/modules/components/ollama.nix"
-    "${flakePath}/modules/components/shell/utilities/git.nix"
   ];
 
   # Customization of modules
@@ -45,10 +47,6 @@
       scanning = true;
       networkDiscovery = true;
     };
-    performance = {
-      tuning.enable = true;
-      oomd.enable = true;
-    };
     nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
     desktop = {
@@ -66,7 +64,26 @@
         ];
       };
     };
+    virtualisation.docker.autostart = true;
   };
+
+  boot.tmp.useTmpfs = false;
+  systemd.mounts = [
+    {
+      what = "tmpfs";
+      where = "/tmp";
+      type = "tmpfs";
+      mountConfig.Options = lib.concatStringsSep "," [
+        "mode=1755"
+        "noatime"
+        "rw"
+        "nosuid"
+        "nodev"
+        "size=80%"
+        "huge=within_size"
+      ];
+    }
+  ];
 
   foundrix.general.keymap = "de-latin1";
 

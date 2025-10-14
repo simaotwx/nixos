@@ -1,7 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   home.packages =
     with pkgs;
+    let
+      foundrixPkgs = inputs.foundrix.packages.${pkgs.system};
+    in
     [
       rose-pine-cursor
       jq
@@ -66,6 +69,9 @@
       bmap-tools
       ddrescue
       hdparm
+      llama-cpp
+      foundrixPkgs.git-aliases
+      foundrixPkgs.pickrange
 
       # GStreamer
       gst_all_1.gstreamer
