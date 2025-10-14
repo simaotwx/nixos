@@ -1,7 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   home.packages =
     with pkgs;
+    let
+      foundrixPkgs = inputs.foundrix.packages.${pkgs.system};
+    in
     [
       rose-pine-cursor
       jq
