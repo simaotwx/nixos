@@ -69,6 +69,7 @@
       bmap-tools
       ddrescue
       hdparm
+      llama-cpp
       foundrixPkgs.git-aliases
       foundrixPkgs.pickrange
 
