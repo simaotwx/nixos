@@ -37,6 +37,7 @@ in
         patch=''${version_digits:2:1}
       fi
       export HSA_OVERRIDE_GFX_VERSION="$major.$minor.$patch"
+      export OLLAMA_NUM_GPU_LAYERS=9999
       exec ${lib.getExe ollamaPackage} "$@"
     '')
   ])
