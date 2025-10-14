@@ -19,6 +19,7 @@
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/sound.nix"
+    "${flakePath}/modules/components/docker.nix"
     foundrixModules.config.compat
     "${flakePath}/modules/components/ollama.nix"
   ];
@@ -62,6 +63,7 @@
         ];
       };
     };
+    virtualisation.docker.autostart = true;
   };
 
   foundrix.general.keymap = "de-latin1";
