@@ -14,6 +14,7 @@
     ./filesystems.nix
     foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.amd
+    foundrixModules.config.oomd
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/zsh"
@@ -43,10 +44,6 @@
       printing = true;
       scanning = true;
       networkDiscovery = true;
-    };
-    performance = {
-      tuning.enable = true;
-      oomd.enable = true;
     };
     nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
