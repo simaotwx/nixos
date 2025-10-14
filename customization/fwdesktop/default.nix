@@ -4,6 +4,7 @@
   pkgs,
   foundrixModules,
   options,
+  lib,
   ...
 }:
 {
@@ -65,6 +66,24 @@
     };
     virtualisation.docker.autostart = true;
   };
+
+  boot.tmp.useTmpfs = false;
+  systemd.mounts = [
+    {
+      what = "tmpfs";
+      where = "/tmp";
+      type = "tmpfs";
+      mountConfig.Options = lib.concatStringsSep "," [
+        "mode=1755"
+        "noatime"
+        "rw"
+        "nosuid"
+        "nodev"
+        "size=80%"
+        "huge=within_size"
+      ];
+    }
+  ];
 
   foundrix.general.keymap = "de-latin1";
 
