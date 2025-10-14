@@ -20,7 +20,6 @@
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
     "${flakePath}/modules/components/ollama.nix"
-    "${flakePath}/modules/components/shell/utilities/git.nix"
   ];
 
   # Customization of modules

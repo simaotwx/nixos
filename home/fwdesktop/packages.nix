@@ -66,6 +66,8 @@
       bmap-tools
       ddrescue
       hdparm
+      foundrixPkgs.git-aliases
+      foundrixPkgs.pickrange
 
       # GStreamer
       gst_all_1.gstreamer
