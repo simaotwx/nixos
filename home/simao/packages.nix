@@ -49,7 +49,7 @@
       e2fsprogs
       lm_sensors
       fastfetch
-      nixd
+      unstable.nixd
       nixpkgs-fmt
       bc
       imagemagick

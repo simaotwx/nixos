@@ -61,7 +61,7 @@ in
       fastfetch
       unstable.jetbrains.idea-community
       jdk
-      nixd
+      unstable.nixd
       nixpkgs-fmt
       bc
       #jellycli

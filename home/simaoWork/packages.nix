@@ -56,7 +56,7 @@ in
       lm_sensors
       fastfetch
       jdk
-      nixd
+      unstable.nixd
       nixpkgs-fmt
       bc
       imagemagick
