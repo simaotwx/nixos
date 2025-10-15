@@ -437,13 +437,13 @@
     "linux-nitrous": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-MK23ex5PbDMfnsf2TViiJTTndHoYnKBhPwcRxKUlfbI=",
+        "narHash": "sha256-owzT5VmIJjmvzto3CKZtiEm4CFHUXUvQw5AxF/eYMlI=",
         "type": "file",
-        "url": "https://gitlab.com/xdevs23/linux-nitrous/-/raw/v6.17.2-8-nixos/default.nix"
+        "url": "https://gitlab.com/xdevs23/linux-nitrous/-/raw/v6.17.3-1-nixos/default.nix"
       },
       "original": {
         "type": "file",
-        "url": "https://gitlab.com/xdevs23/linux-nitrous/-/raw/v6.17.2-8-nixos/default.nix"
+        "url": "https://gitlab.com/xdevs23/linux-nitrous/-/raw/v6.17.3-1-nixos/default.nix"
       }
     },
     "nixos-apple-silicon": {
