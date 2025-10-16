@@ -53,8 +53,8 @@
     services.xserver.displayManager.gdm.enable = config.customization.desktop.gnome.useGdm;
     services.xserver.desktopManager.gnome.enable = true;
     nixpkgs.overlays = [
-      (final: prev: {
-        spotify = prev.spotify.overrideAttrs (
+      (final: prev:
+      let fixSpotify = spotify: spotify.overrideAttrs (
           finalAttrs: prevAttrs: {
             fixupPhase =
               builtins.replaceStrings
@@ -66,6 +66,10 @@
                 prevAttrs.fixupPhase;
           }
         );
+      in
+      {
+        spotify = fixSpotify prev.spotify;
+        unstable.spotify = fixSpotify prev.unstable.spotify;
       })
       (final: prev: {
         mattermost-desktop = prev.mattermost-desktop.overrideAttrs (
