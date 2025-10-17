@@ -27,8 +27,11 @@
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
     "${flakePath}/modules/components/ollama.nix"
+    "${flakePath}/modules/components/llama-cpp.nix"
+    "${flakePath}/modules/components/vllm.nix"
     "${flakePath}/modules/components/crush.nix"
     foundrixModules.config.oomd
+    ../fwdesktop/chat-ui-deployment.nix
   ];
 
   # Customization of modules

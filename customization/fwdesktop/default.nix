@@ -23,6 +23,7 @@
     "${flakePath}/modules/components/docker.nix"
     foundrixModules.config.compat
     "${flakePath}/modules/components/ollama.nix"
+    ./chat-ui-deployment.nix
   ];
 
   # Customization of modules

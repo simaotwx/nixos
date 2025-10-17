@@ -3,7 +3,7 @@
   lib,
   config,
   ...
-}:
+}@args:
 let
   amdGpuSupport = config.foundrix.hardware.gpu.amd.isSupported or false;
   intelGpuSupport = config.foundrix.hardware.gpu.intel.isSupported or false;
@@ -16,27 +16,15 @@ let
       pkgs.unstable.ollama-rocm.override { inherit rocmPackages; }
     else
       pkgs.unstable.ollama;
+
+  rocmScript = import ./rocmScript.lib.nix (args // { inherit rocmPackages; });
 in
 {
   environment.systemPackages = [
     ollamaPackage
   ]
   ++ (lib.optionals amdGpuSupport [
-    (pkgs.writeShellScriptBin "ollama-rocm" ''
-      #!${pkgs.runtimeShell}
-      gfxver="$(${lib.getExe' rocmPackages.rocminfo "rocminfo"} | grep 'Name' | grep 'gfx' | head -n1 | ${lib.getExe pkgs.gawk} '{ print $2 }')"
-      version_digits=''${gfxver#gfx}
-      num_digits=''${#version_digits}
-      if [ "$num_digits" -eq 4 ]; then
-        major=''${version_digits:0:2}
-        minor=''${version_digits:2:1}
-        patch=''${version_digits:3:1}
-      elif [ "$num_digits" -eq 3 ]; then
-        major=''${version_digits:0:1}
-        minor=''${version_digits:1:1}
-        patch=''${version_digits:2:1}
-      fi
-      export HSA_OVERRIDE_GFX_VERSION="$major.$minor.$patch"
+    (rocmScript "ollama-rocm" ''
       export OLLAMA_NUM_GPU_LAYERS=9999
       exec ${lib.getExe ollamaPackage} "$@"
     '')
