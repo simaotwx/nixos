@@ -20,8 +20,6 @@ let
   rocmScript = import ./rocmScript.lib.nix (args // { inherit rocmPackages; });
 in
 {
-  nixpkgs.config.rocmSupport = amdGpuSupport;
-  nixpkgs.config.rocmPackages = rocmPackages;
   environment.systemPackages = [
     vllmPackage
   ]
