@@ -22,7 +22,8 @@
     "${flakePath}/modules/components/sound.nix"
     "${flakePath}/modules/components/docker.nix"
     foundrixModules.config.compat
-    "${flakePath}/modules/components/ollama.nix"
+    foundrixModules.components.ollama
+    foundrixModules.components.llama-cpp
     ./chat-ui-deployment.nix
   ];
 

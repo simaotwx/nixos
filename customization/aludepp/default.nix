@@ -31,7 +31,8 @@
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
-    "${flakePath}/modules/components/ollama.nix"
+    foundrixModules.components.ollama
+    foundrixModules.components.llama-cpp
     "${flakePath}/modules/components/crush.nix"
     foundrixModules.config.oomd
     inputs.linux-nitrous.outPath

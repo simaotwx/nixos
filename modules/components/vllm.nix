@@ -3,7 +3,7 @@
   lib,
   config,
   ...
-}@args:
+}:
 let
   amdGpuSupport = config.foundrix.hardware.gpu.amd.isSupported or false;
   intelGpuSupport = config.foundrix.hardware.gpu.intel.isSupported or false;
@@ -17,7 +17,7 @@ let
     else
       pkgs.vllm;
 
-  rocmScript = import ./rocmScript.lib.nix (args // { inherit rocmPackages; });
+  rocmScript = config.foundrix.hardware.gpu.amd.rocmScript;
 in
 {
   environment.systemPackages = [

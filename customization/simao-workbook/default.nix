@@ -26,8 +26,8 @@
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
-    "${flakePath}/modules/components/ollama.nix"
-    "${flakePath}/modules/components/llama-cpp.nix"
+    foundrixModules.components.ollama
+    foundrixModules.components.llama-cpp
     "${flakePath}/modules/components/vllm.nix"
     "${flakePath}/modules/components/crush.nix"
     foundrixModules.config.oomd
