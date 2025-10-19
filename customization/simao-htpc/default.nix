@@ -60,12 +60,12 @@
           jellycon
           (youtube.overrideAttrs (old: rec {
             name = "youtube-${version}";
-            version = "7.3.0+beta.3";
+            version = "7.3.0+beta.7";
             src = old.src.override {
               owner = "anxdpanic";
               repo = "plugin.video.youtube";
               rev = "v${version}";
-              hash = "sha256-aSXG7YxbRcKIEWmES2s1HBcfZnUbzdWBfB6fRCgNv/k=";
+              hash = "sha256-wbblWvxM9kq3rf4ptd+3VTDqwOG9dwB03rWbImvKuYA=";
             };
           }))
         ];
@@ -234,7 +234,7 @@
   boot.uki.name = "htos";
   system.nixos.distroId = "htos";
   system.nixos.distroName = "Home Theater OS";
-  system.image.version = "31";
+  system.image.version = "33";
   system.image.id = "simao-htpc-htos";
 
   virtualisation.vmVariant = import ./vm.nix;
