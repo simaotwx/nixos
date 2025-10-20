@@ -229,7 +229,7 @@
     android-udev-rules
   ];
 
-  security.pki.certificateFiles = [
+  security.pki.certificateFiles = builtins.concatMap (filePath: lib.optional (builtins.pathExists filePath) filePath) [
     "${flakePath}/local/certificates/thea_root_ca.crt"
     "${flakePath}/local/certificates/ordf_root_ca.crt"
   ];
