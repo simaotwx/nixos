@@ -237,6 +237,8 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  boot.tmp.tmpfsSize = "96%";
+
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (pkgs.lib.getName pkg) [
