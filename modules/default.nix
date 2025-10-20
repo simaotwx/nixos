@@ -32,10 +32,12 @@
         unstable = import inputs.nixpkgs-unstable {
           inherit (prev) system;
           config = config.nixpkgs.config;
+          overlays = config.nixpkgs-unstable.overlays;
         };
         master = import inputs.nixpkgs-master {
           inherit (prev) system;
           config = config.nixpkgs.config;
+          overlays = config.nixpkgs-master.overlays;
         };
       })
     ];

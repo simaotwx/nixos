@@ -88,6 +88,9 @@
   ];
 
   foundrix.general.keymap = "de-latin1";
+  foundrix.hardware.gpu.amd.gpuTargets = [
+    "gfx1151"
+  ];
 
   networking.hostName = "fwdesktop";
 

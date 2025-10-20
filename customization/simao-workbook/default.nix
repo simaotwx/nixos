@@ -79,6 +79,9 @@
   systemd.services.tailscaled.wantedBy = lib.mkForce [ ];
 
   foundrix.general.keymap = "de-latin1";
+  foundrix.hardware.gpu.amd.gpuTargets = [
+    "gfx1100" "gfx1101" "gfx1102"
+  ];
 
   networking.hostName = "simao-workbook";
 

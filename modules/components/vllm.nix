@@ -7,13 +7,12 @@
 let
   amdGpuSupport = config.foundrix.hardware.gpu.amd.isSupported or false;
   intelGpuSupport = config.foundrix.hardware.gpu.intel.isSupported or false;
-  rocmPackages = config.foundrix.hardware.gpu.amd.rocmPackages or [ ];
 
   vllmPackage =
     if intelGpuSupport then
       pkgs.vllm
     else if amdGpuSupport then
-      pkgs.unstable.vllm.override { inherit rocmPackages; }
+      pkgs.unstable.vllm
     else
       pkgs.vllm;
 
