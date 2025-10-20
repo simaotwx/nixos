@@ -68,6 +68,8 @@
           "_processor_usage_"
           "__network-tx_max__"
           "__network-rx_max__"
+          "_processor_frequency_"
+          "_temperature_k10temp_tctl_"
         ];
         position-in-panel = 0;
         show-battery = true;
