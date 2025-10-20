@@ -109,6 +109,9 @@ in
       hdparm
       crush-latest
       remmina
+      btop
+      foundrixPkgs.json2nix
+      foundrixPkgs.nix2json
       foundrixPkgs.git-aliases
       foundrixPkgs.pickrange
       gnome-network-displays

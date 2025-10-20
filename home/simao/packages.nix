@@ -74,7 +74,9 @@
       lz4
       zip
       mpv
+      btop
       foundrixPkgs.json2nix
+      foundrixPkgs.nix2json
       foundrixPkgs.git-aliases
       foundrixPkgs.pickrange
 
