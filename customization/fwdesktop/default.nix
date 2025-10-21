@@ -24,6 +24,7 @@
     foundrixModules.config.compat
     foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
+    "${flakePath}/modules/components/vllm.nix"
     ./chat-ui-deployment.nix
   ];
 
