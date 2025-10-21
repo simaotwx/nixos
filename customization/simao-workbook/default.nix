@@ -28,7 +28,6 @@
     foundrixModules.config.compat
     foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
-    "${flakePath}/modules/components/vllm.nix"
     "${flakePath}/modules/components/crush.nix"
     foundrixModules.config.oomd
     ../fwdesktop/chat-ui-deployment.nix

@@ -15,6 +15,17 @@
       ];
     };
 
+    "/nix/tmp" = {
+      fsType = "tmpfs";
+      options = [
+        "size=90%"
+        "noatime"
+        "mode=0750"
+        "uid=0"
+        "gid=0"
+      ];
+    };
+
     "/nix" = {
       device = "/dev/disk/by-partlabel/main";
       fsType = "btrfs";

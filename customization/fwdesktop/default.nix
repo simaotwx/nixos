@@ -115,6 +115,8 @@
 
   users.groups.fwdesktop.gid = 1000;
 
+  nix.settings.build-dir = "/nix/tmp";
+
   services.gvfs.enable = true;
   programs.dconf.enable = true;
 
