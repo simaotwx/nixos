@@ -1,4 +1,5 @@
-{ pkgs, flakePath, ... }:
+{ pkgs, flakePath,
+  foundrixModules, ... }:
 {
   imports = [
     ./dconf.nix
