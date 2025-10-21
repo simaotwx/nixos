@@ -16,10 +16,8 @@
     foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.amd
     foundrixModules.config.oomd
-    "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/networking/network-manager.nix"
     "${flakePath}/modules/components/zsh"
-    "${flakePath}/modules/components/sound.nix"
     "${flakePath}/modules/components/docker.nix"
     foundrixModules.config.compat
     foundrixModules.components.ollama
@@ -52,21 +50,6 @@
     };
     nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
-    desktop = {
-      gnome = {
-        extensions = with pkgs.gnomeExtensions; [
-          vitals
-          dash-to-dock
-          clipboard-indicator
-          caffeine
-          transparent-top-bar-adjustable-transparency
-          window-is-ready-remover
-          bluetooth-quick-connect
-          removable-drive-menu
-          tray-icons-reloaded
-        ];
-      };
-    };
     virtualisation.docker.autostart = true;
   };
 
