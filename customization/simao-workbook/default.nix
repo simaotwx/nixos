@@ -235,7 +235,7 @@
 
   boot.tmp.tmpfsSize = "75%";
 
-  services.printing.drivers = [ pkgs.brlaser ];
+  services.printing.drivers = [ pkgs.brlaser pkgs.mfc9332cdwcupswrapper ];
   networking.firewall.allowedTCPPorts = [7236 7250];
 
   networking.firewall.allowedUDPPorts = [7236 5353];
@@ -262,6 +262,7 @@
       "citrix-workspace"
       "terraform"
       "crush"
+      "mfc9332cdwlpr"
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_6_16;

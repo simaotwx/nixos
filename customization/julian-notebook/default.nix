@@ -75,6 +75,8 @@
 
   services.timesyncd.enable = true;
 
+  services.printing.drivers = [ pkgs.brlaser pkgs.mfc9332cdwcupswrapper ];
+
   i18n.supportedLocales = options.i18n.supportedLocales.default ++ [
     "en_GB.UTF-8/UTF-8"
     "de_DE.UTF-8/UTF-8"

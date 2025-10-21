@@ -2,6 +2,7 @@
   lib,
   inputs,
   config,
+  pkgs,
   ...
 }:
 {
@@ -39,6 +40,8 @@
           config = config.nixpkgs.config;
           overlays = config.nixpkgs-master.overlays;
         };
+        mfc9332cdwcupswrapper = pkgs.callPackage ./components/mfc9332cdw.nix { };
+        mfc9332cdwlpr = pkgs.callPackage ./components/mfc9332cdwlpr.nix { };
       })
     ];
   };

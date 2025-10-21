@@ -159,6 +159,8 @@
     };
   };
 
+  services.printing.drivers = [ pkgs.brlaser pkgs.mfc9332cdwcupswrapper ];
+
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
