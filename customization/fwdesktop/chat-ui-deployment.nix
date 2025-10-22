@@ -1,73 +1,170 @@
 { lib, pkgs, ... }:
 
 let
-  workDir        = "/var/lib/chat-ui";
-  mongoDataDir   = "${workDir}/mongo";
-  chatUiDataDir  = "${workDir}/chat-ui";
+  dataDir        = "/var/lib/librechat";
+  mongoDataDir   = "/var/lib/librechat-mongo";
+  mongoPort      = 27038;
 
-  mongoUser      = "root";
-  mongoPass      = "example";
-  mongoHost      = "mongo";
-  mongoPort      = "27017";
-  mongoAuthDB    = "admin"; # root user lives here
-  chatUiMongoUri = "mongodb://${mongoUser}:${mongoPass}@${mongoHost}:${mongoPort}/?authSource=${mongoAuthDB}";
+  librechatYaml = pkgs.writeText "librechat.yaml" (builtins.toJSON {
+    version = "1.3.0";
+    cache = true;
 
-  dockerCompose = pkgs.writeText "docker-compose.yml" (builtins.toJSON {
-    services = {
-      mongo = {
-        image = "mongo";
-        restart = "no";
-        environment = {
-          MONGO_INITDB_ROOT_USERNAME = mongoUser;
-          MONGO_INITDB_ROOT_PASSWORD = mongoPass;
-        };
-        volumes = [ "${mongoDataDir}:/data/db" ];
-        networks = [ "appnet" ];
+    endpoints = {
+      agents = {
+        disableBuilder = true;
       };
-
-      chat-ui = {
-        image = "ghcr.io/huggingface/chat-ui:latest";
-        restart = "no";
-        depends_on = [ "mongo" ];
-        ports = [ "3000:3000" ];
-        environment = {
-          MONGODB_URL     = chatUiMongoUri;
-          OPENAI_BASE_URL = "http://host.docker.internal:11434/v1";
-          OPENAI_API_KEY  = "ollama";
-          PUBLIC_ORIGIN = "http://localhost:3000";
-          ALLOW_INSECURE_COOKIES = "true";
-          USE_LOCAL_WEBSEARCH = "true";
+      custom = [{
+        name = "llama_local";
+        apiKey = "dummy";
+        baseURL = "http://127.0.0.1:11434/v1/";
+        models = {
+          fetch = true;
+          default = [ "local" ];
         };
-        volumes = [ "${chatUiDataDir}:/data" ];
-        networks = [ "appnet" ];
-        extra_hosts = [ "host.docker.internal:host-gateway" ];
+        titleConvo = true;
+        titleModel = "current_model";
+        modelDisplayLabel = "Local model";
+        addParams = {
+          model_identity = "You are GPT-OSS, a model running on local hardware";
+        };
+      }];
+    };
+
+    mcpServers = {
+      hello-world = {
+        type = "stdio";
+        command = lib.getExe (pkgs.python3.withPackages (ps: [ ps.mcp ]));
+        args = [
+          "${./mcp/hello-world.py}"
+        ];
+      };
+      fortune = {
+        type = "stdio";
+        command = lib.getExe (pkgs.writeShellApplication {
+          name = "fortune-mcp";
+          runtimeInputs = [
+            (pkgs.python3.withPackages (ps: [ ps.mcp ]))
+            pkgs.fortune
+          ];
+          text = ''
+            python ${./mcp/fortune.py}
+          '';
+        });
+        args = [];
       };
     };
-    networks = { appnet = {}; };
+
+    modelSpecs = {
+      enforce = true;
+      list = [
+        {
+          default = true;
+          description = "Chatting";
+          label = "Chatting";
+          name = "chatting";
+          preset = {
+            endpoint = "llama_local";
+            greeting = "";
+            model = "local";
+            modelLabel = "Local";
+            reasoning_effort = "low";
+            top_p = 1.0;
+            top_k = 0;
+            frequency_penalty = 1.0;
+            instructions = ''
+              You're a helpful assistant. Follow user's instructions strictly and refrain from any kind of flattery.
+
+              # Tool calling conventions
+              If a tool call fails, analyze the error and determine if it's a user error, assistant error or system error.
+              If it's a system or user error, please tell the user that it failed and why, then proceed with a suggestion on how to fix it.
+              If it's an assistant error, attempt to fix it by calling the tool again with corrected parameters.
+              When the assistant invokes any tool, it must process the tool's raw result verbatim – preserving the exact text,
+              formatting, order, and any metadata that the tool returns.
+              No paraphrasing, filtering, or additional commentary is allowed unless explicitly requested by the user.
+              The only things the assistant may do is process certain characters – like newlines, tabs etc.
+            '';
+            temperature = 1.0;
+          };
+        }
+      ];
+      prioritize = true;
+    };
   });
+
+  mongoConf = pkgs.writeText "mongodb-librechat.conf" ''
+    net:
+      bindIp: 127.0.0.1
+      port: ${toString mongoPort}
+    systemLog:
+      destination: syslog
+      quiet: true
+    storage:
+      dbPath: ${mongoDataDir}
+  '';
 in
 {
-  virtualisation.docker.enable = true;
+  users.users.librechat = { isSystemUser = true; group = "librechat"; };
+  users.groups.librechat = {};
+  users.users.mongodb-librechat = { isSystemUser = true; group = "mongodb-librechat"; };
+  users.groups.mongodb-librechat = {};
 
   systemd.tmpfiles.rules = [
-    "d ${workDir} 0755 root root -"
-    "d ${mongoDataDir} 0755 root root -"
-    "d ${chatUiDataDir} 0755 root root -"
+    "d ${dataDir} 0755 librechat librechat -"
+    "d ${mongoDataDir} 0700 mongodb-librechat mongodb-librechat -"
   ];
 
-  systemd.services.chat-ui-stack = {
-    description = "Chat UI + Mongo stack (docker compose)";
-    requires = [ "docker.service" ];
-    after    = [ "docker.service" ];
+  systemd.services.mongodb-librechat = {
+    description = "MongoDB for LibreChat";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "network.target" ];
     serviceConfig = {
-      Type = "simple";
-      Restart = "no";
-      User = "root";
-      Group = "docker";
-      WorkingDirectory = workDir;
-      ExecStart = "${lib.getExe pkgs.docker} compose -f ${dockerCompose} up";
-      ExecStop  = "${lib.getExe pkgs.docker} compose -f ${dockerCompose} down";
-      TimeoutStartSec = 3600;
+      User = "mongodb-librechat";
+      Type = "forking";
+      PIDFile = "/run/mongodb-librechat.pid";
+      PermissionsStartOnly = true;
+      TimeoutStartSec = 120;
+      Restart = "on-failure";
+      RestartSec = 5;
+      ExecStart = "${pkgs.mongodb}/bin/mongod --config ${mongoConf} --fork --pidfilepath /run/mongodb-librechat.pid";
+    };
+    preStart = ''
+      rm -f ${mongoDataDir}/mongod.lock || true
+      if ! test -e /run/mongodb-librechat.pid; then
+        install -D -o mongodb-librechat /dev/null /run/mongodb-librechat.pid
+      fi
+    '';
+  };
+
+  systemd.services.librechat = {
+    description = "LibreChat server";
+    after = [ "network-online.target" "mongodb-librechat.service" ];
+    requires = [ "mongodb-librechat.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      User = "librechat";
+      Group = "librechat";
+      WorkingDirectory = dataDir;
+      StateDirectory = "librechat";
+      ExecStart = "${pkgs.unstable.librechat}/bin/librechat-server";
+      Environment = [
+        "HOST=0.0.0.0"
+        "PORT=3080"
+        "MONGO_URI=mongodb://127.0.0.1:${toString mongoPort}/LibreChat"
+        "CONFIG_PATH=${librechatYaml}"
+        "DOMAIN_CLIENT=http://localhost:3080"
+        "DOMAIN_SERVER=http://localhost:3080"
+        "NO_INDEX=true"
+        "TRUST_PROXY=1"
+        "JWT_SECRET=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        "JWT_REFRESH_SECRET=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        "CREDS_KEY=f34be427ebb29de8d88c107a71546019685ed8b241d8f2ed00c3df97ad2566f0"
+        "CREDS_IV=e2341419ec3dd3d19b13a1a87fafcbfb"
+        "ALLOW_REGISTRATION=true"
+        "ENDPOINTS=custom,agents"
+      ];
+      Restart = "on-failure";
     };
   };
+
+  networking.firewall.allowedTCPPorts = [ 3080 ];
 }

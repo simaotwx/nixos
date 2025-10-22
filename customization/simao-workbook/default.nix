@@ -262,6 +262,7 @@
       "citrix-workspace"
       "terraform"
       "crush"
+      "mongodb"
       "mfc9332cdwlpr"
     ];
 
