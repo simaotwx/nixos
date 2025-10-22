@@ -182,6 +182,7 @@
       "libfprint-2-tod1-goodix"
       "displaylink"
       "citrix-workspace"
+      "mfc9332cdwlpr"
     ];
 
   hardware.enableRedistributableFirmware = true;

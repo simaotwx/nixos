@@ -184,6 +184,7 @@
       "displaylink"
       "citrix-workspace"
       "google-chrome"
+      "mfc9332cdwlpr"
     ];
 
   services.tailscale.enable = true;

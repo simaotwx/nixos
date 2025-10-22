@@ -163,20 +163,16 @@
           ];
         };
 
-        nanonet-minilab = lib.nixosSystem rec {
-          system = "x86_64-linux";
-          specialArgs = {
-            inputs = {
-              inherit (self.inputs) nixos-hardware nixpkgs-unstable;
-            }
-            // (commonArgs system);
-            packages = self.packages.${system};
-            inherit flakePath system;
+        nanonet-minilab =
+          let
+            custPath = ./customization/nanonet-minilab;
+          in
+          lib.nixosSystem rec {
+            system = "x86_64-linux";
+            specialArgs = commonArgs system;
+            modules =
+              commonModules ++ [ custPath ];
           };
-          modules = commonModules ++ [
-            ./customization/nanonet-minilab
-          ];
-        };
 
         simao-workbook = lib.nixosSystem rec {
           system = "x86_64-linux";
