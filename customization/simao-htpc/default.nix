@@ -22,7 +22,7 @@
     ./sysupdate.nix
     foundrixModules.hardware.gpu.intel
     foundrixModules.profiles.desktop-full # todo: separate profile
-    "${flakePath}/modules/components/kodi.nix"
+    foundrixModules.config.kodi-gbm
     "${flakePath}/modules/compressors/xz.nix"
     foundrixModules.config.networking.network-manager
     (maybeImport "${flakePath}/local/simao-htpc-secrets.nix")
@@ -50,23 +50,7 @@
     };
     partitions.systemDisk = "/dev/nvme0n1";
     kodi = {
-      user = "htpc";
-      kodiData = "/kodi";
       settings.webserver.enable = true;
-      plugins =
-        kodiPkgs: with kodiPkgs; [
-          jellycon
-          (youtube.overrideAttrs (old: rec {
-            name = "youtube-${version}";
-            version = "7.3.0+beta.7";
-            src = old.src.override {
-              owner = "anxdpanic";
-              repo = "plugin.video.youtube";
-              rev = "v${version}";
-              hash = "sha256-wbblWvxM9kq3rf4ptd+3VTDqwOG9dwB03rWbImvKuYA=";
-            };
-          }))
-        ];
     };
   };
 
@@ -117,6 +101,24 @@
   ];
 
   foundrix.general.keymap = "us";
+  foundrix.config.kodi-gbm = {
+    user = "htpc";
+    kodiData = "/kodi";
+    plugins =
+      kodiPkgs: with kodiPkgs; [
+        jellycon
+        (youtube.overrideAttrs (old: rec {
+          name = "youtube-${version}";
+          version = "7.3.0+beta.7";
+          src = old.src.override {
+            owner = "anxdpanic";
+            repo = "plugin.video.youtube";
+            rev = "v${version}";
+            hash = "sha256-wbblWvxM9kq3rf4ptd+3VTDqwOG9dwB03rWbImvKuYA=";
+          };
+        }))
+      ];
+  };
 
   networking.hostName = "htpc";
 

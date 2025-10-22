@@ -112,23 +112,23 @@ in
 
   systemd.tmpfiles.settings = {
     "home" = {
-      "/home/${config.customization.kodi.user}" = {
+      "/home/${config.foundrix.config.kodi-gbm.user}" = {
         d = {
-          group = config.customization.kodi.user;
+          group = config.foundrix.config.kodi-gbm.user;
           mode = "0750";
-          user = config.customization.kodi.user;
+          user = config.foundrix.config.kodi-gbm.user;
         };
       };
     };
     "kodi" =
       lib.genAttrs
         [
-          "${config.customization.kodi.kodiData}"
+          "${config.foundrix.config.kodi-gbm.kodiData}"
         ]
         (_: {
           d = {
-            user = config.customization.kodi.user;
-            group = config.customization.kodi.user;
+            user = config.foundrix.config.kodi-gbm.user;
+            group = config.foundrix.config.kodi-gbm.user;
             mode = "0750";
           };
         });
@@ -136,7 +136,7 @@ in
 
   system.activationScripts.populate-kodi-data =
     let
-      data = config.customization.kodi.kodiData;
+      data = config.foundrix.config.kodi-gbm.kodiData;
     in
     {
       text = ''
@@ -148,7 +148,7 @@ in
           '${pkgs.master.widevine-cdm}/share/google/chrome/WidevineCdm/manifest.json' \
           '${data}/cdm/manifest.json'
         ${pkgs.coreutils-full}/bin/chown -R \
-          '${config.customization.kodi.user}:${config.customization.kodi.user}' '${data}'
+          '${config.foundrix.config.kodi-gbm.user}:${config.foundrix.config.kodi-gbm.user}' '${data}'
         ${pkgs.coreutils-full}/bin/chmod -R u=rwX,g=rwX,o= '${data}'
       '';
     };
