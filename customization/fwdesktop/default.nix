@@ -16,10 +16,11 @@
     foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.amd
     foundrixModules.config.oomd
-    "${flakePath}/modules/components/networking/network-manager.nix"
+    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/docker.nix"
     foundrixModules.config.compat
+    foundrixModules.config.networking.network-discovery
     foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
     "${flakePath}/modules/components/vllm.nix"
@@ -43,16 +44,10 @@
       fs.enable = true;
       userspace.enable = true;
     };
-    services = {
-      printing = true;
-      scanning = true;
-      networkDiscovery = true;
-    };
     nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
     virtualisation.docker.autostart = true;
   };
-
   boot.tmp.useTmpfs = false;
   systemd.mounts = [
     {

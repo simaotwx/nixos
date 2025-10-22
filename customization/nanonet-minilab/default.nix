@@ -17,7 +17,7 @@
     foundrixModules.profiles.server-baseline
     foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.intel
-    "${flakePath}/modules/components/networking/systemd-networkd.nix"
+    foundrixModules.config.networking.systemd-networkd
     "${flakePath}/modules/components/jellyfin.nix"
     "${flakePath}/modules/filesystem/tmpfs-root.nix"
     "${flakePath}/modules/filesystem/nix-store.nix"
@@ -28,6 +28,7 @@
     "${flakePath}/modules/ota/systemd-sysupdate.nix"
     "${flakePath}/local/nanonet-minilab-secrets.nix"
     foundrixModules.config.oomd
+    foundrixModules.config.networking.network-discovery
   ];
 
   target.ota.updateServer = "http://aludepp:8080/result";
@@ -49,9 +50,6 @@
       kernel.enable = true;
       fs.enable = true;
       userspace.enable = true;
-    };
-    services = {
-      networkDiscovery = true;
     };
   };
 

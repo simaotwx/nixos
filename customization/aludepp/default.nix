@@ -21,7 +21,7 @@
     foundrixModules.hardware.peripherals.razer
     foundrixModules.hardware.gpu.intel
     "${flakePath}/modules/components/desktop-environments/hyprland.nix"
-    "${flakePath}/modules/components/networking/network-manager.nix"
+    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/gui/quickshell"
     "${flakePath}/modules/components/zsh"
     foundrixModules.config.via
@@ -31,6 +31,7 @@
     "${flakePath}/modules/components/docker.nix"
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
+    foundrixModules.config.networking.network-discovery
     foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
     "${flakePath}/modules/components/crush.nix"
@@ -54,11 +55,6 @@
       kernel.enable = true;
       fs.enable = true;
       userspace.enable = true;
-    };
-    services = {
-      printing = true;
-      scanning = true;
-      networkDiscovery = true;
     };
     nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
@@ -149,6 +145,9 @@
   ];
 
   services.fwupd.enable = true;
+
+  services.printing.enable = true;
+  hardware.sane.enable = true;
 
   users.users.simao = {
     isNormalUser = true;

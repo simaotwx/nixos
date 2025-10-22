@@ -18,7 +18,7 @@
     ./tpm.nix
     foundrixModules.hardware.gpu.amd
     foundrixModules.hardware.platform.x86_64
-    "${flakePath}/modules/components/networking/network-manager.nix"
+    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/zsh"
     foundrixModules.config.via
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
@@ -28,6 +28,7 @@
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
     foundrixModules.config.oomd
+    foundrixModules.config.networking.network-discovery
     inputs.linux-nitrous.outPath
   ];
 
@@ -48,11 +49,6 @@
       kernel.enable = true;
       fs.enable = true;
       userspace.enable = true;
-    };
-    services = {
-      printing = true;
-      scanning = true;
-      networkDiscovery = true;
     };
 
     shells.zsh.power10k = {
@@ -100,6 +96,8 @@
   ];
 
   services.fwupd.enable = true;
+  services.printing.enable = true;
+  hardware.sane.enable = true;
 
   users.users.noah = {
     isNormalUser = true;

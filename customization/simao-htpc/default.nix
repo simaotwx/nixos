@@ -24,9 +24,10 @@
     foundrixModules.profiles.desktop-full # todo: separate profile
     "${flakePath}/modules/components/kodi.nix"
     "${flakePath}/modules/compressors/xz.nix"
-    "${flakePath}/modules/components/networking/network-manager.nix"
+    foundrixModules.config.networking.network-manager
     (maybeImport "${flakePath}/local/simao-htpc-secrets.nix")
     foundrixModules.config.oomd
+    foundrixModules.config.networking.network-discovery
   ];
 
   # Customization of modules
@@ -46,9 +47,6 @@
       kernel.enable = true;
       fs.enable = true;
       userspace.enable = true;
-    };
-    services = {
-      networkDiscovery = true;
     };
     partitions.systemDisk = "/dev/nvme0n1";
     kodi = {

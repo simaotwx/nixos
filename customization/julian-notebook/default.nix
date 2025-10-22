@@ -17,7 +17,7 @@
     foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.intel
     "${flakePath}/modules/components/displaylink.nix"
-    "${flakePath}/modules/components/networking/network-manager.nix"
+    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
@@ -25,6 +25,7 @@
     "${flakePath}/modules/components/sound.nix"
     foundrixModules.config.compat
     foundrixModules.config.oomd
+    foundrixModules.config.networking.network-discovery
   ];
 
   # Customization of modules
@@ -43,11 +44,6 @@
       kernel.enable = true;
       fs.enable = true;
       userspace.enable = true;
-    };
-    services = {
-      printing = true;
-      scanning = true;
-      networkDiscovery = true;
     };
     shells.zsh.power10k.enable = true;
     desktop = {
@@ -76,6 +72,8 @@
   services.timesyncd.enable = true;
 
   services.printing.drivers = [ pkgs.brlaser pkgs.mfc9332cdwcupswrapper ];
+  services.printing.enable = true;
+  hardware.sane.enable = true;
 
   i18n.supportedLocales = options.i18n.supportedLocales.default ++ [
     "en_GB.UTF-8/UTF-8"

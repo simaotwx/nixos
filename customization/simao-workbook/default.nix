@@ -19,7 +19,7 @@
     ./filesystems.nix
     foundrixModules.hardware.gpu.amd
     "${flakePath}/modules/components/displaylink.nix"
-    "${flakePath}/modules/components/networking/network-manager.nix"
+    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
@@ -30,6 +30,7 @@
     foundrixModules.components.llama-cpp
     "${flakePath}/modules/components/crush.nix"
     foundrixModules.config.oomd
+    foundrixModules.config.networking.network-discovery
     ../fwdesktop/chat-ui-deployment.nix
   ];
 
@@ -49,11 +50,6 @@
       kernel.enable = true;
       fs.enable = true;
       userspace.enable = true;
-    };
-    services = {
-      printing = true;
-      scanning = true;
-      networkDiscovery = true;
     };
     nix.buildDirOnTmp = true;
     shells.zsh.lite.enable = true;
@@ -235,6 +231,8 @@
 
   boot.tmp.tmpfsSize = "75%";
 
+  services.printing.enable = true;
+  hardware.sane.enable = true;
   services.printing.drivers = [ pkgs.brlaser pkgs.mfc9332cdwcupswrapper ];
   networking.firewall.allowedTCPPorts = [7236 7250];
 

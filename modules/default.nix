@@ -14,7 +14,6 @@
     ./kernel.nix
     ./nix.nix
     ./security.nix
-    ./services.nix
     ./lib.nix
     ./targets
   ];

@@ -15,7 +15,7 @@
     ./filesystems.nix
     "${flakePath}/modules/hardware/apple/asahi.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
-    "${flakePath}/modules/components/networking/network-manager.nix"
+    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/docker.nix"
@@ -23,6 +23,7 @@
     foundrixModules.config.compat
     foundrixModules.config.oomd
     foundrixModules.config.lowmem
+    foundrixModules.config.networking.network-discovery
   ];
 
   nixpkgs.overlays = [
@@ -53,11 +54,6 @@
       kernel.enable = true;
       fs.enable = true;
       userspace.enable = true;
-    };
-    services = {
-      printing = true;
-      scanning = true;
-      networkDiscovery = true;
     };
     shells.zsh.lite.enable = true;
     desktop = {
@@ -108,6 +104,9 @@
   services.gvfs.enable = true;
   programs.adb.enable = true;
   programs.dconf.enable = true;
+
+  services.printing.enable = true;
+  hardware.sane.enable = true;
 
   security.sudo = {
     enable = true;
