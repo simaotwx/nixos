@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchurl
-, dpkg
-, makeWrapper
-, perl
-, coreutils
-, file
-, ghostscript
-, gnugrep
-, gnused
-, which
-, pkgs
-, patchelf
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  makeWrapper,
+  perl,
+  coreutils,
+  file,
+  ghostscript,
+  gnugrep,
+  gnused,
+  which,
+  pkgs,
+  patchelf,
 }:
 
 stdenv.mkDerivation rec {
@@ -63,6 +64,9 @@ stdenv.mkDerivation rec {
     homepage = "http://www.brother.com/";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

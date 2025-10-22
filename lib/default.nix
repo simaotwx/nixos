@@ -31,7 +31,7 @@
         });
       }
     ];
-   homeManagerMaster =
+  homeManagerMaster =
     users:
     let
       userList = lib.attrsets.mapAttrsToList (name: _: name) users;

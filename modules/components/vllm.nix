@@ -15,16 +15,18 @@ let
     else if amdGpuSupport then
       pkgs.unstable.vllm.overrideAttrs (prev: {
         ROCM_PATH = prev.ROCM_HOME or "${rocmPackages.clr}";
-        buildInputs = prev.buildInputs ++ (with rocmPackages; [
-          rocrand
-          rocblas
-          hipblaslt
-          rocsparse
-          rocsolver
-          rocprim
-          rocthrust
-          miopen
-        ]);
+        buildInputs =
+          prev.buildInputs
+          ++ (with rocmPackages; [
+            rocrand
+            rocblas
+            hipblaslt
+            rocsparse
+            rocsolver
+            rocprim
+            rocthrust
+            miopen
+          ]);
       })
     else
       pkgs.vllm;

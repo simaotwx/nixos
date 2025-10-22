@@ -119,10 +119,10 @@ in
       foundrixPkgs.git-aliases
       foundrixPkgs.pickrange
     ]
-  ++ lib.optionals (osConfig.networking.hostName == "triceratops") [
+    ++ lib.optionals (osConfig.networking.hostName == "triceratops") [
       ddrescue
     ]
-  ++ lib.optionals (osConfig.networking.hostName == "pteranodon") [
+    ++ lib.optionals (osConfig.networking.hostName == "pteranodon") [
 
     ];
 

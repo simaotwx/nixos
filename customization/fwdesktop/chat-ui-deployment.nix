@@ -1,95 +1,101 @@
 { lib, pkgs, ... }:
 
 let
-  dataDir        = "/var/lib/librechat";
-  mongoDataDir   = "/var/lib/librechat-mongo";
-  mongoPort      = 27038;
+  dataDir = "/var/lib/librechat";
+  mongoDataDir = "/var/lib/librechat-mongo";
+  mongoPort = 27038;
 
-  librechatYaml = pkgs.writeText "librechat.yaml" (builtins.toJSON {
-    version = "1.3.0";
-    cache = true;
+  librechatYaml = pkgs.writeText "librechat.yaml" (
+    builtins.toJSON {
+      version = "1.3.0";
+      cache = true;
 
-    endpoints = {
-      agents = {
-        disableBuilder = true;
-      };
-      custom = [{
-        name = "llama_local";
-        apiKey = "dummy";
-        baseURL = "http://127.0.0.1:11434/v1/";
-        models = {
-          fetch = true;
-          default = [ "local" ];
+      endpoints = {
+        agents = {
+          disableBuilder = true;
         };
-        titleConvo = true;
-        titleModel = "current_model";
-        modelDisplayLabel = "Local model";
-        addParams = {
-          model_identity = "You are GPT-OSS, a model running on local hardware";
-        };
-      }];
-    };
-
-    mcpServers = {
-      hello-world = {
-        type = "stdio";
-        command = lib.getExe (pkgs.python3.withPackages (ps: [ ps.mcp ]));
-        args = [
-          "${./mcp/hello-world.py}"
+        custom = [
+          {
+            name = "llama_local";
+            apiKey = "dummy";
+            baseURL = "http://127.0.0.1:11434/v1/";
+            models = {
+              fetch = true;
+              default = [ "local" ];
+            };
+            titleConvo = true;
+            titleModel = "current_model";
+            modelDisplayLabel = "Local model";
+            addParams = {
+              model_identity = "You are GPT-OSS, a model running on local hardware";
+            };
+          }
         ];
       };
-      fortune = {
-        type = "stdio";
-        command = lib.getExe (pkgs.writeShellApplication {
-          name = "fortune-mcp";
-          runtimeInputs = [
-            (pkgs.python3.withPackages (ps: [ ps.mcp ]))
-            pkgs.fortune
+
+      mcpServers = {
+        hello-world = {
+          type = "stdio";
+          command = lib.getExe (pkgs.python3.withPackages (ps: [ ps.mcp ]));
+          args = [
+            "${./mcp/hello-world.py}"
           ];
-          text = ''
-            python ${./mcp/fortune.py}
-          '';
-        });
-        args = [];
+        };
+        fortune = {
+          type = "stdio";
+          command = lib.getExe (
+            pkgs.writeShellApplication {
+              name = "fortune-mcp";
+              runtimeInputs = [
+                (pkgs.python3.withPackages (ps: [ ps.mcp ]))
+                pkgs.fortune
+              ];
+              text = ''
+                python ${./mcp/fortune.py}
+              '';
+            }
+          );
+          args = [ ];
+        };
       };
-    };
 
-    modelSpecs = {
-      enforce = true;
-      list = [
-        {
-          default = true;
-          description = "Chatting";
-          label = "Chatting";
-          name = "chatting";
-          preset = {
-            endpoint = "llama_local";
-            greeting = "";
-            model = "local";
-            modelLabel = "Local";
-            reasoning_effort = "low";
-            top_p = 1.0;
-            top_k = 0;
-            frequency_penalty = 1.0;
-            instructions = ''
-              You're a helpful assistant. Follow user's instructions strictly and refrain from any kind of flattery.
+      modelSpecs = {
+        enforce = true;
+        list = [
+          {
+            default = true;
+            description = "Chatting";
+            label = "Chatting";
+            name = "chatting";
+            preset = {
+              endpoint = "llama_local";
+              greeting = "";
+              model = "local";
+              modelLabel = "Local";
+              reasoning_effort = "low";
+              top_p = 1.0;
+              top_k = 0;
+              frequency_penalty = 1.0;
+              instructions = ''
+                You're a helpful assistant. Follow user's instructions strictly and refrain from any kind of flattery.
 
-              # Tool calling conventions
-              If a tool call fails, analyze the error and determine if it's a user error, assistant error or system error.
-              If it's a system or user error, please tell the user that it failed and why, then proceed with a suggestion on how to fix it.
-              If it's an assistant error, attempt to fix it by calling the tool again with corrected parameters.
-              When the assistant invokes any tool, it must process the tool's raw result verbatim – preserving the exact text,
-              formatting, order, and any metadata that the tool returns.
-              No paraphrasing, filtering, or additional commentary is allowed unless explicitly requested by the user.
-              The only things the assistant may do is process certain characters – like newlines, tabs etc.
-            '';
-            temperature = 1.0;
-          };
-        }
-      ];
-      prioritize = true;
-    };
-  });
+                # Tool calling conventions
+                If a tool call fails, analyze the error and determine if it's a user error, assistant error or system error.
+                If it's a system or user error, please tell the user that it failed and why, then proceed with a suggestion on how to fix it.
+                If it's an assistant error, attempt to fix it by calling the tool again with corrected parameters.
+                When the assistant invokes any tool, it must process the tool's raw result verbatim – preserving the exact text,
+                formatting, order, and any metadata that the tool returns.
+                No paraphrasing, filtering, or additional commentary is allowed unless explicitly requested by the user.
+                The only things the assistant may do is process certain characters – like newlines, tabs etc.
+              '';
+              temperature = 1.0;
+            };
+          }
+        ];
+        prioritize = true;
+      };
+    }
+  );
 
   mongoConf = pkgs.writeText "mongodb-librechat.conf" ''
     net:
@@ -103,10 +109,16 @@ let
   '';
 in
 {
-  users.users.librechat = { isSystemUser = true; group = "librechat"; };
-  users.groups.librechat = {};
-  users.users.mongodb-librechat = { isSystemUser = true; group = "mongodb-librechat"; };
-  users.groups.mongodb-librechat = {};
+  users.users.librechat = {
+    isSystemUser = true;
+    group = "librechat";
+  };
+  users.groups.librechat = { };
+  users.users.mongodb-librechat = {
+    isSystemUser = true;
+    group = "mongodb-librechat";
+  };
+  users.groups.mongodb-librechat = { };
 
   systemd.tmpfiles.rules = [
     "d ${dataDir} 0755 librechat librechat -"
@@ -137,7 +149,10 @@ in
 
   systemd.services.librechat = {
     description = "LibreChat server";
-    after = [ "network-online.target" "mongodb-librechat.service" ];
+    after = [
+      "network-online.target"
+      "mongodb-librechat.service"
+    ];
     requires = [ "mongodb-librechat.service" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {

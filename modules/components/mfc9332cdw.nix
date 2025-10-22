@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchurl
-, dpkg
-, makeWrapper
-, coreutils
-, gnugrep
-, gnused
-, mfc9332cdwlpr
-, pkgsi686Linux
-, psutils
-, patchelf
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  makeWrapper,
+  coreutils,
+  gnugrep,
+  gnused,
+  mfc9332cdwlpr,
+  pkgsi686Linux,
+  psutils,
+  patchelf,
 }:
 
 stdenv.mkDerivation rec {
@@ -59,7 +60,11 @@ stdenv.mkDerivation rec {
       | bash > "$out/lib/cups/filter/brother_lpdwrapper_mfc9332cdw"
 
     sed -i "/#! \/bin\/sh/a PATH=${
-      lib.makeBinPath [ coreutils gnused gnugrep ]
+      lib.makeBinPath [
+        coreutils
+        gnused
+        gnugrep
+      ]
     }:\$PATH" "$out/lib/cups/filter/brother_lpdwrapper_mfc9332cdw"
 
     chmod +x "$out/lib/cups/filter/brother_lpdwrapper_mfc9332cdw"

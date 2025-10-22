@@ -188,7 +188,15 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 5353 22 2222 7236 7250 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+    5353
+    22
+    2222
+    7236
+    7250
+  ];
 
   users.users."fwdesktop".openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICM7/qrzpmP/mK592MQUjYvjyGNcyaUDTOKfnBWWULvE simao@simao-workbook"

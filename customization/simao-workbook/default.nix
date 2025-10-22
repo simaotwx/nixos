@@ -75,7 +75,9 @@
 
   foundrix.general.keymap = "de-latin1";
   foundrix.hardware.gpu.amd.gpuTargets = [
-    "gfx1100" "gfx1101" "gfx1102"
+    "gfx1100"
+    "gfx1101"
+    "gfx1102"
   ];
 
   networking.hostName = "simao-workbook";
@@ -224,19 +226,30 @@
     android-udev-rules
   ];
 
-  security.pki.certificateFiles = builtins.concatMap (filePath: lib.optional (builtins.pathExists filePath) filePath) [
-    "${flakePath}/local/certificates/thea_root_ca.crt"
-    "${flakePath}/local/certificates/ordf_root_ca.crt"
-  ];
+  security.pki.certificateFiles =
+    builtins.concatMap (filePath: lib.optional (builtins.pathExists filePath) filePath)
+      [
+        "${flakePath}/local/certificates/thea_root_ca.crt"
+        "${flakePath}/local/certificates/ordf_root_ca.crt"
+      ];
 
   boot.tmp.tmpfsSize = "75%";
 
   services.printing.enable = true;
   hardware.sane.enable = true;
-  services.printing.drivers = [ pkgs.brlaser pkgs.mfc9332cdwcupswrapper ];
-  networking.firewall.allowedTCPPorts = [7236 7250];
+  services.printing.drivers = [
+    pkgs.brlaser
+    pkgs.mfc9332cdwcupswrapper
+  ];
+  networking.firewall.allowedTCPPorts = [
+    7236
+    7250
+  ];
 
-  networking.firewall.allowedUDPPorts = [7236 5353];
+  networking.firewall.allowedUDPPorts = [
+    7236
+    5353
+  ];
 
   services.clamav = {
     updater.enable = true;

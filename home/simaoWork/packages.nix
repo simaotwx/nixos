@@ -139,52 +139,62 @@ in
       phpstorm
       goland
       pycharm-professional
-    ]) ++ (
+    ])
+    ++ (
       with pkgs.azure-cli-extensions;
       let
         mkAzExtension =
-      {
-        pname,
-        version,
-        url,
-        hash,
-        description,
-        ...
-      }@args:
-      let
-        self = python3.pkgs.buildPythonPackage (
           {
-            format = "wheel";
-            src = fetchurl { inherit url hash; };
-            passthru = {
-              updateScript = extensionUpdateScript { inherit pname; };
-              tests.azWithExtension = testAzWithExts [ self ];
-            }
-            // args.passthru or { };
-            meta = {
-              inherit description;
-              inherit (azure-cli.meta) platforms maintainers;
-              homepage = "https://github.com/Azure/azure-cli-extensions";
-              changelog = "https://github.com/Azure/azure-cli-extensions/blob/main/src/${pname}/HISTORY.rst";
-              license = lib.licenses.mit;
-              sourceProvenance = [ lib.sourceTypes.fromSource ];
-            }
-            // args.meta or { };
-          }
-          // (removeAttrs args [
-            "url"
-            "hash"
-            "description"
-            "passthru"
-            "meta"
-          ])
-        );
+            pname,
+            version,
+            url,
+            hash,
+            description,
+            ...
+          }@args:
+          let
+            self = python3.pkgs.buildPythonPackage (
+              {
+                format = "wheel";
+                src = fetchurl { inherit url hash; };
+                passthru = {
+                  updateScript = extensionUpdateScript { inherit pname; };
+                  tests.azWithExtension = testAzWithExts [ self ];
+                }
+                // args.passthru or { };
+                meta = {
+                  inherit description;
+                  inherit (azure-cli.meta) platforms maintainers;
+                  homepage = "https://github.com/Azure/azure-cli-extensions";
+                  changelog = "https://github.com/Azure/azure-cli-extensions/blob/main/src/${pname}/HISTORY.rst";
+                  license = lib.licenses.mit;
+                  sourceProvenance = [ lib.sourceTypes.fromSource ];
+                }
+                // args.meta or { };
+              }
+              // (removeAttrs args [
+                "url"
+                "hash"
+                "description"
+                "passthru"
+                "meta"
+              ])
+            );
+          in
+          self;
       in
-      self;
-    in [
-        ssh kusto webapp support terraform
-        vm-repair front-door automation
-        log-analytics image-gallery azure-firewall
+      [
+        ssh
+        kusto
+        webapp
+        support
+        terraform
+        vm-repair
+        front-door
+        automation
+        log-analytics
+        image-gallery
+        azure-firewall
         application-insights
         (mkAzExtension rec {
           pname = "serial-console";

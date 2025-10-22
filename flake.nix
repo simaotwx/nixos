@@ -170,8 +170,7 @@
           lib.nixosSystem rec {
             system = "x86_64-linux";
             specialArgs = commonArgs system;
-            modules =
-              commonModules ++ [ custPath ];
+            modules = commonModules ++ [ custPath ];
           };
 
         simao-workbook = lib.nixosSystem rec {

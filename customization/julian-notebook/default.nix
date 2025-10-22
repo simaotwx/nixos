@@ -71,7 +71,10 @@
 
   services.timesyncd.enable = true;
 
-  services.printing.drivers = [ pkgs.brlaser pkgs.mfc9332cdwcupswrapper ];
+  services.printing.drivers = [
+    pkgs.brlaser
+    pkgs.mfc9332cdwcupswrapper
+  ];
   services.printing.enable = true;
   hardware.sane.enable = true;
 

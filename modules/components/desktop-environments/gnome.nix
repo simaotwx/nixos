@@ -53,24 +53,29 @@
     services.xserver.displayManager.gdm.enable = config.customization.desktop.gnome.useGdm;
     services.xserver.desktopManager.gnome.enable = true;
     nixpkgs.overlays = [
-      (final: prev:
-      let fixSpotify = spotify: spotify.overrideAttrs (
-          finalAttrs: prevAttrs: {
-            fixupPhase =
-              builtins.replaceStrings
-                [
-                  ''--add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime=true}}"''
-                  ''--add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland}}"''
-                ]
-                [ "" "" ]
-                prevAttrs.fixupPhase;
-          }
-        );
-      in
-      {
-        spotify = fixSpotify prev.spotify;
-        unstable.spotify = fixSpotify prev.unstable.spotify;
-      })
+      (
+        final: prev:
+        let
+          fixSpotify =
+            spotify:
+            spotify.overrideAttrs (
+              finalAttrs: prevAttrs: {
+                fixupPhase =
+                  builtins.replaceStrings
+                    [
+                      ''--add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime=true}}"''
+                      ''--add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland}}"''
+                    ]
+                    [ "" "" ]
+                    prevAttrs.fixupPhase;
+              }
+            );
+        in
+        {
+          spotify = fixSpotify prev.spotify;
+          unstable.spotify = fixSpotify prev.unstable.spotify;
+        }
+      )
       (final: prev: {
         mattermost-desktop = prev.mattermost-desktop.overrideAttrs (
           finalAttrs: prevAttrs: {
