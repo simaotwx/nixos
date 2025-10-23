@@ -23,7 +23,7 @@
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/docker.nix"
-    "${flakePath}/modules/components/sound.nix"
+    foundrixModules.config.media.pipewire
     foundrixModules.config.compat
     foundrixModules.config.oomd
     foundrixModules.config.networking.network-discovery
