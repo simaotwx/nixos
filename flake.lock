@@ -77,11 +77,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761255375,
-        "narHash": "sha256-j0+zNOyJ9rUozhnfowbKcq8ZeYgWWPRMoxC/PTVQhd4=",
+        "lastModified": 1761255775,
+        "narHash": "sha256-CmDGAORiO5M+W0BsByXEL+swj0A1Ul0DqzBNauVDoOs=",
         "owner": "xdevs23",
         "repo": "foundrix",
-        "rev": "e9342626274c75e390a5254fad49d47e9affa4f7",
+        "rev": "1ac8118ffecc08873b358b4c13f06148cfd2c3fe",
         "type": "github"
       },
       "original": {
