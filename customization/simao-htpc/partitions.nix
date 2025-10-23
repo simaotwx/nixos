@@ -50,7 +50,7 @@
           };
           "store" = {
             storePaths = [ config.system.build.toplevel ];
-            stripNixStorePrefix = true;
+            nixStorePrefix = "/";
             repartConfig = {
               Type = lib.toLower "00000000-0000-4000-9000-000000000040";
               Label = "store_${config.system.image.version}";
