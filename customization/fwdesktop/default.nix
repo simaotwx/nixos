@@ -11,16 +11,13 @@
   imports = with inputs.nixos-hardware.nixosModules; [
     common-pc
     framework-desktop-amd-ai-max-300-series
-    foundrixModules.profiles.desktop-full
+    foundrixModules.profiles.desktop-base
     ./filesystems.nix
     foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.amd
-    foundrixModules.config.oomd
-    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/docker.nix"
     foundrixModules.config.compat
-    foundrixModules.config.networking.network-discovery
     foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
     ./chat-ui-deployment.nix

@@ -21,7 +21,6 @@
     foundrixModules.hardware.peripherals.razer
     foundrixModules.hardware.gpu.intel
     "${flakePath}/modules/components/desktop-environments/hyprland.nix"
-    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/gui/quickshell"
     "${flakePath}/modules/components/zsh"
     foundrixModules.config.via
@@ -29,13 +28,9 @@
     "${flakePath}/modules/components/steam.nix"
     foundrixModules.config.mdraid
     "${flakePath}/modules/components/docker.nix"
-    foundrixModules.config.media.pipewire
-    foundrixModules.config.compat
-    foundrixModules.config.networking.network-discovery
     foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
     "${flakePath}/modules/components/crush.nix"
-    foundrixModules.config.oomd
     inputs.linux-nitrous.outPath
   ];
 

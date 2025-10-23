@@ -18,17 +18,12 @@
     ./tpm.nix
     foundrixModules.hardware.gpu.amd
     foundrixModules.hardware.platform.x86_64
-    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/zsh"
     foundrixModules.config.via
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/steam.nix"
     "${flakePath}/modules/components/zram.nix"
     "${flakePath}/modules/components/docker.nix"
-    foundrixModules.config.media.pipewire
-    foundrixModules.config.compat
-    foundrixModules.config.oomd
-    foundrixModules.config.networking.network-discovery
     inputs.linux-nitrous.outPath
   ];
 

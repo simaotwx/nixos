@@ -15,15 +15,10 @@
     ./filesystems.nix
     "${flakePath}/modules/hardware/apple/asahi.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
-    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/docker.nix"
-    foundrixModules.config.media.pipewire
-    foundrixModules.config.compat
-    foundrixModules.config.oomd
     foundrixModules.config.lowmem
-    foundrixModules.config.networking.network-discovery
   ];
 
   nixpkgs.overlays = [

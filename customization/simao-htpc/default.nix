@@ -21,13 +21,10 @@
     ./options.nix
     ./sysupdate.nix
     foundrixModules.hardware.gpu.intel
-    foundrixModules.profiles.desktop-full # todo: separate profile
+    foundrixModules.profiles.desktop-base
     foundrixModules.config.kodi-gbm
     "${flakePath}/modules/compressors/xz.nix"
-    foundrixModules.config.networking.network-manager
     (maybeImport "${flakePath}/local/simao-htpc-secrets.nix")
-    foundrixModules.config.oomd
-    foundrixModules.config.networking.network-discovery
   ];
 
   # Customization of modules

@@ -17,15 +17,10 @@
     foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.intel
     "${flakePath}/modules/components/displaylink.nix"
-    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/docker.nix"
-    foundrixModules.config.media.pipewire
-    foundrixModules.config.compat
-    foundrixModules.config.oomd
-    foundrixModules.config.networking.network-discovery
   ];
 
   # Customization of modules
