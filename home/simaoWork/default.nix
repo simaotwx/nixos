@@ -10,13 +10,13 @@
     ../simao/dconf.nix
     ./direnv.nix
     ./gtk.nix
-    ./htop.nix
     ./packages.nix
     ./qt.nix
     "${flakePath}/modules/components/home/vscode.nix"
     ./xdg.nix
     foundrixModules.home.alacritty
     foundrixModules.home.qml
+    foundrixModules.home.htop
   ];
 
   home = {

@@ -1,6 +1,7 @@
 {
   pkgs,
   flakePath,
+  foundrixModules,
   ...
 }:
 {
@@ -8,11 +9,11 @@
     ../simao/dconf.nix
     ./direnv.nix
     ./gtk.nix
-    ./htop.nix
     ./packages.nix
     ./qt.nix
     "${flakePath}/modules/components/home/vscode.nix"
     ./xdg.nix
+    foundrixModules.home.htop
   ];
 
   home = {
