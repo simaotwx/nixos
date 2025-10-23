@@ -192,7 +192,5 @@
     KERNEL=="hidraw*", ATTRS{idVendor}=="32ac", ATTRS{idProduct}=="0018", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
   '';
 
-  virtualisation.vmVariant = import ./vm.nix;
-
   system.stateVersion = "25.05";
 }

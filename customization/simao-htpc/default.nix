@@ -234,7 +234,5 @@
   system.image.version = "33";
   system.image.id = "simao-htpc-htos";
 
-  virtualisation.vmVariant = import ./vm.nix;
-
   system.stateVersion = "25.05";
 }

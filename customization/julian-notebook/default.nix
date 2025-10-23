@@ -193,7 +193,5 @@
 
   customization.virtualisation.docker.rootless.enable = true;
 
-  virtualisation.vmVariant = import ./vm.nix;
-
   system.stateVersion = "25.05";
 }

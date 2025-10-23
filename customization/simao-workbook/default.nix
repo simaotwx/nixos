@@ -274,7 +274,5 @@
 
   boot.kernelPackages = pkgs.linuxPackages_6_16;
 
-  virtualisation.vmVariant = import ./vm.nix;
-
   system.stateVersion = "25.05";
 }

@@ -247,7 +247,5 @@
       "crush" # irrecovably becomes free after a while
     ];
 
-  virtualisation.vmVariant = import ./vm.nix;
-
   system.stateVersion = "25.05";
 }

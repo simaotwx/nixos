@@ -203,7 +203,5 @@
   system.image.version = "1";
   system.image.id = "nanonet-minilab-os";
 
-  virtualisation.vmVariant = import ./vm.nix;
-
   system.stateVersion = "25.05";
 }
