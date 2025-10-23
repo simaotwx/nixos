@@ -8,7 +8,6 @@
 {
   imports = [
     ../simao/dconf.nix
-    ./direnv.nix
     ./gtk.nix
     ./packages.nix
     ./qt.nix
@@ -17,6 +16,7 @@
     foundrixModules.home.alacritty
     foundrixModules.home.qml
     foundrixModules.home.htop
+    foundrixModules.home.direnv
   ];
 
   home = {

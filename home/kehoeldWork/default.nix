@@ -1,14 +1,19 @@
-{ pkgs, flakePath, foundrixModules, ... }:
+{
+  pkgs,
+  flakePath,
+  foundrixModules,
+  ...
+}:
 {
   imports = [
     ./dconf.nix
-    ./direnv.nix
     ./gtk.nix
     ./packages.nix
     ./qt.nix
     "${flakePath}/modules/components/home/vscode.nix"
     ./xdg.nix
     foundrixModules.home.htop
+    foundrixModules.home.direnv
   ];
 
   home = {
