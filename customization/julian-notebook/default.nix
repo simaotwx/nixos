@@ -45,7 +45,7 @@
       fs.enable = true;
       userspace.enable = true;
     };
-    shells.zsh.power10k.enable = true;
+    shells.zsh.lite.enable = true;
     desktop = {
       gnome = {
         extensions = with pkgs.gnomeExtensions; [
