@@ -27,8 +27,6 @@
     "${flakePath}/modules/boot/auto-detect-system-disk.nix"
     "${flakePath}/modules/ota/systemd-sysupdate.nix"
     "${flakePath}/local/nanonet-minilab-secrets.nix"
-    foundrixModules.config.oomd
-    foundrixModules.config.networking.network-discovery
   ];
 
   target.ota.updateServer = "http://aludepp:8080/result";
@@ -204,8 +202,6 @@
   system.nixos.distroName = "nanonet minilab OS";
   system.image.version = "1";
   system.image.id = "nanonet-minilab-os";
-
-  virtualisation.vmVariant = import ./vm.nix;
 
   system.stateVersion = "25.05";
 }

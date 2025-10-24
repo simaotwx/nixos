@@ -19,18 +19,13 @@
     ./filesystems.nix
     foundrixModules.hardware.gpu.amd
     "${flakePath}/modules/components/displaylink.nix"
-    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/docker.nix"
-    "${flakePath}/modules/components/sound.nix"
-    foundrixModules.config.compat
     foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
     "${flakePath}/modules/components/crush.nix"
-    foundrixModules.config.oomd
-    foundrixModules.config.networking.network-discovery
     ../fwdesktop/chat-ui-deployment.nix
   ];
 
@@ -278,8 +273,6 @@
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_6_16;
-
-  virtualisation.vmVariant = import ./vm.nix;
 
   system.stateVersion = "25.05";
 }

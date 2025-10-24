@@ -19,14 +19,9 @@
     foundrixModules.hardware.gpu.amd
     foundrixModules.hardware.platform.x86_64
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
-    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/docker.nix"
-    "${flakePath}/modules/components/sound.nix"
-    foundrixModules.config.compat
-    foundrixModules.config.oomd
-    foundrixModules.config.networking.network-discovery
   ];
 
   # Customization of modules
@@ -196,8 +191,6 @@
   services.udev.extraRules = ''
     KERNEL=="hidraw*", ATTRS{idVendor}=="32ac", ATTRS{idProduct}=="0018", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
   '';
-
-  virtualisation.vmVariant = import ./vm.nix;
 
   system.stateVersion = "25.05";
 }

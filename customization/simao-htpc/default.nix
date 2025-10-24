@@ -21,13 +21,9 @@
     ./options.nix
     ./sysupdate.nix
     foundrixModules.hardware.gpu.intel
-    foundrixModules.profiles.desktop-full # todo: separate profile
-    foundrixModules.config.kodi-gbm
+    foundrixModules.profiles.htpc
     "${flakePath}/modules/compressors/xz.nix"
-    foundrixModules.config.networking.network-manager
     (maybeImport "${flakePath}/local/simao-htpc-secrets.nix")
-    foundrixModules.config.oomd
-    foundrixModules.config.networking.network-discovery
   ];
 
   # Customization of modules
@@ -54,9 +50,6 @@
     };
   };
 
-  # Enable bpftune for performance tuning
-  services.bpftune.enable = true;
-
   nix.enable = false;
 
   boot.loader.timeout = 0;
@@ -65,12 +58,8 @@
   '';
   boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_lqx;
 
-  users.users.htpc = {
-    isNormalUser = true;
-    extraGroups = [ ];
-    password = "htpc";
+  users.users.${config.foundrix.config.kodi-gbm.user} = {
     uid = 1000;
-    shell = pkgs.bash;
   };
   users.users.admin = {
     isNormalUser = true;
@@ -85,14 +74,7 @@
   users.users.root.password = "root";
   nix.settings.trusted-users = [ "admin" ];
 
-  users.groups.htpc.gid = config.users.users.htpc.uid;
   users.groups.admin.gid = config.users.users.admin.uid;
-  users.allowNoPasswordLogin = true;
-  users.mutableUsers = false;
-  services.displayManager.autoLogin.user = config.customization.kodi.user;
-  #services.getty.autologinUser = config.services.displayManager.autoLogin.user;
-  boot.initrd.systemd.enable = true;
-  boot.tmp.cleanOnBoot = true;
   boot.initrd.systemd.emergencyAccess = true;
   boot.initrd.availableKernelModules = [
     "nvme"
@@ -120,11 +102,7 @@
       ];
   };
 
-  networking.hostName = "htpc";
-
   time.timeZone = "Europe/Berlin";
-
-  services.timesyncd.enable = true;
 
   i18n.supportedLocales = options.i18n.supportedLocales.default ++ [
     "en_GB.UTF-8/UTF-8"
@@ -205,8 +183,6 @@
   };
   networking.firewall.allowedTCPPorts = [
     22
-    8081
-    9090
   ];
 
   hardware.enableRedistributableFirmware = true;
@@ -231,13 +207,8 @@
       };
     };
 
-  boot.uki.name = "htos";
-  system.nixos.distroId = "htos";
-  system.nixos.distroName = "Home Theater OS";
   system.image.version = "33";
   system.image.id = "simao-htpc-htos";
-
-  virtualisation.vmVariant = import ./vm.nix;
 
   system.stateVersion = "25.05";
 }

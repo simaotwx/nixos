@@ -18,17 +18,12 @@
     ./tpm.nix
     foundrixModules.hardware.gpu.amd
     foundrixModules.hardware.platform.x86_64
-    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/zsh"
     foundrixModules.config.via
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/steam.nix"
     "${flakePath}/modules/components/zram.nix"
     "${flakePath}/modules/components/docker.nix"
-    "${flakePath}/modules/components/sound.nix"
-    foundrixModules.config.compat
-    foundrixModules.config.oomd
-    foundrixModules.config.networking.network-discovery
     inputs.linux-nitrous.outPath
   ];
 
@@ -230,8 +225,6 @@
   time.timeZone = "Europe/Berlin";
 
   services.timesyncd.enable = true;
-
-  virtualisation.vmVariant = import ./vm.nix;
 
   system.stateVersion = "25.05";
 }

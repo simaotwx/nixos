@@ -33,7 +33,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     linux-nitrous = {
-      url = "file+https://gitlab.com/xdevs23/linux-nitrous/-/raw/v6.17.4-1-nixos/default.nix";
+      url = "file+https://gitlab.com/xdevs23/linux-nitrous/-/raw/v6.17.5-1-nixos/default.nix";
       flake = false;
     };
   };

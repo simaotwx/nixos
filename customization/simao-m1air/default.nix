@@ -15,15 +15,10 @@
     ./filesystems.nix
     "${flakePath}/modules/hardware/apple/asahi.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
-    foundrixModules.config.networking.network-manager
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/docker.nix"
-    "${flakePath}/modules/components/sound.nix"
-    foundrixModules.config.compat
-    foundrixModules.config.oomd
     foundrixModules.config.lowmem
-    foundrixModules.config.networking.network-discovery
   ];
 
   nixpkgs.overlays = [
@@ -203,8 +198,6 @@
       "makemkv"
       "android-studio-stable"
     ];
-
-  virtualisation.vmVariant = import ./vm.nix;
 
   system.stateVersion = "25.05";
 }

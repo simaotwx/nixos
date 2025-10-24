@@ -77,11 +77,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761169970,
-        "narHash": "sha256-dfCmLWcT01AcIgJrWaeMSWWychjNkm2UGjiW+X3YyFE=",
+        "lastModified": 1761255775,
+        "narHash": "sha256-CmDGAORiO5M+W0BsByXEL+swj0A1Ul0DqzBNauVDoOs=",
         "owner": "xdevs23",
         "repo": "foundrix",
-        "rev": "1df382b8edb8d3779123d6c5848d9c994d100b42",
+        "rev": "1ac8118ffecc08873b358b4c13f06148cfd2c3fe",
         "type": "github"
       },
       "original": {
@@ -437,13 +437,13 @@
     "linux-nitrous": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-zfQfRtrrVbWntOlvqAOt5EwSSEBQGg772freapnmB+s=",
+        "narHash": "sha256-XtKFwpgR/zIcfVNJzBsHt4HwP7kcBwH9TT2HLzOdJOA=",
         "type": "file",
-        "url": "https://gitlab.com/xdevs23/linux-nitrous/-/raw/v6.17.4-1-nixos/default.nix"
+        "url": "https://gitlab.com/xdevs23/linux-nitrous/-/raw/v6.17.5-1-nixos/default.nix"
       },
       "original": {
         "type": "file",
-        "url": "https://gitlab.com/xdevs23/linux-nitrous/-/raw/v6.17.4-1-nixos/default.nix"
+        "url": "https://gitlab.com/xdevs23/linux-nitrous/-/raw/v6.17.5-1-nixos/default.nix"
       }
     },
     "nixos-apple-silicon": {

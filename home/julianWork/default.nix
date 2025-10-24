@@ -7,14 +7,14 @@
 {
   imports = [
     ./dconf.nix
-    ./direnv.nix
     ./gtk.nix
-    ./htop.nix
     ./packages.nix
     ./qt.nix
     "${flakePath}/modules/components/home/vscode.nix"
     ./xdg.nix
     foundrixModules.home.qml
+    foundrixModules.home.htop
+    foundrixModules.home.direnv
   ];
 
   home = {
