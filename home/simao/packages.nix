@@ -100,7 +100,6 @@
       inputs.quickshell.packages.${system}.default
       qt6Packages.qtdeclarative
       aider-chat-full
-      crush-latest
       gimp3
       pinta
       krita

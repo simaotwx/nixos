@@ -26,7 +26,6 @@
     "${flakePath}/modules/components/docker.nix"
     foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
-    "${flakePath}/modules/components/crush.nix"
     ../fwdesktop/chat-ui-deployment.nix
   ];
 
@@ -233,7 +232,6 @@
       "displaylink"
       "citrix-workspace"
       "terraform"
-      "crush"
       "mongodb"
       "mfc9332cdwlpr"
     ];

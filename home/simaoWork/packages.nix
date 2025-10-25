@@ -107,7 +107,6 @@ in
       krita
       ddrescue
       hdparm
-      crush-latest
       remmina
       btop
       foundrixPkgs.json2nix

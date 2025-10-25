@@ -31,7 +31,6 @@
     "${flakePath}/modules/components/docker.nix"
     foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
-    "${flakePath}/modules/components/crush.nix"
     inputs.linux-nitrous.outPath
   ];
 
@@ -209,7 +208,6 @@
       "steam-unwrapped"
       "makemkv"
       "android-studio-stable"
-      "crush" # irrecovably becomes free after a while
     ];
 
   system.stateVersion = "25.05";
