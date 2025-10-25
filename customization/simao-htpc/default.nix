@@ -118,21 +118,6 @@
     enable = true;
   };
 
-  environment = {
-    systemPackages = with pkgs; [
-      vim
-      dust
-      ripgrep
-      exfatprogs
-    ];
-    defaultPackages = [ ];
-    variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-      PAGER = "less";
-    };
-  };
-
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (pkgs.lib.getName pkg) [

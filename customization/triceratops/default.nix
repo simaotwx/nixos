@@ -134,21 +134,12 @@
 
   environment = {
     systemPackages = with pkgs; [
-      vim
-      dust
       duperemove
-      ripgrep
-      exfatprogs
-      nix-bundle
       gparted
       nodejs
       openrgb-with-all-plugins
     ];
-    defaultPackages = [ ];
     variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-      PAGER = "less";
       BROWSER = "zen-beta";
     };
   };

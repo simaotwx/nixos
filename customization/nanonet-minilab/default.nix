@@ -105,21 +105,6 @@
     enable = true;
   };
 
-  environment = {
-    systemPackages = with pkgs; [
-      vim
-      dust
-      ripgrep
-      exfatprogs
-    ];
-    defaultPackages = [ ];
-    variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-      PAGER = "less";
-    };
-  };
-
   systemd.network.wait-online.anyInterface = true;
 
   services.openssh = {

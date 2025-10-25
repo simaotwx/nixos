@@ -183,24 +183,12 @@
 
   environment = {
     systemPackages = with pkgs; [
-      vim
-      dust
       duperemove
-      ripgrep
       kdePackages.polkit-kde-agent-1
-      exfatprogs
-      nix-bundle
       podman-compose
       gparted
-      strace
-      wget
-      curl
     ];
-    defaultPackages = [ ];
     variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-      PAGER = "less";
       BROWSER = "zen-beta";
     };
   };

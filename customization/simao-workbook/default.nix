@@ -127,12 +127,7 @@
 
   environment = {
     systemPackages = with pkgs; [
-      vim
-      dust
       duperemove
-      ripgrep
-      exfatprogs
-      nix-bundle
       gparted
       pop-wallpapers
       (pkgs.writeShellScriptBin "dhcp-setup" ''
@@ -172,11 +167,7 @@
         # Start dnsmasq with DHCP
         ${lib.getExe pkgs.dnsmasq} -d -i "$IFACE" --bind-interfaces --except-interface=lo --port=0 --listen-address="$GATEWAY" --dhcp-range="$DHCP_START,$DHCP_END,12h"        '')
     ];
-    defaultPackages = [ ];
     variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-      PAGER = "less";
       BROWSER = "firefox";
     };
     pathsToLink = [

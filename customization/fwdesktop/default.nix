@@ -121,22 +121,10 @@
 
   environment = {
     systemPackages = with pkgs; [
-      vim
-      dust
       duperemove
-      ripgrep
-      exfatprogs
-      nix-bundle
       gparted
-      strace
-      wget
-      curl
     ];
-    defaultPackages = [ ];
     variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-      PAGER = "less";
       BROWSER = "firefox";
     };
   };
