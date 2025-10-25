@@ -169,6 +169,7 @@
       noto-fonts
       noto-fonts-emoji
       noto-fonts-cjk-sans
+      dejavu_fonts
       liberation_ttf
       fira
       adwaita-fonts
