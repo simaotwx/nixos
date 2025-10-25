@@ -13,6 +13,7 @@
     common-pc-ssd
     framework-12th-gen-intel
     foundrixModules.profiles.desktop-full
+    foundrixModules.config.adb
     ./filesystems.nix
     foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.intel
@@ -88,8 +89,6 @@
 
   users.groups.julian.gid = 1000;
 
-  programs.adb.enable = true;
-
   security.sudo = {
     enable = true;
   };
@@ -126,10 +125,6 @@
       BROWSER = "firefox";
     };
   };
-
-  services.udev.packages = with pkgs; [
-    android-udev-rules
-  ];
 
   services.clamav = {
     updater.enable = true;

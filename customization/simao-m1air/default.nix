@@ -12,6 +12,7 @@
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
     foundrixModules.profiles.desktop-full
     foundrixModules.hardware.platform.arm64
+    foundrixModules.config.adb
     ./filesystems.nix
     "${flakePath}/modules/hardware/apple/asahi.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
@@ -94,8 +95,6 @@
 
   users.groups.simao.gid = 1000;
 
-  programs.adb.enable = true;
-
   services.printing.enable = true;
   hardware.sane.enable = true;
 
@@ -136,10 +135,6 @@
       BROWSER = "zen-beta";
     };
   };
-
-  services.udev.packages = with pkgs; [
-    android-udev-rules
-  ];
 
   security.pki.certificateFiles = [
     "${flakePath}/local/certificates/at2.crt"

@@ -27,6 +27,7 @@
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/steam.nix"
     foundrixModules.config.mdraid
+    foundrixModules.config.adb
     "${flakePath}/modules/components/docker.nix"
     foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
@@ -152,8 +153,6 @@
 
   users.groups.simao.gid = 1000;
 
-  programs.adb.enable = true;
-
   security.sudo = {
     enable = true;
   };
@@ -192,10 +191,6 @@
       BROWSER = "zen-beta";
     };
   };
-
-  services.udev.packages = with pkgs; [
-    android-udev-rules
-  ];
 
   services.printing.drivers = [ pkgs.brlaser ];
 

@@ -15,6 +15,7 @@
     common-pc-ssd
     framework-16-7040-amd
     foundrixModules.profiles.desktop-full
+    foundrixModules.config.adb
     ./filesystems.nix
     foundrixModules.hardware.gpu.amd
     foundrixModules.hardware.platform.x86_64
@@ -81,8 +82,6 @@
 
   users.groups.kehoeld.gid = 1000;
 
-  programs.adb.enable = true;
-
   security.sudo = {
     enable = true;
   };
@@ -126,10 +125,6 @@
   ];
   services.printing.enable = true;
   hardware.sane.enable = true;
-
-  services.udev.packages = with pkgs; [
-    android-udev-rules
-  ];
 
   services.clamav = {
     updater.enable = true;

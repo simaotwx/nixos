@@ -16,6 +16,7 @@
     foundrixModules.profiles.desktop-full
     ./filesystems.nix
     ./tpm.nix
+    foundrixModules.config.adb
     foundrixModules.hardware.gpu.amd
     foundrixModules.hardware.platform.x86_64
     "${flakePath}/modules/components/zsh"
@@ -104,8 +105,6 @@
 
   users.groups.noah.gid = 1000;
 
-  programs.adb.enable = true;
-
   security.sudo = {
     enable = true;
   };
@@ -143,10 +142,6 @@
       BROWSER = "zen-beta";
     };
   };
-
-  services.udev.packages = with pkgs; [
-    android-udev-rules
-  ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 

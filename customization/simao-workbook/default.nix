@@ -18,6 +18,7 @@
     foundrixModules.profiles.desktop-full
     ./filesystems.nix
     foundrixModules.hardware.gpu.amd
+    foundrixModules.config.adb
     "${flakePath}/modules/components/displaylink.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/zsh"
@@ -95,8 +96,6 @@
   };
 
   users.groups.simao.gid = 1000;
-
-  programs.adb.enable = true;
 
   security.sudo = {
     enable = true;
@@ -186,10 +185,6 @@
         }
       );
     })
-  ];
-
-  services.udev.packages = with pkgs; [
-    android-udev-rules
   ];
 
   security.pki.certificateFiles =
