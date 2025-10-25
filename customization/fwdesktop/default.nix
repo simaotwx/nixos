@@ -71,8 +71,6 @@
 
   time.timeZone = "Europe/Berlin";
 
-  services.timesyncd.enable = true;
-
   i18n.supportedLocales = options.i18n.supportedLocales.default ++ [
     "en_GB.UTF-8/UTF-8"
     "de_DE.UTF-8/UTF-8"
@@ -103,10 +101,6 @@
     packages = with pkgs; [
       nerd-fonts.fira-code
       nerd-fonts.hasklug
-      noto-fonts
-      noto-fonts-emoji
-      noto-fonts-cjk-sans
-      liberation_ttf
       fira
       adwaita-fonts
       material-icons
@@ -116,22 +110,12 @@
       iosevka
       iosevka-comfy.comfy
     ];
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-        serif = [ "Liberation Serif" ];
-        sansSerif = [
-          "Adwaita Sans"
-          "Noto"
-        ];
-        monospace = [ "Adwaita Mono" ];
-        emoji = [ "Noto Color Emoji" ];
-      };
-      hinting = {
-        enable = true;
-        style = "slight";
-      };
-      subpixel.rgba = "rgb";
+    fontconfig.defaultFonts = {
+      sansSerif = [
+        "Adwaita Sans"
+        "Noto"
+      ];
+      monospace = [ "Adwaita Mono" ];
     };
   };
 

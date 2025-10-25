@@ -104,9 +104,7 @@
 
   users.groups.noah.gid = 1000;
 
-  services.gvfs.enable = true;
   programs.adb.enable = true;
-  programs.dconf.enable = true;
 
   security.sudo = {
     enable = true;
@@ -116,10 +114,6 @@
     packages = with pkgs; [
       nerd-fonts.fira-code
       nerd-fonts.hasklug
-      noto-fonts
-      noto-fonts-emoji
-      noto-fonts-cjk-sans
-      liberation_ttf
       fira
       adwaita-fonts
       material-icons
@@ -129,22 +123,12 @@
       iosevka
       iosevka-comfy.comfy
     ];
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-        serif = [ "Liberation Serif" ];
-        sansSerif = [
-          "Adwaita Sans"
-          "Noto"
-        ];
-        monospace = [ "Adwaita Mono" ];
-        emoji = [ "Noto Color Emoji" ];
-      };
-      hinting = {
-        enable = true;
-        style = "slight";
-      };
-      subpixel.rgba = "rgb";
+    fontconfig.defaultFonts = {
+      sansSerif = [
+        "Adwaita Sans"
+        "Noto"
+      ];
+      monospace = [ "Adwaita Mono" ];
     };
   };
 
@@ -172,8 +156,6 @@
   services.udev.packages = with pkgs; [
     android-udev-rules
   ];
-
-  services.bpftune.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
@@ -223,8 +205,6 @@
   networking.hostName = "triceratops";
 
   time.timeZone = "Europe/Berlin";
-
-  services.timesyncd.enable = true;
 
   system.stateVersion = "25.05";
 }

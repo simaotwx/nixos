@@ -118,33 +118,6 @@
     enable = true;
   };
 
-  fonts = {
-    packages = with pkgs; [
-      noto-fonts
-      noto-fonts-emoji
-      noto-fonts-cjk-sans
-      liberation_ttf
-      adwaita-fonts
-    ];
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-        serif = [ "Liberation Serif" ];
-        sansSerif = [
-          "Adwaita Sans"
-          "Noto"
-        ];
-        monospace = [ "Adwaita Mono" ];
-        emoji = [ "Noto Color Emoji" ];
-      };
-      hinting = {
-        enable = true;
-        style = "slight";
-      };
-      subpixel.rgba = "rgb";
-    };
-  };
-
   environment = {
     systemPackages = with pkgs; [
       vim

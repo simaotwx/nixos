@@ -79,8 +79,6 @@
 
   time.timeZone = "Europe/Berlin";
 
-  services.timesyncd.enable = true;
-
   i18n.supportedLocales = options.i18n.supportedLocales.default ++ [
     "en_GB.UTF-8/UTF-8"
     "de_DE.UTF-8/UTF-8"
@@ -98,9 +96,7 @@
 
   users.groups.simao.gid = 1000;
 
-  services.gvfs.enable = true;
   programs.adb.enable = true;
-  programs.dconf.enable = true;
 
   security.sudo = {
     enable = true;
@@ -111,10 +107,6 @@
     packages = with pkgs; [
       nerd-fonts.fira-code
       nerd-fonts.hasklug
-      noto-fonts
-      noto-fonts-emoji
-      noto-fonts-cjk-sans
-      liberation_ttf
       fira
       adwaita-fonts
       material-icons
@@ -124,22 +116,12 @@
       iosevka
       iosevka-comfy.comfy
     ];
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-        serif = [ "Liberation Serif" ];
-        sansSerif = [
-          "Adwaita Sans"
-          "Noto"
-        ];
-        monospace = [ "Adwaita Mono" ];
-        emoji = [ "Noto Color Emoji" ];
-      };
-      hinting = {
-        enable = true;
-        style = "slight";
-      };
-      subpixel.rgba = "rgb";
+    fontconfig.defaultFonts = {
+      sansSerif = [
+        "Adwaita Sans"
+        "Noto"
+      ];
+      monospace = [ "Adwaita Mono" ];
     };
   };
 
@@ -202,8 +184,6 @@
       "/share/gnome-background-properties"
     ];
   };
-
-  services.bpftune.enable = true;
 
   nixpkgs.overlays = [
     (final: prev: {
