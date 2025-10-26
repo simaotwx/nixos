@@ -22,7 +22,7 @@
         "git.autoRepositoryDetection" = "openEditors";
         "debug.console.fontFamily" = "Hasklug Nerd Font Mono";
         "editor.inlayHints.enabled" = "off";
-        "terminal.integrated.shellIntegration.history" = 6000;
+        "terminal.integrated.shellIntegration.history" = 100000;
         "terminal.integrated.enablePersistentSessions" = false;
         "editor.rulers" = [ 120 ];
         "workbench.colorCustomizations" = {
