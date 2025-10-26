@@ -19,6 +19,7 @@
     ./filesystems.nix
     foundrixModules.hardware.gpu.amd
     foundrixModules.hardware.platform.x86_64
+    foundrixModules.config.clamav
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/virtd.nix"
@@ -123,14 +124,6 @@
     pkgs.brlaser
     pkgs.mfc9332cdwcupswrapper
   ];
-
-  services.clamav = {
-    updater.enable = true;
-    fangfrisch.enable = true;
-    daemon.enable = true;
-    updater.interval = "*-*-* 00/4:00:00";
-    fangfrisch.interval = "*-*-* 00/4:00:00";
-  };
 
   nixpkgs.config.allowUnfreePredicate =
     pkg:

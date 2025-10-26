@@ -19,6 +19,7 @@
     ./filesystems.nix
     foundrixModules.hardware.gpu.amd
     foundrixModules.config.adb
+    foundrixModules.config.clamav
     "${flakePath}/modules/components/displaylink.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/zsh"
@@ -206,14 +207,6 @@
     7236
     5353
   ];
-
-  services.clamav = {
-    updater.enable = true;
-    fangfrisch.enable = true;
-    daemon.enable = true;
-    updater.interval = "*-*-* 00/4:00:00";
-    fangfrisch.interval = "*-*-* 00/4:00:00";
-  };
 
   nixpkgs.config.allowUnfreePredicate =
     pkg:
