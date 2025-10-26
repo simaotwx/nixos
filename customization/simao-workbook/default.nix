@@ -193,8 +193,6 @@
         "${flakePath}/local/certificates/ordf_root_ca.crt"
       ];
 
-  boot.tmp.tmpfsSize = "75%";
-
   services.printing.enable = true;
   hardware.sane.enable = true;
   services.printing.drivers = [
