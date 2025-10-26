@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  foundrixPackages,
   lib,
   osConfig,
   ...
@@ -14,7 +15,7 @@ in
   home.packages =
     with pkgs;
     let
-      foundrixPkgs = inputs.foundrix.packages.${pkgs.system};
+      foundrixPkgs = foundrixPackages pkgs;
     in
     [
       #wpaperd eww wofi

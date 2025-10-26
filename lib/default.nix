@@ -6,8 +6,9 @@
   inputs,
   flakePath,
   foundrixModules,
+  foundrixPackages,
   ...
-}@args:
+}:
 {
   forEachSystem = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
   homeManager =
@@ -22,7 +23,7 @@
         home-manager.useUserPackages = true;
         home-manager.users = users;
         home-manager.backupFileExtension = "bak";
-        home-manager.extraSpecialArgs = { inherit inputs flakePath foundrixModules; };
+        home-manager.extraSpecialArgs = { inherit inputs flakePath foundrixModules foundrixPackages; };
         configurableUsers = userList;
       }
       {
@@ -43,7 +44,7 @@
         home-manager.useUserPackages = true;
         home-manager.users = users;
         home-manager.backupFileExtension = "bak";
-        home-manager.extraSpecialArgs = { inherit inputs flakePath foundrixModules; };
+        home-manager.extraSpecialArgs = { inherit inputs flakePath foundrixModules foundrixPackages; };
         configurableUsers = userList;
       }
       {
@@ -76,7 +77,6 @@
         cd $out
         sha256sum ${ukiOutName} ${storeOutName} > SHA256SUMS
       '';
-  images = import ./images.nix args;
   defaultModuleArgs = rec {
     maybeImport =
       file: import (if builtins.pathExists file then file else "${flakePath}/lib/empty.nix");

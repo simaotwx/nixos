@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  inputs,
+  foundrixPackages,
   ...
 }:
 let
@@ -14,7 +14,7 @@ in
   home.packages =
     with pkgs;
     let
-      foundrixPkgs = inputs.foundrix.packages.${pkgs.system};
+      foundrixPkgs = foundrixPackages pkgs;
     in
     [
       rose-pine-cursor
