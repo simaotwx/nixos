@@ -139,9 +139,6 @@
 
   services.fwupd.enable = true;
 
-  services.printing.enable = true;
-  hardware.sane.enable = true;
-
   users.users.simao = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];

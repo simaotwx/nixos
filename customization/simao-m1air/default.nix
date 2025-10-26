@@ -95,9 +95,6 @@
 
   users.groups.simao.gid = 1000;
 
-  services.printing.enable = true;
-  hardware.sane.enable = true;
-
   security.sudo = {
     enable = true;
   };

@@ -92,8 +92,6 @@
   ];
 
   services.fwupd.enable = true;
-  services.printing.enable = true;
-  hardware.sane.enable = true;
 
   users.users.noah = {
     isNormalUser = true;

@@ -69,8 +69,6 @@
     pkgs.brlaser
     pkgs.mfc9332cdwcupswrapper
   ];
-  services.printing.enable = true;
-  hardware.sane.enable = true;
 
   i18n.supportedLocales = options.i18n.supportedLocales.default ++ [
     "en_GB.UTF-8/UTF-8"

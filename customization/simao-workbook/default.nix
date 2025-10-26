@@ -193,8 +193,6 @@
         "${flakePath}/local/certificates/ordf_root_ca.crt"
       ];
 
-  services.printing.enable = true;
-  hardware.sane.enable = true;
   services.printing.drivers = [
     pkgs.brlaser
     pkgs.mfc9332cdwcupswrapper

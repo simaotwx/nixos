@@ -123,8 +123,6 @@
     pkgs.brlaser
     pkgs.mfc9332cdwcupswrapper
   ];
-  services.printing.enable = true;
-  hardware.sane.enable = true;
 
   services.clamav = {
     updater.enable = true;
