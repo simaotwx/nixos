@@ -61,6 +61,7 @@
           bluetooth-quick-connect
           removable-drive-menu
           tray-icons-reloaded
+          framework-fan-control
         ];
       };
     };
