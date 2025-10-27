@@ -55,6 +55,7 @@
         // {
           inherit lib flakePath;
           foundrixModules = foundrix.nixosModules;
+          foundrixPackages = foundrix.nixosModules.foundrixSpecialArgs.foundrixPackages;
           inputs = flake;
         }
       );
@@ -217,15 +218,6 @@
             ++ homeManagerModules.noah;
         };
       };
-
-      packages = forEachSystem (
-        system:
-        customLib.images.mkTargetOutputs {
-          name = "simao-htpc";
-          deviceName = "odroid-h4";
-          nixosConfiguration = nixosConfigurations.simao-htpc;
-        }
-      );
 
       formatter = forEachSystem (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
     };

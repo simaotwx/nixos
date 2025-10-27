@@ -12,6 +12,7 @@
     inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
     foundrixModules.profiles.desktop-full
     foundrixModules.hardware.platform.arm64
+    foundrixModules.config.adb
     ./filesystems.nix
     "${flakePath}/modules/hardware/apple/asahi.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
@@ -79,8 +80,6 @@
 
   time.timeZone = "Europe/Berlin";
 
-  services.timesyncd.enable = true;
-
   i18n.supportedLocales = options.i18n.supportedLocales.default ++ [
     "en_GB.UTF-8/UTF-8"
     "de_DE.UTF-8/UTF-8"
@@ -96,13 +95,6 @@
 
   users.groups.simao.gid = 1000;
 
-  services.gvfs.enable = true;
-  programs.adb.enable = true;
-  programs.dconf.enable = true;
-
-  services.printing.enable = true;
-  hardware.sane.enable = true;
-
   security.sudo = {
     enable = true;
   };
@@ -111,10 +103,6 @@
     packages = with pkgs; [
       nerd-fonts.fira-code
       nerd-fonts.hasklug
-      noto-fonts
-      noto-fonts-emoji
-      noto-fonts-cjk-sans
-      liberation_ttf
       fira
       adwaita-fonts
       material-icons
@@ -124,52 +112,26 @@
       iosevka
       iosevka-comfy.comfy
     ];
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-        serif = [ "Liberation Serif" ];
-        sansSerif = [
-          "Adwaita Sans"
-          "Noto"
-        ];
-        monospace = [ "Adwaita Mono" ];
-        emoji = [ "Noto Color Emoji" ];
-      };
-      hinting = {
-        enable = true;
-        style = "slight";
-      };
-      subpixel.rgba = "rgb";
+    fontconfig.defaultFonts = {
+      sansSerif = [
+        "Adwaita Sans"
+        "Noto"
+      ];
+      monospace = [ "Adwaita Mono" ];
     };
   };
 
   environment = {
     systemPackages = with pkgs; [
-      vim
-      dust
       duperemove
-      ripgrep
       kdePackages.polkit-kde-agent-1
-      exfatprogs
-      nix-bundle
       podman-compose
       gparted
-      strace
-      wget
-      curl
     ];
-    defaultPackages = [ ];
     variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-      PAGER = "less";
       BROWSER = "zen-beta";
     };
   };
-
-  services.udev.packages = with pkgs; [
-    android-udev-rules
-  ];
 
   security.pki.certificateFiles = [
     "${flakePath}/local/certificates/at2.crt"

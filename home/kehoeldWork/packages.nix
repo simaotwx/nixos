@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  inputs,
+  foundrixPackages,
   ...
 }:
 let
@@ -14,7 +14,7 @@ in
   home.packages =
     with pkgs;
     let
-      foundrixPkgs = inputs.foundrix.packages.${pkgs.system};
+      foundrixPkgs = foundrixPackages pkgs;
     in
     [
       kitty
@@ -93,15 +93,6 @@ in
       openssl
       fd
       zip
-
-      # GStreamer
-      gst_all_1.gstreamer
-      gst_all_1.gst-plugins-base
-      gst_all_1.gst-plugins-good
-      gst_all_1.gst-plugins-bad
-      gst_all_1.gst-plugins-ugly
-      gst_all_1.gst-libav
-      gst_all_1.gst-vaapi
 
       # AOSP stuff
       git-repo

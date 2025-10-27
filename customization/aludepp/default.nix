@@ -27,10 +27,10 @@
     "${flakePath}/modules/components/virtd.nix"
     "${flakePath}/modules/components/steam.nix"
     foundrixModules.config.mdraid
+    foundrixModules.config.adb
     "${flakePath}/modules/components/docker.nix"
     foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
-    "${flakePath}/modules/components/crush.nix"
     inputs.linux-nitrous.outPath
   ];
 
@@ -132,17 +132,12 @@
     "${flakePath}/local/certificates/at2.crt"
   ];
 
-  services.timesyncd.enable = true;
-
   i18n.supportedLocales = options.i18n.supportedLocales.default ++ [
     "en_GB.UTF-8/UTF-8"
     "de_DE.UTF-8/UTF-8"
   ];
 
   services.fwupd.enable = true;
-
-  services.printing.enable = true;
-  hardware.sane.enable = true;
 
   users.users.simao = {
     isNormalUser = true;
@@ -154,10 +149,6 @@
 
   users.groups.simao.gid = 1000;
 
-  services.gvfs.enable = true;
-  programs.adb.enable = true;
-  programs.dconf.enable = true;
-
   security.sudo = {
     enable = true;
   };
@@ -166,10 +157,7 @@
     packages = with pkgs; [
       nerd-fonts.fira-code
       nerd-fonts.hasklug
-      noto-fonts
-      noto-fonts-emoji
-      noto-fonts-cjk-sans
-      liberation_ttf
+      dejavu_fonts
       fira
       adwaita-fonts
       material-icons
@@ -179,59 +167,30 @@
       iosevka
       iosevka-comfy.comfy
     ];
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-        serif = [ "Liberation Serif" ];
-        sansSerif = [
-          "Adwaita Sans"
-          "Noto"
-        ];
-        monospace = [ "Adwaita Mono" ];
-        emoji = [ "Noto Color Emoji" ];
-      };
-      hinting = {
-        enable = true;
-        style = "slight";
-      };
-      subpixel.rgba = "rgb";
+    fontconfig.defaultFonts = {
+      sansSerif = [
+        "Adwaita Sans"
+        "Noto"
+      ];
+      monospace = [ "Adwaita Mono" ];
     };
   };
 
   environment = {
     systemPackages = with pkgs; [
-      vim
-      dust
       duperemove
-      ripgrep
       kdePackages.polkit-kde-agent-1
-      exfatprogs
-      nix-bundle
       podman-compose
       gparted
-      strace
-      wget
-      curl
     ];
-    defaultPackages = [ ];
     variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-      PAGER = "less";
       BROWSER = "zen-beta";
     };
   };
 
-  services.udev.packages = with pkgs; [
-    android-udev-rules
-  ];
-
-  services.bpftune.enable = true;
   services.printing.drivers = [ pkgs.brlaser ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  boot.tmp.tmpfsSize = "96%";
 
   nixpkgs.config.allowUnfreePredicate =
     pkg:
@@ -244,7 +203,6 @@
       "steam-unwrapped"
       "makemkv"
       "android-studio-stable"
-      "crush" # irrecovably becomes free after a while
     ];
 
   system.stateVersion = "25.05";

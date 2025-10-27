@@ -13,9 +13,11 @@
     common-pc-ssd
     framework-12th-gen-intel
     foundrixModules.profiles.desktop-full
+    foundrixModules.config.adb
     ./filesystems.nix
     foundrixModules.hardware.platform.x86_64
     foundrixModules.hardware.gpu.intel
+    foundrixModules.config.clamav
     "${flakePath}/modules/components/displaylink.nix"
     "${flakePath}/modules/components/desktop-environments/gnome.nix"
     "${flakePath}/modules/components/zsh"
@@ -64,21 +66,15 @@
 
   time.timeZone = "Europe/Berlin";
 
-  services.timesyncd.enable = true;
-
   services.printing.drivers = [
     pkgs.brlaser
     pkgs.mfc9332cdwcupswrapper
   ];
-  services.printing.enable = true;
-  hardware.sane.enable = true;
 
   i18n.supportedLocales = options.i18n.supportedLocales.default ++ [
     "en_GB.UTF-8/UTF-8"
     "de_DE.UTF-8/UTF-8"
   ];
-
-  services.bpftune.enable = true;
 
   services.fwupd.enable = true;
 
@@ -92,10 +88,6 @@
 
   users.groups.julian.gid = 1000;
 
-  services.gvfs.enable = true;
-  programs.adb.enable = true;
-  programs.dconf.enable = true;
-
   security.sudo = {
     enable = true;
   };
@@ -105,10 +97,6 @@
     packages = with pkgs; [
       nerd-fonts.fira-code
       nerd-fonts.hasklug
-      noto-fonts
-      noto-fonts-emoji
-      noto-fonts-cjk-sans
-      liberation_ttf
       fira
       adwaita-fonts
       material-icons
@@ -118,54 +106,23 @@
       iosevka
       iosevka-comfy.comfy
     ];
-    fontconfig = {
-      enable = true;
-      defaultFonts = {
-        serif = [ "Liberation Serif" ];
-        sansSerif = [
-          "Adwaita Sans"
-          "Noto"
-        ];
-        monospace = [ "Adwaita Mono" ];
-        emoji = [ "Noto Color Emoji" ];
-      };
-      hinting = {
-        enable = true;
-        style = "slight";
-      };
-      subpixel.rgba = "rgb";
+    fontconfig.defaultFonts = {
+      sansSerif = [
+        "Adwaita Sans"
+        "Noto"
+      ];
+      monospace = [ "Adwaita Mono" ];
     };
   };
 
   environment = {
     systemPackages = with pkgs; [
-      vim
-      dust
       duperemove
-      ripgrep
-      exfatprogs
-      nix-bundle
       intel-vaapi-driver
     ];
-    defaultPackages = [ ];
     variables = {
-      EDITOR = "vim";
-      VISUAL = "vim";
-      PAGER = "less";
       BROWSER = "firefox";
     };
-  };
-
-  services.udev.packages = with pkgs; [
-    android-udev-rules
-  ];
-
-  services.clamav = {
-    updater.enable = true;
-    fangfrisch.enable = true;
-    daemon.enable = true;
-    updater.interval = "*-*-* 00/4:00:00";
-    fangfrisch.interval = "*-*-* 00/4:00:00";
   };
 
   nixpkgs.config.allowUnfreePredicate =

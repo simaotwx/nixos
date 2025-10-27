@@ -1,85 +1,75 @@
-{ pkgs, inputs, ... }:
+{ pkgs, foundrixPackages, ... }:
 {
-  home.packages =
-    with pkgs;
+  home.packages = with pkgs;
     let
-      foundrixPkgs = inputs.foundrix.packages.${pkgs.system};
+      foundrixPkgs = foundrixPackages pkgs;
     in
     [
-      rose-pine-cursor
-      jq
-      pv
-      pwgen
-      socat
-      pavucontrol
-      playerctl
-      git
-      curl
-      wl-clipboard
-      cliphist
-      wl-clipboard-x11
-      easyeffects
-      nautilus
-      file-roller
-      loupe
-      gedit
-      gnome-calculator
-      mangohud
-      celluloid
-      dig
-      unzip
-      file
-      zstd
-      tree
-      bat
-      fd
-      brotli
-      gparted
-      picocom
-      chromium
-      protobuf
-      e2fsprogs
-      lm_sensors
-      fastfetch
-      unstable.nixd
-      nixpkgs-fmt
-      bc
-      imagemagick
-      evince
-      stress
-      subfinder
-      smartmontools
-      rsync
-      vlc
-      p7zip
-      iptables
-      nftables
-      inetutils
-      hwloc
-      firefox
-      yaml2json
-      yq
-      dysk
-      openssl
-      fd
-      nmap
-      brightnessctl
-      lz4
-      zip
-      bmap-tools
-      ddrescue
-      hdparm
-      llama-cpp
-      foundrixPkgs.git-aliases
-      foundrixPkgs.pickrange
-
-      # GStreamer
-      gst_all_1.gstreamer
-      gst_all_1.gst-plugins-base
-      gst_all_1.gst-plugins-good
-      gst_all_1.gst-plugins-bad
-      gst_all_1.gst-plugins-ugly
-      gst_all_1.gst-libav
-      gst_all_1.gst-vaapi
-    ];
+    rose-pine-cursor
+    jq
+    pv
+    pwgen
+    socat
+    pavucontrol
+    playerctl
+    git
+    curl
+    wl-clipboard
+    cliphist
+    wl-clipboard-x11
+    easyeffects
+    nautilus
+    file-roller
+    loupe
+    gedit
+    gnome-calculator
+    mangohud
+    celluloid
+    dig
+    unzip
+    file
+    zstd
+    tree
+    bat
+    fd
+    brotli
+    gparted
+    picocom
+    chromium
+    protobuf
+    e2fsprogs
+    lm_sensors
+    fastfetch
+    unstable.nixd
+    nixpkgs-fmt
+    bc
+    imagemagick
+    evince
+    stress
+    subfinder
+    smartmontools
+    rsync
+    vlc
+    p7zip
+    iptables
+    nftables
+    inetutils
+    hwloc
+    firefox
+    yaml2json
+    yq
+    dysk
+    openssl
+    fd
+    nmap
+    brightnessctl
+    lz4
+    zip
+    bmap-tools
+    ddrescue
+    hdparm
+    llama-cpp
+    foundrixPkgs.git-aliases
+    foundrixPkgs.pickrange
+  ];
 }
