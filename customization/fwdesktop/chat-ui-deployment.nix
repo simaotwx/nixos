@@ -150,11 +150,10 @@ in
   systemd.services.librechat = {
     description = "LibreChat server";
     after = [
-      "network-online.target"
       "mongodb-librechat.service"
     ];
     requires = [ "mongodb-librechat.service" ];
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = [ ];
     serviceConfig = {
       User = "librechat";
       Group = "librechat";
