@@ -18,7 +18,6 @@
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/docker.nix"
     foundrixModules.config.compat
-    foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
     ./chat-ui-deployment.nix
   ];
