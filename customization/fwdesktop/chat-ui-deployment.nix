@@ -13,6 +13,9 @@ let
       endpoints = {
         agents = {
           disableBuilder = true;
+          capabilities = [
+            "tools" "web_search"
+          ];
         };
         custom = [
           {
@@ -29,6 +32,7 @@ let
             addParams = {
               model_identity = "You are GPT-OSS, a model running on local hardware";
             };
+            webSearch.searchProvider = "searxng";
           }
         ];
       };
