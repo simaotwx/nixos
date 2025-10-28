@@ -11,8 +11,8 @@ let
       cache = true;
       webSearch = {
         searchProvider = "searxng";
-        searxngInstanceUrl = ''''${CUSTOM_SEARXNG_INSTANCE_URL}'';
-        searxngApiKey = ''''${CUSTOM_SEARXNG_API_KEY}'';
+        searxngInstanceUrl = ''''${SEARXNG_INSTANCE_URL}'';
+        searxngApiKey = ''''${SEARXNG_API_KEY}'';
       };
 
       endpoints = {
@@ -169,7 +169,20 @@ in
       Group = "librechat";
       WorkingDirectory = dataDir;
       StateDirectory = "librechat";
-      ExecStart = "${pkgs.unstable.librechat}/bin/librechat-server";
+      ExecStart = lib.getExe' (pkgs.unstable.librechat.overrideAttrs (prev: rec {
+        version = "0.7.9";
+        src = prev.src.override (prev: {
+          tag = "v${version}";
+          hash = "sha256-0HEb8tFpiTjfN+RpwizK5POWsz5cRicSdZwYPmUaLDA=";
+        });
+        npmDepsHash = "sha256-tOxanPXry52lD39xlT6rqKVF+Pk6m3FpTv/8wctKAWY=";
+        npmDeps = pkgs.unstable.fetchNpmDeps {
+          inherit src;
+          name = "${prev.pname}-${version}-npm-deps";
+          hash = npmDepsHash;
+        };
+        makeCacheWritable = true;
+      })) "librechat-server";
       Environment = [
         "HOST=0.0.0.0"
         "PORT=3080"
@@ -185,8 +198,8 @@ in
         "CREDS_IV=e2341419ec3dd3d19b13a1a87fafcbfb"
         "ALLOW_REGISTRATION=true"
         "ENDPOINTS=custom,agents"
-        "CUSTOM_SEARXNG_INSTANCE_URL=http://localhost:8888"
-        "CUSTOM_SEARXNG_API_KEY=${config.services.searx.settings.server.secret_key}"
+        "SEARXNG_INSTANCE_URL=http://localhost:8888"
+        "SEARXNG_API_KEY=${config.services.searx.settings.server.secret_key}"
       ];
       Restart = "on-failure";
     };
