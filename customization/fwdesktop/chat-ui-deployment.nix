@@ -183,7 +183,7 @@ in
         };
         makeCacheWritable = true;
         preFixup = (prev.preFixup or "") + ''
-          rm $out/lib/node_modules/LibreChat/node_modules/@librechat/api
+          ln -sf $out/lib/node_modules/LibreChat/api/ $out/lib/node_modules/LibreChat/node_modules/@librechat/api
         '';
       })) "librechat-server";
       Environment = [
