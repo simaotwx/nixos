@@ -9,6 +9,11 @@ let
     builtins.toJSON {
       version = "1.3.0";
       cache = true;
+      webSearch = {
+        searchProvider = "searxng";
+        searxngInstanceUrl = ''''${CUSTOM_SEARXNG_INSTANCE_URL}'';
+        searxngApiKey = ''''${CUSTOM_SEARXNG_API_KEY}'';
+      };
 
       endpoints = {
         agents = {
@@ -28,11 +33,6 @@ let
             modelDisplayLabel = "Local model";
             addParams = {
               model_identity = "You are GPT-OSS, a model running on local hardware";
-            };
-            webSearch = {
-              searchProvider = "searxng";
-              searxngInstanceUrl = ''''${CUSTOM_SEARXNG_INSTANCE_URL}'';
-              searxngApiKey = ''''${CUSTOM_SEARXNG_API_KEY}'';
             };
           }
         ];
