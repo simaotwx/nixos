@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
 
 let
   dataDir = "/var/lib/librechat";
@@ -138,6 +138,16 @@ in
     '';
   };
 
+  services.searx = {
+    enable = true;
+    settings = {
+      server.secret_key = lib.fakeSha256;
+      search = {
+        formats = [ "json" "html" ];
+      };
+    };
+  };
+
   systemd.services.librechat = {
     description = "LibreChat server";
     after = [
@@ -166,10 +176,12 @@ in
         "CREDS_IV=e2341419ec3dd3d19b13a1a87fafcbfb"
         "ALLOW_REGISTRATION=true"
         "ENDPOINTS=custom,agents"
+        "SEARXNG_INSTANCE_URL=http://localhost:8888"
+        "SEARXNG_API_KEY=${config.services.searx.settings.server.secret_key}"
       ];
       Restart = "on-failure";
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 3080 ];
+  networking.firewall.allowedTCPPorts = [ 3080 8888 ];
 }
