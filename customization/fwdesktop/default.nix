@@ -67,6 +67,11 @@
     "gfx1151"
   ];
 
+  boot.kernelParams = [
+    "amdttm.pages_limit=27648000"
+    "amdttm.page_pool_size=27648000"
+  ];
+
   networking.hostName = "fwdesktop";
 
   time.timeZone = "Europe/Berlin";
