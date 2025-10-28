@@ -29,7 +29,11 @@ let
             addParams = {
               model_identity = "You are GPT-OSS, a model running on local hardware";
             };
-            webSearch.searchProvider = "searxng";
+            webSearch = {
+              searchProvider = "searxng";
+              searxngInstanceUrl = "''${CUSTOM_SEARXNG_INSTANCE_URL}";
+              searxngApiKey = "''${CUSTOM_SEARXNG_API_KEY}";
+            };
           }
         ];
       };
