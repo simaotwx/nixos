@@ -68,8 +68,8 @@
   ];
 
   boot.kernelParams = [
-    "ttm.pages_limit=27648000"
-    "ttm.page_pool_size=27648000"
+    "ttm.pages_limit=27136000"
+    "ttm.page_pool_size=27136000"
   ];
 
   networking.hostName = "fwdesktop";
