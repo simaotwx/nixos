@@ -17,7 +17,6 @@
     foundrixModules.hardware.gpu.amd
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/docker.nix"
-    "${flakePath}/modules/components/zram.nix"
     foundrixModules.config.compat
     foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
@@ -80,6 +79,13 @@
   i18n.supportedLocales = options.i18n.supportedLocales.default ++ [
     "en_GB.UTF-8/UTF-8"
     "de_DE.UTF-8/UTF-8"
+  ];
+
+  swapDevices = [
+    {
+      device = "/var/swapfile";
+      size = 16 * 1024;
+    }
   ];
 
   services.fwupd.enable = true;

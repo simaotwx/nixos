@@ -56,5 +56,15 @@
         "noatime"
       ];
     };
+
+    "/var" = {
+      device = "/dev/disk/by-partlabel/main";
+      fsType = "btrfs";
+      options = [
+        "subvol=@var"
+        "compress=lzo"
+        "noatime"
+      ];
+    };
   };
 }
