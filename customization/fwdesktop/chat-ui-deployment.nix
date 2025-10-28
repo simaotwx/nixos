@@ -31,8 +31,8 @@ let
             };
             webSearch = {
               searchProvider = "searxng";
-              searxngInstanceUrl = "''${CUSTOM_SEARXNG_INSTANCE_URL}";
-              searxngApiKey = "''${CUSTOM_SEARXNG_API_KEY}";
+              searxngInstanceUrl = ''''${CUSTOM_SEARXNG_INSTANCE_URL}'';
+              searxngApiKey = ''''${CUSTOM_SEARXNG_API_KEY}'';
             };
           }
         ];
