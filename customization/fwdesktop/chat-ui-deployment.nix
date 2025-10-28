@@ -141,7 +141,11 @@ in
   services.searx = {
     enable = true;
     settings = {
-      server.secret_key = lib.fakeSha256;
+      server = {
+        secret_key = lib.fakeSha256;
+        port = 8888;
+        bind_address = "0.0.0.0";
+      };
       search = {
         formats = [ "json" "html" ];
       };
