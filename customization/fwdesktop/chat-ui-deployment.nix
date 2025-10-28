@@ -185,8 +185,8 @@ in
         "CREDS_IV=e2341419ec3dd3d19b13a1a87fafcbfb"
         "ALLOW_REGISTRATION=true"
         "ENDPOINTS=custom,agents"
-        "SEARXNG_INSTANCE_URL=http://localhost:8888"
-        "SEARXNG_API_KEY=${config.services.searx.settings.server.secret_key}"
+        "CUSTOM_SEARXNG_INSTANCE_URL=http://localhost:8888"
+        "CUSTOM_SEARXNG_API_KEY=${config.services.searx.settings.server.secret_key}"
       ];
       Restart = "on-failure";
     };
