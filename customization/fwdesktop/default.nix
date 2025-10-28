@@ -17,6 +17,7 @@
     foundrixModules.hardware.gpu.amd
     "${flakePath}/modules/components/zsh"
     "${flakePath}/modules/components/docker.nix"
+    "${flakePath}/modules/components/zram.nix"
     foundrixModules.config.compat
     foundrixModules.components.ollama
     foundrixModules.components.llama-cpp
