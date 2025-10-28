@@ -182,6 +182,9 @@ in
           hash = npmDepsHash;
         };
         makeCacheWritable = true;
+        preFixup = (prev.preFixup or "") + ''
+          rm $out/lib/node_modules/LibreChat/node_modules/@librechat/api
+        '';
       })) "librechat-server";
       Environment = [
         "HOST=0.0.0.0"
