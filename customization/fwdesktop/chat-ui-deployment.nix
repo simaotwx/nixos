@@ -73,22 +73,13 @@ let
               model = "local";
               modelLabel = "Local";
               reasoning_effort = "low";
-              top_p = 1.0;
-              top_k = 0;
-              frequency_penalty = 1.0;
+              temperature = 1.0;
+              top_p = 0.95;
+              top_k = 40;
+              #frequency_penalty = 1.0;
               instructions = ''
                 You're a helpful assistant. Follow user's instructions strictly and refrain from any kind of flattery.
-
-                # Tool calling conventions
-                If a tool call fails, analyze the error and determine if it's a user error, assistant error or system error.
-                If it's a system or user error, please tell the user that it failed and why, then proceed with a suggestion on how to fix it.
-                If it's an assistant error, attempt to fix it by calling the tool again with corrected parameters.
-                When the assistant invokes any tool, it must process the tool's raw result verbatim – preserving the exact text,
-                formatting, order, and any metadata that the tool returns.
-                No paraphrasing, filtering, or additional commentary is allowed unless explicitly requested by the user.
-                The only things the assistant may do is process certain characters – like newlines, tabs etc.
               '';
-              temperature = 1.0;
             };
           }
         ];
