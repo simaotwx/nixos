@@ -13,9 +13,6 @@ let
       endpoints = {
         agents = {
           disableBuilder = true;
-          capabilities = [
-            "tools" "web_search"
-          ];
         };
         custom = [
           {
