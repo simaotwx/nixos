@@ -181,9 +181,11 @@ in
           name = "${prev.pname}-${version}-npm-deps";
           hash = npmDepsHash;
         };
+        npmPruneFlags = [ "--production" ];
         makeCacheWritable = true;
         preFixup = (prev.preFixup or "") + ''
-          ln -sf $out/lib/node_modules/LibreChat/api/ $out/lib/node_modules/LibreChat/node_modules/@librechat/api
+          mkdir -p $out/lib/node_modules/LibreChat/packages/api
+          cp -R packages/api/dist/. $out/lib/node_modules/LibreChat/packages/api
         '';
       })) "librechat-server";
       Environment = [
