@@ -170,24 +170,27 @@ in
       WorkingDirectory = dataDir;
       StateDirectory = "librechat";
       ExecStart = lib.getExe' (pkgs.unstable.librechat.overrideAttrs (prev: rec {
-        version = "0.7.9";
+        version = "0.8.0";
         src = prev.src.override (prev: {
           tag = "v${version}";
-          hash = "sha256-0HEb8tFpiTjfN+RpwizK5POWsz5cRicSdZwYPmUaLDA=";
+          hash = "sha256-DTmb9J2nsMy6f+V6BgRtFgpTwOi9OQnvikSx4QZQ0HI=";
         });
-        npmDepsHash = "sha256-tOxanPXry52lD39xlT6rqKVF+Pk6m3FpTv/8wctKAWY=";
+        npmDepsHash = "sha256-97cEw6VD7FoVayrxClHuS1iUcQmDw7/aUoUV6ektvOY=";
         npmDeps = pkgs.unstable.fetchNpmDeps {
           inherit src;
-          name = "${prev.pname}-${version}-npm-deps";
+          name = "${prev.pname}-${version}-npm-deps-patched";
           hash = npmDepsHash;
+          patches = [ ./0004-fix-deps-v080.patch ];
         };
         npmPruneFlags = [ "--production" ];
         makeCacheWritable = true;
         preFixup = (prev.preFixup or "") + ''
           mkdir -p $out/lib/node_modules/LibreChat/packages/api
           cp -R packages/api/dist/. $out/lib/node_modules/LibreChat/packages/api
+          mkdir -p $out/lib/node_modules/LibreChat/packages/client
+          cp -R packages/client/dist/. $out/lib/node_modules/LibreChat/packages/client
         '';
-        patches = prev.patches ++ [ ./0004-logs-v079.patch ];
+        patches = prev.patches ++ [ ./0004-fix-deps-v080.patch ];
       })) "librechat-server";
       Environment = [
         "HOST=0.0.0.0"
