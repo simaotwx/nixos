@@ -187,6 +187,7 @@ in
           mkdir -p $out/lib/node_modules/LibreChat/packages/api
           cp -R packages/api/dist/. $out/lib/node_modules/LibreChat/packages/api
         '';
+        patches = prev.patches ++ [ ./0004-logs-v079.patch ];
       })) "librechat-server";
       Environment = [
         "HOST=0.0.0.0"
